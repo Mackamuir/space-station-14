@@ -13,3 +13,10 @@ mind-control-prevents-mindshield = Another Implant was in the way.
 mind-control-invalid = The subject must be alive.
 roles-antag-mind-controlled-name = Mind Controlled
 roles-antag-mind-controlled-objective = Obey your handler's commands.
+## ID Saver (tracking implanter)
+id-saver-set-name-verb = Set Custom Name
+id-saver-clear-name-verb = Clear Custom Name
+id-saver-set-name-prompt = Name to record on the tracker:
+id-saver-set-name-success = The tracker will now record "{$name}" as the name.
+id-saver-set-name-invalid = That name is invalid. It must be between 1 and {$max} characters.
+id-saver-clear-name-success = The tracker will no longer override the name.

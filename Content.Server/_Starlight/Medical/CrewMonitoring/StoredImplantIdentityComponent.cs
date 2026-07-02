@@ -21,4 +21,11 @@ public sealed partial class StoredImplantIdentityComponent : Component
 
     [DataField]
     public List<string> JobDepartments = new();
+
+    /// <summary>
+    ///     Custom name copied from an IdSaverComponent on the implanter at implant time, if the implanter had
+    ///     one set. Overrides <see cref="Name"/> only .
+    /// </summary>
+    [DataField]
+    public string? CustomName;
 }

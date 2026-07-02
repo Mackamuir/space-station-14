@@ -4,6 +4,7 @@ using Content.Shared.Implants;
 using Content.Shared.Access.Systems;
 using Content.Shared.Medical.SuitSensor;
 using Robust.Shared.Prototypes;
+using Content.Server._Starlight.Implants;
 using Content.Server._Starlight.Medical.CrewMonitoring;
 
 // ReSharper disable once CheckNamespace
@@ -14,7 +15,20 @@ public sealed partial class CrewMonitoringConsoleSystem
     [Dependency] private SharedIdCardSystem _idCard = default!;
     [Dependency] private IPrototypeManager _proto = default!;
 
-    private void InitializeIdentityTracking() => SubscribeLocalEvent<StoredImplantIdentityComponent, ImplantImplantedEvent>(OnIdentityImplanted);
+    private void InitializeIdentityTracking()
+    {
+        SubscribeLocalEvent<StoredImplantIdentityComponent, AddImplantAttemptEvent>(OnBeforeIdentityImplanted);
+        SubscribeLocalEvent<StoredImplantIdentityComponent, ImplantImplantedEvent>(OnIdentityImplanted);
+    }
+
+    /// <summary>
+    ///     Copy the custom name from the implanter's IdSaverComponent onto the implant.
+    /// </summary>
+    private void OnBeforeIdentityImplanted(EntityUid uid, StoredImplantIdentityComponent component, AddImplantAttemptEvent args)
+    {
+        if (TryComp<IdSaverComponent>(args.Implanter, out var saver))
+            component.CustomName = saver.CustomName;
+    }
 
     /// <summary>
     ///     Snapshot the implanted person's ID, so if their ID gets removed we fall back to these values.
@@ -30,7 +44,7 @@ public sealed partial class CrewMonitoringConsoleSystem
 
         if (_idCard.TryFindIdCard(args.Implanted, out var card))
         {
-            comp.Name = card.Comp.FullName;
+            comp.Name = comp.CustomName ?? card.Comp.FullName;
             comp.Job = card.Comp.LocalizedJobTitle;
             comp.JobIcon = card.Comp.JobIcon;
 
@@ -39,7 +53,7 @@ public sealed partial class CrewMonitoringConsoleSystem
         }
         else
         {
-            comp.Name = null;
+            comp.Name = comp.CustomName;
             comp.Job = null;
             comp.JobIcon = null;
         }

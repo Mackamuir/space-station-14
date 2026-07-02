@@ -193,6 +193,7 @@
   components:
   - type: Implanter
     implant: TrackingImplant
+  - type: IdSaver # Starlight: lets the user set a custom name that overrides the stored name on the crew monitor.
 
 #Traitor implanters
 
