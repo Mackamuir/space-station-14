@@ -181,7 +181,7 @@
 #Station
 - type: entity
   id: CommandTrackerImplanter
-  name: command tracker implanter
+  name: command tracking implanter
   parent: BaseImplantOnlyImplanter
   components:
   - type: Implanter
