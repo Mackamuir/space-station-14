@@ -107,6 +107,7 @@
       targetUser: true
       radioChannel:
       - Security
+    - type: StoredImplantIdentity # Starlight: snapshot the wearer's ID card on implant so the BSO monitor keeps showing it after ID changes.
     #endregion Starlight tracker rattle
 
 #Traitor implants

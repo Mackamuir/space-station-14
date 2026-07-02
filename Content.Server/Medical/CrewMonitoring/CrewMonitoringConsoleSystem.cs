@@ -18,7 +18,6 @@ using Content.Shared.Silicons.StationAi;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
-using System.ComponentModel.DataAnnotations;
 using Content.Shared._Starlight.Medical.CrewMonitoring;
 #endregion
 
@@ -43,6 +42,7 @@ public sealed partial class CrewMonitoringConsoleSystem : EntitySystem
         SubscribeLocalEvent<CrewMonitoringConsoleComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
         SubscribeLocalEvent<CrewMonitoringConsoleComponent, BoundUIOpenedEvent>(OnUIOpened);
         SubscribeLocalEvent<CrewMonitoringConsoleComponent, CrewMonitoringWarpRequestMessage>(OnWarpRequest); // Starlight
+        InitializeIdentityTracking(); // Starlight
     }
 
     /// <summary>
@@ -199,15 +199,27 @@ public sealed partial class CrewMonitoringConsoleSystem : EntitySystem
             foreach (var sensor in allSensors)
             {
                 var clientEntity = GetEntity(sensor.SuitSensorUid);
-                if (TryComp<SubdermalImplantComponent>(clientEntity, out var suitSensor) && (filter.ShownFactions.Count == 0 || filter.ShownFactions.Contains(sensor.Faction)))
-                {
-                    filteredSensors.Add(sensor);
-                }
+                // Starlight: applies to any tracking implant (regular or command), not just one prototype.
+                if (!TryComp<SubdermalImplantComponent>(clientEntity, out _)
+                    || (filter.ShownFactions.Count != 0 && !filter.ShownFactions.Contains(sensor.Faction)))
+                    continue;
+
+                // if wearer is already visible just continue
+                if (filteredSensors.Contains(sensor))
+                    continue;
+
+                filteredSensors.Add(sensor);
             }
         }
+
+        // Starlight: fall back to the identity captured at implant time on every console (not just ones with
+        // AlwaysShowTrackingImplants), so tracked crew don't show as unknown once their ID is removed.
+        filteredSensors = ApplyStoredIdentities(filteredSensors);
+
         filteredSensors = filteredSensors.Distinct().ToList();
         _uiSystem.SetUiState(uid, CrewMonitoringUIKey.Key, new CrewMonitoringState(_gameTiming.CurTime, component.LastSensorDataReceivedAt, filteredSensors)); // Starlight end
     }
+
     private void OnWarpRequest(EntityUid uid, CrewMonitoringConsoleComponent component, ref CrewMonitoringWarpRequestMessage args)
     {
         if (args.Actor is not { Valid: true } actor)
