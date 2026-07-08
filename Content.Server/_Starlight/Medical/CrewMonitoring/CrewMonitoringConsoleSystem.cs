@@ -4,8 +4,8 @@ using Content.Shared.Implants;
 using Content.Shared.Access.Systems;
 using Content.Shared.Medical.SuitSensor;
 using Robust.Shared.Prototypes;
-using Content.Server._Starlight.Implants;
 using Content.Server._Starlight.Medical.CrewMonitoring;
+using Content.Shared._Starlight.Implants.Components;
 
 // ReSharper disable once CheckNamespace
 namespace Content.Server.Medical.CrewMonitoring;

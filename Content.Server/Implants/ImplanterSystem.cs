@@ -20,7 +20,7 @@ public sealed partial class ImplanterSystem : SharedImplanterSystem
     {
         base.Initialize();
         InitializeImplanted();
-        InitializeIdSaver(); // Starlight
+        InitializeIdSaverServer(); // Starlight
 
         SubscribeLocalEvent<ImplanterComponent, AfterInteractEvent>(OnImplanterAfterInteract);
 
