@@ -121,7 +121,7 @@ jobs:
 
     - name: Run Content.IntegrationTests
       id: run-integration-tests
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       env:
         DOTNET_gcServer: "1"
       with:
@@ -135,7 +135,7 @@ jobs:
             exit 0
           fi
           timeout --signal=TERM --kill-after=2m 15m \
-            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --results-directory test_results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- NUnit.ConsoleOut=0 NUnit.MapWarningTo=Failed NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
+            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "console;verbosity=normal" --results-directory test_results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- NUnit.ConsoleOut=0 NUnit.MapWarningTo=Failed NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
 
     - name: Upload crash dumps
       id: upload-dumps
