@@ -69,7 +69,7 @@ jobs:
 
     - name: Run Content.Tests
       shell: pwsh
-      run: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj -- NUnit.ConsoleOut=0 NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
+      run: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "console;verbosity=normal" -- NUnit.ConsoleOut=0 NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
 
     - name: Discover Integration Tests
       run: |
@@ -77,13 +77,13 @@ jobs:
           python3 Tools/_Starlight/partition_tests.py generate 8 .integration-filters
 
     - name: Archive build output
-      run: tar czf /tmp/build.tar.gz --exclude='.git' .
+      run: tar -I 'zstd -T0 -3' -cf /tmp/build.tar.zst --exclude='.git' .
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
       with:
         name: build-output
-        path: /tmp/build.tar.gz
+        path: /tmp/build.tar.zst
         retention-days: 1
         compression-level: 0
 
@@ -117,25 +117,25 @@ jobs:
         name: build-output
 
     - name: Extract build
-      run: tar xzf build.tar.gz && rm build.tar.gz
+      run: tar -I zstd -xf build.tar.zst && rm build.tar.zst
 
     - name: Run Content.IntegrationTests
       id: run-integration-tests
-      uses: nick-fields/retry@v4
+      shell: bash
       env:
         DOTNET_gcServer: "1"
-      with:
-        timeout_minutes: 17
-        max_attempts: 2
-        retry_on: any
-        command: |
-          RUNSETTINGS=".integration-filters/shard_${{ matrix.shard }}.runsettings"
-          if [ ! -f "$RUNSETTINGS" ]; then
-            echo "No tests assigned to shard ${{ matrix.shard }}"
-            exit 0
-          fi
-          timeout --signal=TERM --kill-after=2m 15m \
-            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "console;verbosity=normal" --results-directory test_results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- NUnit.ConsoleOut=0 NUnit.MapWarningTo=Failed NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
+      run: |
+        RUNSETTINGS=".integration-filters/shard_${{ matrix.shard }}.runsettings"
+        if [ ! -f "$RUNSETTINGS" ]; then
+          echo "No tests assigned to shard ${{ matrix.shard }}"
+          exit 0
+        fi
+        dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj \
+          --logger "console;verbosity=normal" \
+          --results-directory test_results \
+          --blame-hang --blame-hang-timeout 3min \
+          --settings "$RUNSETTINGS" \
+          -- NUnit.ConsoleOut=0 NUnit.MapWarningTo=Failed NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
 
     - name: Upload crash dumps
       id: upload-dumps
