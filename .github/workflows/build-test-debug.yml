@@ -13,11 +13,15 @@ on:
     types: [ opened, reopened, synchronize, ready_for_review ]
     branches: [ master, staging, stable, Starlight, starlight-dev, upstream-devtest ]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   build:
     if: github.actor != 'PJBot' && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
 
     steps:
     - name: Checkout Master
@@ -44,32 +48,163 @@ jobs:
       run: dotnet restore
 
     - name: Build Project
-      run: dotnet build --configuration DebugOpt --no-restore /m
+      run: dotnet build --configuration DebugOpt --no-restore /m 2>&1 | tee build.log
+
+    - name: Setup reviewdog
+      if: github.event_name == 'pull_request'
+      uses: reviewdog/action-setup@v1
+
+    - name: Report warnings on changed lines
+      if: github.event_name == 'pull_request'
+      env:
+        REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        reviewdog -efm='%f(%l\,%c): warning %m' \
+          -name="dotnet-build" \
+          -reporter=github-pr-review \
+          -filter-mode=added \
+          -fail-level=any \
+          -tee \
+          < build.log
 
     - name: Run Content.Tests
       shell: pwsh
       run: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj -- NUnit.ConsoleOut=0 NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
 
-    - name: Run Content.IntegrationTests
-      shell: pwsh
+    - name: Discover Integration Tests
       run: |
-        $env:DOTNET_gcServer=1
-        dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj -- NUnit.ConsoleOut=0 NUnit.MapWarningTo=Failed NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
+        dotnet test --list-tests --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj 2>&1 | \
+          python3 Tools/_Starlight/partition_tests.py generate 8 .integration-filters
+
+    - name: Archive build output
+      run: tar czf /tmp/build.tar.gz --exclude='.git' .
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: /tmp/build.tar.gz
+        retention-days: 1
+        compression-level: 0
+
+    - name: Archive NUnit3 test results (Content.Tests)
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: nunit3-results-content-tests
+        path: test_results/*
+        retention-days: 7
+        compression-level: 9
+
+  integration-tests:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    name: "Integration Tests (shard ${{ matrix.shard }})"
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v4.1.0
+      with:
+        dotnet-version: 10.0.x
+
+    - name: Download build artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: build-output
+
+    - name: Extract build
+      run: tar xzf build.tar.gz && rm build.tar.gz
+
+    - name: Run Content.IntegrationTests
+      id: run-integration-tests
+      uses: nick-fields/retry@v3
+      env:
+        DOTNET_gcServer: "1"
+      with:
+        timeout_minutes: 17
+        max_attempts: 2
+        retry_on: any
+        command: |
+          RUNSETTINGS=".integration-filters/shard_${{ matrix.shard }}.runsettings"
+          if [ ! -f "$RUNSETTINGS" ]; then
+            echo "No tests assigned to shard ${{ matrix.shard }}"
+            exit 0
+          fi
+          timeout --signal=TERM --kill-after=2m 15m \
+            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --results-directory test_results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- NUnit.ConsoleOut=0 NUnit.MapWarningTo=Failed NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
+
+    - name: Upload crash dumps
+      id: upload-dumps
+      uses: actions/upload-artifact@v4
+      if: ${{ always() && steps.run-integration-tests.outcome == 'failure' }}
+      with:
+        name: blame-dump-shard-${{ matrix.shard }}
+        path: |
+          test_results/**/*.dmp
+          test_results/**/*Sequence*.xml
+        retention-days: 3
+        if-no-files-found: ignore
+
+    - name: Report hung tests
+      continue-on-error: true
+      if: always()
+      run: |
+        shopt -s nullglob globstar
+        found=false
+        for seq in test_results/**/*Sequence*.xml; do
+          if [ "$found" = false ]; then
+            echo "## :warning: Hung tests detected (shard ${{ matrix.shard }})" >> "$GITHUB_STEP_SUMMARY"
+            echo '```xml' >> "$GITHUB_STEP_SUMMARY"
+            found=true
+          fi
+          cat "$seq" >> "$GITHUB_STEP_SUMMARY"
+        done
+        if [ "$found" = true ]; then
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          if [ -n "${{ steps.upload-dumps.outputs.artifact-url }}" ]; then
+            echo ":floppy_disk: [Download crash dump](${{ steps.upload-dumps.outputs.artifact-url }})" >> "$GITHUB_STEP_SUMMARY"
+          fi
+        fi
 
     - name: Archive NUnit3 test results.
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: nunit3-results
+        name: nunit3-results-shard-${{ matrix.shard }}
         path: test_results/*
         retention-days: 7
         compression-level: 9
 
   ci-success:
     name: Debug CI Required
+    if: always()
     needs:
       - build
+      - integration-tests
     runs-on: ubuntu-latest
     steps:
+      - name: Fail if any dependency was not successful
+        if: ${{ needs.build.result != 'success' || needs['integration-tests'].result != 'success' }}
+        run: |
+          echo "build=${{ needs.build.result }}"
+          echo "integration-tests=${{ needs['integration-tests'].result }}"
+          exit 1
+
       - name: CI succeeded
         run: exit 0
+
+  cleanup:
+    name: Cleanup Artifacts
+    needs:
+      - integration-tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete build artifact
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: build-output
