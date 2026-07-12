@@ -38,6 +38,14 @@ jobs:
       with:
         dotnet-version: 10.0.x
 
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/Directory.Packages.props', '**/Directory.Build.props') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
     - name: Install dependencies
       run: dotnet restore
 
@@ -79,6 +87,14 @@ jobs:
     - name: Extract build
       run: tar xzf build.tar.gz && rm build.tar.gz
 
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/Directory.Packages.props', '**/Directory.Build.props') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
     - name: Restore packages
       run: dotnet restore Content.Tests/Content.Tests.csproj
 
@@ -118,6 +134,14 @@ jobs:
 
     - name: Extract build
       run: tar xzf build.tar.gz && rm build.tar.gz
+
+    - name: Cache NuGet packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/Directory.Packages.props', '**/Directory.Build.props') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
 
     - name: Restore packages
       run: dotnet restore Content.IntegrationTests/Content.IntegrationTests.csproj
