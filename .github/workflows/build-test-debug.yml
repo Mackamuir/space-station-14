@@ -21,7 +21,7 @@ jobs:
   build:
     if: github.actor != 'PJBot' && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
 
     steps:
     - name: Checkout Master
@@ -71,78 +71,38 @@ jobs:
       shell: pwsh
       run: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "console;verbosity=normal" -- NUnit.ConsoleOut=0 NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
 
-    - name: Discover Integration Tests
-      run: |
-        dotnet test --list-tests --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj 2>&1 | \
-          python3 Tools/_Starlight/partition_tests.py generate 8 .integration-filters
-
-    - name: Archive build output
-      run: tar -I 'zstd -T0 -3' -cf /tmp/build.tar.zst --exclude='.git' .
-
-    - name: Upload build artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-output
-        path: /tmp/build.tar.zst
-        retention-days: 1
-        compression-level: 0
-
-    - name: Archive NUnit3 test results (Content.Tests)
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: nunit3-results-content-tests
-        path: test_results/*
-        retention-days: 7
-        compression-level: 9
-
-  integration-tests:
-    needs: build
-    strategy:
-      fail-fast: false
-      matrix:
-        shard: [0, 1, 2, 3, 4, 5, 6, 7]
-    name: "Integration Tests (shard ${{ matrix.shard }})"
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4.1.0
-      with:
-        dotnet-version: 10.0.x
-
-    - name: Download build artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: build-output
-
-    - name: Extract build
-      run: tar -I zstd -xf build.tar.zst && rm build.tar.zst
-
     - name: Run Content.IntegrationTests
       id: run-integration-tests
       shell: bash
       env:
         DOTNET_gcServer: "1"
       run: |
-        RUNSETTINGS=".integration-filters/shard_${{ matrix.shard }}.runsettings"
-        if [ ! -f "$RUNSETTINGS" ]; then
-          echo "No tests assigned to shard ${{ matrix.shard }}"
-          exit 0
-        fi
         dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj \
           --logger "console;verbosity=normal" \
           --results-directory test_results \
           --blame-hang --blame-hang-timeout 3min \
-          --settings "$RUNSETTINGS" \
           -- NUnit.ConsoleOut=0 NUnit.MapWarningTo=Failed NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
+
+        # Guard: dotnet test exits 0 even when zero tests run, which would let a
+        # silently-broken run pass. Assert NUnit actually executed a test suite.
+        xml="test_results/logs/Content.IntegrationTests.xml"
+        if [ ! -f "$xml" ]; then
+          echo "::error::No integration test result XML was produced — no tests ran."
+          exit 1
+        fi
+        total=$(grep -o 'total="[0-9]*"' "$xml" | head -1 | grep -o '[0-9]*')
+        if [ -z "$total" ] || [ "$total" -eq 0 ]; then
+          echo "::error::Integration test run reported 0 tests — nothing executed."
+          exit 1
+        fi
+        echo "Integration tests executed: $total"
 
     - name: Upload crash dumps
       id: upload-dumps
       uses: actions/upload-artifact@v4
       if: ${{ always() && steps.run-integration-tests.outcome == 'failure' }}
       with:
-        name: blame-dump-shard-${{ matrix.shard }}
+        name: blame-dump
         path: |
           test_results/**/*.dmp
           test_results/**/*Sequence*.xml
@@ -157,7 +117,7 @@ jobs:
         found=false
         for seq in test_results/**/*Sequence*.xml; do
           if [ "$found" = false ]; then
-            echo "## :warning: Hung tests detected (shard ${{ matrix.shard }})" >> "$GITHUB_STEP_SUMMARY"
+            echo "## :warning: Hung tests detected" >> "$GITHUB_STEP_SUMMARY"
             echo '```xml' >> "$GITHUB_STEP_SUMMARY"
             found=true
           fi
@@ -174,37 +134,24 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: nunit3-results-shard-${{ matrix.shard }}
+        name: nunit3-results
         path: test_results/*
         retention-days: 7
         compression-level: 9
+        if-no-files-found: ignore
 
   ci-success:
     name: Debug CI Required
     if: always()
     needs:
       - build
-      - integration-tests
     runs-on: ubuntu-latest
     steps:
-      - name: Fail if any dependency was not successful
-        if: ${{ needs.build.result != 'success' || needs['integration-tests'].result != 'success' }}
+      - name: Fail if the build job was not successful
+        if: ${{ needs.build.result != 'success' }}
         run: |
           echo "build=${{ needs.build.result }}"
-          echo "integration-tests=${{ needs['integration-tests'].result }}"
           exit 1
 
       - name: CI succeeded
         run: exit 0
-
-  cleanup:
-    name: Cleanup Artifacts
-    needs:
-      - integration-tests
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Delete build artifact
-        uses: geekyeggo/delete-artifact@v5
-        with:
-          name: build-output
