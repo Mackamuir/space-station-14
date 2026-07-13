@@ -13,10 +13,17 @@ on:
     types: [ opened, reopened, synchronize, ready_for_review ]
     branches: [ master, staging, stable, Starlight, starlight-dev, upstream-devtest ]
 
+env:
+  CI_STORAGE: ${{ vars.CI_STORAGE || '/opt/actions-ci' }}
+  NUGET_PACKAGES: ${{ vars.CI_STORAGE || '/opt/actions-ci' }}/nuget
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  DOTNET_NOLOGO: '1'
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: '1'
+
 jobs:
   build:
     if: github.actor != 'PJBot' && github.event.pull_request.draft == false
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, linux, x64 ]
     steps:
     - name: Checkout Master
       uses: actions/checkout@v4.2.2
@@ -38,14 +45,6 @@ jobs:
       with:
         dotnet-version: 10.0.x
 
-    - name: Cache NuGet packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/Directory.Packages.props', '**/Directory.Build.props') }}
-        restore-keys: |
-          ${{ runner.os }}-nuget-
-
     - name: Install dependencies
       run: dotnet restore
 
@@ -57,21 +56,22 @@ jobs:
         dotnet test --list-tests --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj 2>&1 | \
           python3 Tools/_Starlight/partition_tests.py generate 8 .integration-filters
 
-    - name: Archive build output
-      run: tar --use-compress-program='zstd -T0' -cf /tmp/build.tar.zst --exclude='.git' .
-
-    - name: Upload build artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-output
-        path: /tmp/build.tar.zst
-        retention-days: 1
-        compression-level: 0
+    - name: Publish build to shared storage
+      run: |
+        set -euo pipefail
+        RUN_DIR="$CI_STORAGE/runs/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+        TREE="$RUN_DIR/tree"
+        rm -rf "$TREE"; mkdir -p "$TREE"
+        # Canonical build tree on the shared CoW volume. Test jobs reflink-clone
+        # this, so there's no archive to compress or extract. rsync just excludes
+        # .git (not needed by tests and large).
+        rsync -a --exclude='.git' ./ "$TREE/"
+        echo "Build published to $TREE"
 
   content-tests:
     needs: build
     name: Content Tests
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, linux, x64 ]
     timeout-minutes: 15
     steps:
     - name: Setup .NET Core
@@ -79,39 +79,37 @@ jobs:
       with:
         dotnet-version: 10.0.x
 
-    - name: Download build artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: build-output
-
-    - name: Extract build
-      run: tar --use-compress-program='zstd -d -T0' -xf build.tar.zst && rm build.tar.zst
-
-    - name: Cache NuGet packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/Directory.Packages.props', '**/Directory.Build.props') }}
-        restore-keys: |
-          ${{ runner.os }}-nuget-
-
-    - name: Restore packages
-      run: dotnet restore Content.Tests/Content.Tests.csproj
+    - name: Clone build from shared storage
+      run: |
+        set -euo pipefail
+        RUN_DIR="$CI_STORAGE/runs/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+        # Isolated working copy for this job so concurrent jobs never share a tree.
+        # --reflink=auto: instant copy-on-write clone on Btrfs/XFS.
+        WORK="$RUN_DIR/content-tests"
+        rm -rf "$WORK"
+        cp -a --reflink=auto "$RUN_DIR/tree" "$WORK"
+        # Per-job results dir. Never use /tmp: runners on the same host share it.
+        RESULTS="$RUNNER_TEMP/test-results"
+        rm -rf "$RESULTS"; mkdir -p "$RESULTS"
+        echo "WORK=$WORK" >> "$GITHUB_ENV"
+        echo "RESULTS=$RESULTS" >> "$GITHUB_ENV"
 
     - name: Run Content.Tests
       uses: nick-fields/retry@v3
       with:
         timeout_minutes: 15
         max_attempts: 2
-        command: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results
+        command: |
+          cd "$WORK"
+          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory "$RESULTS"
 
     - name: Test results
       continue-on-error: true
       if: always()
       run: |
         dotnet tool install -g dotnet-trx 2>/dev/null || true
-        mkdir -p /tmp/test-results
-        trx --path /tmp/test-results -o -v verbose || true
+        mkdir -p "$RESULTS"
+        trx --path "$RESULTS" -o -v verbose || true
 
   integration-tests:
     needs: build
@@ -120,31 +118,25 @@ jobs:
       matrix:
         shard: [0, 1, 2, 3, 4, 5, 6, 7]
     name: "Integration Tests (shard ${{ matrix.shard }})"
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, linux, x64 ]
     steps:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4.1.0
       with:
         dotnet-version: 10.0.x
 
-    - name: Download build artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: build-output
-
-    - name: Extract build
-      run: tar --use-compress-program='zstd -d -T0' -xf build.tar.zst && rm build.tar.zst
-
-    - name: Cache NuGet packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/Directory.Packages.props', '**/Directory.Build.props') }}
-        restore-keys: |
-          ${{ runner.os }}-nuget-
-
-    - name: Restore packages
-      run: dotnet restore Content.IntegrationTests/Content.IntegrationTests.csproj
+    - name: Clone build from shared storage
+      run: |
+        set -euo pipefail
+        RUN_DIR="$CI_STORAGE/runs/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+        # --reflink=auto: instant copy-on-write clone on Btrfs/XFS.
+        WORK="$RUN_DIR/shard-${{ matrix.shard }}"
+        rm -rf "$WORK"
+        cp -a --reflink=auto "$RUN_DIR/tree" "$WORK"
+        RESULTS="$RUNNER_TEMP/test-results"
+        rm -rf "$RESULTS"; mkdir -p "$RESULTS"
+        echo "WORK=$WORK" >> "$GITHUB_ENV"
+        echo "RESULTS=$RESULTS" >> "$GITHUB_ENV"
 
     - name: Run Content.IntegrationTests
       id: run-integration-tests
@@ -156,21 +148,22 @@ jobs:
         max_attempts: 2
         retry_on: any
         command: |
+          cd "$WORK"
           RUNSETTINGS=".integration-filters/shard_${{ matrix.shard }}.runsettings"
           if [ ! -f "$RUNSETTINGS" ]; then
             echo "No tests assigned to shard ${{ matrix.shard }}"
             exit 0
           fi
           timeout --signal=TERM --kill-after=2m 15m \
-            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=normal" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS"
+            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=normal" --results-directory "$RESULTS" --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS"
 
     - name: Test results
       continue-on-error: true
       if: always()
       run: |
         dotnet tool install -g dotnet-trx 2>/dev/null || true
-        mkdir -p /tmp/test-results
-        trx --path /tmp/test-results -o -v verbose || true
+        mkdir -p "$RESULTS"
+        trx --path "$RESULTS" -o -v verbose || true
 
     - name: Upload crash dumps
       id: upload-dumps
@@ -179,8 +172,8 @@ jobs:
       with:
         name: blame-dump-shard-${{ matrix.shard }}
         path: |
-          /tmp/test-results/**/*.dmp
-          /tmp/test-results/**/*Sequence*.xml
+          ${{ env.RESULTS }}/**/*.dmp
+          ${{ env.RESULTS }}/**/*Sequence*.xml
         retention-days: 3
         if-no-files-found: ignore
 
@@ -190,7 +183,7 @@ jobs:
       run: |
         shopt -s nullglob globstar
         found=false
-        for seq in /tmp/test-results/**/*Sequence*.xml; do
+        for seq in "$RESULTS"/**/*Sequence*.xml; do
           if [ "$found" = false ]; then
             echo "## :warning: Hung tests detected (shard ${{ matrix.shard }})" >> "$GITHUB_STEP_SUMMARY"
             echo '```xml' >> "$GITHUB_STEP_SUMMARY"
@@ -212,7 +205,7 @@ jobs:
       - build
       - content-tests
       - integration-tests
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, linux, x64 ]
     steps:
       - name: Fail if any dependency was not successful
         if: ${{ needs.build.result != 'success' || needs['content-tests'].result != 'success' || needs['integration-tests'].result != 'success' }}
@@ -226,14 +219,20 @@ jobs:
         run: exit 0
 
   cleanup:
-    name: Cleanup Artifacts
+    name: Cleanup Shared Storage
     needs:
       - content-tests
       - integration-tests
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, linux, x64 ]
     steps:
-      - name: Delete build artifact
-        uses: geekyeggo/delete-artifact@v5
-        with:
-          name: build-output
+      - name: Remove this run's shared build data
+        run: |
+          set -euo pipefail
+          RUN_DIR="$CI_STORAGE/runs/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          rm -rf "$RUN_DIR" || true
+          # Safety sweep: reclaim space from runs that were cancelled before
+          # their cleanup job could run (older than 1 day).
+          if [ -d "$CI_STORAGE/runs" ]; then
+            find "$CI_STORAGE/runs" -maxdepth 1 -mindepth 1 -type d -mtime +1 -exec rm -rf {} + || true
+          fi
