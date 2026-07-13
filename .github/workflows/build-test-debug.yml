@@ -52,7 +52,7 @@ jobs:
         echo "NUGET_PACKAGES=$STORAGE/nuget" >> "$GITHUB_ENV"
 
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4.1.0
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 10.0.x
 
@@ -99,7 +99,7 @@ jobs:
         echo "NUGET_PACKAGES=$STORAGE/nuget" >> "$GITHUB_ENV"
 
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4.1.0
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 10.0.x
 
@@ -158,7 +158,7 @@ jobs:
         echo "NUGET_PACKAGES=$STORAGE/nuget" >> "$GITHUB_ENV"
 
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4.1.0
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 10.0.x
 
