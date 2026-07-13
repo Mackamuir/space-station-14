@@ -40,6 +40,9 @@ jobs:
         cd RobustToolbox/
         git submodule update --init --recursive
 
+    - name: Set .NET install dir
+      run: echo "DOTNET_INSTALL_DIR=$HOME/.dotnet" >> "$GITHUB_ENV"
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4.1.0
       with:
@@ -74,6 +77,9 @@ jobs:
     runs-on: [ self-hosted, linux, x64 ]
     timeout-minutes: 15
     steps:
+    - name: Set .NET install dir
+      run: echo "DOTNET_INSTALL_DIR=$HOME/.dotnet" >> "$GITHUB_ENV"
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4.1.0
       with:
@@ -120,6 +126,9 @@ jobs:
     name: "Integration Tests (shard ${{ matrix.shard }})"
     runs-on: [ self-hosted, linux, x64 ]
     steps:
+    - name: Set .NET install dir
+      run: echo "DOTNET_INSTALL_DIR=$HOME/.dotnet" >> "$GITHUB_ENV"
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4.1.0
       with:
