@@ -119,7 +119,7 @@ jobs:
         echo "RESULTS=$RESULTS" >> "$GITHUB_ENV"
 
     - name: Run Content.Tests
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       with:
         timeout_minutes: 15
         max_attempts: 2
@@ -177,7 +177,7 @@ jobs:
 
     - name: Run Content.IntegrationTests
       id: run-integration-tests
-      uses: nick-fields/retry@v3
+      uses: nick-fields/retry@v4
       env:
         DOTNET_gcServer: "1"
       with:
