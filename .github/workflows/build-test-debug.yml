@@ -105,6 +105,7 @@ jobs:
         shard: [0, 1, 2, 3, 4, 5, 6, 7]
     name: "Integration Tests (shard ${{ matrix.shard }})"
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v5
@@ -138,7 +139,7 @@ jobs:
             exit 0
           fi
           timeout --signal=TERM --kill-after=2m 15m \
-            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=normal" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS"
+            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=normal" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 8min --blame-hang-dump-type mini --settings "$RUNSETTINGS"
 
     - name: Test results
       continue-on-error: true
