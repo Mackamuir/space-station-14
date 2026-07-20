@@ -4,12 +4,18 @@
 Partitions test classes across shards for parallel CI execution.
 
 Mode 1 - Generate all shard filters to files:
-    dotnet test --list-tests ... | python3 partition_tests.py generate <total-shards> <output-dir>
+    dotnet test --list-tests ... | python3 partition_tests.py generate <total-shards> <output-dir> [timings-file]
     Writes <output-dir>/shard_0.runsettings .. shard_N.runsettings
+
 
 Mode 2 - Read a pre-generated filter file:
     python3 partition_tests.py read <runsettings-file>
     Prints the filter to stdout (empty output if file is empty/missing)
+
+Mode 3 - Harvest measured timings from CI test results:
+    python3 partition_tests.py harvest <trx-dir> <output-json>
+    Walks <trx-dir> for *.trx files, sums the real execution duration per test
+    method, and writes {method: seconds} to <output-json>.
 
 Exit codes:
     0 - success
@@ -18,13 +24,17 @@ Exit codes:
 
 import sys
 import os
+import json
+import glob
+import statistics
 import xml.etree.ElementTree as ET
 
+DEFAULT_TIMINGS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test-timings.json")
 
-# Weight multipliers for tests that are lighter than their test count suggests.
 # Looking at this, you are probably thinking,
 # Monsieur, have you lost your mind.
-# But this is a temporary solution. Once multithreading in the engine is fixed, all of this will be reverted.
+# But this is a permanent solution. The multithreading in the engine for tests will not be fixed anytime soon, all of this is here forever.
+# See https://github.com/dotnet/runtime/issues/107197, who knows, maybe by time time you see this it will be fixed.
 # How do you use it? Run the test, take the one that finished the fastest and decrease its weight, then increase the weight of the slowest one until they balance out.
 WEIGHT_OVERRIDES = {
     "AbsorbentOnRefillableTest": 0.125,
@@ -295,6 +305,56 @@ def extract_classes(tests):
     return counts
 
 
+def load_timings(path):
+    """Load {method: seconds} measured timings, or None if unavailable.
+
+    A missing or unparseable file is not fatal: the generator falls back to
+    the legacy count * WEIGHT_OVERRIDES weighting so CI never breaks just
+    because timings haven't been harvested yet.
+    """
+    if not path or not os.path.exists(path):
+        return None
+    try:
+        with open(path) as f:
+            data = json.load(f)
+    except (OSError, ValueError) as e:
+        print(f"Warning: could not read timings file {path}: {e}", file=sys.stderr)
+        return None
+    # Coerce to floats and drop anything non-positive/garbage.
+    timings = {}
+    for method, seconds in data.items():
+        try:
+            s = float(seconds)
+        except (TypeError, ValueError):
+            continue
+        if s > 0:
+            timings[method] = s
+    return timings or None
+
+
+def parse_duration(text):
+    """Parse a TRX duration string 'HH:MM:SS.fffffff' into seconds."""
+    text = (text or "").strip()
+    if not text:
+        return 0.0
+    try:
+        hms, _, frac = text.partition(".")
+        h, m, s = (int(p) for p in hms.split(":"))
+        seconds = h * 3600 + m * 60 + s
+        if frac:
+            seconds += int(frac) / (10 ** len(frac))
+        return float(seconds)
+    except (ValueError, AttributeError):
+        return 0.0
+
+
+def method_of(test_name):
+    """Reduce a TRX/list-tests display name to its bare method name."""
+    name = test_name.split("(")[0].strip()
+    dot = name.rfind(".")
+    return name[dot + 1:] if dot > 0 else name
+
+
 def build_filter(methods):
     """Build a NUnit.Where expression from method names.
 
@@ -308,12 +368,13 @@ def build_filter(methods):
 
 
 def cmd_generate():
-    if len(sys.argv) != 4:
-        print(f"Usage: {sys.argv[0]} generate <total-shards> <output-dir>", file=sys.stderr)
+    if len(sys.argv) not in (4, 5):
+        print(f"Usage: {sys.argv[0]} generate <total-shards> <output-dir> [timings-file]", file=sys.stderr)
         sys.exit(1)
 
     total = int(sys.argv[2])
     output_dir = sys.argv[3]
+    timings_path = sys.argv[4] if len(sys.argv) == 5 else DEFAULT_TIMINGS_FILE
 
     lines = sys.stdin.read().splitlines()
     tests = parse_tests(lines)
@@ -325,12 +386,29 @@ def cmd_generate():
     class_counts = extract_classes(tests)
     print(f"Discovered {len(tests)} tests in {len(class_counts)} classes, distributing across {total} shards", file=sys.stderr)
 
-    os.makedirs(output_dir, exist_ok=True)
+    timings = load_timings(timings_path)
 
-    # Compute effective weight per class using overrides
-    def class_weight(cls):
-        multiplier = WEIGHT_OVERRIDES.get(cls, 1.0)
-        return class_counts[cls] * multiplier
+    if timings:
+        # Estimate unknown methods from the median per-test duration.
+        rates = sorted(timings[c] / class_counts[c] for c in class_counts if c in timings)
+        median_per_test = statistics.median(rates) if rates else 1.0
+        print(f"Using measured timings from {timings_path}: "
+              f"{len(rates)}/{len(class_counts)} classes have data, "
+              f"fallback = {median_per_test:.3f}s/test (median)", file=sys.stderr)
+
+        def class_weight(cls):
+            if cls in timings:
+                return timings[cls]
+            return class_counts[cls] * median_per_test
+    else:
+        # no timings file, weight by count * manual override.
+        print(f"No timings file at {timings_path}; using WEIGHT_OVERRIDES fallback", file=sys.stderr)
+
+        def class_weight(cls):
+            multiplier = WEIGHT_OVERRIDES.get(cls, 1.0)
+            return class_counts[cls] * multiplier
+
+    os.makedirs(output_dir, exist_ok=True)
 
     # Greedy load-balancing: assign heaviest classes first to least-loaded shard
     shards = [[] for _ in range(total)]
@@ -380,9 +458,58 @@ def cmd_read():
         print(where)
 
 
+def cmd_harvest():
+    if len(sys.argv) != 4:
+        print(f"Usage: {sys.argv[0]} harvest <trx-dir> <output-json>", file=sys.stderr)
+        sys.exit(1)
+
+    trx_dir = sys.argv[2]
+    output_json = sys.argv[3]
+
+    trx_files = glob.glob(os.path.join(trx_dir, "**", "*.trx"), recursive=True)
+    if not trx_files:
+        print(f"Error: no .trx files found under {trx_dir}", file=sys.stderr)
+        sys.exit(1)
+
+    totals = {}
+    counts = {}
+    parsed = 0
+    for path in trx_files:
+        try:
+            root = ET.parse(path).getroot()
+        except ET.ParseError as e:
+            print(f"Warning: skipping unparseable {path}: {e}", file=sys.stderr)
+            continue
+        parsed += 1
+        for el in root.iter():
+            if not el.tag.endswith("UnitTestResult"):
+                continue
+            name = el.get("testName")
+            if not name:
+                continue
+            method = method_of(name)
+            totals[method] = totals.get(method, 0.0) + parse_duration(el.get("duration"))
+            counts[method] = counts.get(method, 0) + 1
+
+    if not totals:
+        print(f"Error: parsed {parsed} TRX files but found no test results", file=sys.stderr)
+        sys.exit(1)
+
+    # Round to milliseconds; sub-ms precision is noise on shared CI hardware.
+    result = {m: round(s, 3) for m, s in sorted(totals.items())}
+
+    with open(output_json, "w", newline="\n") as f:
+        json.dump(result, f, indent=2, sort_keys=True)
+        f.write("\n")
+
+    total_seconds = sum(result.values())
+    print(f"Harvested {len(result)} methods ({sum(counts.values())} results) "
+          f"from {parsed} TRX files, {total_seconds:.1f}s total -> {output_json}", file=sys.stderr)
+
+
 def main():
     if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <generate|read> ...", file=sys.stderr)
+        print(f"Usage: {sys.argv[0]} <generate|read|harvest> ...", file=sys.stderr)
         sys.exit(1)
 
     cmd = sys.argv[1]
@@ -390,6 +517,8 @@ def main():
         cmd_generate()
     elif cmd == "read":
         cmd_read()
+    elif cmd == "harvest":
+        cmd_harvest()
     else:
         print(f"Unknown command: {cmd}", file=sys.stderr)
         sys.exit(1)
