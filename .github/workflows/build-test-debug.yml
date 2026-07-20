@@ -12,6 +12,7 @@ on:
   pull_request:
     types: [ opened, reopened, synchronize, ready_for_review ]
     branches: [ master, staging, stable, Starlight, starlight-dev, upstream-devtest ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -148,6 +149,15 @@ jobs:
         mkdir -p /tmp/test-results
         trx --path /tmp/test-results -o -v verbose || true
 
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: ${{ always() && github.event_name == 'workflow_dispatch' }}
+      with:
+        name: test-trx-shard-${{ matrix.shard }}
+        path: /tmp/test-results/**/*.trx
+        retention-days: 1
+        if-no-files-found: ignore
+
     - name: Upload crash dumps
       id: upload-dumps
       uses: actions/upload-artifact@v6
@@ -200,6 +210,54 @@ jobs:
 
       - name: CI succeeded
         run: exit 0
+
+  harvest-timings:
+    name: Harvest test timings
+    needs: integration-tests
+    if: ${{ always() && github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Download shard test results
+        uses: actions/download-artifact@v8
+        with:
+          pattern: test-trx-shard-*
+          path: /tmp/trx
+
+      - name: Harvest timings
+        run: |
+          python3 Tools/_Starlight/partition_tests.py harvest /tmp/trx Tools/_Starlight/test-timings.json
+
+      - name: Upload test-timings.json
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-timings
+          path: Tools/_Starlight/test-timings.json
+          retention-days: 14
+
+      - name: Summary
+        run: |
+          {
+            echo "## Test timings harvested"
+            echo
+            if [ "${{ needs.integration-tests.result }}" != "success" ]; then
+              echo ":warning: **Some shards did not pass** (\`integration-tests\` = \`${{ needs.integration-tests.result }}\`)."
+              echo "Timings from a shard that crashed or timed out are missing or truncated."
+              echo "Prefer harvesting from a fully green run before committing."
+              echo
+            fi
+            echo "Download the \`test-timings\` artifact and commit it as \`Tools/_Starlight/test-timings.json\`."
+            echo "Once committed, \`partition_tests.py generate\` picks it up automatically;"
+            echo "\`WEIGHT_OVERRIDES\` stays as the fallback for when the file is absent."
+            echo
+            echo "### Slowest 15 methods"
+            echo '```'
+            python3 -c "import json;d=json.load(open('Tools/_Starlight/test-timings.json'));[print(f'{v:9.1f}s  {k}') for k,v in sorted(d.items(),key=lambda x:-x[1])[:15]]"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
   cleanup:
     name: Cleanup Artifacts
