@@ -432,6 +432,7 @@ def cmd_generate():
             f.write("<RunSettings>\n")
             f.write("  <NUnit>\n")
             f.write("    <MapWarningTo>Failed</MapWarningTo>\n")
+            f.write("    <ConsoleOut>0</ConsoleOut>\n")
             f.write(f"    <Where>{filter_expr}</Where>\n")
             f.write("  </NUnit>\n")
             f.write("</RunSettings>\n")
