@@ -1,0 +1,133 @@
+name: Harvest Test Timings
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '0 6 * * 1'
+
+# Never run two baselines at once, and let a running one finish rather than
+# cancelling it (a half-run produces truncated timings).
+concurrency:
+  group: harvest-test-timings
+  cancel-in-progress: false
+
+jobs:
+  harvest:
+    name: Harvest timings (sequential baseline)
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Submodule
+        run: git submodule update --init --recursive
+
+      - name: Pull engine updates
+        uses: space-wizards/submodule-dependency@v0.1.5
+
+      - name: Update Engine Submodules
+        run: |
+          cd RobustToolbox/
+          git submodule update --init --recursive
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build Project
+        run: dotnet build --configuration DebugOpt --no-restore /m
+
+      - name: Run all integration tests (single worker, no sharding)
+        id: run-tests
+        env:
+          DOTNET_gcServer: "1"
+        run: |
+          dotnet test --no-build --configuration DebugOpt \
+            Content.IntegrationTests/Content.IntegrationTests.csproj \
+            --logger "trx;LogFileName=results.trx" \
+            --logger "console;verbosity=normal" \
+            --results-directory /tmp/test-results \
+            --blame-hang --blame-hang-timeout 5min \
+            -- NUnit.NumberOfTestWorkers=1
+
+      - name: Harvest timings
+        id: harvest
+        if: always()
+        run: |
+          # Don't let a harvest failure (e.g. no .trx because the build broke)
+          # abort the job before the summary runs.
+          set +e
+          python3 Tools/_Starlight/partition_tests.py harvest /tmp/test-results Tools/_Starlight/test-timings.json
+          harvest_rc=$?
+          set -e
+          if [ "$harvest_rc" -ne 0 ]; then
+            echo "changed=error" >> "$GITHUB_OUTPUT"
+            echo "changed_lines=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Diff the freshly harvested file against the committed one. An empty
+          # diff means every measurement stayed inside the noise dead-band, so
+          # committing would be a no-op.
+          git diff -- Tools/_Starlight/test-timings.json > /tmp/timings.diff || true
+          if [ -s /tmp/timings.diff ]; then
+            changed_lines=$(grep -E '^[+-]' /tmp/timings.diff | grep -vE '^(\+\+\+|---)' | wc -l)
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "changed_lines=$changed_lines" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "changed_lines=0" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload test-timings.json
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: test-timings
+          path: Tools/_Starlight/test-timings.json
+          retention-days: 14
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## Test timings harvested (sequential baseline)"
+            echo
+            if [ "${{ steps.run-tests.outcome }}" != "success" ]; then
+              echo ":warning: **Test run did not fully pass** (\`${{ steps.run-tests.outcome }}\`)."
+              echo "Timings from a crashed, hung or timed-out run are missing or truncated — do not commit this as a baseline."
+              echo
+            fi
+            case "${{ steps.harvest.outputs.changed }}" in
+              true)
+                echo ":large_orange_diamond: **Would overwrite \`test-timings.json\`** — ${{ steps.harvest.outputs.changed_lines }} line(s) moved past the noise dead-band. Committing this run changes the file."
+                echo
+                echo "<details><summary>Show diff vs committed timings</summary>"
+                echo
+                echo '```diff'
+                cat /tmp/timings.diff
+                echo '```'
+                echo
+                echo "</details>"
+                ;;
+              false)
+                echo ":white_check_mark: **No change** — every timing stayed within the dead-band of the committed \`test-timings.json\`. Committing would be a no-op, so no PR is needed."
+                ;;
+              *)
+                echo ":x: **Harvest did not produce a result** — no \`.trx\` files were parsed. The committed \`test-timings.json\` is unchanged."
+                ;;
+            esac
+            echo
+            echo "Download the \`test-timings\` artifact and commit it as \`Tools/_Starlight/test-timings.json\`."
+            echo "Once committed, \`partition_tests.py generate\` picks it up automatically;"
+            echo "\`WEIGHT_OVERRIDES\` stays as the fallback for when the file is absent."
+            echo
+            echo "### Slowest 15 methods"
+            echo '```'
+            python3 -c "import json;d=json.load(open('Tools/_Starlight/test-timings.json'));[print(f'{v:9.1f}s  {k}') for k,v in sorted(d.items(),key=lambda x:-x[1])[:15]]"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
