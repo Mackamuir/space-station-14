@@ -73,7 +73,7 @@ namespace Content.IntegrationTests.Tests
                     var grid = mapManager.CreateGridEntity(mapId);
                     // TODO: Fix this better in engine.
                     mapSystem.SetTile(grid.Owner, grid.Comp, Vector2i.Zero, new Tile(1));
-                    var coord = new EntityCoordinates(grid.Owner, 0, 0);
+                    var coord = new EntityCoordinates(grid.Owner, 0.5f, 0.5f); // Starlight
                     entityMan.SpawnEntity(protoId, coord);
                 }
             });
