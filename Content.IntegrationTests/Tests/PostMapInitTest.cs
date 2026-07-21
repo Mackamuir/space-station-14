@@ -29,13 +29,6 @@ using Robust.Shared.Map.Events;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
-// Starlight-start
-using YamlDotNet.RepresentationModel;
-using Robust.Shared.Map.Events;
-using Robust.Packaging.AssetProcessing;
-using Content.Shared.Mobs;
-// Starlight-end
-
 namespace Content.IntegrationTests.Tests
 {
     [TestFixture]
@@ -110,20 +103,7 @@ namespace Content.IntegrationTests.Tests
             #endregion
         };
 
-        // starlight start
-        private static readonly ProtoId<EntityCategoryPrototype> ShouldMapCategory = "ShouldMapStation";
-
-        /// <summary>
-        /// list of map filenames that shouldn't be checked against necessary entities
-        /// </summary>
-        private static readonly string[] ShouldMapWhitelist =
-        {
-            "/Maps/_Starlight/Stations/StationBuilding.yml", // event map
-            "/Maps/_Starlight/Stations/Reach.yml",           // very small, can't fit everything
-            "/Maps/_Starlight/Stations/Cork.yml",            // very small, can't fit everything
-            "/Maps/_Starlight/Stations/Boxcars.yml",         // no longer in map rotation / admeme only
-        };
-        // starlight end
+        private static readonly ProtoId<EntityCategoryPrototype> ShouldMapCategory = "ShouldMapStation"; // Starlight
 
         /// <summary>
         /// Converts the above globs into regex so your eyes dont bleed trying to add filepaths.
@@ -204,6 +184,11 @@ namespace Content.IntegrationTests.Tests
                     mapSystem.DeleteMap(mapId);
                 });
             });
+
+            // Starlight: parameterised map tests share a pooled pair, so the managed heap accumulates across
+            // cases unless collection is prompted. Each loaded station peaks at multiple GiB; without this the
+            // process creeps toward the CI runner's memory ceiling as cases run back-to-back.
+            GC.Collect();
         }
 
         [Test]
@@ -288,6 +273,11 @@ namespace Content.IntegrationTests.Tests
             await server.WaitPost(() => mapSys.InitializeMap(id));
             Assert.That(loader.TrySaveMap(id, path));
             Assert.That(IsPreInit(path, loader, deps, ev.RenamedPrototypes, ev.DeletedPrototypes), Is.False);
+
+            // Starlight: the map created above was never torn down, so it leaked into the pooled pair once per
+            // case (this runs for every map file). Delete it and prompt a collection so memory does not accumulate.
+            await server.WaitPost(() => mapSys.DeleteMap(id));
+            GC.Collect();
         }
 
         private bool IsWhitelistedForMap(EntProtoId protoId, ResPath map)
@@ -517,9 +507,11 @@ namespace Content.IntegrationTests.Tests
 
                 TestContext.Out.WriteLine($"{sw.Elapsed.TotalMilliseconds} ms: Deleted map {mapProto}");
             });
+
+            // Starlight: see NoSavedPostMapInitTest. Loading a whole station peaks at ~11 GiB; force a collection
+            // between cases so the pooled pair does not accumulate toward the runner's memory ceiling.
+            GC.Collect();
         }
-
-
 
         private static int GetCountLateSpawn<T>(List<EntityUid> gridUids, IEntityManager entManager)
             where T : ISpawnPoint, IComponent
@@ -613,6 +605,10 @@ namespace Content.IntegrationTests.Tests
                     }
                 });
             });
+
+            // Starlight: see NoSavedPostMapInitTest. Force a collection between cases so the pooled pair does not
+            // accumulate loaded-then-deleted map state toward the runner's memory ceiling.
+            GC.Collect();
         }
 
         /// <summary>
