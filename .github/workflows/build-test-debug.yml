@@ -228,8 +228,21 @@ jobs:
           path: /tmp/trx
 
       - name: Harvest timings
+        id: harvest
         run: |
           python3 Tools/_Starlight/partition_tests.py harvest /tmp/trx Tools/_Starlight/test-timings.json
+          # Diff the freshly harvested file against the committed one. An empty
+          # diff means every measurement stayed inside the noise dead-band, so
+          # committing would be a no-op (and a PR job would open nothing).
+          git diff -- Tools/_Starlight/test-timings.json > /tmp/timings.diff || true
+          if [ -s /tmp/timings.diff ]; then
+            changed_lines=$(grep -E '^[+-]' /tmp/timings.diff | grep -vE '^(\+\+\+|---)' | wc -l)
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "changed_lines=$changed_lines" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "changed_lines=0" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Upload test-timings.json
         uses: actions/upload-artifact@v4
@@ -249,6 +262,20 @@ jobs:
               echo "Prefer harvesting from a fully green run before committing."
               echo
             fi
+            if [ "${{ steps.harvest.outputs.changed }}" = "true" ]; then
+              echo ":large_orange_diamond: **Would overwrite \`test-timings.json\`** — ${{ steps.harvest.outputs.changed_lines }} line(s) moved past the noise dead-band. Committing this run changes the file."
+              echo
+              echo "<details><summary>Show diff vs committed timings</summary>"
+              echo
+              echo '```diff'
+              cat /tmp/timings.diff
+              echo '```'
+              echo
+              echo "</details>"
+            else
+              echo ":white_check_mark: **No change** — every timing stayed within the dead-band of the committed \`test-timings.json\`. Committing would be a no-op, so no PR is needed."
+            fi
+            echo
             echo "Download the \`test-timings\` artifact and commit it as \`Tools/_Starlight/test-timings.json\`."
             echo "Once committed, \`partition_tests.py generate\` picks it up automatically;"
             echo "\`WEIGHT_OVERRIDES\` stays as the fallback for when the file is absent."

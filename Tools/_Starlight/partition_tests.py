@@ -26,10 +26,17 @@ import sys
 import os
 import json
 import glob
+import math
 import statistics
 import xml.etree.ElementTree as ET
 
 DEFAULT_TIMINGS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test-timings.json")
+
+
+# test for now.
+HARVEST_SIG_FIGS = 2        # round timing to x numbers
+HARVEST_REL_DELTA = 0.15    # only updated if >=x% of previous result
+HARVEST_ABS_DELTA = 0.05    # only update if test timing changes by >=x seconds
 
 # Looking at this, you are probably thinking,
 # Monsieur, have you lost your mind.
@@ -348,6 +355,33 @@ def parse_duration(text):
         return 0.0
 
 
+def round_sig(x, sig):
+    if x <= 0:
+        return 0.0
+    digits = sig - 1 - math.floor(math.log10(x))
+    return round(x, digits)
+
+
+def stabilise_timings(new_timings, old_timings):
+    result = {}
+    kept = updated = added = 0
+    for method in sorted(new_timings):
+        new = round_sig(new_timings[method], HARVEST_SIG_FIGS)
+        old = old_timings.get(method) if old_timings else None
+        if old is None:
+            result[method] = new
+            added += 1
+            continue
+        delta = abs(new - old)
+        if delta >= HARVEST_ABS_DELTA and delta >= HARVEST_REL_DELTA * old:
+            result[method] = new
+            updated += 1
+        else:
+            result[method] = old
+            kept += 1
+    return result, (kept, updated, added)
+
+
 def method_of(test_name):
     """Reduce a TRX/list-tests display name to its bare method name."""
     name = test_name.split("(")[0].strip()
@@ -496,8 +530,8 @@ def cmd_harvest():
         print(f"Error: parsed {parsed} TRX files but found no test results", file=sys.stderr)
         sys.exit(1)
 
-    # Round to milliseconds; sub-ms precision is noise on shared CI hardware.
-    result = {m: round(s, 3) for m, s in sorted(totals.items())}
+    old_timings = load_timings(output_json)
+    result, (kept, updated, added) = stabilise_timings(totals, old_timings)
 
     with open(output_json, "w", newline="\n") as f:
         json.dump(result, f, indent=2, sort_keys=True)
@@ -506,6 +540,9 @@ def cmd_harvest():
     total_seconds = sum(result.values())
     print(f"Harvested {len(result)} methods ({sum(counts.values())} results) "
           f"from {parsed} TRX files, {total_seconds:.1f}s total -> {output_json}", file=sys.stderr)
+    print(f"  Stabilised vs previous: {updated} updated, {kept} unchanged, "
+          f"{added} new (dead-band {HARVEST_REL_DELTA:.0%}/{HARVEST_ABS_DELTA}s, "
+          f"{HARVEST_SIG_FIGS} sig figs)", file=sys.stderr)
 
 
 def main():
