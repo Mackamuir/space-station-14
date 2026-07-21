@@ -47,6 +47,17 @@ jobs:
         env:
           DOTNET_gcServer: "1"
         run: |
+          # Sample system memory (KiB in use) once a second for the whole run.
+          # Tests run single-worker, so their TRX [startTime, endTime] windows do
+          # not overlap and each sample belongs to exactly one test.
+          rm -f /tmp/rss.log
+          ( while true; do
+              echo "$(date +%s) $(awk '/^MemTotal:/{t=$2} /^MemAvailable:/{a=$2} END{print t-a}' /proc/meminfo)" >> /tmp/rss.log
+              sleep 1
+            done ) &
+          sampler_pid=$!
+          trap 'kill "$sampler_pid" 2>/dev/null || true' EXIT
+
           dotnet test --no-build --configuration DebugOpt \
             Content.IntegrationTests/Content.IntegrationTests.csproj \
             --logger "trx;LogFileName=results.trx" \
@@ -129,5 +140,13 @@ jobs:
             echo "### Slowest 15 methods"
             echo '```'
             python3 -c "import json;d=json.load(open('Tools/_Starlight/test-timings.json'));[print(f'{v:9.1f}s  {k}') for k,v in sorted(d.items(),key=lambda x:-x[1])[:15]]"
+            echo '```'
+            echo
+            echo "### Most memory-expensive 15 methods"
+            echo "\`peak\` = highest system memory in use while the method ran (what hits the runner's ceiling)."
+            echo "\`own\` = that peak minus memory already in use at the method's start (its own contribution)."
+            echo '```'
+            python3 Tools/_Starlight/partition_tests.py memprofile /tmp/test-results /tmp/rss.log 15 2>/dev/null \
+              || echo "(memory profile unavailable — see the run log; needs TRX start/end times and /tmp/rss.log)"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
