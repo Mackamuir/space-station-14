@@ -5,6 +5,8 @@
   name: meteorite rock
   description: What remains of a meteorite.
   components:
+  - type: Transform # Starlight
+    anchored: false # Starlight
   - type: Destructible
     thresholds:
     - trigger:
