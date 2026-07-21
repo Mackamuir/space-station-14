@@ -185,7 +185,6 @@ namespace Content.IntegrationTests.Tests
                 });
             });
 
-            GC.Collect(); // Starlight
         }
 
         [Test]
@@ -272,7 +271,6 @@ namespace Content.IntegrationTests.Tests
             Assert.That(IsPreInit(path, loader, deps, ev.RenamedPrototypes, ev.DeletedPrototypes), Is.False);
 
             await server.WaitPost(() => mapSys.DeleteMap(id)); // Starlight
-            GC.Collect(); // Starlight
         }
 
         private bool IsWhitelistedForMap(EntProtoId protoId, ResPath map)
@@ -503,7 +501,6 @@ namespace Content.IntegrationTests.Tests
                 TestContext.Out.WriteLine($"{sw.Elapsed.TotalMilliseconds} ms: Deleted map {mapProto}");
             });
 
-            GC.Collect(); // Starlight
         }
 
         private static int GetCountLateSpawn<T>(List<EntityUid> gridUids, IEntityManager entManager)
@@ -599,7 +596,6 @@ namespace Content.IntegrationTests.Tests
                 });
             });
 
-            GC.Collect(); // Starlight
         }
 
         /// <summary>
