@@ -54,7 +54,7 @@ jobs:
       run: tar --use-compress-program='zstd -T0' -cf /tmp/build.tar.zst --exclude='.git' .
 
     - name: Upload build artifact
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: build-output
         path: /tmp/build.tar.zst
@@ -150,7 +150,7 @@ jobs:
         trx --path /tmp/test-results -o -v verbose
 
     - name: Upload test results
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       if: ${{ always() && (github.event_name == 'workflow_dispatch' || steps.run-integration-tests.outcome == 'failure') }}
       with:
         name: test-trx-shard-${{ matrix.shard }}
@@ -160,7 +160,7 @@ jobs:
 
     - name: Upload crash dumps
       id: upload-dumps
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       if: ${{ always() && steps.run-integration-tests.outcome == 'failure' }}
       with:
         name: blame-dump-shard-${{ matrix.shard }}
@@ -245,7 +245,7 @@ jobs:
           fi
 
       - name: Upload test-timings.json
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: test-timings
           path: Tools/_Starlight/test-timings.json
