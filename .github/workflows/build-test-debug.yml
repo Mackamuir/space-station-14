@@ -41,8 +41,9 @@ jobs:
 
     - name: Install dependencies
       run: |
+        dotnet add Content.Tests/Content.Tests.csproj package GitHubActionsTestLogger --version 3.0.4 --no-restore
+        dotnet add Content.IntegrationTests/Content.IntegrationTests.csproj package GitHubActionsTestLogger --version 3.0.4 --no-restore
         dotnet restore
-        dotnet add package GitHubActionsTestLogger
 
     - name: Build Project
       run: dotnet build --configuration DebugOpt --no-restore /m
@@ -90,7 +91,7 @@ jobs:
       with:
         timeout_minutes: 15
         max_attempts: 2
-        command: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results
+        command: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --logger "GitHubActions;summary-include-passed=false;summary-include-skipped=false" --results-directory /tmp/test-results -- RunConfiguration.CollectSourceInformation=true
 
     - name: Test results
       continue-on-error: true
@@ -144,7 +145,7 @@ jobs:
             exit 0
           fi
           timeout --signal=TERM --kill-after=2m 15m \
-            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
+            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "GitHubActions;summary-include-passed=false;summary-include-skipped=false" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- RunConfiguration.CollectSourceInformation=true 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
 
     - name: Report integration test errors
       if: always()

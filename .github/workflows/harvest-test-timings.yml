@@ -36,6 +36,9 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
+      - name: Install GitHub Actions test logger
+        run: dotnet add Content.IntegrationTests/Content.IntegrationTests.csproj package GitHubActionsTestLogger --version 3.0.4 --no-restore
+
       - name: Install dependencies
         run: dotnet restore
 
@@ -63,10 +66,11 @@ jobs:
           dotnet test --no-build --configuration DebugOpt \
             Content.IntegrationTests/Content.IntegrationTests.csproj \
             --logger "trx;LogFileName=results.trx" \
+            --logger "GitHubActions;summary-include-passed=false;summary-include-skipped=false" \
             --logger "console;verbosity=detailed" \
             --results-directory /tmp/test-results \
             --blame-hang --blame-hang-timeout 5min \
-            -- NUnit.NumberOfTestWorkers=1 2>&1 | tee /tmp/test-logs/integration-tests.log
+            -- RunConfiguration.CollectSourceInformation=true NUnit.NumberOfTestWorkers=1 2>&1 | tee /tmp/test-logs/integration-tests.log
 
       - name: Report integration test errors
         if: always()
