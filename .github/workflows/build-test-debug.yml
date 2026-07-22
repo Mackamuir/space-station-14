@@ -155,7 +155,7 @@ jobs:
       run: |
         dotnet tool install -g dotnet-trx
         mkdir -p /tmp/test-results
-        trx --path /tmp/test-results -o -v verbose
+        trx --path /tmp/test-results -o
 
     - name: Upload test results
       uses: actions/upload-artifact@v6
