@@ -145,9 +145,9 @@ jobs:
       continue-on-error: true
       if: always()
       run: |
-        dotnet tool install -g dotnet-trx 2>/dev/null || true
+        dotnet tool install -g dotnet-trx
         mkdir -p /tmp/test-results
-        trx --path /tmp/test-results -o -v verbose || true
+        trx --path /tmp/test-results -o -v verbose
 
     - name: Upload test results
       uses: actions/upload-artifact@v6
