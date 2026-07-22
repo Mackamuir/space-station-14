@@ -14,6 +14,11 @@ on:
     branches: [ master, staging, stable, Starlight, starlight-dev, upstream-devtest ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  actions: write
+  checks: write
+
 jobs:
   build:
     if: github.actor != 'PJBot' && github.event.pull_request.draft == false
@@ -40,10 +45,7 @@ jobs:
         dotnet-version: 10.0.x
 
     - name: Install dependencies
-      run: |
-        dotnet add Content.Tests/Content.Tests.csproj package GitHubActionsTestLogger --version 3.0.4 --no-restore
-        dotnet add Content.IntegrationTests/Content.IntegrationTests.csproj package GitHubActionsTestLogger --version 3.0.4 --no-restore
-        dotnet restore
+      run: dotnet restore
 
     - name: Build Project
       run: dotnet build --configuration DebugOpt --no-restore /m
@@ -89,15 +91,17 @@ jobs:
     - name: Run Content.Tests
       run: |
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --logger "GitHubActions;summary-include-passed=false;summary-include-skipped=false" --results-directory /tmp/test-results -- RunConfiguration.CollectSourceInformation=true
+          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results -- RunConfiguration.CollectSourceInformation=true
 
-    - name: Test results
-      continue-on-error: true
-      if: always()
-      run: |
-        dotnet tool install -g dotnet-trx 2>/dev/null || true
-        mkdir -p /tmp/test-results
-        trx --path /tmp/test-results -o -v verbose || true
+    - name: Report Content.Tests results
+      if: success() || failure()
+      uses: dorny/test-reporter@v2
+      with:
+        name: Content Tests
+        path: /tmp/test-results/**/*.trx
+        reporter: dotnet-trx
+        list-suites: failed
+        list-tests: failed
 
   integration-tests:
     needs: build
@@ -139,7 +143,7 @@ jobs:
         fi
 
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "GitHubActions;summary-include-passed=false;summary-include-skipped=false" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- RunConfiguration.CollectSourceInformation=true 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
+          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- RunConfiguration.CollectSourceInformation=true 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
 
     - name: Report integration test errors
       if: always()
@@ -147,13 +151,15 @@ jobs:
         grep -nE -C 8 'SERVER:.*\[ERRO\]|CLIENT:.*\[ERRO\]|ExecuteError|UnhandledException|Exception:|Failed to execute toolshed command|crash|fatal' "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log" \
           >> "$GITHUB_STEP_SUMMARY" || true
 
-    - name: Test results
-      continue-on-error: true
-      if: always()
-      run: |
-        dotnet tool install -g dotnet-trx
-        mkdir -p /tmp/test-results
-        trx --path /tmp/test-results -o
+    - name: Report Content.IntegrationTests results
+      if: success() || failure()
+      uses: dorny/test-reporter@v2
+      with:
+        name: Integration Tests (shard ${{ matrix.shard }})
+        path: /tmp/test-results/**/*.trx
+        reporter: dotnet-trx
+        list-suites: failed
+        list-tests: failed
 
     - name: Upload test results
       uses: actions/upload-artifact@v6

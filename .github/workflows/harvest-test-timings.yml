@@ -5,6 +5,10 @@ on:
   # schedule:
   #   - cron: '0 6 * * 1'
 
+permissions:
+  contents: read
+  checks: write
+
 # Never run two baselines at once, and let a running one finish rather than
 # cancelling it (a half-run produces truncated timings).
 concurrency:
@@ -36,9 +40,6 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
-      - name: Install GitHub Actions test logger
-        run: dotnet add Content.IntegrationTests/Content.IntegrationTests.csproj package GitHubActionsTestLogger --version 3.0.4 --no-restore
-
       - name: Install dependencies
         run: dotnet restore
 
@@ -66,7 +67,6 @@ jobs:
           dotnet test --no-build --configuration DebugOpt \
             Content.IntegrationTests/Content.IntegrationTests.csproj \
             --logger "trx;LogFileName=results.trx" \
-            --logger "GitHubActions;summary-include-passed=false;summary-include-skipped=false" \
             --logger "console;verbosity=detailed" \
             --results-directory /tmp/test-results \
             --blame-hang --blame-hang-timeout 5min \
@@ -77,6 +77,16 @@ jobs:
         run: |
           grep -nE -C 8 'SERVER:.*\[ERRO\]|CLIENT:.*\[ERRO\]|ExecuteError|UnhandledException|Exception:|Failed to execute toolshed command|crash|fatal' /tmp/test-logs/integration-tests.log \
             >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Report Content.IntegrationTests results
+        if: success() || failure()
+        uses: dorny/test-reporter@v2
+        with:
+          name: Integration Tests (sequential baseline)
+          path: /tmp/test-results/**/*.trx
+          reporter: dotnet-trx
+          list-suites: failed
+          list-tests: failed
 
       - name: Upload integration test logs
         if: always()
