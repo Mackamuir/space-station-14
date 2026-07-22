@@ -133,13 +133,21 @@ jobs:
         max_attempts: 2
         retry_on: any
         command: |
+          set -o pipefail
+          mkdir -p /tmp/test-logs
           RUNSETTINGS=".integration-filters/shard_${{ matrix.shard }}.runsettings"
           if [ ! -f "$RUNSETTINGS" ]; then
             echo "No tests assigned to shard ${{ matrix.shard }}"
             exit 0
           fi
           timeout --signal=TERM --kill-after=2m 15m \
-            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=normal" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS"
+            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
+
+    - name: Report integration test errors
+      if: always()
+      run: |
+        grep -nE -C 8 'SERVER:.*\[ERRO\]|CLIENT:.*\[ERRO\]|ExecuteError|UnhandledException|Exception:|Failed to execute toolshed command|crash|fatal' "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log" \
+          >> "$GITHUB_STEP_SUMMARY" || true
 
     - name: Test results
       continue-on-error: true
@@ -155,6 +163,15 @@ jobs:
       with:
         name: test-trx-shard-${{ matrix.shard }}
         path: /tmp/test-results/**/*.trx
+        retention-days: 7
+        if-no-files-found: ignore
+
+    - name: Upload integration test log
+      uses: actions/upload-artifact@v6
+      if: always()
+      with:
+        name: integration-test-log-shard-${{ matrix.shard }}
+        path: /tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log
         retention-days: 7
         if-no-files-found: ignore
 
@@ -298,4 +315,3 @@ jobs:
         uses: geekyeggo/delete-artifact@v6
         with:
           name: build-output
-

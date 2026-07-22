@@ -47,6 +47,8 @@ jobs:
         env:
           DOTNET_gcServer: "1"
         run: |
+          set -o pipefail
+          mkdir -p /tmp/test-logs
           # Sample system memory (KiB in use) once a second for the whole run.
           # Tests run single-worker, so their TRX [startTime, endTime] windows do
           # not overlap and each sample belongs to exactly one test.
@@ -61,10 +63,25 @@ jobs:
           dotnet test --no-build --configuration DebugOpt \
             Content.IntegrationTests/Content.IntegrationTests.csproj \
             --logger "trx;LogFileName=results.trx" \
-            --logger "console;verbosity=normal" \
+            --logger "console;verbosity=detailed" \
             --results-directory /tmp/test-results \
             --blame-hang --blame-hang-timeout 5min \
-            -- NUnit.NumberOfTestWorkers=1
+            -- NUnit.NumberOfTestWorkers=1 2>&1 | tee /tmp/test-logs/integration-tests.log
+
+      - name: Report integration test errors
+        if: always()
+        run: |
+          grep -nE -C 8 'SERVER:.*\[ERRO\]|CLIENT:.*\[ERRO\]|ExecuteError|UnhandledException|Exception:|Failed to execute toolshed command|crash|fatal' /tmp/test-logs/integration-tests.log \
+            >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Upload integration test logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: integration-test-log
+          path: /tmp/test-logs/integration-tests.log
+          retention-days: 14
+          if-no-files-found: ignore
 
       - name: Harvest timings
         id: harvest
