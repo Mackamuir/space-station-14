@@ -14,10 +14,15 @@ on:
     branches: [ master, staging, stable, Starlight, starlight-dev, upstream-devtest ]
   workflow_dispatch:
 
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  DOTNET_NOLOGO: '1'
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: '1'
+
 jobs:
   build:
     if: github.actor != 'PJBot' && github.event.pull_request.draft == false
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, linux, x64 ]
     steps:
     - name: Checkout Master
       uses: actions/checkout@v7
@@ -33,6 +38,19 @@ jobs:
       run: |
         cd RobustToolbox/
         git submodule update --init --recursive
+
+    - name: Configure runner environment
+      run: |
+        # setup-dotnet defaults to /usr/share/dotnet (root-owned on self-hosted).
+        echo "DOTNET_INSTALL_DIR=$HOME/.dotnet" >> "$GITHUB_ENV"
+        # Storage under the runner's home: no root/sudo host provisioning needed.
+        # Override with an Actions variable CI_STORAGE to point at a shared/CoW
+        # volume later (all runners must reach it).
+        STORAGE="${{ vars.CI_STORAGE }}"
+        [ -z "$STORAGE" ] && STORAGE="$HOME/actions-ci"
+        mkdir -p "$STORAGE/nuget" "$STORAGE/runs"
+        echo "CI_STORAGE=$STORAGE" >> "$GITHUB_ENV"
+        echo "NUGET_PACKAGES=$STORAGE/nuget" >> "$GITHUB_ENV"
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v5
@@ -64,9 +82,22 @@ jobs:
   content-tests:
     needs: build
     name: Content Tests
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, linux, x64 ]
     timeout-minutes: 15
     steps:
+    - name: Configure runner environment
+      run: |
+        # setup-dotnet defaults to /usr/share/dotnet (root-owned on self-hosted).
+        echo "DOTNET_INSTALL_DIR=$HOME/.dotnet" >> "$GITHUB_ENV"
+        # Storage under the runner's home: no root/sudo host provisioning needed.
+        # Override with an Actions variable CI_STORAGE to point at a shared/CoW
+        # volume later (all runners must reach it).
+        STORAGE="${{ vars.CI_STORAGE }}"
+        [ -z "$STORAGE" ] && STORAGE="$HOME/actions-ci"
+        mkdir -p "$STORAGE/nuget" "$STORAGE/runs"
+        echo "CI_STORAGE=$STORAGE" >> "$GITHUB_ENV"
+        echo "NUGET_PACKAGES=$STORAGE/nuget" >> "$GITHUB_ENV"
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v5
       with:
@@ -88,15 +119,17 @@ jobs:
       with:
         timeout_minutes: 15
         max_attempts: 2
-        command: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results
+        command: |
+          cd "$WORK"
+          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory "$RESULTS"
 
     - name: Test results
       continue-on-error: true
       if: always()
       run: |
         dotnet tool install -g dotnet-trx 2>/dev/null || true
-        mkdir -p /tmp/test-results
-        trx --path /tmp/test-results -o -v verbose || true
+        mkdir -p "$RESULTS"
+        trx --path "$RESULTS" -o -v verbose || true
 
   integration-tests:
     needs: build
@@ -105,8 +138,21 @@ jobs:
       matrix:
         shard: [0, 1, 2, 3, 4, 5]
     name: "Integration Tests (shard ${{ matrix.shard }})"
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, linux, x64 ]
     steps:
+    - name: Configure runner environment
+      run: |
+        # setup-dotnet defaults to /usr/share/dotnet (root-owned on self-hosted).
+        echo "DOTNET_INSTALL_DIR=$HOME/.dotnet" >> "$GITHUB_ENV"
+        # Storage under the runner's home: no root/sudo host provisioning needed.
+        # Override with an Actions variable CI_STORAGE to point at a shared/CoW
+        # volume later (all runners must reach it).
+        STORAGE="${{ vars.CI_STORAGE }}"
+        [ -z "$STORAGE" ] && STORAGE="$HOME/actions-ci"
+        mkdir -p "$STORAGE/nuget" "$STORAGE/runs"
+        echo "CI_STORAGE=$STORAGE" >> "$GITHUB_ENV"
+        echo "NUGET_PACKAGES=$STORAGE/nuget" >> "$GITHUB_ENV"
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v5
       with:
@@ -133,13 +179,14 @@ jobs:
         max_attempts: 2
         retry_on: any
         command: |
+          cd "$WORK"
           RUNSETTINGS=".integration-filters/shard_${{ matrix.shard }}.runsettings"
           if [ ! -f "$RUNSETTINGS" ]; then
             echo "No tests assigned to shard ${{ matrix.shard }}"
             exit 0
           fi
           timeout --signal=TERM --kill-after=2m 15m \
-            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=normal" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS"
+            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=normal" --results-directory "$RESULTS" --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS"
 
     - name: Test results
       continue-on-error: true
@@ -165,8 +212,8 @@ jobs:
       with:
         name: blame-dump-shard-${{ matrix.shard }}
         path: |
-          /tmp/test-results/**/*.dmp
-          /tmp/test-results/**/*Sequence*.xml
+          ${{ env.RESULTS }}/**/*.dmp
+          ${{ env.RESULTS }}/**/*Sequence*.xml
         retention-days: 3
         if-no-files-found: ignore
 
@@ -176,7 +223,7 @@ jobs:
       run: |
         shopt -s nullglob globstar
         found=false
-        for seq in /tmp/test-results/**/*Sequence*.xml; do
+        for seq in "$RESULTS"/**/*Sequence*.xml; do
           if [ "$found" = false ]; then
             echo "## :warning: Hung tests detected (shard ${{ matrix.shard }})" >> "$GITHUB_STEP_SUMMARY"
             echo '```xml' >> "$GITHUB_STEP_SUMMARY"
@@ -198,7 +245,7 @@ jobs:
       - build
       - content-tests
       - integration-tests
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, linux, x64 ]
     steps:
       - name: Fail if any dependency was not successful
         if: ${{ needs.build.result != 'success' || needs['content-tests'].result != 'success' || needs['integration-tests'].result != 'success' }}
@@ -287,12 +334,12 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
   cleanup:
-    name: Cleanup Artifacts
+    name: Cleanup Shared Storage
     needs:
       - content-tests
       - integration-tests
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: [ self-hosted, linux, x64 ]
     steps:
       - name: Delete build artifact
         uses: geekyeggo/delete-artifact@v6
