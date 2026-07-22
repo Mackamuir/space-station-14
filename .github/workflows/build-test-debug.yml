@@ -72,6 +72,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v5
       with:
@@ -95,7 +98,7 @@ jobs:
 
     - name: Report Content.Tests results
       if: success() || failure()
-      uses: dorny/test-reporter@v2
+      uses: dorny/test-reporter@v3
       with:
         name: Content Tests
         path: /tmp/test-results/**/*.trx
@@ -112,6 +115,9 @@ jobs:
     name: "Integration Tests (shard ${{ matrix.shard }})"
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v5
       with:
@@ -153,7 +159,7 @@ jobs:
 
     - name: Report Content.IntegrationTests results
       if: success() || failure()
-      uses: dorny/test-reporter@v2
+      uses: dorny/test-reporter@v3
       with:
         name: Integration Tests (shard ${{ matrix.shard }})
         path: /tmp/test-results/**/*.trx
