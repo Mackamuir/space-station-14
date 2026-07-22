@@ -17,7 +17,6 @@ on:
 permissions:
   contents: read
   actions: write
-  checks: write
 
 jobs:
   build:
@@ -72,9 +71,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-    - name: Checkout
-      uses: actions/checkout@v7
-
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v5
       with:
@@ -91,20 +87,30 @@ jobs:
     - name: Restore packages
       run: dotnet restore Content.Tests/Content.Tests.csproj
 
+    # NUnit.TestOutputXml makes the already-referenced NUnit3TestAdapter emit its
+    # native NUnit 3 result XML — no extra logger package needed. It goes to its
+    # own directory so the upload glob does not depend on the adapter's default
+    # filename. trx is retained only because partition_tests.py harvests shard
+    # timings out of it.
     - name: Run Content.Tests
       run: |
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results -- RunConfiguration.CollectSourceInformation=true
+          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results -- RunConfiguration.CollectSourceInformation=true NUnit.TestOutputXml=/tmp/nunit-results
 
-    - name: Report Content.Tests results
-      if: success() || failure()
-      uses: dorny/test-reporter@v3
+    # Consumed by test-report.yml. Must be unconditional: a fork PR cannot create
+    # check runs from this workflow, so the artifact is the only path to a report.
+    - name: Upload Content.Tests results
+      uses: actions/upload-artifact@v6
+      if: always()
       with:
-        name: Content Tests
-        path: /tmp/test-results/**/*.trx
-        reporter: dotnet-trx
-        list-suites: failed
-        list-tests: failed
+        name: test-trx-content
+        # Two roots, so inside the artifact these land as nunit-results/*.xml
+        # and test-results/**/*.trx.
+        path: |
+          /tmp/nunit-results/*.xml
+          /tmp/test-results/**/*.trx
+        retention-days: 7
+        if-no-files-found: ignore
 
   integration-tests:
     needs: build
@@ -115,9 +121,6 @@ jobs:
     name: "Integration Tests (shard ${{ matrix.shard }})"
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v7
-
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v5
       with:
@@ -149,7 +152,7 @@ jobs:
         fi
 
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- RunConfiguration.CollectSourceInformation=true 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
+          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- RunConfiguration.CollectSourceInformation=true NUnit.TestOutputXml=/tmp/nunit-results 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
 
     - name: Report integration test errors
       if: always()
@@ -157,22 +160,20 @@ jobs:
         grep -nE -C 8 'SERVER:.*\[ERRO\]|CLIENT:.*\[ERRO\]|ExecuteError|UnhandledException|Exception:|Failed to execute toolshed command|crash|fatal' "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log" \
           >> "$GITHUB_STEP_SUMMARY" || true
 
-    - name: Report Content.IntegrationTests results
-      if: success() || failure()
-      uses: dorny/test-reporter@v3
-      with:
-        name: Integration Tests (shard ${{ matrix.shard }})
-        path: /tmp/test-results/**/*.trx
-        reporter: dotnet-trx
-        list-suites: failed
-        list-tests: failed
-
+    # Two consumers: test-report.yml reads the NUnit XML (matching these artifacts
+    # by the regex /test-trx-shard-(.*)/, one check run per shard), and the
+    # harvest-timings job reads the .trx. Unconditional for the same reason as
+    # Content.Tests above.
     - name: Upload test results
       uses: actions/upload-artifact@v6
-      if: ${{ always() && (github.event_name == 'workflow_dispatch' || steps.run-integration-tests.outcome == 'failure') }}
+      if: always()
       with:
         name: test-trx-shard-${{ matrix.shard }}
-        path: /tmp/test-results/**/*.trx
+        # Keeping the NUnit XML in its own root also keeps the --blame-hang
+        # Sequence_*.xml files (under test-results/) out of the reporter's glob.
+        path: |
+          /tmp/nunit-results/*.xml
+          /tmp/test-results/**/*.trx
         retention-days: 7
         if-no-files-found: ignore
 
@@ -254,64 +255,64 @@ jobs:
           pattern: test-trx-shard-*
           path: /tmp/trx
 
-      - name: Harvest timings
-        id: harvest
-        run: |
-          python3 Tools/_Starlight/partition_tests.py harvest /tmp/trx Tools/_Starlight/test-timings.json
-          # Diff the freshly harvested file against the committed one. An empty
-          # diff means every measurement stayed inside the noise dead-band, so
-          # committing would be a no-op (and a PR job would open nothing).
-          git diff -- Tools/_Starlight/test-timings.json > /tmp/timings.diff || true
-          if [ -s /tmp/timings.diff ]; then
-            changed_lines=$(grep -E '^[+-]' /tmp/timings.diff | grep -vE '^(\+\+\+|---)' | wc -l)
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "changed_lines=$changed_lines" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "changed_lines=0" >> "$GITHUB_OUTPUT"
-          fi
+      # - name: Harvest timings
+      #   id: harvest
+      #   run: |
+      #     python3 Tools/_Starlight/partition_tests.py harvest /tmp/trx Tools/_Starlight/test-timings.json
+      #     # Diff the freshly harvested file against the committed one. An empty
+      #     # diff means every measurement stayed inside the noise dead-band, so
+      #     # committing would be a no-op (and a PR job would open nothing).
+      #     git diff -- Tools/_Starlight/test-timings.json > /tmp/timings.diff || true
+      #     if [ -s /tmp/timings.diff ]; then
+      #       changed_lines=$(grep -E '^[+-]' /tmp/timings.diff | grep -vE '^(\+\+\+|---)' | wc -l)
+      #       echo "changed=true" >> "$GITHUB_OUTPUT"
+      #       echo "changed_lines=$changed_lines" >> "$GITHUB_OUTPUT"
+      #     else
+      #       echo "changed=false" >> "$GITHUB_OUTPUT"
+      #       echo "changed_lines=0" >> "$GITHUB_OUTPUT"
+      #     fi
 
-      - name: Upload test-timings.json
-        uses: actions/upload-artifact@v6
-        with:
-          name: test-timings
-          path: Tools/_Starlight/test-timings.json
-          retention-days: 14
+      # - name: Upload test-timings.json
+      #   uses: actions/upload-artifact@v6
+      #   with:
+      #     name: test-timings
+      #     path: Tools/_Starlight/test-timings.json
+      #     retention-days: 14
 
-      - name: Summary
-        run: |
-          {
-            echo "## Test timings harvested"
-            echo
-            if [ "${{ needs.integration-tests.result }}" != "success" ]; then
-              echo ":warning: **Some shards did not pass** (\`integration-tests\` = \`${{ needs.integration-tests.result }}\`)."
-              echo "Timings from a shard that crashed or timed out are missing or truncated."
-              echo "Prefer harvesting from a fully green run before committing."
-              echo
-            fi
-            if [ "${{ steps.harvest.outputs.changed }}" = "true" ]; then
-              echo ":large_orange_diamond: **Would overwrite \`test-timings.json\`** — ${{ steps.harvest.outputs.changed_lines }} line(s) moved past the noise dead-band. Committing this run changes the file."
-              echo
-              echo "<details><summary>Show diff vs committed timings</summary>"
-              echo
-              echo '```diff'
-              cat /tmp/timings.diff
-              echo '```'
-              echo
-              echo "</details>"
-            else
-              echo ":white_check_mark: **No change** — every timing stayed within the dead-band of the committed \`test-timings.json\`. Committing would be a no-op, so no PR is needed."
-            fi
-            echo
-            echo "Download the \`test-timings\` artifact and commit it as \`Tools/_Starlight/test-timings.json\`."
-            echo "Once committed, \`partition_tests.py generate\` picks it up automatically;"
-            echo "\`WEIGHT_OVERRIDES\` stays as the fallback for when the file is absent."
-            echo
-            echo "### Slowest 15 methods"
-            echo '```'
-            python3 -c "import json;d=json.load(open('Tools/_Starlight/test-timings.json'));[print(f'{v:9.1f}s  {k}') for k,v in sorted(d.items(),key=lambda x:-x[1])[:15]]"
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+      # - name: Summary
+      #   run: |
+      #     {
+      #       echo "## Test timings harvested"
+      #       echo
+      #       if [ "${{ needs.integration-tests.result }}" != "success" ]; then
+      #         echo ":warning: **Some shards did not pass** (\`integration-tests\` = \`${{ needs.integration-tests.result }}\`)."
+      #         echo "Timings from a shard that crashed or timed out are missing or truncated."
+      #         echo "Prefer harvesting from a fully green run before committing."
+      #         echo
+      #       fi
+      #       if [ "${{ steps.harvest.outputs.changed }}" = "true" ]; then
+      #         echo ":large_orange_diamond: **Would overwrite \`test-timings.json\`** — ${{ steps.harvest.outputs.changed_lines }} line(s) moved past the noise dead-band. Committing this run changes the file."
+      #         echo
+      #         echo "<details><summary>Show diff vs committed timings</summary>"
+      #         echo
+      #         echo '```diff'
+      #         cat /tmp/timings.diff
+      #         echo '```'
+      #         echo
+      #         echo "</details>"
+      #       else
+      #         echo ":white_check_mark: **No change** — every timing stayed within the dead-band of the committed \`test-timings.json\`. Committing would be a no-op, so no PR is needed."
+      #       fi
+      #       echo
+      #       echo "Download the \`test-timings\` artifact and commit it as \`Tools/_Starlight/test-timings.json\`."
+      #       echo "Once committed, \`partition_tests.py generate\` picks it up automatically;"
+      #       echo "\`WEIGHT_OVERRIDES\` stays as the fallback for when the file is absent."
+      #       echo
+      #       echo "### Slowest 15 methods"
+      #       echo '```'
+      #       python3 -c "import json;d=json.load(open('Tools/_Starlight/test-timings.json'));[print(f'{v:9.1f}s  {k}') for k,v in sorted(d.items(),key=lambda x:-x[1])[:15]]"
+      #       echo '```'
+      #     } >> "$GITHUB_STEP_SUMMARY"
 
   cleanup:
     name: Cleanup Artifacts
@@ -321,7 +322,11 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
+      # Deleting an artifact needs `actions: write`, which a fork PR's read-only
+      # token never gets. Tolerate the 403 there; `retention-days: 1` on the
+      # upload reclaims the storage anyway.
       - name: Delete build artifact
+        continue-on-error: true
         uses: geekyeggo/delete-artifact@v6
         with:
           name: build-output
