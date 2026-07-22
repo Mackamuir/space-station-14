@@ -85,7 +85,7 @@ jobs:
           name: Integration Tests (sequential baseline)
           path: /tmp/nunit-results/*.xml
           reporter: dotnet-nunit
-          list-suites: failed
+          list-suites: all
           list-tests: failed
 
       - name: Upload integration test logs

@@ -26,7 +26,7 @@ jobs:
           name: Content Tests
           path: 'nunit-results/*.xml'
           reporter: dotnet-nunit
-          list-suites: failed
+          list-suites: all
           list-tests: failed
           fail-on-error: false
           fail-on-empty: false
@@ -38,7 +38,7 @@ jobs:
           name: 'Integration Tests (shard $1)'
           path: 'nunit-results/*.xml'
           reporter: dotnet-nunit
-          list-suites: failed
+          list-suites: all
           list-tests: failed
           fail-on-error: false
           fail-on-empty: false
