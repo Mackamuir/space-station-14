@@ -648,7 +648,7 @@ def cmd_memprofile():
             print("Error: no test windows overlapped the memory samples", file=sys.stderr)
         sys.exit(1)
 
-    ranked = sorted(peak_by_method.items(), key=lambda kv: -kv[1])
+    ranked = sorted(own_by_method.items(), key=lambda kv: -kv[1])
     if missing_times:
         print(f"note: {missing_times} test case(s) had no start/end time and were skipped.",
               file=sys.stderr)
@@ -656,13 +656,13 @@ def cmd_memprofile():
           f"({len(samples)} samples).", file=sys.stderr)
 
     # Human/summary-friendly table on stdout so a workflow can capture it directly.
-    print(f"{'peak':>8}  {'own':>8}  method")
-    for method, pk in ranked[:top_n]:
-        own = own_by_method.get(method, 0.0)
-        print(f"{pk / 1048576:7.2f}G  {own / 1048576:7.2f}G  {method}")
+    print(f"{'own':>8}  {'peak':>8}  method")
+    for method, own in ranked[:top_n]:
+        peak = peak_by_method.get(method, 0.0)
+        print(f"{own / 1048576:7.2f}G  {peak / 1048576:7.2f}G  {method}")
 
     if json_path:
-        out = {m: round(pk / 1024, 1) for m, pk in ranked}  # MiB
+        out = {m: round(own / 1024, 1) for m, own in ranked}
         with open(json_path, "w", newline="\n") as f:
             json.dump(out, f, indent=2, sort_keys=True)
             f.write("\n")
