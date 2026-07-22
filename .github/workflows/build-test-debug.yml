@@ -43,16 +43,13 @@ jobs:
         cd RobustToolbox/
         git submodule update --init --recursive
 
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 10.0.x
-
-    - name: Install dependencies
-      run: dotnet restore
+    # setup-dotnet reads the repository's global.json automatically, keeping the
+    # SDK selection in one place. The build performs its own implicit restore.
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v6
 
     - name: Build Project
-      run: dotnet build --configuration DebugOpt --no-restore /m
+      run: dotnet build --configuration DebugOpt /m
 
     - name: Discover Integration Tests
       run: |
@@ -82,10 +79,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v7
 
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 10.0.x
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v6
 
     - name: Download build artifact
       uses: actions/download-artifact@v8
@@ -98,15 +93,14 @@ jobs:
     - name: Restore packages
       run: dotnet restore Content.Tests/Content.Tests.csproj
 
-    # NUnit.TestOutputXml makes the already-referenced NUnit3TestAdapter emit its
-    # native NUnit 3 result XML — no extra logger package needed. It goes to its
-    # own directory so the upload glob does not depend on the adapter's default
-    # filename. trx is retained only because partition_tests.py harvests shard
-    # timings out of it.
+    # trx is the only format the reporter can resolve source locations from: its
+    # parser matches the .NET ` in <file>:line <n>` stack-trace form, whereas the
+    # dotnet-nunit parser matches the JavaScript form and never resolves a path.
+    # partition_tests.py also harvests shard timings out of this file.
     - name: Run Content.Tests
       run: |
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results -- RunConfiguration.CollectSourceInformation=true NUnit.TestOutputXml=/tmp/nunit-results
+          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results
 
     # Skipped on fork PRs, where the read-only token cannot create check runs;
     # test-report.yml covers those from the uploaded artifact below.
@@ -117,8 +111,8 @@ jobs:
       uses: dorny/test-reporter@v3
       with:
         name: Content Tests
-        path: /tmp/nunit-results/*.xml
-        reporter: dotnet-nunit
+        path: /tmp/test-results/**/*.trx
+        reporter: dotnet-trx
         # `all` lists every suite with its pass/fail counts; `failed` would drop
         # passing suites entirely. Tests stay at `failed` so the report does not
         # enumerate thousands of passing case names.
@@ -133,11 +127,7 @@ jobs:
       if: always()
       with:
         name: test-trx-content
-        # Two roots, so inside the artifact these land as nunit-results/*.xml
-        # and test-results/**/*.trx.
-        path: |
-          /tmp/nunit-results/*.xml
-          /tmp/test-results/**/*.trx
+        path: /tmp/test-results/**/*.trx
         retention-days: 7
         if-no-files-found: ignore
 
@@ -154,10 +144,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v7
 
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 10.0.x
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v6
 
     - name: Download build artifact
       uses: actions/download-artifact@v8
@@ -185,13 +173,7 @@ jobs:
         fi
 
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- RunConfiguration.CollectSourceInformation=true NUnit.TestOutputXml=/tmp/nunit-results 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
-
-    - name: Report integration test errors
-      if: always()
-      run: |
-        grep -nE -C 8 'SERVER:.*\[ERRO\]|CLIENT:.*\[ERRO\]|ExecuteError|UnhandledException|Exception:|Failed to execute toolshed command|crash|fatal' "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log" \
-          >> "$GITHUB_STEP_SUMMARY" || true
+          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
 
     # Skipped on fork PRs; test-report.yml covers those from the artifact below.
     - name: Report Content.IntegrationTests results
@@ -201,25 +183,22 @@ jobs:
       uses: dorny/test-reporter@v3
       with:
         name: Integration Tests (shard ${{ matrix.shard }})
-        path: /tmp/nunit-results/*.xml
-        reporter: dotnet-nunit
+        path: /tmp/test-results/**/*.trx
+        reporter: dotnet-trx
         list-suites: all
         list-tests: failed
         fail-on-error: false
 
-    # Two consumers: test-report.yml reads the NUnit XML (matching these artifacts
-    # by the regex /test-trx-shard-(.*)/, one check run per shard), and the
-    # harvest-timings job reads the .trx.
+    # Two consumers: test-report.yml reads these for fork PRs (matching the
+    # artifacts by the regex /test-trx-shard-(.*)/, one check run per shard), and
+    # the harvest-timings job reads the same .trx. Globbing *.trx rather than the
+    # whole directory keeps the --blame-hang Sequence_*.xml files out.
     - name: Upload test results
       uses: actions/upload-artifact@v6
       if: always()
       with:
         name: test-trx-shard-${{ matrix.shard }}
-        # Keeping the NUnit XML in its own root also keeps the --blame-hang
-        # Sequence_*.xml files (under test-results/) out of the reporter's glob.
-        path: |
-          /tmp/nunit-results/*.xml
-          /tmp/test-results/**/*.trx
+        path: /tmp/test-results/**/*.trx
         retention-days: 7
         if-no-files-found: ignore
 

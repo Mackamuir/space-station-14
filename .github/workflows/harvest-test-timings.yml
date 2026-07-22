@@ -35,16 +35,13 @@ jobs:
           cd RobustToolbox/
           git submodule update --init --recursive
 
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: 10.0.x
-
-      - name: Install dependencies
-        run: dotnet restore
+      # setup-dotnet reads the repository's global.json automatically, keeping
+      # the SDK selection in one place. The build performs its implicit restore.
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
 
       - name: Build Project
-        run: dotnet build --configuration DebugOpt --no-restore /m
+        run: dotnet build --configuration DebugOpt /m
 
       - name: Run all integration tests (single worker, no sharding)
         id: run-tests
@@ -70,7 +67,7 @@ jobs:
             --logger "console;verbosity=detailed" \
             --results-directory /tmp/test-results \
             --blame-hang --blame-hang-timeout 5min \
-            -- RunConfiguration.CollectSourceInformation=true NUnit.NumberOfTestWorkers=1 NUnit.TestOutputXml=/tmp/nunit-results 2>&1 | tee /tmp/test-logs/integration-tests.log
+            -- NUnit.NumberOfTestWorkers=1 2>&1 | tee /tmp/test-logs/integration-tests.log
 
       - name: Report integration test errors
         if: always()
@@ -83,8 +80,8 @@ jobs:
         uses: dorny/test-reporter@v3
         with:
           name: Integration Tests (sequential baseline)
-          path: /tmp/nunit-results/*.xml
-          reporter: dotnet-nunit
+          path: /tmp/test-results/**/*.trx
+          reporter: dotnet-trx
           list-suites: all
           list-tests: failed
 
