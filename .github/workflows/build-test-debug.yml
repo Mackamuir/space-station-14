@@ -87,11 +87,9 @@ jobs:
       run: dotnet restore Content.Tests/Content.Tests.csproj
 
     - name: Run Content.Tests
-      uses: nick-fields/retry@v4
-      with:
-        timeout_minutes: 15
-        max_attempts: 2
-        command: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --logger "GitHubActions;summary-include-passed=false;summary-include-skipped=false" --results-directory /tmp/test-results -- RunConfiguration.CollectSourceInformation=true
+      run: |
+        timeout --signal=TERM --kill-after=2m 15m \
+          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --logger "GitHubActions;summary-include-passed=false;summary-include-skipped=false" --results-directory /tmp/test-results -- RunConfiguration.CollectSourceInformation=true
 
     - name: Test results
       continue-on-error: true
@@ -129,23 +127,19 @@ jobs:
 
     - name: Run Content.IntegrationTests
       id: run-integration-tests
-      uses: nick-fields/retry@v4
       env:
         DOTNET_gcServer: "1"
-      with:
-        timeout_minutes: 17
-        max_attempts: 2
-        retry_on: any
-        command: |
-          set -o pipefail
-          mkdir -p /tmp/test-logs
-          RUNSETTINGS=".integration-filters/shard_${{ matrix.shard }}.runsettings"
-          if [ ! -f "$RUNSETTINGS" ]; then
-            echo "No tests assigned to shard ${{ matrix.shard }}"
-            exit 0
-          fi
-          timeout --signal=TERM --kill-after=2m 15m \
-            dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "GitHubActions;summary-include-passed=false;summary-include-skipped=false" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- RunConfiguration.CollectSourceInformation=true 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
+      run: |
+        set -o pipefail
+        mkdir -p /tmp/test-logs
+        RUNSETTINGS=".integration-filters/shard_${{ matrix.shard }}.runsettings"
+        if [ ! -f "$RUNSETTINGS" ]; then
+          echo "No tests assigned to shard ${{ matrix.shard }}"
+          exit 0
+        fi
+
+        timeout --signal=TERM --kill-after=2m 15m \
+          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "GitHubActions;summary-include-passed=false;summary-include-skipped=false" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- RunConfiguration.CollectSourceInformation=true 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
 
     - name: Report integration test errors
       if: always()
