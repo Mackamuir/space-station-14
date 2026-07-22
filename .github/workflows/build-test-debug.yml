@@ -121,7 +121,9 @@ jobs:
       run: tar --use-compress-program='zstd -d -T0' -xf build.tar.zst && rm build.tar.zst
 
     - name: Restore packages
-      run: dotnet restore Content.IntegrationTests/Content.IntegrationTests.csproj
+      run: |
+        dotnet restore Content.IntegrationTests/Content.IntegrationTests.csproj
+        dotnet add package GitHubActionsTestLogger
 
     - name: Run Content.IntegrationTests
       id: run-integration-tests
