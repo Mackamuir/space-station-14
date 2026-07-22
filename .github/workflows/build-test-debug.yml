@@ -119,7 +119,10 @@ jobs:
         name: Content Tests
         path: /tmp/nunit-results/*.xml
         reporter: dotnet-nunit
-        list-suites: failed
+        # `all` lists every suite with its pass/fail counts; `failed` would drop
+        # passing suites entirely. Tests stay at `failed` so the report does not
+        # enumerate thousands of passing case names.
+        list-suites: all
         list-tests: failed
         # The test step has already failed the job; failing here too would just
         # mark the same problem red twice.
@@ -200,7 +203,7 @@ jobs:
         name: Integration Tests (shard ${{ matrix.shard }})
         path: /tmp/nunit-results/*.xml
         reporter: dotnet-nunit
-        list-suites: failed
+        list-suites: all
         list-tests: failed
         fail-on-error: false
 
