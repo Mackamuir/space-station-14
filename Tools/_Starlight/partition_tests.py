@@ -468,7 +468,7 @@ def cmd_generate():
             f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             f.write("<RunSettings>\n")
             f.write("  <NUnit>\n")
-            f.write("    <ConsoleOut>0</ConsoleOut>\n")
+            f.write("    <MapWarningTo>Failed</MapWarningTo>\n")
             f.write(f"    <Where>{filter_expr}</Where>\n")
             f.write("  </NUnit>\n")
             f.write("</RunSettings>\n")

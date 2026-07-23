@@ -100,7 +100,7 @@ jobs:
     - name: Run Content.Tests
       run: |
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results
+          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=Content_tests_results.trx" --results-directory /tmp/test-results --settings .github/ci.runsettings
 
     - name: Upload Content.Tests results
       uses: actions/upload-artifact@v6
@@ -155,7 +155,7 @@ jobs:
         fi
 
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
+          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=shard_${{ matrix.shard }}_results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS"
 
     # Two consumers: test-report.yml reads these for fork PRs (matching the
     # artifacts by the regex /test-trx-shard-(.*)/, one check run per shard), and
@@ -167,15 +167,6 @@ jobs:
       with:
         name: test-trx-shard-${{ matrix.shard }}
         path: /tmp/test-results/**/*.trx
-        retention-days: 7
-        if-no-files-found: ignore
-
-    - name: Upload integration test log
-      uses: actions/upload-artifact@v6
-      if: always()
-      with:
-        name: integration-test-log-shard-${{ matrix.shard }}
-        path: /tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log
         retention-days: 7
         if-no-files-found: ignore
 
@@ -267,6 +258,7 @@ jobs:
           list-suites: all
           list-tests: failed
           fail-on-error: false
+
       - name: Generate content test report.
         uses: dorny/test-reporter@v3
         with:
