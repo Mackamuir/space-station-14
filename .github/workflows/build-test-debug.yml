@@ -96,11 +96,21 @@ jobs:
     # trx is the only format the reporter can resolve source locations from: its
     # parser matches the .NET ` in <file>:line <n>` stack-trace form, whereas the
     # dotnet-nunit parser matches the JavaScript form and never resolves a path.
-    # partition_tests.py also harvests shard timings out of this file.
+    # partition_tests.py also harvests shard timings out of this file. The NUnit
+    # XML is emitted purely as a repair source for the step below.
     - name: Run Content.Tests
       run: |
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results
+          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results -- NUnit.TestOutputXml=/tmp/nunit-results
+
+    # The trx on its own is lossy: a failure raised after the test body finishes
+    # (teardown, or the pooled server's dirty-dispose check) still shows as
+    # Passed there, and the failures it does record carry no <Message>, which
+    # makes dorny discard the error wholesale. Fold NUnit's XML back in before
+    # anything reads the trx.
+    - name: Normalize test results
+      if: success() || failure()
+      run: python3 Tools/_Starlight/normalize_trx.py /tmp/test-results /tmp/nunit-results
 
     # Skipped on fork PRs, where the read-only token cannot create check runs;
     # test-report.yml covers those from the uploaded artifact below.
@@ -127,7 +137,13 @@ jobs:
       if: always()
       with:
         name: test-trx-content
-        path: /tmp/test-results/**/*.trx
+        # Two roots, so inside the artifact these land as nunit-results/*.xml and
+        # test-results/**/*.trx. The NUnit XML is not read by any workflow — it
+        # is kept so the trx/XML pair can be diffed locally when the reporter
+        # shows something unexpected.
+        path: |
+          /tmp/nunit-results/*.xml
+          /tmp/test-results/**/*.trx
         retention-days: 7
         if-no-files-found: ignore
 
@@ -173,7 +189,13 @@ jobs:
         fi
 
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
+          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- NUnit.TestOutputXml=/tmp/nunit-results 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
+
+    # See the note in content-tests: recovers teardown failures and missing
+    # error messages that the trx alone drops.
+    - name: Normalize test results
+      if: success() || failure()
+      run: python3 Tools/_Starlight/normalize_trx.py /tmp/test-results /tmp/nunit-results
 
     # Skipped on fork PRs; test-report.yml covers those from the artifact below.
     - name: Report Content.IntegrationTests results
@@ -192,13 +214,17 @@ jobs:
     # Two consumers: test-report.yml reads these for fork PRs (matching the
     # artifacts by the regex /test-trx-shard-(.*)/, one check run per shard), and
     # the harvest-timings job reads the same .trx. Globbing *.trx rather than the
-    # whole directory keeps the --blame-hang Sequence_*.xml files out.
+    # whole directory keeps the --blame-hang Sequence_*.xml files out; both
+    # consumers glob **/*.trx, so the NUnit XML alongside is ignored by them and
+    # is here only for diffing the two formats locally.
     - name: Upload test results
       uses: actions/upload-artifact@v6
       if: always()
       with:
         name: test-trx-shard-${{ matrix.shard }}
-        path: /tmp/test-results/**/*.trx
+        path: |
+          /tmp/nunit-results/*.xml
+          /tmp/test-results/**/*.trx
         retention-days: 7
         if-no-files-found: ignore
 
@@ -244,6 +270,39 @@ jobs:
           fi
         fi
 
+  yaml-linter:
+    name: YAML Linter
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v7
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v6
+
+    - name: Restore NuGet cache
+      uses: actions/cache/restore@v4
+      with:
+        path: ~/.nuget/packages
+        key: nuget-${{ hashFiles('Directory.Packages.props') }}
+        restore-keys: nuget-
+
+    - name: Download build artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: build-output
+
+    - name: Extract build
+      run: tar --use-compress-program='zstd -d -T0' -xf build.tar.zst && rm build.tar.zst
+
+    - name: Restore packages
+      run: dotnet restore Content.YAMLLinter/Content.YAMLLinter.csproj
+
+    - name: Run Linter
+      run: dotnet run --project Content.YAMLLinter/Content.YAMLLinter.csproj --no-build --configuration DebugOpt
+
   ci-success:
     name: Debug CI Required
     if: ${{ always() }}
@@ -251,14 +310,16 @@ jobs:
       - build
       - content-tests
       - integration-tests
+      - yaml-linter
     runs-on: ubuntu-latest
     steps:
       - name: Fail if any dependency was not successful
-        if: ${{ needs.build.result != 'success' || needs['content-tests'].result != 'success' || needs['integration-tests'].result != 'success' }}
+        if: ${{ needs.build.result != 'success' || needs['content-tests'].result != 'success' || needs['integration-tests'].result != 'success' || needs['yaml-linter'].result != 'success' }}
         run: |
           echo "build=${{ needs.build.result }}"
           echo "content-tests=${{ needs['content-tests'].result }}"
           echo "integration-tests=${{ needs['integration-tests'].result }}"
+          echo "yaml-linter=${{ needs['yaml-linter'].result }}"
           exit 1
 
       - name: CI succeeded
@@ -269,6 +330,7 @@ jobs:
     needs:
       - content-tests
       - integration-tests
+      - yaml-linter
     if: always()
     runs-on: ubuntu-latest
     steps:

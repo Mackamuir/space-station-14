@@ -67,7 +67,13 @@ jobs:
             --logger "console;verbosity=detailed" \
             --results-directory /tmp/test-results \
             --blame-hang --blame-hang-timeout 5min \
-            -- NUnit.NumberOfTestWorkers=1 2>&1 | tee /tmp/test-logs/integration-tests.log
+            -- NUnit.NumberOfTestWorkers=1 NUnit.TestOutputXml=/tmp/nunit-results 2>&1 | tee /tmp/test-logs/integration-tests.log
+
+      # Recovers teardown failures and missing error messages that the trx alone
+      # drops. See Tools/_Starlight/normalize_trx.py.
+      - name: Normalize test results
+        if: success() || failure()
+        run: python3 Tools/_Starlight/normalize_trx.py /tmp/test-results /tmp/nunit-results
 
       - name: Report integration test errors
         if: always()
@@ -91,6 +97,18 @@ jobs:
         with:
           name: integration-test-log
           path: /tmp/test-logs/integration-tests.log
+          retention-days: 14
+          if-no-files-found: ignore
+
+      # Raw results for local inspection; nothing downstream reads these.
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results-sequential
+          path: |
+            /tmp/nunit-results/*.xml
+            /tmp/test-results/**/*.trx
           retention-days: 14
           if-no-files-found: ignore
 
