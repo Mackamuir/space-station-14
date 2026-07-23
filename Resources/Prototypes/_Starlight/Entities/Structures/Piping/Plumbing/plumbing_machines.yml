@@ -115,6 +115,7 @@
   description: Stores up to 200u of reagents. Useful for supplying separate duct networks with its unconnected outlets.
   components:
   - type: CollideOnAnchor
+    enable: true
   - type: Physics
     bodyType: Static
     canCollide: false
