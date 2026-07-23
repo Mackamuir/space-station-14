@@ -102,26 +102,6 @@ jobs:
         timeout --signal=TERM --kill-after=2m 15m \
           dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=results.trx" --results-directory /tmp/test-results
 
-    # Skipped on fork PRs, where the read-only token cannot create check runs;
-    # test-report.yml covers those from the uploaded artifact below.
-    - name: Report Content.Tests results
-      # Not `head.repo.fork` — this repository is itself a fork, so that flag is
-      # always true. What matters is whether the PR's head is in *this* repo.
-      if: ${{ (success() || failure()) && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
-      uses: dorny/test-reporter@v3
-      with:
-        name: Content Tests
-        path: /tmp/test-results/**/*.trx
-        reporter: dotnet-trx
-        # `all` lists every suite with its pass/fail counts; `failed` would drop
-        # passing suites entirely. Tests stay at `failed` so the report does not
-        # enumerate thousands of passing case names.
-        list-suites: all
-        list-tests: failed
-        # The test step has already failed the job; failing here too would just
-        # mark the same problem red twice.
-        fail-on-error: false
-
     - name: Upload Content.Tests results
       uses: actions/upload-artifact@v6
       if: always()
@@ -176,20 +156,6 @@ jobs:
 
         timeout --signal=TERM --kill-after=2m 15m \
           dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" 2>&1 | tee "/tmp/test-logs/integration-tests-shard-${{ matrix.shard }}.log"
-
-    # Skipped on fork PRs; test-report.yml covers those from the artifact below.
-    - name: Report Content.IntegrationTests results
-      # Not `head.repo.fork` — this repository is itself a fork, so that flag is
-      # always true. What matters is whether the PR's head is in *this* repo.
-      if: ${{ (success() || failure()) && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
-      uses: dorny/test-reporter@v3
-      with:
-        name: Integration Tests (shard ${{ matrix.shard }})
-        path: /tmp/test-results/**/*.trx
-        reporter: dotnet-trx
-        list-suites: all
-        list-tests: failed
-        fail-on-error: false
 
     # Two consumers: test-report.yml reads these for fork PRs (matching the
     # artifacts by the regex /test-trx-shard-(.*)/, one check run per shard), and
@@ -289,6 +255,26 @@ jobs:
       - yaml-linter
     runs-on: ubuntu-latest
     steps:
+      - name: Generate intergration test report.
+        uses: dorny/test-reporter@v3
+        with:
+          name: Integration Tests $1
+          artifact: /integration-test-log-shard-(.*)/
+          path: '*.trx'
+          reporter: dotnet-trx
+          list-suites: all
+          list-tests: failed
+          fail-on-error: false
+      - name: Generate content test report.
+        uses: dorny/test-reporter@v3
+        with:
+          name: Content Tests
+          artifact: test-trx-content
+          path: '*.trx'
+          reporter: dotnet-trx
+          list-suites: all
+          list-tests: failed
+          fail-on-error: false
       - name: Fail if any dependency was not successful
         if: ${{ needs.build.result != 'success' || needs['content-tests'].result != 'success' || needs['integration-tests'].result != 'success' || needs['yaml-linter'].result != 'success' }}
         run: |
