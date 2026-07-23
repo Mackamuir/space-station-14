@@ -259,7 +259,7 @@ jobs:
         uses: dorny/test-reporter@v3
         with:
           name: Integration Tests $1
-          artifact: /integration-test-log-shard-(.*)/
+          artifact: /test-trx-shard-(.*)/
           path: '*.trx'
           reporter: dotnet-trx
           list-suites: all
