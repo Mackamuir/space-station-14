@@ -258,7 +258,9 @@ jobs:
       - name: Generate intergration test report.
         uses: dorny/test-reporter@v3
         with:
-          name: Integration Tests $1
+          badge-title: 'Intergration Tests'
+          name: Integration Tests
+          report-title: Integration Tests $1
           artifact: /test-trx-shard-(.*)/
           path: '*.trx'
           reporter: dotnet-trx
@@ -268,6 +270,7 @@ jobs:
       - name: Generate content test report.
         uses: dorny/test-reporter@v3
         with:
+          badge-title: 'Content Tests'
           name: Content Tests
           artifact: test-trx-content
           path: '*.trx'
