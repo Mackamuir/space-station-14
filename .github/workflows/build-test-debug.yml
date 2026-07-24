@@ -154,8 +154,13 @@ jobs:
           exit 0
         fi
 
+        # NUnit.TestOutputXml emits NUnit's own result XML beside the trx. The
+        # adapter reports a result to VSTest when the test *body* finishes, so a
+        # failure raised afterwards — in teardown, or by the pooled server's
+        # dirty-dispose check — reaches NUnit's XML but never the trx. This is
+        # the only artifact that records those.
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=shard_${{ matrix.shard }}_results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS"
+          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=shard_${{ matrix.shard }}_results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- NUnit.TestOutputXml=/tmp/nunit-results
 
     # Two consumers: test-report.yml reads these for fork PRs (matching the
     # artifacts by the regex /test-trx-shard-(.*)/, one check run per shard), and
@@ -167,6 +172,18 @@ jobs:
       with:
         name: test-trx-shard-${{ matrix.shard }}
         path: /tmp/test-results/**/*.trx
+        retention-days: 7
+        if-no-files-found: ignore
+
+    # Kept as a separate artifact so the trx upload above stays *.trx-only for
+    # dorny and the timings harvester. Written outside /tmp/test-results so the
+    # --blame-hang Sequence_*.xml files cannot leak into either glob.
+    - name: Upload NUnit result XML
+      uses: actions/upload-artifact@v6
+      if: always()
+      with:
+        name: test-nunit-shard-${{ matrix.shard }}
+        path: /tmp/nunit-results/**/*.xml
         retention-days: 7
         if-no-files-found: ignore
 
@@ -246,14 +263,37 @@ jobs:
       - yaml-linter
     runs-on: ubuntu-latest
     steps:
+      # Only the merge script is needed from the repo; the trx come from artifacts.
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # Pull every shard's trx into one tree. Each artifact lands in its own
+      # subdirectory (test-trx-shard-<N>), and the file inside is named
+      # shard_<N>_results.trx, so the shard label survives for tagging.
+      - name: Download shard test results
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          pattern: test-trx-shard-*
+          path: /tmp/shard-trx
+
+      # Fold the per-shard trx into a single combined trx, tagging each result
+      # with the shard it ran on. Reporting must never break the required check,
+      # so a failure here is tolerated (the merged report is best-effort).
+      - name: Merge shard results into one trx
+        continue-on-error: true
+        run: |
+          python3 Tools/_Starlight/merge_shard_trx.py /tmp/shard-trx /tmp/combined/integration.trx
+
+      # One report for the whole suite. No `artifact:` regex, so dorny reads the
+      # local merged file and emits a single "Integration Tests" check run; the
+      # shard origin is carried in each test name and failure message.
       - name: Generate intergration test report.
         uses: dorny/test-reporter@v3
         with:
           badge-title: 'Intergration Tests'
           name: Integration Tests
-          report-title: Integration Tests $1
-          artifact: /test-trx-shard-(.*)/
-          path: '*.trx'
+          path: '/tmp/combined/*.trx'
           reporter: dotnet-trx
           list-suites: all
           list-tests: failed
