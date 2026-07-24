@@ -28,13 +28,15 @@ inline, fork PRs report via a second workflow triggered by `workflow_run`.
    ```
 
    `Content.IntegrationTests` passes its shard's generated runsettings instead
-   of `.github/ci.runsettings`; `partition_tests.py` writes the same
-   `MapWarningTo` value into each one alongside the shard's `<Where>` filter.
+   of `.github/ci.runsettings`, but that file *extends* `.github/ci.runsettings`:
+   `partition_tests.py` reads it as the base and injects only the shard's
+   `<Where>` filter, so both jobs share one NUnit run config (`MapWarningTo` and
+   anything added later). The `dotnet test` invocation is otherwise identical.
 
-   NUnit's own XML is the only record of the failures the `.trx` drops (see
-   *Known `.trx` blind spots*); it is uploaded for diagnosis but nothing reads
-   it automatically. The shard jobs pass `NUnit.TestOutputXml` for that reason —
-   `Content.Tests` does not.
+   NUnit's own XML records failures the `.trx` drops (see *Known `.trx` blind
+   spots*), but CI no longer emits it: the integration job matches the content
+   job's run config and passes neither `NUnit.TestOutputXml` nor `--blame-hang`.
+   Reproduce those flags locally to diagnose (see below).
 
 2. Report same-repo runs inline, from the local file:
 
@@ -111,8 +113,11 @@ invisible in a TRX-only report; both are accepted trade-offs of this pipeline:
 To investigate either case, add `-- NUnit.TestOutputXml=<dir>` to the
 `dotnet test` invocation locally and compare NUnit's XML against the `.trx`.
 A relative path there resolves against the **assembly work directory**
-(`bin/Content.IntegrationTests/…`), not the current directory; CI passes an
-absolute path. The shard jobs upload the result as `test-nunit-shard-N`.
+(`bin/Content.IntegrationTests/…`), not the current directory. CI does **not**
+capture this: the integration job shares the content job's run config and passes
+no `NUnit.TestOutputXml`, so these blind spots are local-diagnosis-only. The
+`harvest-test-timings.yml` baseline still runs with `--blame-hang` if you need a
+hang dump from a full run.
 
 ### Misattributed assertion failures
 
@@ -181,9 +186,10 @@ leading `1)` marks the frame as coming through NUnit's warning formatter.
 </RunSettings>
 ```
 
-`.github/ci.runsettings` holds this for the unsharded projects;
-`partition_tests.py` writes the same element into each generated
-`shard_N.runsettings`. Adding a new test job without one reintroduces the
+`.github/ci.runsettings` holds this for the unsharded projects, and each
+generated `shard_N.runsettings` is built by extending that same file with the
+shard's `<Where>` filter — so the mapping is defined in exactly one place.
+Adding a new test job whose runsettings does not include it reintroduces the
 false green.
 
 Spotting it in a `.trx` you have already downloaded: a genuine skip takes
@@ -239,8 +245,10 @@ always true.
 
 ### Miscellaneous
 
-- Glob `**/*.trx` rather than the results directory, so `--blame-hang`'s
-  `Sequence_*.xml` files stay out of the reporter's input.
+- Glob `**/*.trx` rather than the results directory, so non-trx result files
+  stay out of the reporter's input. (The PR integration job no longer runs
+  `--blame-hang`; the `harvest-test-timings.yml` baseline still does, and its
+  `Sequence_*.xml` would otherwise leak into a directory glob.)
 - `fail-on-error: false` on reporter steps: the test step has already failed the
   job, and failing again just marks the same problem red twice.
 - `list-suites: all` keeps passing suites visible with their counts;

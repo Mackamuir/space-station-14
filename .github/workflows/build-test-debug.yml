@@ -141,31 +141,23 @@ jobs:
       run: |
         dotnet restore Content.IntegrationTests/Content.IntegrationTests.csproj
 
+    # Same run config as Content.Tests: same dotnet test invocation, differing
+    # only in the sharded runsettings (which itself extends .github/ci.runsettings
+    # with the shard's <Where> filter). The shard existence check guards a shard
+    # that was assigned no tests.
     - name: Run Content.IntegrationTests
-      id: run-integration-tests
-      env:
-        DOTNET_gcServer: "1"
       run: |
-        set -o pipefail
-        mkdir -p /tmp/test-logs
         RUNSETTINGS=".integration-filters/shard_${{ matrix.shard }}.runsettings"
         if [ ! -f "$RUNSETTINGS" ]; then
           echo "No tests assigned to shard ${{ matrix.shard }}"
           exit 0
         fi
-
-        # NUnit.TestOutputXml emits NUnit's own result XML beside the trx. The
-        # adapter reports a result to VSTest when the test *body* finishes, so a
-        # failure raised afterwards — in teardown, or by the pooled server's
-        # dirty-dispose check — reaches NUnit's XML but never the trx. This is
-        # the only artifact that records those.
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=shard_${{ matrix.shard }}_results.trx" --logger "console;verbosity=detailed" --results-directory /tmp/test-results --blame-hang --blame-hang-timeout 3min --settings "$RUNSETTINGS" -- NUnit.TestOutputXml=/tmp/nunit-results
+          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=shard_${{ matrix.shard }}_results.trx" --results-directory /tmp/test-results --settings "$RUNSETTINGS"
 
     # Two consumers: test-report.yml reads these for fork PRs (matching the
     # artifacts by the regex /test-trx-shard-(.*)/, one check run per shard), and
-    # the harvest-timings job reads the same .trx. Globbing *.trx rather than the
-    # whole directory keeps the --blame-hang Sequence_*.xml files out.
+    # the harvest-timings job reads the same .trx.
     - name: Upload test results
       uses: actions/upload-artifact@v6
       if: always()
@@ -174,51 +166,6 @@ jobs:
         path: /tmp/test-results/**/*.trx
         retention-days: 7
         if-no-files-found: ignore
-
-    # Kept as a separate artifact so the trx upload above stays *.trx-only for
-    # dorny and the timings harvester. Written outside /tmp/test-results so the
-    # --blame-hang Sequence_*.xml files cannot leak into either glob.
-    - name: Upload NUnit result XML
-      uses: actions/upload-artifact@v6
-      if: always()
-      with:
-        name: test-nunit-shard-${{ matrix.shard }}
-        path: /tmp/nunit-results/**/*.xml
-        retention-days: 7
-        if-no-files-found: ignore
-
-    - name: Upload crash dumps
-      id: upload-dumps
-      uses: actions/upload-artifact@v6
-      if: ${{ always() && steps.run-integration-tests.outcome == 'failure' }}
-      with:
-        name: blame-dump-shard-${{ matrix.shard }}
-        path: |
-          /tmp/test-results/**/*.dmp
-          /tmp/test-results/**/*Sequence*.xml
-        retention-days: 3
-        if-no-files-found: ignore
-
-    - name: Report hung tests
-      continue-on-error: true
-      if: always()
-      run: |
-        shopt -s nullglob globstar
-        found=false
-        for seq in /tmp/test-results/**/*Sequence*.xml; do
-          if [ "$found" = false ]; then
-            echo "## :warning: Hung tests detected (shard ${{ matrix.shard }})" >> "$GITHUB_STEP_SUMMARY"
-            echo '```xml' >> "$GITHUB_STEP_SUMMARY"
-            found=true
-          fi
-          cat "$seq" >> "$GITHUB_STEP_SUMMARY"
-        done
-        if [ "$found" = true ]; then
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          if [ -n "${{ steps.upload-dumps.outputs.artifact-url }}" ]; then
-            echo ":floppy_disk: [Download crash dump](${{ steps.upload-dumps.outputs.artifact-url }})" >> "$GITHUB_STEP_SUMMARY"
-          fi
-        fi
 
   yaml-linter:
     name: YAML Linter

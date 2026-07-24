@@ -35,6 +35,13 @@ from datetime import datetime
 
 DEFAULT_TIMINGS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test-timings.json")
 
+# Each shard's runsettings is built from the same base the unsharded jobs use
+# (.github/ci.runsettings), with only the shard's <Where> filter added, so the
+# integration and content jobs share one NUnit run config. The script lives at
+# Tools/_Starlight/, so the repo root is two directories up.
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DEFAULT_BASE_RUNSETTINGS = os.path.join(_REPO_ROOT, ".github", "ci.runsettings")
+
 
 # test for now.
 HARVEST_SIG_FIGS = 2        # round timing to x numbers
@@ -404,6 +411,42 @@ def build_filter(methods):
     return "||".join(f"method=='{m}'" for m in sorted(methods))
 
 
+def load_base_runsettings(path):
+    """Read the base runsettings text, or None if it cannot be read."""
+    if not path or not os.path.exists(path):
+        return None
+    try:
+        with open(path) as f:
+            return f.read()
+    except OSError as e:
+        print(f"Warning: could not read base runsettings {path}: {e}", file=sys.stderr)
+        return None
+
+
+def build_runsettings(base_text, filter_expr):
+    """Return the base runsettings with the shard's NUnit <Where> filter added.
+
+    The base is .github/ci.runsettings, so every shard inherits the same NUnit
+    run config (e.g. MapWarningTo, and anything added later) as the unsharded
+    jobs. The <Where> is injected just before the closing </NUnit>. If the base
+    is missing or has no <NUnit> section, fall back to a minimal wrapper so
+    generation never fails.
+    """
+    where = f"<Where>{filter_expr}</Where>"
+    if base_text:
+        m = re.search(r"([ \t]*)</NUnit>", base_text)
+        if m:
+            indent = m.group(1) + "  "
+            return f"{base_text[:m.start()]}{indent}{where}\n{base_text[m.start():]}"
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            "<RunSettings>\n"
+            "  <NUnit>\n"
+            "    <MapWarningTo>Failed</MapWarningTo>\n"
+            f"    {where}\n"
+            "  </NUnit>\n"
+            "</RunSettings>\n")
+
+
 def cmd_generate():
     if len(sys.argv) not in (4, 5):
         print(f"Usage: {sys.argv[0]} generate <total-shards> <output-dir> [timings-file]", file=sys.stderr)
@@ -447,6 +490,12 @@ def cmd_generate():
 
     os.makedirs(output_dir, exist_ok=True)
 
+    base_runsettings = load_base_runsettings(DEFAULT_BASE_RUNSETTINGS)
+    if base_runsettings is None:
+        print(f"No base runsettings at {DEFAULT_BASE_RUNSETTINGS}; using minimal template", file=sys.stderr)
+    else:
+        print(f"Extending base runsettings {DEFAULT_BASE_RUNSETTINGS} with each shard's filter", file=sys.stderr)
+
     # Greedy load-balancing: assign heaviest classes first to least-loaded shard
     shards = [[] for _ in range(total)]
     shard_loads = [0.0] * total
@@ -465,13 +514,7 @@ def cmd_generate():
 
         rs_path = os.path.join(output_dir, f"shard_{shard}.runsettings")
         with open(rs_path, "w", newline="\n") as f:
-            f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-            f.write("<RunSettings>\n")
-            f.write("  <NUnit>\n")
-            f.write("    <MapWarningTo>Failed</MapWarningTo>\n")
-            f.write(f"    <Where>{filter_expr}</Where>\n")
-            f.write("  </NUnit>\n")
-            f.write("</RunSettings>\n")
+            f.write(build_runsettings(base_runsettings, filter_expr))
 
 def cmd_read():
     if len(sys.argv) != 3:
