@@ -210,13 +210,13 @@ jobs:
       - yaml-linter
     runs-on: ubuntu-latest
     steps:
-      # Only the merge script is needed from the repo; the trx come from artifacts.
+      # Checkout is needed so the inline dorny reporter can resolve stack-trace
+      # paths against tracked files (`git ls-files`); the trx come from artifacts.
       - name: Checkout
         uses: actions/checkout@v7
 
       # Pull every shard's trx into one tree. Each artifact lands in its own
-      # subdirectory (test-trx-shard-<N>), and the file inside is named
-      # shard_<N>_results.trx, so the shard label survives for tagging.
+      # subdirectory (test-trx-shard-<N>).
       - name: Download shard test results
         continue-on-error: true
         uses: actions/download-artifact@v8
@@ -224,17 +224,19 @@ jobs:
           pattern: test-trx-shard-*
           path: /tmp/shard-trx
 
-      # Fold the per-shard trx into a single combined trx, tagging each result
-      # with the shard it ran on. Reporting must never break the required check,
-      # so a failure here is tolerated (the merged report is best-effort).
+      # Fold the per-shard trx into a single combined trx with the dotnet-trx-merge
+      # global tool (.NET SDK is preinstalled on the runner). Reporting must never
+      # break the required check, so a failure here is tolerated (the merged report
+      # is best-effort).
       - name: Merge shard results into one trx
         continue-on-error: true
         run: |
-          python3 Tools/_Starlight/merge_shard_trx.py /tmp/shard-trx /tmp/combined/integration.trx
+          dotnet tool install --global dotnet-trx-merge --version 2.2.0
+          mkdir -p /tmp/combined
+          trx-merge --dir /tmp/shard-trx --recursive --output /tmp/combined/integration.trx
 
       # One report for the whole suite. No `artifact:` regex, so dorny reads the
-      # local merged file and emits a single "Integration Tests" check run; the
-      # shard origin is carried in each test name and failure message.
+      # local merged file and emits a single "Integration Tests" check run.
       - name: Generate intergration test report.
         uses: dorny/test-reporter@v3
         with:

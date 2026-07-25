@@ -5,9 +5,9 @@ CI publishes test results as GitHub check runs using `dorny/test-reporter`, with
 failure annotations linked to the source file and line. Each test job emits a
 VSTest `.trx`, which is what the reporter reads. The sharded integration job
 emits one `.trx` per shard; the `ci-success` job merges them into a single
-combined `.trx` (tagging each result with the shard it ran on) so the whole
-suite reports as one check run instead of one per shard. Same-repo runs report
-inline, fork PRs report via a second workflow triggered by `workflow_run`.
+combined `.trx` so the whole suite reports as one check run instead of one per
+shard. Same-repo runs report inline, fork PRs report via a second workflow
+triggered by `workflow_run`.
 
 ## Prerequisites
 - Tests run through `dotnet test` with `NUnit3TestAdapter` and
@@ -66,19 +66,19 @@ inline, fork PRs report via a second workflow triggered by `workflow_run`.
    ```
 
 4. Merge the shards for the same-repo integration report. Each shard uploads
-   `test-trx-shard-<N>`; `ci-success` downloads them all, runs
-   `Tools/_Starlight/merge_shard_trx.py <in-dir> <out.trx>` to fold them into one
-   combined `.trx`, and points a single `dorny/test-reporter` step at the local
-   file (no `artifact:` regex). The merge appends ` [shard N]` to every result's
-   `testName` and prefixes each failure `<Message>`, so the combined report still
-   shows which shard a result came from. The shard label is taken from the
-   `shard_<N>_results.trx` filename (or its `test-trx-shard-<N>` directory).
+   `test-trx-shard-<N>`; `ci-success` downloads them all and folds them into one
+   combined `.trx` with the `dotnet-trx-merge` global tool
+   (`trx-merge --dir <in-dir> --recursive --output <out.trx>`), then points a
+   single `dorny/test-reporter` step at the local file (no `artifact:` regex).
+   The merge does not tag results with their shard, so a failure in the combined
+   report does not identify which shard it ran on; download the individual
+   `test-trx-shard-<N>` artifact to trace one back.
 
 5. Report fork PRs from `.github/workflows/test-report.yml`, which runs on
    `workflow_run` in the base repo's context and reads the artifact by name (a
    `/regex/` matches one artifact per shard, with `$1` interpolated into `name`).
    The fork path is **not** merged — it still reports one check run per shard,
-   because the merge script needs the shard `.trx` on the same runner and the
+   because the merge step needs the shard `.trx` on the same runner and the
    `workflow_run` reporter consumes artifacts by name through the API.
 
 ## Notes
