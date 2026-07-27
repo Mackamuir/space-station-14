@@ -208,7 +208,10 @@ jobs:
       - content-tests
       - integration-tests
       - yaml-linter
-    runs-on: ubuntu-latest
+    # Pure orchestration: checkout + artifact download + Node-based dorny reporters
+    # + an echo. No compilation and no .NET, so the 1 vCPU ubuntu-slim image is a
+    # good fit (git/node are preinstalled on it).
+    runs-on: ubuntu-slim
     steps:
       # Checkout is needed so the inline dorny reporter can resolve stack-trace
       # paths against tracked files (`git ls-files`); the trx come from artifacts.
@@ -274,7 +277,9 @@ jobs:
       - integration-tests
       - yaml-linter
     if: always()
-    runs-on: ubuntu-latest
+    # Runs a single Node-based delete-artifact action — nothing CPU-bound — so the
+    # lightweight 1 vCPU ubuntu-slim image is plenty.
+    runs-on: ubuntu-slim
     steps:
       # Deleting an artifact needs `actions: write`, which a fork PR's read-only
       # token never gets. Tolerate the 403 there; `retention-days: 1` on the

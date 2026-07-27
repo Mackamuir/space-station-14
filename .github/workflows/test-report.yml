@@ -17,7 +17,9 @@ permissions:
 jobs:
   report:
     name: Publish test results
-    runs-on: ubuntu-latest
+    # Two Node-based dorny reporters and nothing else — no checkout, no build — so
+    # the lightweight 1 vCPU ubuntu-slim image is a good fit.
+    runs-on: ubuntu-slim
     if: >-
       ${{ github.event.workflow_run.conclusion != 'cancelled'
       && github.event.workflow_run.head_repository.full_name != github.repository }}

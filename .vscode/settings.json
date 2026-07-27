@@ -1,4 +1,5 @@
 {
+    "dotnet.unitTests.runSettingsPath": ".vscode/local.runsettings",
     "yaml.customTags": [
         "!type:AIShuntActionEvent mapping",
         "!type:AIUnShuntActionEvent mapping",
