@@ -303,6 +303,22 @@ jobs:
           failed-report: true
           exit-on-no-files: false
           exit-on-fail: false
+          suite-folded-report: true
+          summary-report: true
+          file-report: true
+          test-report: true
+          test-list-report: true
+          fail-rate-report: true
+          previous-results-max: 100
+          flaky-rate-report: true
+          failed-folded-report: true
+          previous-results-report: true
+          insights-report: true
+          slowest-report: true
+          skipped-report: true
+          suite-list-report: true
+          commit-report: true
+          pull-request-report: true
 
 
       - name: Fail if any dependency was not successful
