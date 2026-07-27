@@ -300,6 +300,7 @@ jobs:
           report-path: '/tmp/ctrf-results/**/*.json'
           title: Debug Test Results (CTRF)
           github-report: true
+          failed-report: true
           exit-on-no-files: false
           exit-on-fail: false
 
