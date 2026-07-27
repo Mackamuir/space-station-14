@@ -232,18 +232,19 @@ jobs:
       - name: Generate intergration test report.
         uses: dorny/test-reporter@v3
         with:
-          badge-title: 'Intergration Tests'
+          report-title: 'Intergration Tests'
           name: Integration Tests
           path: '/tmp/shard-trx/**/*.trx'
           reporter: dotnet-trx
           list-suites: all
           list-tests: failed
           fail-on-error: false
+          collapsed: 'true'
 
       - name: Generate content test report.
         uses: dorny/test-reporter@v3
         with:
-          badge-title: 'Content Tests'
+          report-title: 'Content Tests'
           name: Content Tests
           artifact: test-trx-content
           path: '*.trx'
@@ -251,6 +252,9 @@ jobs:
           list-suites: all
           list-tests: failed
           fail-on-error: false
+          collapsed: 'true'
+
+
       - name: Fail if any dependency was not successful
         if: ${{ needs.build.result != 'success' || needs['content-tests'].result != 'success' || needs['integration-tests'].result != 'success' || needs['yaml-linter'].result != 'success' }}
         run: |
