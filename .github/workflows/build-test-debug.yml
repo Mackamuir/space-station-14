@@ -53,7 +53,7 @@ jobs:
 
     - name: Discover Integration Tests
       run: |
-        dotnet test --list-tests --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj 2>&1 | \
+        dotnet test --list-tests --no-build --configuration DebugOpt --settings .github/ci-list-tests.runsettings Content.IntegrationTests/Content.IntegrationTests.csproj 2>&1 | \
           python3 Tools/_Starlight/partition_tests.py generate 6 .integration-filters
 
     - name: Archive build output

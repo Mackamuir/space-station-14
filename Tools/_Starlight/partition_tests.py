@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Partitions test classes across shards for parallel CI execution.
+Partitions test fixture files across shards for parallel CI execution.
 
 Mode 1 - Generate all shard filters to files:
     dotnet test --list-tests ... | python3 partition_tests.py generate <total-shards> <output-dir> [timings-file]
@@ -302,24 +302,26 @@ def parse_tests(lines):
     return tests
 
 
-def extract_classes(tests):
-    """Extract unique test method groups with test counts from display names.
+def extract_test_files(tests):
+    """Group test cases by their fully-qualified NUnit fixture.
 
-    --list-tests outputs display names:
-      - Windows:  MethodName  or  MethodName(params)
-      - Linux:    FixtureName.MethodName  or  FixtureName.MethodName(params)
-
-    We always extract the METHOD name as the group key so behaviour is
-    consistent across platforms and the Name~ filter works everywhere.
+    Integration test fixtures conventionally live one per C# test file, so the
+    fixture is the stable unit that must stay together when assigning shards.
+    Discovery uses an NUnit runsettings file that requests FullName display
+    names on every platform.
     """
-    counts = {}
+    test_files = {}
     for test in tests:
         name = test.split("(")[0].strip()
-        # If format is "Fixture.Method", take just the method part
         dot = name.rfind(".")
-        method = name[dot + 1:] if dot > 0 else name
-        counts[method] = counts.get(method, 0) + 1
-    return counts
+        if dot <= 0:
+            raise ValueError(
+                f"test name is not fully qualified: {test!r}; "
+                "discover tests with .github/ci-list-tests.runsettings"
+            )
+        fixture = name[:dot]
+        test_files.setdefault(fixture, []).append(test)
+    return test_files
 
 
 def load_timings(path):
@@ -399,16 +401,15 @@ def method_of(test_name):
     return name[dot + 1:] if dot > 0 else name
 
 
-def build_filter(methods):
-    """Build a NUnit.Where expression from method names.
+def build_filter(test_files):
+    """Build a NUnit.Where expression from fully-qualified fixture names.
 
-    Uses NUnit Test Selection Language with exact method name matching.
-    This avoids substring issues (e.g. 'Test' matching 'TestConnect')
-    that plague VSTest Name~ filters.
+    Selecting whole fixture classes keeps every test case declared by a test
+    file on the same shard.
     """
-    if not methods:
+    if not test_files:
         return ""
-    return "||".join(f"method=='{m}'" for m in sorted(methods))
+    return "||".join(f"class=='{fixture}'" for fixture in sorted(test_files))
 
 
 def load_base_runsettings(path):
@@ -463,30 +464,47 @@ def cmd_generate():
         print("Error: no tests discovered from input", file=sys.stderr)
         sys.exit(1)
 
-    class_counts = extract_classes(tests)
-    print(f"Discovered {len(tests)} tests in {len(class_counts)} classes, distributing across {total} shards", file=sys.stderr)
+    try:
+        test_files = extract_test_files(tests)
+    except ValueError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+    file_counts = {fixture: len(file_tests) for fixture, file_tests in test_files.items()}
+    method_counts = {}
+    for test in tests:
+        method = method_of(test)
+        method_counts[method] = method_counts.get(method, 0) + 1
+    print(f"Discovered {len(tests)} tests in {len(test_files)} test files, distributing across {total} shards", file=sys.stderr)
 
     timings = load_timings(timings_path)
 
     if timings:
         # Estimate unknown methods from the median per-test duration.
-        rates = sorted(timings[c] / class_counts[c] for c in class_counts if c in timings)
+        measured_rates = {
+            method: timings[method] / count
+            for method, count in method_counts.items()
+            if method in timings
+        }
+        rates = sorted(measured_rates.values())
         median_per_test = statistics.median(rates) if rates else 1.0
         print(f"Using measured timings from {timings_path}: "
-              f"{len(rates)}/{len(class_counts)} classes have data, "
+              f"{len(rates)}/{len(method_counts)} methods have data, "
               f"fallback = {median_per_test:.3f}s/test (median)", file=sys.stderr)
 
-        def class_weight(cls):
-            if cls in timings:
-                return timings[cls]
-            return class_counts[cls] * median_per_test
+        def file_weight(fixture):
+            return sum(
+                measured_rates.get(method_of(test), median_per_test)
+                for test in test_files[fixture]
+            )
     else:
         # no timings file, weight by count * manual override.
         print(f"No timings file at {timings_path}; using WEIGHT_OVERRIDES fallback", file=sys.stderr)
 
-        def class_weight(cls):
-            multiplier = WEIGHT_OVERRIDES.get(cls, 1.0)
-            return class_counts[cls] * multiplier
+        def file_weight(fixture):
+            return sum(
+                WEIGHT_OVERRIDES.get(method_of(test), 1.0)
+                for test in test_files[fixture]
+            )
 
     os.makedirs(output_dir, exist_ok=True)
 
@@ -496,21 +514,21 @@ def cmd_generate():
     else:
         print(f"Extending base runsettings {DEFAULT_BASE_RUNSETTINGS} with each shard's filter", file=sys.stderr)
 
-    # Greedy load-balancing: assign heaviest classes first to least-loaded shard
+    # Greedy load-balancing: assign heaviest test files first to the least-loaded shard.
     shards = [[] for _ in range(total)]
     shard_loads = [0.0] * total
-    for cls in sorted(class_counts, key=class_weight, reverse=True):
+    for fixture in sorted(test_files, key=file_weight, reverse=True):
         lightest = min(range(total), key=lambda s: shard_loads[s])
-        shards[lightest].append(cls)
-        shard_loads[lightest] += class_weight(cls)
+        shards[lightest].append(fixture)
+        shard_loads[lightest] += file_weight(fixture)
 
     for shard in range(total):
-        my_classes = sorted(shards[shard])
-        filter_expr = build_filter(my_classes)
-        print(f"  Shard {shard}: {len(my_classes)} classes, weight {shard_loads[shard]:.1f} ({sum(class_counts[c] for c in my_classes)} tests)", file=sys.stderr)
-        for cls in my_classes:
-            w = class_weight(cls)
-            print(f"    - {cls} ({class_counts[cls]} tests, weight {w:.1f})", file=sys.stderr)
+        my_files = sorted(shards[shard])
+        filter_expr = build_filter(my_files)
+        print(f"  Shard {shard}: {len(my_files)} test files, weight {shard_loads[shard]:.1f} ({sum(file_counts[f] for f in my_files)} tests)", file=sys.stderr)
+        for fixture in my_files:
+            weight = file_weight(fixture)
+            print(f"    - {fixture} ({file_counts[fixture]} tests, weight {weight:.1f})", file=sys.stderr)
 
         rs_path = os.path.join(output_dir, f"shard_{shard}.runsettings")
         with open(rs_path, "w", newline="\n") as f:
@@ -531,10 +549,10 @@ def cmd_read():
     root = ET.fromstring(content)
     where = root.findtext("NUnit/Where", default="").strip()
     if where:
-        methods = [part.replace("method==", "").strip("' ") for part in where.split("||")]
-        print(f"Running {len(methods)} test groups:", file=sys.stderr)
-        for m in methods:
-            print(f"  - {m}", file=sys.stderr)
+        fixtures = [part.replace("class==", "").strip("' ") for part in where.split("||")]
+        print(f"Running {len(fixtures)} test files:", file=sys.stderr)
+        for fixture in fixtures:
+            print(f"  - {fixture}", file=sys.stderr)
         print(where)
 
 
