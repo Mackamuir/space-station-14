@@ -259,30 +259,30 @@ jobs:
       # reads all six shards' local files directly and emits one "Integration
       # Tests" check run. (Each artifact extracts under its own
       # test-nunit-shard-<N>/ subdir, hence the recursive **.)
-      - name: Generate intergration test report.
-        uses: dorny/test-reporter@v3
-        with:
-          report-title: 'Intergration Tests'
-          name: Integration Tests
-          path: '/tmp/shard-nunit/**/*.xml'
-          reporter: dotnet-nunit
-          list-suites: all
-          list-tests: failed
-          fail-on-error: false
-          collapsed: 'always'
+      # - name: Generate intergration test report.
+      #   uses: dorny/test-reporter@v3
+      #   with:
+      #     report-title: 'Intergration Tests'
+      #     name: Integration Tests
+      #     path: '/tmp/shard-nunit/**/*.xml'
+      #     reporter: dotnet-nunit
+      #     list-suites: all
+      #     list-tests: failed
+      #     fail-on-error: false
+      #     collapsed: 'always'
 
-      - name: Generate content test report.
-        uses: dorny/test-reporter@v3
-        with:
-          report-title: 'Content Tests'
-          name: Content Tests
-          artifact: test-nunit-content
-          path: '*.xml'
-          reporter: dotnet-nunit
-          list-suites: all
-          list-tests: failed
-          fail-on-error: false
-          collapsed: 'always'
+      # - name: Generate content test report.
+      #   uses: dorny/test-reporter@v3
+      #   with:
+      #     report-title: 'Content Tests'
+      #     name: Content Tests
+      #     artifact: test-nunit-content
+      #     path: '*.xml'
+      #     reporter: dotnet-nunit
+      #     list-suites: all
+      #     list-tests: failed
+      #     fail-on-error: false
+      #     collapsed: 'always'
 
       # The CTRF report is additive: the native NUnit artifacts above continue
       # to feed dorny, while the JSON copies feed the CTRF reporter.
