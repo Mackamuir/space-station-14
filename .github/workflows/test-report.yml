@@ -6,9 +6,7 @@ on:
     types:
       - completed
 
-# No checkout step: in `artifact:` mode the reporter lists tracked files through
-# the GitHub API at the head sha rather than shelling out to `git ls-files`, so
-# it can resolve stack-trace paths to source files without a working tree.
+# No checkout step is required because both reporters read uploaded artifacts.
 permissions:
   contents: read
   actions: read
@@ -27,10 +25,10 @@ jobs:
       - name: Content Tests
         uses: dorny/test-reporter@v3
         with:
-          artifact: test-trx-content
+          artifact: test-nunit-content
           name: Content Tests
-          path: '**/*.trx'
-          reporter: dotnet-trx
+          path: '**/*.xml'
+          reporter: dotnet-nunit
           list-suites: all
           list-tests: failed
           fail-on-error: false
@@ -39,10 +37,10 @@ jobs:
       - name: Integration Tests
         uses: dorny/test-reporter@v3
         with:
-          artifact: /test-trx-shard-(.*)/
+          artifact: /test-nunit-shard-(.*)/
           name: 'Integration Tests (shard $1)'
-          path: '**/*.trx'
-          reporter: dotnet-trx
+          path: '**/*.xml'
+          reporter: dotnet-nunit
           list-suites: all
           list-tests: failed
           fail-on-error: false

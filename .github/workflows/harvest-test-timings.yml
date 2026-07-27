@@ -69,12 +69,6 @@ jobs:
             --blame-hang --blame-hang-timeout 5min \
             -- NUnit.NumberOfTestWorkers=1 2>&1 | tee /tmp/test-logs/integration-tests.log
 
-      - name: Report integration test errors
-        if: always()
-        run: |
-          grep -nE -C 8 'SERVER:.*\[ERRO\]|CLIENT:.*\[ERRO\]|ExecuteError|UnhandledException|Exception:|Failed to execute toolshed command|crash|fatal' /tmp/test-logs/integration-tests.log \
-            >> "$GITHUB_STEP_SUMMARY" || true
-
       - name: Report Content.IntegrationTests results
         if: success() || failure()
         uses: dorny/test-reporter@v3
