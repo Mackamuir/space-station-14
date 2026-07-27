@@ -49,10 +49,12 @@ jobs:
       run: dotnet build --configuration DebugOpt --no-restore /m
 
     - name: Run Content.Tests
+      if: always()
       shell: pwsh
       run: dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj -- NUnit.ConsoleOut=0 NUnit.TestOutputXml="logs" NUnit.WorkDirectory="$(pwd)/test_results"
 
     - name: Run Content.IntegrationTests
+      if: always()
       shell: pwsh
       run: |
         $env:DOTNET_gcServer=1
