@@ -53,7 +53,7 @@ jobs:
 
     - name: Discover Integration Tests
       run: |
-        dotnet test --list-tests --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj 2>&1 | \
+        dotnet test --list-tests --no-build --configuration DebugOpt --settings .github/ci-list-tests.runsettings Content.IntegrationTests/Content.IntegrationTests.csproj 2>&1 | \
           python3 Tools/_Starlight/partition_tests.py generate 6 .integration-filters
 
     - name: Archive build output
@@ -300,25 +300,15 @@ jobs:
           report-path: '/tmp/ctrf-results/**/*.json'
           title: Debug Test Results (CTRF)
           github-report: true
-          failed-report: true
+          failed-folded-report: true
           exit-on-no-files: false
           exit-on-fail: false
-          suite-folded-report: true
-          summary-report: true
-          file-report: true
-          test-report: true
-          test-list-report: true
-          fail-rate-report: true
-          previous-results-max: 100
-          flaky-rate-report: true
-          failed-folded-report: true
-          previous-results-report: true
-          insights-report: true
-          slowest-report: true
-          skipped-report: true
-          suite-list-report: true
-          commit-report: true
-          pull-request-report: true
+          status-check: true
+          status-check-name: 'GitHub Test Reporter Results'
+          community-report: true
+          community-report-name: failed-detailed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
       - name: Fail if any dependency was not successful
