@@ -45,7 +45,6 @@ def main():
             "--list-tests",
             "--no-build",
             "--configuration", "DebugOpt",
-            "--settings", ".github/ci-list-tests.runsettings",
             "Content.IntegrationTests/Content.IntegrationTests.csproj",
         ],
         env=env,
