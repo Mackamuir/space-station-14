@@ -242,7 +242,7 @@ jobs:
           list-suites: all
           list-tests: failed
           fail-on-error: false
-          collapsed: 'true'
+          collapsed: 'always'
 
       - name: Generate content test report.
         uses: dorny/test-reporter@v3
@@ -255,7 +255,7 @@ jobs:
           list-suites: all
           list-tests: failed
           fail-on-error: false
-          collapsed: 'true'
+          collapsed: 'always'
 
 
       - name: Fail if any dependency was not successful
