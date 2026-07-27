@@ -98,17 +98,31 @@ jobs:
     - name: Run Content.Tests
       run: |
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --results-directory /tmp/test-results --settings .github/ci.runsettings
+          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=test-results.trx" --results-directory /tmp/test-results --settings .github/ci.runsettings
+
+    - name: Convert Content.Tests results to CTRF
+      if: always()
+      run: |
+        if [ ! -f /tmp/test-results/test-results.trx ]; then
+          echo "No Content.Tests TRX result was produced; skipping CTRF conversion"
+          exit 0
+        fi
+        dotnet tool restore
+        dotnet tool run DotnetCtrfJsonReporter \
+          --trx-path /tmp/test-results/test-results.trx \
+          --output-directory /tmp/test-results/ctrf \
+          --test-tool nunit
 
     - name: Upload Content.Tests results
       uses: actions/upload-artifact@v6
       if: always()
       with:
         name: test-nunit-content
-        # Globbing the exact filename rather than the whole directory keeps blame
-        # and other diagnostic XML files out; test-report.yml reads this artifact
-        # for fork PRs.
-        path: /tmp/test-results/**/test-results.xml
+        # Upload only the two report files, keeping blame and other diagnostic XML
+        # files out; test-report.yml reads this artifact for fork PRs.
+        path: |
+          /tmp/test-results/**/test-results.xml
+          /tmp/test-results/ctrf/ctrf-report.json
         retention-days: 7
         if-no-files-found: ignore
 
@@ -152,7 +166,20 @@ jobs:
           exit 0
         fi
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --results-directory /tmp/test-results --settings "$RUNSETTINGS"
+          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=test-results.trx" --results-directory /tmp/test-results --settings "$RUNSETTINGS"
+
+    - name: Convert integration test results to CTRF
+      if: always()
+      run: |
+        if [ ! -f /tmp/test-results/test-results.trx ]; then
+          echo "No integration-test TRX result was produced; skipping CTRF conversion"
+          exit 0
+        fi
+        dotnet tool restore
+        dotnet tool run DotnetCtrfJsonReporter \
+          --trx-path /tmp/test-results/test-results.trx \
+          --output-directory /tmp/test-results/ctrf \
+          --test-tool nunit
 
     # test-report.yml reads these for fork PRs, matching the artifacts by the
     # regex /test-nunit-shard-(.*)/ and creating one check run per shard.
@@ -161,7 +188,9 @@ jobs:
       if: always()
       with:
         name: test-nunit-shard-${{ matrix.shard }}
-        path: /tmp/test-results/**/test-results.xml
+        path: |
+          /tmp/test-results/**/test-results.xml
+          /tmp/test-results/ctrf/ctrf-report.json
         retention-days: 7
         if-no-files-found: ignore
 
@@ -206,8 +235,8 @@ jobs:
       - content-tests
       - integration-tests
       - yaml-linter
-    # Pure orchestration: checkout + artifact download + Node-based dorny reporters
-    # + an echo. No compilation and no .NET, so the 1 vCPU ubuntu-slim image is a
+    # Pure orchestration: checkout + artifact download + Node-based reporters +
+    # an echo. No compilation and no .NET, so the 1 vCPU ubuntu-slim image is a
     # good fit (git/node are preinstalled on it).
     runs-on: ubuntu-slim
     steps:
@@ -254,6 +283,25 @@ jobs:
           list-tests: failed
           fail-on-error: false
           collapsed: 'always'
+
+      # The CTRF report is additive: the native NUnit artifacts above continue
+      # to feed dorny, while the JSON copies feed the CTRF reporter.
+      - name: Download CTRF test results
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          pattern: test-nunit-*
+          path: /tmp/ctrf-results
+
+      - name: Generate CTRF test report
+        if: always()
+        uses: ctrf-io/github-test-reporter@v1
+        with:
+          report-path: '/tmp/ctrf-results/**/*.json'
+          title: Debug Test Results (CTRF)
+          github-report: true
+          exit-on-no-files: false
+          exit-on-fail: false
 
 
       - name: Fail if any dependency was not successful

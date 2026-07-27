@@ -6,7 +6,7 @@ on:
     types:
       - completed
 
-# No checkout step is required because both reporters read uploaded artifacts.
+# No checkout step is required because the reporters read uploaded artifacts.
 permissions:
   contents: read
   actions: read
@@ -15,8 +15,8 @@ permissions:
 jobs:
   report:
     name: Publish test results
-    # Two Node-based dorny reporters and nothing else — no checkout, no build — so
-    # the lightweight 1 vCPU ubuntu-slim image is a good fit.
+    # Reporting actions only — no checkout or build — so the lightweight 1 vCPU
+    # ubuntu-slim image is a good fit.
     runs-on: ubuntu-slim
     if: >-
       ${{ github.event.workflow_run.conclusion != 'cancelled'
@@ -45,3 +45,23 @@ jobs:
           list-tests: failed
           fail-on-error: false
           fail-on-empty: false
+
+      - name: Download CTRF test results
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          pattern: test-nunit-*
+          path: /tmp/ctrf-results
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: CTRF Test Results
+        if: always()
+        uses: ctrf-io/github-test-reporter@v1
+        with:
+          report-path: '/tmp/ctrf-results/**/*.json'
+          title: Debug Test Results (CTRF)
+          github-report: true
+          exit-on-no-files: false
+          exit-on-fail: false
