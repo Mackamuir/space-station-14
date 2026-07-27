@@ -181,8 +181,6 @@ jobs:
           --output-directory /tmp/test-results/ctrf \
           --test-tool nunit
 
-    # test-report.yml reads these for fork PRs, matching the artifacts by the
-    # regex /test-nunit-shard-(.*)/ and creating one check run per shard.
     - name: Upload test results
       uses: actions/upload-artifact@v6
       if: always()
