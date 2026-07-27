@@ -224,25 +224,17 @@ jobs:
           pattern: test-trx-shard-*
           path: /tmp/shard-trx
 
-      # Fold the per-shard trx into a single combined trx with the dotnet-trx-merge
-      # global tool (.NET SDK is preinstalled on the runner). Reporting must never
-      # break the required check, so a failure here is tolerated (the merged report
-      # is best-effort).
-      - name: Merge shard results into one trx
-        continue-on-error: true
-        run: |
-          dotnet tool install --global dotnet-trx-merge --version 2.2.0
-          mkdir -p /tmp/combined
-          trx-merge --dir /tmp/shard-trx --recursive --output /tmp/combined/integration.trx
-
-      # One report for the whole suite. No `artifact:` regex, so dorny reads the
-      # local merged file and emits a single "Integration Tests" check run.
+      # One report for the whole suite. dorny accepts a glob and aggregates every
+      # matched trx into a single check run, so no pre-merge step is needed — it
+      # reads all six shards' local files directly and emits one "Integration
+      # Tests" check run. (Each artifact extracts under its own
+      # test-trx-shard-<N>/ subdir, hence the recursive **.)
       - name: Generate intergration test report.
         uses: dorny/test-reporter@v3
         with:
           badge-title: 'Intergration Tests'
           name: Integration Tests
-          path: '/tmp/combined/*.trx'
+          path: '/tmp/shard-trx/**/*.trx'
           reporter: dotnet-trx
           list-suites: all
           list-tests: failed
