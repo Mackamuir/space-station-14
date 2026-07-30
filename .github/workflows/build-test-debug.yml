@@ -97,12 +97,15 @@ jobs:
     # failures when teardown adds a warning to the same result.
     #
     # The test app is executed directly rather than through `dotnet test` so the
-    # step log is the test platform's own output. The TRX report is written for
-    # the reporters downstream and is never rendered into the log.
+    # step log is the test platform's own output. Banner, ANSI redraws and the
+    # live progress display are off, and ci.runsettings suppresses per-test
+    # console output, which leaves failures (message and stack trace) and the
+    # final summary as the only things in the log. Full per-test detail lives in
+    # the TRX and NUnit XML artifacts.
     - name: Run Content.Tests
       run: |
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet exec bin/Content.Tests/Content.Tests.dll --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings .github/ci.runsettings
+          dotnet exec bin/Content.Tests/Content.Tests.dll --no-banner --no-ansi --no-progress --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings .github/ci.runsettings
 
     - name: Convert Content.Tests results to CTRF
       if: always()
@@ -170,7 +173,7 @@ jobs:
           exit 0
         fi
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet exec bin/Content.IntegrationTests/Content.IntegrationTests.dll --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings "$RUNSETTINGS"
+          dotnet exec bin/Content.IntegrationTests/Content.IntegrationTests.dll --no-banner --no-ansi --no-progress --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings "$RUNSETTINGS"
 
     - name: Convert integration test results to CTRF
       if: always()

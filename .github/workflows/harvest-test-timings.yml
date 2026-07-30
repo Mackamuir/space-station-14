@@ -60,6 +60,7 @@ jobs:
               --show-child-io \
               -- \
               dotnet exec bin/Content.IntegrationTests/Content.IntegrationTests.dll \
+                --no-banner --no-ansi --no-progress \
                 --report-trx \
                 --report-trx-filename results.trx \
                 --results-directory /tmp/test-results \
