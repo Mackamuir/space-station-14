@@ -1,4 +1,23 @@
 <Project>
+  <PropertyGroup Condition="'$(IsTestProject)' == 'true'
+                            and '$(EnableNUnitRunner)' == 'false'">
+    <!-- RobustToolbox has its own Directory.Build.props, so its NUnit adapter
+         initially evaluates with MTP disabled. This makes it not do that. -->
+    <_EnableNUnitRunnerLate>true</_EnableNUnitRunnerLate>
+    <_LateNUnitAdapterVersion>5.2.0</_LateNUnitAdapterVersion>
+    <EnableNUnitRunner>true</EnableNUnitRunner>
+    <IsTestingPlatformApplication>true</IsTestingPlatformApplication>
+    <GenerateProgramFile>false</GenerateProgramFile>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(_EnableNUnitRunnerLate)' == 'true'">
+    <Reference Include="NUnit3.TestAdapter">
+      <HintPath>$(NuGetPackageRoot)nunit3testadapter/$(_LateNUnitAdapterVersion)/build/netcoreapp3.1/NUnit3.TestAdapter.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
   <!--
     Serilog.Sinks.Http 7.2.0 (pulled transitively via Serilog.Sinks.Loki in Robust.Server)
     hard-pins Microsoft.Extensions.Configuration to 3.1.9. Orleans 10.0.1 (Content.Server)

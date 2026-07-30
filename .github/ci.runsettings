@@ -3,7 +3,7 @@
   <NUnit>
     <MapWarningTo>Failed</MapWarningTo>
     <!-- Write the native NUnit result tree before the adapter converts it to
-         VSTest. The conversion can discard messages from multiple assertions
+         MTP. The conversion can discard messages from multiple assertions
          when a teardown warning is also present. -->
     <OutputXmlFolderMode>UseResultDirectory</OutputXmlFolderMode>
     <!-- NUnit appends the .xml extension to this base filename. -->
