@@ -40,6 +40,9 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
 
+      - name: Restore .NET tools
+        run: dotnet tool restore
+
       - name: Build Project
         run: dotnet build --configuration DebugOpt /m
 
@@ -48,27 +51,30 @@ jobs:
         env:
           DOTNET_gcServer: "1"
         run: |
-          set -o pipefail
-          mkdir -p /tmp/test-logs
-          # Sample system memory (KiB in use) once a second for the whole run.
-          # Tests run single-worker, so their TRX [startTime, endTime] windows do
-          # not overlap and each sample belongs to exactly one test.
-          rm -f /tmp/rss.log
-          ( while true; do
-              echo "$(date +%s) $(awk '/^MemTotal:/{t=$2} /^MemAvailable:/{a=$2} END{print t-a}' /proc/meminfo)" >> /tmp/rss.log
-              sleep 1
-            done ) &
-          sampler_pid=$!
-          trap 'kill "$sampler_pid" 2>/dev/null || true' EXIT
-
-          dotnet test --project Content.IntegrationTests/Content.IntegrationTests.csproj \
-            --no-build --configuration DebugOpt \
-            --report-trx \
-            --report-trx-filename results.trx \
-            --output Detailed \
-            --results-directory /tmp/test-results \
-            --hangdump --hangdump-timeout 5min \
-            --settings .github/ci-sequential.runsettings 2>&1 | tee /tmp/test-logs/integration-tests.log
+          mkdir -p /tmp/test-logs /tmp/test-results
+          set +e
+          timeout --signal=TERM --kill-after=2m 300m \
+            dotnet tool run dotnet-trace -- collect \
+              --profile gc-verbose \
+              --output /tmp/test-results/integration-tests.nettrace \
+              --show-child-io \
+              -- \
+              dotnet exec bin/Content.IntegrationTests/Content.IntegrationTests.dll \
+                --report-trx \
+                --report-trx-filename results.trx \
+                --results-directory /tmp/test-results \
+                --hangdump --hangdump-timeout 5min \
+                --settings .github/ci-sequential.runsettings \
+            > /tmp/test-logs/integration-tests.log 2>&1
+          test_rc=$?
+          set -e
+          if [ "$test_rc" -eq 0 ]; then
+            cat /tmp/test-logs/integration-tests.log
+          else
+            echo "Content.IntegrationTests failed with exit code $test_rc; showing the last 100 log lines."
+            tail -n 100 /tmp/test-logs/integration-tests.log
+          fi
+          exit "$test_rc"
 
       - name: Report Content.IntegrationTests results
         if: success() || failure()
@@ -96,6 +102,15 @@ jobs:
         with:
           name: test-results-sequential
           path: /tmp/test-results/**/*.trx
+          retention-days: 14
+          if-no-files-found: ignore
+
+      - name: Upload memory trace
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: integration-test-memory-trace
+          path: /tmp/test-results/integration-tests.nettrace
           retention-days: 14
           if-no-files-found: ignore
 
@@ -175,11 +190,10 @@ jobs:
             python3 -c "import json;d=json.load(open('Tools/_Starlight/test-timings.json'));[print(f'{v:9.1f}s  {k}') for k,v in sorted(d.items(),key=lambda x:-x[1])[:15]]"
             echo '```'
             echo
-            echo "### Most memory-expensive 15 methods (by own contribution)"
-            echo "\`own\` = memory the method added above what was already in use at its start (its own cost; the sort key)."
-            echo "\`peak\` = highest system memory in use while it ran (what hits the runner's ceiling)."
-            echo '```'
-            python3 Tools/_Starlight/partition_tests.py memprofile /tmp/test-results /tmp/rss.log 15 2>/dev/null \
-              || echo "(memory profile unavailable — see the run log; needs TRX start/end times and /tmp/rss.log)"
-            echo '```'
+            echo "### Memory profile"
+            if [ -f /tmp/test-results/integration-tests.nettrace ]; then
+              echo "A \`dotnet-trace\` GC trace with sampled allocations is available in the \`integration-test-memory-trace\` artifact."
+            else
+              echo ":warning: No memory trace was produced."
+            fi
           } >> "$GITHUB_STEP_SUMMARY"

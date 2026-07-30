@@ -27,11 +27,9 @@ import os
 import json
 import glob
 import math
-import bisect
 import re
 import statistics
 import xml.etree.ElementTree as ET
-from datetime import datetime
 
 DEFAULT_TIMINGS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test-timings.json")
 
@@ -599,129 +597,9 @@ def cmd_harvest():
           f"{HARVEST_SIG_FIGS} sig figs)", file=sys.stderr)
 
 
-def _parse_trx_epoch(text):
-    """Parse a TRX startTime/endTime
-    """
-    text = (text or "").strip()
-    if not text:
-        return None
-    m = re.match(r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(\.\d+)?(Z|[+-]\d{2}:?\d{2})?$", text)
-    if not m:
-        return None
-    base, frac, tz = m.groups()
-    frac = ("." + frac[1:7]) if frac else ""
-    tz = "" if tz is None else ("+00:00" if tz == "Z" else tz)
-    try:
-        dt = datetime.fromisoformat(f"{base}{frac}{tz}")
-    except ValueError:
-        return None
-    return dt.timestamp()
-
-
-def cmd_memprofile():
-    """Attribute peak process memory to each test method from a sequential run.
-    """
-    args = sys.argv[2:]
-    json_path = None
-    if "--json" in args:
-        i = args.index("--json")
-        json_path = args[i + 1]
-        del args[i:i + 2]
-    if len(args) < 2:
-        print(f"Usage: {sys.argv[0]} memprofile <trx-dir> <rss-log> [top-n] [--json <path>]", file=sys.stderr)
-        sys.exit(1)
-    trx_dir, rss_log = args[0], args[1]
-    top_n = int(args[2]) if len(args) > 2 else 15
-
-    # Load 'epoch used_kib' samples.
-    samples = []
-    try:
-        with open(rss_log) as f:
-            for line in f:
-                parts = line.split()
-                if len(parts) >= 2:
-                    try:
-                        samples.append((float(parts[0]), float(parts[1])))
-                    except ValueError:
-                        continue
-    except OSError as e:
-        print(f"Error: could not read rss log {rss_log}: {e}", file=sys.stderr)
-        sys.exit(1)
-    samples.sort()
-    if not samples:
-        print("Error: no memory samples found; cannot profile", file=sys.stderr)
-        sys.exit(1)
-    times = [t for t, _ in samples]
-    vals = [v for _, v in samples]
-
-    def peak_between(a, b):
-        lo = bisect.bisect_left(times, a)
-        hi = bisect.bisect_right(times, b)
-        window = vals[lo:hi]
-        return max(window) if window else None
-
-    def value_at(t):
-        i = bisect.bisect_right(times, t) - 1
-        return vals[i] if i >= 0 else vals[0]
-
-    trx_files = glob.glob(os.path.join(trx_dir, "**", "*.trx"), recursive=True)
-    peak_by_method = {}
-    own_by_method = {}
-    missing_times = 0
-    for path in trx_files:
-        try:
-            root = ET.parse(path).getroot()
-        except ET.ParseError:
-            continue
-        for el in root.iter():
-            if not el.tag.endswith("UnitTestResult"):
-                continue
-            name = el.get("testName")
-            if not name:
-                continue
-            start = _parse_trx_epoch(el.get("startTime"))
-            end = _parse_trx_epoch(el.get("endTime"))
-            if start is None or end is None:
-                missing_times += 1
-                continue
-            pk = peak_between(start, end)
-            if pk is None:
-                continue  # test ran entirely between two samples; too fast to matter
-            method = method_of(name)
-            peak_by_method[method] = max(peak_by_method.get(method, 0.0), pk)
-            own = pk - value_at(start)
-            own_by_method[method] = max(own_by_method.get(method, 0.0), own)
-
-    if not peak_by_method:
-        if missing_times:
-            print("Error: TRX files lack startTime/endTime; cannot attribute memory", file=sys.stderr)
-        else:
-            print("Error: no test windows overlapped the memory samples", file=sys.stderr)
-        sys.exit(1)
-
-    ranked = sorted(own_by_method.items(), key=lambda kv: -kv[1])
-    if missing_times:
-        print(f"note: {missing_times} test case(s) had no start/end time and were skipped.",
-              file=sys.stderr)
-    print(f"Profiled {len(peak_by_method)} methods from {len(trx_files)} TRX files "
-          f"({len(samples)} samples).", file=sys.stderr)
-
-    # Human/summary-friendly table on stdout so a workflow can capture it directly.
-    print(f"{'own':>8}  {'peak':>8}  method")
-    for method, own in ranked[:top_n]:
-        peak = peak_by_method.get(method, 0.0)
-        print(f"{own / 1048576:7.2f}G  {peak / 1048576:7.2f}G  {method}")
-
-    if json_path:
-        out = {m: round(own / 1024, 1) for m, own in ranked}
-        with open(json_path, "w", newline="\n") as f:
-            json.dump(out, f, indent=2, sort_keys=True)
-            f.write("\n")
-
-
 def main():
     if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <generate|read|harvest|memprofile> ...", file=sys.stderr)
+        print(f"Usage: {sys.argv[0]} <generate|read|harvest> ...", file=sys.stderr)
         sys.exit(1)
 
     cmd = sys.argv[1]
@@ -731,8 +609,6 @@ def main():
         cmd_read()
     elif cmd == "harvest":
         cmd_harvest()
-    elif cmd == "memprofile":
-        cmd_memprofile()
     else:
         print(f"Unknown command: {cmd}", file=sys.stderr)
         sys.exit(1)

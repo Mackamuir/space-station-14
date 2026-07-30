@@ -8,6 +8,13 @@
         "DotnetCtrfJsonReporter"
       ],
       "rollForward": false
+    },
+    "dotnet-trace": {
+      "version": "9.0.661903",
+      "commands": [
+        "dotnet-trace"
+      ],
+      "rollForward": false
     }
   }
 }
