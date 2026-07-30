@@ -48,14 +48,33 @@ jobs:
 
       - name: Run all integration tests (single worker, no sharding)
         id: run-tests
-        env:
-          DOTNET_gcServer: "1"
         run: |
           mkdir -p /tmp/test-logs /tmp/test-results
           set -o pipefail
-          timeout --signal=TERM --kill-after=2m 300m \
+          # No --hangdump here, deliberately. Any test host controller extension
+          # (hangdump, crashdump) makes MTP re-launch itself as a child test host
+          # and wait for it on a named pipe. That child inherits the
+          # DOTNET_DiagnosticPorts=...,suspend that dotnet-trace sets, so it
+          # suspends at startup waiting for a ResumeStartup that dotnet-trace
+          # only ever sends to the process it launched. The child never connects,
+          # the controller's WaitConnectionAsync is cancelled, and the run dies
+          # with an unhandled OperationCanceledException before a single test
+          # runs. It would also be the wrong process to trace: the tests execute
+          # in the child, so the trace would be near-empty either way.
+          # The outer `timeout` is the hang guard instead, at 270m so it fires
+          # before the 300m job limit and the upload steps still run.
+          #
+          # gc-collect, not gc-verbose: over a multi-hour sequential run the
+          # sampled-allocation events in gc-verbose grow the nettrace to several
+          # GB, which risks filling the runner's disk mid-run. gc-collect keeps
+          # collection counts, pause times and heap sizes at negligible cost.
+          #
+          # No DOTNET_gcServer override: the run must use the same GC as the
+          # sharded CI job these timings are used to balance, or the weights are
+          # systematically skewed.
+          timeout --signal=TERM --kill-after=2m 270m \
             dotnet tool run dotnet-trace -- collect \
-              --profile gc-verbose \
+              --profile gc-collect \
               --output /tmp/test-results/integration-tests.nettrace \
               --show-child-io \
               -- \
@@ -64,7 +83,6 @@ jobs:
                 --report-trx-filename results.trx \
                 --output Detailed \
                 --results-directory /tmp/test-results \
-                --hangdump --hangdump-timeout 5min \
                 --settings .github/ci-sequential.runsettings \
             2>&1 | tee /tmp/test-logs/integration-tests.log
 
@@ -184,7 +202,7 @@ jobs:
             echo
             echo "### Memory profile"
             if [ -f /tmp/test-results/integration-tests.nettrace ]; then
-              echo "A \`dotnet-trace\` GC trace with sampled allocations is available in the \`integration-test-memory-trace\` artifact."
+              echo "A \`dotnet-trace\` \`gc-collect\` trace (collection counts, pause times and heap sizes over the run; no allocation call stacks) is available in the \`integration-test-memory-trace\` artifact."
             else
               echo ":warning: No memory trace was produced."
             fi
