@@ -95,22 +95,14 @@ jobs:
     # .github/ci.runsettings writes native NUnit XML before NUnit3TestAdapter
     # converts the result to MTP. This preserves individual Assert.Multiple
     # failures when teardown adds a warning to the same result.
+    #
+    # The test app is executed directly rather than through `dotnet test` so the
+    # step log is the test platform's own output. The TRX report is written for
+    # the reporters downstream and is never rendered into the log.
     - name: Run Content.Tests
       run: |
-        mkdir -p /tmp/test-results
-        set +e
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --project Content.Tests/Content.Tests.csproj --no-build --configuration DebugOpt --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings .github/ci.runsettings \
-          > /tmp/test-results/test-output.log 2>&1
-        test_rc=$?
-        set -e
-        if [ "$test_rc" -eq 0 ]; then
-          cat /tmp/test-results/test-output.log
-        else
-          echo "Content.Tests failed with exit code $test_rc; showing the last 100 log lines."
-          tail -n 100 /tmp/test-results/test-output.log
-        fi
-        exit "$test_rc"
+          dotnet exec bin/Content.Tests/Content.Tests.dll --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings .github/ci.runsettings
 
     - name: Convert Content.Tests results to CTRF
       if: always()
@@ -130,12 +122,11 @@ jobs:
       if: always()
       with:
         name: test-nunit-content
-        # Keep blame and other diagnostic XML files out; test-report.yml reads
-        # the report files from this artifact for fork PRs.
+        # Upload only the two report files, keeping blame and other diagnostic XML
+        # files out; test-report.yml reads this artifact for fork PRs.
         path: |
           /tmp/test-results/**/test-results.xml
           /tmp/test-results/ctrf/ctrf-report.json
-          /tmp/test-results/test-output.log
         retention-days: 7
         if-no-files-found: ignore
 
@@ -167,7 +158,7 @@ jobs:
       run: |
         dotnet restore Content.IntegrationTests/Content.IntegrationTests.csproj
 
-    # Same run config as Content.Tests: same dotnet test invocation, differing
+    # Same run config as Content.Tests: same direct test-app invocation, differing
     # only in the sharded runsettings (which itself extends .github/ci.runsettings
     # with the shard's <Where> filter). The shard existence check guards a shard
     # that was assigned no tests.
@@ -178,20 +169,8 @@ jobs:
           echo "No tests assigned to shard ${{ matrix.shard }}"
           exit 0
         fi
-        mkdir -p /tmp/test-results
-        set +e
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --project Content.IntegrationTests/Content.IntegrationTests.csproj --no-build --configuration DebugOpt --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings "$RUNSETTINGS" \
-          > /tmp/test-results/test-output.log 2>&1
-        test_rc=$?
-        set -e
-        if [ "$test_rc" -eq 0 ]; then
-          cat /tmp/test-results/test-output.log
-        else
-          echo "Content.IntegrationTests failed with exit code $test_rc; showing the last 100 log lines."
-          tail -n 100 /tmp/test-results/test-output.log
-        fi
-        exit "$test_rc"
+          dotnet exec bin/Content.IntegrationTests/Content.IntegrationTests.dll --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings "$RUNSETTINGS"
 
     - name: Convert integration test results to CTRF
       if: always()
@@ -214,7 +193,6 @@ jobs:
         path: |
           /tmp/test-results/**/test-results.xml
           /tmp/test-results/ctrf/ctrf-report.json
-          /tmp/test-results/test-output.log
         retention-days: 7
         if-no-files-found: ignore
 

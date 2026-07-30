@@ -52,7 +52,7 @@ jobs:
           DOTNET_gcServer: "1"
         run: |
           mkdir -p /tmp/test-logs /tmp/test-results
-          set +e
+          set -o pipefail
           timeout --signal=TERM --kill-after=2m 300m \
             dotnet tool run dotnet-trace -- collect \
               --profile gc-verbose \
@@ -65,16 +65,7 @@ jobs:
                 --results-directory /tmp/test-results \
                 --hangdump --hangdump-timeout 5min \
                 --settings .github/ci-sequential.runsettings \
-            > /tmp/test-logs/integration-tests.log 2>&1
-          test_rc=$?
-          set -e
-          if [ "$test_rc" -eq 0 ]; then
-            cat /tmp/test-logs/integration-tests.log
-          else
-            echo "Content.IntegrationTests failed with exit code $test_rc; showing the last 100 log lines."
-            tail -n 100 /tmp/test-logs/integration-tests.log
-          fi
-          exit "$test_rc"
+            2>&1 | tee /tmp/test-logs/integration-tests.log
 
       - name: Report Content.IntegrationTests results
         if: success() || failure()
