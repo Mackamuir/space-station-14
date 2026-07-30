@@ -3,7 +3,5 @@
   <NUnit>
     <MapWarningTo>Failed</MapWarningTo>
     <NumberOfTestWorkers>1</NumberOfTestWorkers>
-    <!-- See .github/ci.runsettings: keep per-test console output out of the log. -->
-    <ConsoleOut>0</ConsoleOut>
   </NUnit>
 </RunSettings>

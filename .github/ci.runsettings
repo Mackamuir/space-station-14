@@ -2,11 +2,6 @@
 <RunSettings>
   <NUnit>
     <MapWarningTo>Failed</MapWarningTo>
-    <!-- Don't echo each test's captured console output into the run log. The
-         engine logs a lot per test and it buries the failures. The output is
-         still recorded per test in the NUnit XML and the TRX, both of which
-         are uploaded as artifacts. -->
-    <ConsoleOut>0</ConsoleOut>
     <!-- Write the native NUnit result tree before the adapter converts it to
          MTP. The conversion can discard messages from multiple assertions
          when a teardown warning is also present. -->

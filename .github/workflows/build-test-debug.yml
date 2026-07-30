@@ -95,17 +95,10 @@ jobs:
     # .github/ci.runsettings writes native NUnit XML before NUnit3TestAdapter
     # converts the result to MTP. This preserves individual Assert.Multiple
     # failures when teardown adds a warning to the same result.
-    #
-    # The test app is executed directly rather than through `dotnet test` so the
-    # step log is the test platform's own output. Banner, ANSI redraws and the
-    # live progress display are off, and ci.runsettings suppresses per-test
-    # console output, which leaves failures (message and stack trace) and the
-    # final summary as the only things in the log. Full per-test detail lives in
-    # the TRX and NUnit XML artifacts.
     - name: Run Content.Tests
       run: |
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet exec bin/Content.Tests/Content.Tests.dll --no-banner --no-ansi --no-progress --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings .github/ci.runsettings
+          dotnet test --project Content.Tests/Content.Tests.csproj --no-build --configuration DebugOpt --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings .github/ci.runsettings
 
     - name: Convert Content.Tests results to CTRF
       if: always()
@@ -161,7 +154,7 @@ jobs:
       run: |
         dotnet restore Content.IntegrationTests/Content.IntegrationTests.csproj
 
-    # Same run config as Content.Tests: same direct test-app invocation, differing
+    # Same run config as Content.Tests: same dotnet test invocation, differing
     # only in the sharded runsettings (which itself extends .github/ci.runsettings
     # with the shard's <Where> filter). The shard existence check guards a shard
     # that was assigned no tests.
@@ -173,7 +166,7 @@ jobs:
           exit 0
         fi
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet exec bin/Content.IntegrationTests/Content.IntegrationTests.dll --no-banner --no-ansi --no-progress --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings "$RUNSETTINGS"
+          dotnet test --project Content.IntegrationTests/Content.IntegrationTests.csproj --no-build --configuration DebugOpt --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings "$RUNSETTINGS"
 
     - name: Convert integration test results to CTRF
       if: always()

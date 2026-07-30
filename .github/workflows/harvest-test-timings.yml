@@ -60,9 +60,9 @@ jobs:
               --show-child-io \
               -- \
               dotnet exec bin/Content.IntegrationTests/Content.IntegrationTests.dll \
-                --no-banner --no-ansi --no-progress \
                 --report-trx \
                 --report-trx-filename results.trx \
+                --output Detailed \
                 --results-directory /tmp/test-results \
                 --hangdump --hangdump-timeout 5min \
                 --settings .github/ci-sequential.runsettings \
