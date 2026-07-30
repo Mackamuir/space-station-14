@@ -61,13 +61,14 @@ jobs:
           sampler_pid=$!
           trap 'kill "$sampler_pid" 2>/dev/null || true' EXIT
 
-          dotnet test --no-build --configuration DebugOpt \
-            Content.IntegrationTests/Content.IntegrationTests.csproj \
-            --logger "trx;LogFileName=results.trx" \
-            --logger "console;verbosity=detailed" \
+          dotnet test --project Content.IntegrationTests/Content.IntegrationTests.csproj \
+            --no-build --configuration DebugOpt \
+            --report-trx \
+            --report-trx-filename results.trx \
+            --output Detailed \
             --results-directory /tmp/test-results \
-            --blame-hang --blame-hang-timeout 5min \
-            -- NUnit.NumberOfTestWorkers=1 2>&1 | tee /tmp/test-logs/integration-tests.log
+            --hangdump --hangdump-timeout 5min \
+            --settings .github/ci-sequential.runsettings 2>&1 | tee /tmp/test-logs/integration-tests.log
 
       - name: Report Content.IntegrationTests results
         if: success() || failure()

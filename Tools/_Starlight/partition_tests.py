@@ -291,13 +291,21 @@ WEIGHT_OVERRIDES = {
 def parse_tests(lines):
     """Parse test names from `dotnet test --list-tests` output."""
     tests = []
-    in_list = False
+    list_format = None
     for line in lines:
         stripped = line.strip()
         if "The following Tests are available:" in stripped:
-            in_list = True
+            list_format = "vstest"
             continue
-        if in_list and stripped:
+        if re.match(r"^Discovered \d+ tests? in assembly - ", stripped):
+            list_format = "mtp"
+            continue
+        if list_format == "mtp":
+            if re.match(r"^Discovered \d+ tests?\.$", stripped):
+                break
+            if stripped and line[:1].isspace():
+                tests.append(stripped)
+        elif list_format == "vstest" and stripped:
             tests.append(stripped)
     return tests
 
@@ -306,8 +314,9 @@ def extract_classes(tests):
     """Extract unique test method groups with test counts from display names.
 
     --list-tests outputs display names:
-      - Windows:  MethodName  or  MethodName(params)
-      - Linux:    FixtureName.MethodName  or  FixtureName.MethodName(params)
+      - VSTest on Windows: MethodName or MethodName(params)
+      - VSTest on Linux: FixtureName.MethodName or FixtureName.MethodName(params)
+      - MTP: MethodName or MethodName(params)
 
     We always extract the METHOD name as the group key so behaviour is
     consistent across platforms and the Name~ filter works everywhere.

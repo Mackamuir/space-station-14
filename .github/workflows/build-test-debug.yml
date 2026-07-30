@@ -53,7 +53,7 @@ jobs:
 
     - name: Discover Integration Tests
       run: |
-        dotnet test --list-tests --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj 2>&1 | \
+        dotnet test --project Content.IntegrationTests/Content.IntegrationTests.csproj --list-tests --no-build --configuration DebugOpt 2>&1 | \
           python3 Tools/_Starlight/partition_tests.py generate 6 .integration-filters
 
     - name: Archive build output
@@ -93,12 +93,12 @@ jobs:
       run: dotnet restore Content.Tests/Content.Tests.csproj
 
     # .github/ci.runsettings writes native NUnit XML before NUnit3TestAdapter
-    # converts the result to VSTest. This preserves individual Assert.Multiple
+    # converts the result to MTP. This preserves individual Assert.Multiple
     # failures when teardown adds a warning to the same result.
     - name: Run Content.Tests
       run: |
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.Tests/Content.Tests.csproj --logger "trx;LogFileName=test-results.trx" --results-directory /tmp/test-results --settings .github/ci.runsettings
+          dotnet test --project Content.Tests/Content.Tests.csproj --no-build --configuration DebugOpt --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings .github/ci.runsettings
 
     - name: Convert Content.Tests results to CTRF
       if: always()
@@ -166,7 +166,7 @@ jobs:
           exit 0
         fi
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --no-build --configuration DebugOpt Content.IntegrationTests/Content.IntegrationTests.csproj --logger "trx;LogFileName=test-results.trx" --results-directory /tmp/test-results --settings "$RUNSETTINGS"
+          dotnet test --project Content.IntegrationTests/Content.IntegrationTests.csproj --no-build --configuration DebugOpt --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings "$RUNSETTINGS"
 
     - name: Convert integration test results to CTRF
       if: always()
