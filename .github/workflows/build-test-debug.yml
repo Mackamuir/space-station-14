@@ -298,7 +298,7 @@ jobs:
           report-path: '/tmp/ctrf-results/**/*.json'
           title: Debug Test Results (CTRF)
           github-report: true
-          failed-folded-report: true
+          pull-request-report: true
           exit-on-no-files: false
           exit-on-fail: false
           status-check: true
