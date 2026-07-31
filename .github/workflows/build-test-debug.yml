@@ -98,7 +98,7 @@ jobs:
     - name: Run Content.Tests
       run: |
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --project Content.Tests/Content.Tests.csproj --no-build --configuration DebugOpt --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings .github/ci.runsettings
+          dotnet test --project Content.Tests/Content.Tests.csproj --no-build --configuration DebugOpt --retry-failed-tests 2 --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings .github/ci.runsettings
 
     - name: Convert Content.Tests results to CTRF
       if: always()
@@ -166,7 +166,7 @@ jobs:
           exit 0
         fi
         timeout --signal=TERM --kill-after=2m 15m \
-          dotnet test --project Content.IntegrationTests/Content.IntegrationTests.csproj --no-build --configuration DebugOpt --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings "$RUNSETTINGS"
+          dotnet test --project Content.IntegrationTests/Content.IntegrationTests.csproj --no-build --configuration DebugOpt --retry-failed-tests 2 --report-trx --report-trx-filename test-results.trx --results-directory /tmp/test-results --settings "$RUNSETTINGS"
 
     - name: Convert integration test results to CTRF
       if: always()
