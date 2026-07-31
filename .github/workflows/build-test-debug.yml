@@ -242,7 +242,7 @@ jobs:
           report-path: '/tmp/ctrf-results/**/*.json'
           title: Content + Integration Test Results
 #          github-report: true
-          update-comment: true
+          overwrite-comment: true
           pull-request-report: true
           exit-on-no-files: false
           exit-on-fail: false
