@@ -1,6 +1,5 @@
 name: Build & Test Debug
 
-# Cancel older jobs on PRs when new changes are pushed
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -14,10 +13,6 @@ on:
     branches: [ master, staging, stable, Starlight, starlight-dev, upstream-devtest, main ]
   workflow_dispatch:
 
-# `checks: write` is honoured for same-repo PRs, pushes, merge groups and manual
-# runs — that is what the inline reporter steps below rely on. A PR from a fork
-# is downgraded to a read-only token regardless of what is requested here, so
-# those are reported by test-report.yml instead.
 permissions:
   contents: read
   actions: write
@@ -44,8 +39,6 @@ jobs:
         cd RobustToolbox/
         git submodule update --init --recursive
 
-    # setup-dotnet reads the repository's global.json automatically, keeping the
-    # SDK selection in one place. The build performs its own implicit restore.
     - name: Setup .NET
       uses: actions/setup-dotnet@v6
 
@@ -74,8 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-    # The build tarball excludes .git. Checkout must come first because it cleans
-    # the workspace, and the tarball is then laid over the checked-out tree.
+
     - name: Checkout
       uses: actions/checkout@v7
 
@@ -93,9 +85,6 @@ jobs:
     - name: Restore packages
       run: dotnet restore Content.Tests/Content.Tests.csproj
 
-    # .github/ci.runsettings writes native NUnit XML before NUnit3TestAdapter
-    # converts the result to MTP. This preserves individual Assert.Multiple
-    # failures when teardown adds a warning to the same result.
     - name: Run Content.Tests
       run: |
         timeout --signal=TERM --kill-after=2m 15m \
@@ -119,8 +108,6 @@ jobs:
       if: always()
       with:
         name: test-nunit-content
-        # Upload only the two report files, keeping blame and other diagnostic XML
-        # files out; test-report.yml reads this artifact for fork PRs.
         path: |
           /tmp/test-results/**/test-results.xml
           /tmp/test-results/ctrf/ctrf-report.json
@@ -136,7 +123,6 @@ jobs:
     name: "Integration Tests (shard ${{ matrix.shard }})"
     runs-on: ubuntu-latest
     steps:
-    # See the note in content-tests: checkout must precede extracting the tarball.
     - name: Checkout
       uses: actions/checkout@v7
 
@@ -155,10 +141,6 @@ jobs:
       run: |
         dotnet restore Content.IntegrationTests/Content.IntegrationTests.csproj
 
-    # Same run config as Content.Tests: same dotnet test invocation, differing
-    # only in the sharded runsettings (which itself extends .github/ci.runsettings
-    # with the shard's <Where> filter). The shard existence check guards a shard
-    # that was assigned no tests.
     - name: Run Content.IntegrationTests
       run: |
         RUNSETTINGS=".integration-filters/shard_${{ matrix.shard }}.runsettings"
@@ -234,18 +216,11 @@ jobs:
       - content-tests
       - integration-tests
       - yaml-linter
-    # Pure orchestration: checkout + artifact download + Node-based reporters +
-    # an echo. No compilation and no .NET, so the 1 vCPU ubuntu-slim image is a
-    # good fit (git/node are preinstalled on it).
     runs-on: ubuntu-slim
     steps:
-      # Keep repository context available to the inline reporters; the native
-      # NUnit XML itself comes from the downloaded artifacts.
       - name: Checkout
         uses: actions/checkout@v7
 
-      # Pull every shard's NUnit XML into one tree. Each artifact lands in its own
-      # subdirectory (test-nunit-shard-<N>).
       - name: Download shard test results
         continue-on-error: true
         uses: actions/download-artifact@v8
@@ -253,38 +228,6 @@ jobs:
           pattern: test-nunit-shard-*
           path: /tmp/shard-nunit
 
-      # One report for the whole suite. dorny accepts a glob and aggregates every
-      # matched XML into a single check run, so no pre-merge step is needed — it
-      # reads all six shards' local files directly and emits one "Integration
-      # Tests" check run. (Each artifact extracts under its own
-      # test-nunit-shard-<N>/ subdir, hence the recursive **.)
-      # - name: Generate intergration test report.
-      #   uses: dorny/test-reporter@v3
-      #   with:
-      #     report-title: 'Intergration Tests'
-      #     name: Integration Tests
-      #     path: '/tmp/shard-nunit/**/*.xml'
-      #     reporter: dotnet-nunit
-      #     list-suites: all
-      #     list-tests: failed
-      #     fail-on-error: false
-      #     collapsed: 'always'
-
-      # - name: Generate content test report.
-      #   uses: dorny/test-reporter@v3
-      #   with:
-      #     report-title: 'Content Tests'
-      #     name: Content Tests
-      #     artifact: test-nunit-content
-      #     path: '*.xml'
-      #     reporter: dotnet-nunit
-      #     list-suites: all
-      #     list-tests: failed
-      #     fail-on-error: false
-      #     collapsed: 'always'
-
-      # The CTRF report is additive: the native NUnit artifacts above continue
-      # to feed dorny, while the JSON copies feed the CTRF reporter.
       - name: Download CTRF test results
         continue-on-error: true
         uses: actions/download-artifact@v8
@@ -297,15 +240,11 @@ jobs:
         uses: ctrf-io/github-test-reporter@v1
         with:
           report-path: '/tmp/ctrf-results/**/*.json'
-          title: Debug Test Results (CTRF)
+          title: Debug Test Results
           github-report: true
           pull-request-report: true
           exit-on-no-files: false
           exit-on-fail: false
-          status-check: true
-          status-check-name: 'GitHub Test Reporter Results'
-          community-report: true
-          community-report-name: failed-detailed
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -329,13 +268,8 @@ jobs:
       - integration-tests
       - yaml-linter
     if: always()
-    # Runs a single Node-based delete-artifact action — nothing CPU-bound — so the
-    # lightweight 1 vCPU ubuntu-slim image is plenty.
     runs-on: ubuntu-slim
     steps:
-      # Deleting an artifact needs `actions: write`, which a fork PR's read-only
-      # token never gets. Tolerate the 403 there; `retention-days: 1` on the
-      # upload reclaims the storage anyway.
       - name: Delete build artifact
         continue-on-error: true
         uses: geekyeggo/delete-artifact@v6
