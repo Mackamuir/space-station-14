@@ -240,8 +240,9 @@ jobs:
         uses: ctrf-io/github-test-reporter@v1
         with:
           report-path: '/tmp/ctrf-results/**/*.json'
-          title: Debug Test Results
-          github-report: true
+          title: Content + Integration Test Results
+#          github-report: true
+          update-comment: true
           pull-request-report: true
           exit-on-no-files: false
           exit-on-fail: false
