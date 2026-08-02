@@ -23,9 +23,6 @@ jobs:
       - name: Setup Submodule
         run: git submodule update --init --recursive
 
-      - name: Pull engine updates
-        uses: space-wizards/submodule-dependency@v0.1.5
-
       - name: Update Engine Submodules
         run: |
           cd RobustToolbox/
