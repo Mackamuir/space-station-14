@@ -12,6 +12,7 @@ on:
   pull_request:
     types: [ opened, reopened, synchronize, ready_for_review ]
     branches: [ master, staging, stable, Starlight, starlight-dev, upstream-devtest ]
+  workflow_dispatch:
 
 jobs:
   build:
