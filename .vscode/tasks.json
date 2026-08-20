@@ -76,6 +76,63 @@
                 "reveal": "silent"
             },
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "TTS: Start containers",
+            "type": "shell",
+            "command": "docker",
+            "windows": {
+                "command": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe"
+            },
+            "args": [
+                "compose",
+                "--project-name",
+                "starlight-local-tts",
+                "--file",
+                "${workspaceFolder}/Tools/_Starlight/LocalTTS/compose.yml",
+                "up",
+                "--build",
+                "--detach",
+                "--wait",
+                "--wait-timeout",
+                "300"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            }
+        },
+        {
+            "label": "TTS: Prepare debug session",
+            "dependsOn": [
+                "build",
+                "TTS: Start containers"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "TTS: Stop containers",
+            "type": "shell",
+            "command": "docker",
+            "windows": {
+                "command": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe"
+            },
+            "args": [
+                "compose",
+                "--project-name",
+                "starlight-local-tts",
+                "--file",
+                "${workspaceFolder}/Tools/_Starlight/LocalTTS/compose.yml",
+                "down",
+                "--remove-orphans"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated"
+            }
         }
     ]
 }

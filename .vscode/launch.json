@@ -34,6 +34,35 @@
             "preLaunchTask": "build"
         },
         {
+            "name": "Client (TTS compound)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Content.Client/Content.Client.dll",
+            "args": [
+                "--loglevel",
+                "tts=Debug"
+            ],
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Server (TTS compound)",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Content.Server/Content.Server.dll",
+            "args": [
+                "--cvar",
+                "tts.enabled=true",
+                "--cvar",
+                "tts.connection_string=localhost:6379",
+                "--loglevel",
+                "TTSClient=Debug"
+            ],
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "postDebugTask": "TTS: Stop containers"
+        },
+        {
             "name": "YAML Linter",
             "type": "coreclr",
             "request": "launch",
@@ -52,6 +81,15 @@
                 "Client"
             ],
             "preLaunchTask": "build"
+        },
+        {
+            "name": "Server/Client + TTS",
+            "configurations": [
+                "Server (TTS compound)",
+                "Client (TTS compound)"
+            ],
+            "preLaunchTask": "TTS: Prepare debug session",
+            "stopAll": true
         }
     ]
 }

@@ -97,6 +97,12 @@ public sealed partial class TTSClient : ITTSClient
         if (await GetCache(text, voice, effect) is byte[] cached)
         {
             _cacheHits.Inc();
+            _sawmill.Debug(
+                "TTS cache hit: Voice={Voice}, Effect={Effect}, Bytes={Bytes}, Text={Text}",
+                voice,
+                effect,
+                cached.Length,
+                text);
 
             var offset = 0;
             while (offset + 4 <= cached.Length)
@@ -119,6 +125,11 @@ public sealed partial class TTSClient : ITTSClient
         }
 
         _cacheMisses.Inc();
+        _sawmill.Debug(
+            "TTS cache miss: Voice={Voice}, Effect={Effect}, Text={Text}",
+            voice,
+            effect,
+            text);
         await foreach (var chunk in GenerateStreamAsync(text, voice, effect, cancellationToken))
             yield return chunk;
     }
@@ -171,6 +182,8 @@ public sealed partial class TTSClient : ITTSClient
 
         var stopwatch = Stopwatch.StartNew();
         var firstChunkReceived = false;
+        var chunkCount = 0;
+        var totalBytes = 0;
 
         try
         {
@@ -185,7 +198,18 @@ public sealed partial class TTSClient : ITTSClient
 
             var jobJson = JsonSerializer.Serialize(job, TtsJobContext.Default.TtsJob);
 
+            // This is the exact cleaned text crossing the provider boundary.
+            _sawmill.Debug(
+                "Sending TTS provider request: JobId={JobId}, Voice={Voice}, Effect={Effect}, Text={Text}",
+                jobId,
+                voice,
+                effect,
+                text);
             await _db.ListLeftPushAsync(Queue, jobJson);
+            _sawmill.Debug(
+                "Queued TTS provider request: JobId={JobId}, QueueTimeMs={QueueTimeMs:F1}",
+                jobId,
+                stopwatch.Elapsed.TotalMilliseconds);
 
             using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
             cts.CancelAfter(TimeSpan.FromSeconds(TimeoutS));
@@ -198,11 +222,18 @@ public sealed partial class TTSClient : ITTSClient
                 {
                     pending[nextSeq] = null;
                     nextSeq++;
+                    chunkCount++;
+                    totalBytes += chunk.Length;
 
                     if (!firstChunkReceived)
                     {
                         _timeToFirstChunk.Observe(stopwatch.Elapsed.TotalSeconds);
                         firstChunkReceived = true;
+                        _sawmill.Debug(
+                            "Received first TTS provider chunk: JobId={JobId}, DelayMs={DelayMs:F1}, Bytes={Bytes}",
+                            jobId,
+                            stopwatch.Elapsed.TotalMilliseconds,
+                            chunk.Length);
                     }
                     yield return chunk;
                     continue;
@@ -220,6 +251,12 @@ public sealed partial class TTSClient : ITTSClient
             }
 
             _totalRequestTime.Observe(stopwatch.Elapsed.TotalSeconds);
+            _sawmill.Debug(
+                "Completed TTS provider request: JobId={JobId}, TotalMs={TotalMs:F1}, Chunks={Chunks}, Bytes={Bytes}",
+                jobId,
+                stopwatch.Elapsed.TotalMilliseconds,
+                chunkCount,
+                totalBytes);
             yield return [];
         }
         finally
