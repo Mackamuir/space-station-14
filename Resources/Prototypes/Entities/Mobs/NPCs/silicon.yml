@@ -50,21 +50,12 @@
   - type: ProtectedFromStepTriggers
   - type: NoSlip
   - type: Insulated
-  # Starlight-start: Languages
-  - type: LanguageKnowledge
-    speaks:
-    - GalacticCommon
-    - Machine
-    understands:
-    - GalacticCommon
-    - Machine
-  # Starlight-end
 
 # Used for bots
 - type: entity
   save: false
   abstract: true
-  parent: MobRobotic #starlight Nubody will not pass.
+  parent: MobRobotic
   id: MobSiliconBase
   components:
   - type: NpcFactionMember
@@ -114,16 +105,12 @@
     - SiliconEmotes
     - Bot
     - Unimplantable
-  # Starlight - start
-  - type: Body
-    prototype: Bot
-  # Starlight - end
   - type: Speech
     speechVerb: Robotic
     speechSounds: Pai #couldn't decide if this should be borg or pai sounds so I flipped a coin.
 
 - type: entity
-  parent: MobSiliconBase
+  parent: [MobSiliconBase, SolutionFireExtinguisherMini] # Starlight
   id: MobFireBot
   name: firebot
   description: A little fire extinguishing bot. He looks rather anxious.
@@ -134,8 +121,6 @@
   - type: Construction
     graph: FireBot
     node: bot
-  - type: SentienceTarget #Starlight
-    flavorKind: station-event-random-sentience-flavor-mechanical #Starlight
   - type: HTN
     rootTask:
       task: FirebotCompound
@@ -223,7 +208,7 @@
     description: ghost-role-information-honkbot-description
     rules: ghost-role-information-freeagent-rules
     mindRoles:
-    - MindRoleGhostRoleBotHarmless # Starlight-edit - FreeAgentHarmless -> BotHarmless
+    - MindRoleGhostRoleFreeAgentHarmless
     raffle:
       settings: default
   - type: GhostTakeoverAvailable
@@ -257,7 +242,7 @@
     description: ghost-role-information-jonkbot-description
     rules: ghost-role-information-freeagent-rules
     mindRoles:
-    - MindRoleGhostRoleBotHarmless # Starlight-edit - FreeAgentHarmless -> BotHarmless
+    - MindRoleGhostRoleFreeAgentHarmless
     raffle:
       settings: default
   - type: InteractionPopup
@@ -277,7 +262,7 @@
     canCreateVacuum: false
 
 - type: entity
-  parent: MobSiliconBase
+  parent: [MobSiliconBase, SolutionMopNormal] # Starlight
   id: MobCleanBot
   name: cleanbot
   description: The creep of automation now threatening space janitors.
@@ -288,8 +273,6 @@
   - type: Construction
     graph: CleanBot
     node: bot
-  - type: SentienceTarget #Starlight
-    flavorKind: station-event-random-sentience-flavor-mechanical #Starlight
   - type: Absorbent
     pickupAmount: 10
   - type: UseDelay
@@ -322,20 +305,7 @@
     interactFailureString: petting-failure-cleanbot
     interactSuccessSound:
       path: /Audio/Ambience/Objects/periodic_beep.ogg
-  #region starlight
-  - type: Vocalizer
-  - type: DatasetVocalizer
-    dataset: CleanbotAds
-  - type: WiresPanel
-  - type: Wires
-    boardName: wires-board-name-cleanbot
-    layoutId: MedibotControls
-    alwaysRandomize: true
-  - type: UserInterface
-    interfaces:
-      enum.WiresUiKey.Key:
-        type: WiresBoundUserInterface
-  #end region
+
 - type: entity
   parent:
   - MobSiliconBase
@@ -374,8 +344,6 @@
   - type: Construction
     graph: MediBot
     node: bot
-  - type: SentienceTarget #Starlight
-    flavorKind: station-event-random-sentience-flavor-mechanical #Starlight
   - type: Anchorable
   - type: InteractionPopup
     interactSuccessString: petting-success-medibot
@@ -388,17 +356,6 @@
   - type: Inventory
     templateId: medibot
   - type: DoAfter
-  - type: WiresPanel
-  - type: Wires
-    boardName: wires-board-name-medibot
-    layoutId: MedibotControls
-    alwaysRandomize: true
-  - type: UserInterface
-    interfaces:
-      enum.WiresUiKey.Key:
-        type: WiresBoundUserInterface
-      enum.StrippingUiKey.Key:              # Starlight
-        type: StrippableBoundUserInterface  # Starlight Readded stipping UI to medibots, wirepanels overwrote them
 
 - type: entity
   parent:
@@ -421,7 +378,7 @@
     description: ghost-role-information-mimebot-description
     rules: ghost-role-information-freeagent-rules
     mindRoles:
-    - MindRoleGhostRoleBotHarmless # Starlight-edit - FreeAgentHarmless -> BotHarmless
+    - MindRoleGhostRoleFreeAgentHarmless
     raffle:
       settings: default
   - type: GhostTakeoverAvailable
@@ -503,7 +460,7 @@
     needsHands: false
 
 - type: entity
-  parent: [ MobSiliconBase, MobCombat ] #starlight Nubody will not pass.
+  parent: [ MobSiliconBase, MobCombat ]
   id: MobHugBot
   name: hugbot
   description: Awww, who needs a hug?
@@ -529,10 +486,6 @@
   - type: Hands # This probably REALLY needs hand whitelisting, but we NEED hands for hugs, so...
   - type: ComplexInteraction # Hugging is a complex interaction, apparently.
   - type: HugBot
-  # Starlight - start
-  - type: Body
-    prototype: HugBot
-  # Starlight - end
   - type: HTN
     rootTask:
       task: HugBotCompound
