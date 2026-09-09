@@ -45,8 +45,9 @@ jobs:
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
+
       - name: Build Project
-        run: dotnet build --configuration DebugOpt /m
+        run: dotnet build --configuration Release /m
 
       - name: Run Map Renderer
         run: bin/Content.MapRenderer/Content.MapRenderer Dev
