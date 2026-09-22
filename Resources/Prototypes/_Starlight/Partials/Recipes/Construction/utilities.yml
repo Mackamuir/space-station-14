@@ -1,0 +1,80 @@
+- type: !PartialOnly construction
+  id: !type:CreateVariants
+    values:
+    - AirAlarmFixture
+    - FireAlarm
+    - AirSensor
+    - GasPipeSensor
+    - GasPipeSensorAlt1
+    - GasPipeSensorAlt2
+    - GasPipeHalf
+    - GasPipeHalfAlt1
+    - GasPipeHalfAlt2
+    - GasPipeStraight
+    - GasPipeStraightAlt1
+    - GasPipeStraightAlt2
+    - GasPipeBend
+    - GasPipeBendAlt1
+    - GasPipeBendAlt2
+    - GasPipeTJunction
+    - GasPipeTJunctionAlt1
+    - GasPipeTJunctionAlt2
+    - GasPipeFourway
+    - GasPipeFourwayAlt1
+    - GasPipeFourwayAlt2
+    - GasPipeManifold
+    - GasVentPump
+    - GasPassiveVent
+    - GasVentScrubber
+    - GasOutletInjector
+    - GasPressurePump
+    - GasPressurePumpAlt1
+    - GasPressurePumpAlt2
+    - GasVolumePump
+    - GasVolumePumpAlt1
+    - GasVolumePumpAlt2
+    - GasPassiveGate
+    - GasPassiveGateAlt1
+    - GasPassiveGateAlt2
+    - GasPressureRegulator
+    - GasPressureRegulatorAlt1
+    - GasPressureRegulatorAlt2
+    - GasValve
+    - GasValveAlt1
+    - GasValveAlt2
+    - SignalControlledValve
+    - SignalControlledValveAlt1
+    - SignalControlledValveAlt2
+    - GasPort
+    - GasDualPortVentPump
+    - HeatExchanger
+    - HeatExchangerBend
+    - GasFilter
+    - GasFilterFlipped
+    - GasMixer
+    - GasMixerFlipped
+    - PressureControlledValve
+  category: construction-category-atmospherics
+
+- type: !PartialOnly construction
+  id: !type:CreateVariants
+    values:
+    - GasFilter
+    - GasFilterFlipped
+    - GasMixer
+    - GasMixerFlipped
+  placementMode: AlignAtmosPipeLayers
+
+- type: !PartialOnly construction
+  id: !type:CreateVariants
+    values:
+    - SignalControlledValveAlt1
+    - SignalControlledValveAlt2
+  hide: true
+
+- type: !PartialOnly construction
+  id: !type:CreateVariants
+    values:
+    - GasFilterFlipped
+    - GasMixerFlipped
+  hide: !Remove true
