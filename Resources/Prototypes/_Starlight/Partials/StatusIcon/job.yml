@@ -1,0 +1,75 @@
+- type: !PartialOnly jobIcon
+  id: !type:CreateVariants
+    values:
+    - JobIconCargoTechnician
+    - JobIconMiningSpecialist
+    - JobIconCaptain
+    - JobIconChiefEngineer
+    - JobIconChiefMedicalOfficer
+    - JobIconHeadOfPersonnel
+    - JobIconHeadOfSecurity
+    - JobIconResearchDirector
+    - JobIconQuartermaster
+    - JobIconAtmosphericTechnician
+    - JobIconStationEngineer
+    - JobIconTechnicalAssistant
+    - JobIconChemist
+    - JobIconGeneticist
+    - JobIconMedicalDoctor
+    - JobIconMedicalIntern
+    - JobIconParamedic
+    - JobIconPsychologist
+    - JobIconVirologist
+    - JobIconResearchAssistant
+    - JobIconRoboticist
+    - JobIconScientist
+    - JobIconBrigmedic
+    - JobIconDetective
+    - JobIconSecurityCadet
+    - JobIconSecurityOfficer
+    - JobIconWarden
+    - JobIconBartender
+    - JobIconBotanist
+    - JobIconBoxer
+    - JobIconChaplain
+    - JobIconChef
+    - JobIconJanitor
+    - JobIconLawyer
+    - JobIconLibrarian
+    - JobIconReporter
+    - JobIconServiceWorker
+    - JobIconZookeeper
+    - JobIconClown
+    - JobIconMime
+    - JobIconMusician
+    - JobIconAssistant
+    - JobIconPrisoner
+    - JobIconNanoTrasenRepresentative
+  tags:
+  - JobIconCrew
+
+- type: !PartialOnly jobIcon
+  id: JobIconMiningSpecialist
+  jobName: job-name-miningspec
+
+- type: !PartialOnly jobIcon
+  id: JobIconAssistant
+  icon:
+    state: Assistant
+  jobName: job-name-assistant
+  tags:
+  - JobIconAssistantManager
+
+- type: !PartialOnly jobIcon
+  id: JobIconERTMedical
+  icon:
+    sprite: /Textures/_Starlight/Interface/Misc/job_icons.rsi
+  tags:
+  - JobIconCentComm
+
+- type: !PartialOnly jobIcon
+  id: JobIconNanoTrasenRepresentative
+  icon:
+    sprite: /Textures/_Starlight/Interface/Misc/job_icons.rsi
+    state: NanoTrasenRepresentative
+  jobName: job-name-ntrep
