@@ -1,0 +1,130 @@
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetBasic
+  components:
+  - type: Clothing
+    clothingVisuals:
+      head:
+      - state: light-equipped-HELMET
+      # - state: shaded
+      head-vox:
+      - state: equipped-HELMET-vox
+      # - state: shaded
+  - type: ToggleableVisuals
+    clothingVisuals:
+      head:
+      - state: lighton-equipped-HELMET
+        shader: unshaded
+      head-vox:
+      - state: lighton-equipped-HELMET-vox
+        shader: unshaded
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetSwat
+  description: An extremely robust helmet, commonly used by paramilitary forces. This one has the NanoTrasen logo emblazoned on the top.
+  components:
+  - type: Pierceable
+    level: Metal
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetRiot
+  components:
+  - type: Pierceable
+    level: Metal
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetBombSuit
+  components:
+  - type: Pierceable
+    level: Metal
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+    - CorgiWearable
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetCult
+  components:
+  - type: Pierceable
+    level: Metal
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetFire
+  components:
+  - type: Tag
+    tags:
+    - CorgiWearable
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetAtmosFire
+  components:
+  - type: PointLight
+    color: "#a1f7f7"
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetLing
+  components:
+  - type: Pierceable
+    level: Metal
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetERTLeader
+  description: An in-atmosphere helmet worn by the leader of a NanoTrasen Emergency Response Team. Has blue highlights.
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetERTSecurity
+  description: An in-atmosphere helmet worn by security members of the NanoTrasen Emergency Response Team. Has red highlights.
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetERTMedic
+  description: An in-atmosphere helmet worn by medical members of the NanoTrasen Emergency Response Team. Has white highlights.
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetERTEngineer
+  description: An in-atmosphere helmet worn by engineering members of the NanoTrasen Emergency Response Team. Has orange highlights.
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetERTJanitor
+  description: An in-atmosphere helmet worn by janitorial members of the NanoTrasen Emergency Response Team. Has dark purple highlights.
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetRaid
+  components:
+  - type: Pierceable
+    level: Metal
+  - type: Tag
+    tags:
+    - CorgiWearable
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetJustice
+  components:
+  - type: Clothing
+    # inheritance fix
+    clothingVisuals:
+      head:
+        - state: off-equipped-HELMET
+      head-vox:
+        - state: off-equipped-HELMET-vox
+  # redundant button, the normal sec helmet has a light toggle already
+  - type: !Remove ToggleClothing
+    action: !Remove
+    mustEquip: !Remove
+  - type: PointLight
+    mask: !Remove
+    lightMask: ConeDouble
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        blacklist:
+          tags:
+          - MechReactor
+
+- type: !PartialOnly entity
+  id: ClothingHeadHelmetJusticeEmpty
+  components:
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        blacklist:
+          tags:
+          - MechReactor

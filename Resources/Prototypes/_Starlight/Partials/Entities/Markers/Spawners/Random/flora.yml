@@ -1,0 +1,17 @@
+- type: !PartialOnly entity
+  id: RandomFloraTree
+  components:
+  - type: RandomSpawner
+    prototypes:
+      - !Remove FloraTreeConifer # no snow
+      - !Remove FloraTreeSnow # no snow
+      - FloraBirchTreeLargeSL
+      - FloraBirchTreeMediumSL
+      - FloraBirchTreeSmallSL
+      - FloraTreeConiferMediumSL
+      - FloraTreeConiferBigSL
+      - FloraTreeConiferSmallSL
+      - FloraDeadTreeSL
+      - FloraDeadTreeSmallSL
+    rarePrototypes:
+      - FloraTreeVampireSL

@@ -1,0 +1,6 @@
+- type: !PartialOnly entity
+  id: RandomArcade
+  components:
+  - type: RandomSpawner
+    prototypes:
+      - LancerArcade # Lancer arcade spawner

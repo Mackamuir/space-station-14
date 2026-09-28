@@ -1,0 +1,30 @@
+- type: !PartialOnly entity
+  id: ClothingBackpack
+  components:
+  - type: SwitchableEquipMode
+
+- type: !PartialOnly entity
+  id: ClothingBackpackCaptain
+  description: It's a special backpack made exclusively for NanoTrasen officers.
+
+- type: !PartialOnly entity
+  id: ClothingBackpackDeathSquad
+  name: ntsf backpack
+  description: Holds the kit of NanoTrasen's most feared agents.
+  components:
+  - type: ExplosionResistance
+    damageCoefficient: 0.1
+  - type: Sprite
+    sprite: _Starlight/Clothing/Back/Backpacks/ntnc_bag.rsi
+  - type: Storage
+    maxItemSize: Huge
+    grid: !Clear
+    - 0,0,8,5
+
+- type: !PartialOnly entity
+  id: ClothingBackpackCluwne
+  components:
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+    - BibleThwackRemovable

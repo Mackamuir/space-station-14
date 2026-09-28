@@ -25,7 +25,6 @@
     interfaces:
       enum.StorageUiKey.Key:
         type: StorageBoundUserInterface
-  - type: SwitchableEquipMode # Starlight
   # to prevent bag open/honk spam
   - type: UseDelay
     delay: 0.5
@@ -115,7 +114,7 @@
   parent: [ClothingBackpack, BaseCommandContraband]
   id: ClothingBackpackCaptain
   name: captain's backpack
-  description: It's a special backpack made exclusively for NanoTrasen officers. # SL
+  description: It's a special backpack made exclusively for Nanotrasen officers.
   components:
   - type: Sprite
     sprite: Clothing/Back/Backpacks/captain.rsi
@@ -274,23 +273,18 @@
     sprite: Clothing/Back/Backpacks/ertchaplain.rsi
 
 - type: entity
-  parent: ClothingBackpackNTNC #SL
+  parent: ClothingBackpackNTNC # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: ClothingBackpackDeathSquad
-  name: ntsf backpack #starlight
-  description: Holds the kit of NanoTrasen's most feared agents.
+  name: death squad backpack
+  description: Holds the kit of CentComm's most feared agents.
   components:
-  - type: ExplosionResistance #SL
-    damageCoefficient: 0.1 #SL
-  - type: Sprite #SL
-    sprite: _Starlight/Clothing/Back/Backpacks/ntnc_bag.rsi #SL
-  - type: Storage
-    maxItemSize: Huge #SL
-    grid: #SL
-    - 0,0,8,5 #SL
+    - type: Storage
+      grid:
+      - 0,0,7,6
 
 #Syndicate
 - type: entity
-  parent: [ClothingBackpack, BaseMinorContraband] #SL Edit Syndie > Minor Contra
+  parent: [ClothingBackpack, BaseMinorContraband] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: ClothingBackpackSyndicate
   name: syndicate backpack
   description:
@@ -340,13 +334,6 @@
     sprite: Clothing/Back/Backpacks/cluwne.rsi
   - type: Unremoveable
     deleteOnDrop: false
-  #region Starlight
-  - type: Tag
-    tags:
-      - WhitelistChameleon
-      - BibleThwackRemovable
-  #endregion Starlight
-
 
 - type: entity
   parent: ClothingBackpack

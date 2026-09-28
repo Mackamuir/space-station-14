@@ -29,7 +29,7 @@
 
 #Basic Helmet (Security Helmet)
 - type: entity
-  parent: [ ClothingHeadLightBase, ClothingHeadHelmetArmoredBase, BaseSecurityContraband, ClothingHeadLightParamsIntermediate ] # Starlight: Inherit from correct base light, include light params
+  parent: [ ClothingHeadLightBase, ClothingHeadHelmetArmoredBase, BaseSecurityContraband, ClothingHeadLightParamsIntermediate ] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: ClothingHeadHelmetBasic
   name: helmet
   description: Standard security gear. Protects the head from impacts.
@@ -38,13 +38,6 @@
     sprite: Clothing/Head/Helmets/security.rsi
   - type: Clothing
     sprite: Clothing/Head/Helmets/security.rsi
-    clothingVisuals:
-      head:
-      - state: light-equipped-HELMET
-      # - state: shaded
-      head-vox:
-      - state: equipped-HELMET-vox
-      # - state: shaded
   - type: Tag
     tags:
     - WhitelistChameleon
@@ -52,18 +45,10 @@
   - type: HideLayerClothing
     layers:
       Hair: HEAD
-  - type: ToggleableVisuals
-    clothingVisuals:
-      head:
-      - state: lighton-equipped-HELMET
-        shader: unshaded
-      head-vox:
-      - state: lighton-equipped-HELMET-vox
-        shader: unshaded
 
 #Mercenary Helmet
 - type: entity
-  parent: ClothingHeadHelmetArmoredBase
+  parent: ClothingHeadHelmetArmoredBase # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: ClothingHeadHelmetMerc
   name: mercenary helmet
   description: The combat helmet is commonly used by mercenaries, is strong, light and smells like gunpowder and the jungle.
@@ -81,14 +66,12 @@
   parent: [ClothingHeadHelmetBase, BaseSecurityContraband]
   id: ClothingHeadHelmetSwat
   name: SWAT helmet
-  description: An extremely robust helmet, commonly used by paramilitary forces. This one has the NanoTrasen logo emblazoned on the top. # SL
+  description: An extremely robust helmet, commonly used by paramilitary forces. This one has the Nanotrasen logo emblazoned on the top.
   components:
   - type: Sprite
     sprite: Clothing/Head/Helmets/swat.rsi
   - type: Clothing
     sprite: Clothing/Head/Helmets/swat.rsi
-  - type: Pierceable
-    level: Metal
   - type: Armor #This is intentionally not spaceproof, when the time comes to port the values from SS13 this should be buffed from what it was.
     modifiers:
       coefficients:
@@ -132,8 +115,6 @@
   - type: Clothing
     sprite: Clothing/Head/Helmets/light_riot.rsi
   - type: IngestionBlocker
-  - type: Pierceable
-    level: Metal
   - type: Armor
     modifiers:
       coefficients:
@@ -158,8 +139,6 @@
   - type: IngestionBlocker
   - type: ExplosionResistance
     damageCoefficient: 0.9
-  - type: Pierceable
-    level: Metal
   - type: Armor
     modifiers:
       coefficients:
@@ -170,12 +149,6 @@
     layers:
       Hair: HEAD
       Snout: HEAD
-# Starlight
-  - type: Tag
-    tags:
-    - WhitelistChameleon
-    - CorgiWearable
-# Starlight End
 
 #Janitorial Bombsuit Helmet
 - type: entity
@@ -205,8 +178,6 @@
   - type: Clothing
     sprite: Clothing/Head/Helmets/cult.rsi
   - type: IngestionBlocker
-  - type: Pierceable
-    level: Metal
   - type: Armor
     modifiers:
       coefficients:
@@ -292,7 +263,7 @@
 
 #Fire Helmet
 - type: entity
-  parent: [ ClothingHeadLightBase, ClothingHeadLightParamsBasic ] # Starlight
+  parent: [ ClothingHeadLightBase, ClothingHeadLightParamsBasic ] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: ClothingHeadHelmetFire
   name: fire helmet
   description: An atmos tech's best friend. Provides some heat resistance and looks cool.
@@ -313,7 +284,6 @@
     tags:
     - WhitelistChameleon
     - FireHelmet
-    - CorgiWearable #Starlight
   - type: HideLayerClothing
     layers:
       Hair: HEAD
@@ -321,7 +291,7 @@
 
 #Atmos Fire Helmet
 - type: entity
-  parent: [ ClothingHeadLightBase, ClothingHeadLightParamsIntermediate, BaseEngineeringContraband ] # Starlight
+  parent: [ ClothingHeadLightBase, ClothingHeadLightParamsIntermediate, BaseEngineeringContraband ] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: ClothingHeadHelmetAtmosFire
   name: atmos fire helmet
   description: An atmos fire helmet, able to keep the user cool in any situation.
@@ -351,8 +321,6 @@
       Hair: HEAD
       Snout: HEAD
   - type: BreathMask
-  - type: PointLight # Starlight
-    color: "#a1f7f7" # Starlight
 
 #Chitinous Helmet
 - type: entity
@@ -365,8 +333,6 @@
     sprite: Clothing/Head/Helmets/linghelmet.rsi
   - type: Clothing
     sprite: Clothing/Head/Helmets/linghelmet.rsi
-  - type: Pierceable
-    level: Metal
   - type: Armor #admeme item so it should be fine being overpowered while helmets are still intentionally kneecapped.
     modifiers:
       coefficients:
@@ -384,7 +350,7 @@
   parent: [ BaseCentcommContraband, ClothingHeadHelmetArmoredBase ]
   id: ClothingHeadHelmetERTLeader
   name: ERT leader helmet
-  description: An in-atmosphere helmet worn by the leader of a NanoTrasen Emergency Response Team. Has blue highlights. # SL
+  description: An in-atmosphere helmet worn by the leader of a Nanotrasen Emergency Response Team. Has blue highlights.
   components:
   - type: Sprite
     sprite: Clothing/Head/Helmets/ert_leader.rsi
@@ -399,7 +365,7 @@
   parent: ClothingHeadHelmetERTLeader
   id: ClothingHeadHelmetERTSecurity
   name: ERT security helmet
-  description: An in-atmosphere helmet worn by security members of the NanoTrasen Emergency Response Team. Has red highlights. # SL
+  description: An in-atmosphere helmet worn by security members of the Nanotrasen Emergency Response Team. Has red highlights.
   components:
   - type: Sprite
     sprite: Clothing/Head/Helmets/ert_security.rsi
@@ -414,7 +380,7 @@
   parent: ClothingHeadHelmetERTLeader
   id: ClothingHeadHelmetERTMedic
   name: ERT medic helmet
-  description: An in-atmosphere helmet worn by medical members of the NanoTrasen Emergency Response Team. Has white highlights. # SL
+  description: An in-atmosphere helmet worn by medical members of the Nanotrasen Emergency Response Team. Has white highlights.
   components:
   - type: Sprite
     sprite: Clothing/Head/Helmets/ert_medic.rsi
@@ -429,7 +395,7 @@
   parent: ClothingHeadHelmetERTLeader
   id: ClothingHeadHelmetERTEngineer
   name: ERT engineer helmet
-  description: An in-atmosphere helmet worn by engineering members of the NanoTrasen Emergency Response Team. Has orange highlights. # SL
+  description: An in-atmosphere helmet worn by engineering members of the Nanotrasen Emergency Response Team. Has orange highlights.
   components:
   - type: Sprite
     sprite: Clothing/Head/Helmets/ert_engineer.rsi
@@ -444,7 +410,7 @@
   parent: ClothingHeadHelmetERTLeader
   id: ClothingHeadHelmetERTJanitor
   name: ERT janitor helmet
-  description: An in-atmosphere helmet worn by janitorial members of the NanoTrasen Emergency Response Team. Has dark purple highlights. # SL
+  description: An in-atmosphere helmet worn by janitorial members of the Nanotrasen Emergency Response Team. Has dark purple highlights.
   components:
   - type: Sprite
     sprite: Clothing/Head/Helmets/ert_janitor.rsi
@@ -464,8 +430,6 @@
     sprite: Clothing/Head/Helmets/syndie-raid.rsi
   - type: Clothing
     sprite: Clothing/Head/Helmets/syndie-raid.rsi
-  - type: Pierceable
-    level: Metal
   - type: Armor
     modifiers: #There's gotta be SOME reason to use this over other helmets.
       coefficients:
@@ -476,10 +440,6 @@
   - type: HideLayerClothing
     layers:
       Hair: HEAD
-#Starlight
-  - type: Tag
-    tags:
-    - CorgiWearable
 
 #Bone Helmet
 #No need to hide the hair on this one
@@ -531,13 +491,6 @@
   - type: Clothing
     sprite: Clothing/Head/Helmets/justice.rsi
     equippedPrefix: off
-    # Starlight begin - inheritance fix
-    clothingVisuals:
-      head:
-        - state: off-equipped-HELMET
-      head-vox:
-        - state: off-equipped-HELMET-vox
-    # Starlight end
   - type: ItemToggle
     predictable: false # issues between ToggleCellDraw and ItemToggleActiveSound
     onUse: false
@@ -554,11 +507,9 @@
         volume: -4
   - type: UseDelay
     delay: 1.0
-    # Starlight begin - redundant button, the normal sec helmet has a light toggle already
-    #  - type: ToggleClothing
-    #    action: ActionToggleJusticeHelm
-    #    mustEquip: false
-    # Starlight end
+  - type: ToggleClothing
+    action: ActionToggleJusticeHelm
+    mustEquip: false
   - type: ItemTogglePointLight
   - type: ToggleableVisuals
     spriteLayer: light
@@ -572,7 +523,7 @@
     energy: 2.5
     color: red
     netsync: false
-    lightMask: ConeDouble
+    mask: /Textures/Effects/LightMasks/double_cone.png
   - type: RotatingLight
     speed: 360
   - type: PowerCellSlot
@@ -585,11 +536,6 @@
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellSmall
-        #Starlight Start
-        blacklist:
-          tags:
-          - MechReactor
-        #Starlight End
   - type: PowerCellDraw
     drawRate: 2
   - type: ToggleCellDraw
@@ -609,11 +555,6 @@
     slots:
       cell_slot:
         name: power-cell-slot-component-slot-name-default
-        #Starlight Start
-        blacklist:
-          tags:
-          - MechReactor
-        #Starlight End
   - type: HideLayerClothing
     layers:
       Hair: HEAD

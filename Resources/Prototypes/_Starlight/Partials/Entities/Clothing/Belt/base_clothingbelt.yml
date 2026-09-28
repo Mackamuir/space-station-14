@@ -1,0 +1,4 @@
+- type: !PartialOnly entity
+  id: ClothingBeltStorageBase
+  components:
+  - type: SwitchableEquipMode

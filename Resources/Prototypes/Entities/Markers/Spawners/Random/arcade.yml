@@ -12,5 +12,4 @@
     prototypes:
       - BlockGameArcade
       - SpaceVillainArcadeFilled
-      - LancerArcade # Starlight-edit: Lancer arcade spawner
     chance: 1
