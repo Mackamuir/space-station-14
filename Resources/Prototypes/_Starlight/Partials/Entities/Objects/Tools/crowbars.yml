@@ -1,0 +1,15 @@
+- type: !PartialOnly entity
+  id: BaseCrowbar
+  components:
+  - type: Prying
+    useSoundOnDoafter: /Audio/_Starlight/Machines/airlock_pry.ogg
+    playSoundOnDoafter: true
+  - type: SurgeryTool
+  - type: BoneSetter
+    successRate: 0.4
+    speed: 1.5
+    startSound:
+      path: /Audio/_Starlight/Medical/Surgery/bone_setter.ogg
+  - type: CrowbarSurgery
+    startSound:
+      path: /Audio/Items/crowbar.ogg

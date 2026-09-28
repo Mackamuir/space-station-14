@@ -1,0 +1,24 @@
+- type: !PartialOnly entity
+  id: BookEngineersHandbook
+  description: A handbook about engineering written by NanoTrasen.
+
+- type: !PartialOnly entity
+  id: BookScientistsGuidebook
+  description: A guidebook about science written by NanoTrasen.
+
+- type: !PartialOnly entity
+  id: BookSecurity
+  description: A book about security written by NanoTrasen. The book is stained with blood. It seems to have been used more as a weapon than reading material.
+
+- type: !PartialOnly entity
+  id: BookSpaceLaw
+  name: Corporate Law
+  description: A set of NanoTrasen guidelines for keeping law and order on their space stations.
+  components:
+  - type: Sprite
+    layers:
+    - !CombineIndex:1 color: "#134975"
+  - type: GuideHelp
+    guides:
+    - !Remove SpaceLaw
+    - CorporateLaw

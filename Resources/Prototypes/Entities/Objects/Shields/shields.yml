@@ -61,13 +61,6 @@
                   max: 2
     - type: StaticPrice
       price: 100
-    # Starlight-start
-    - type: Pierceable
-      level: Flesh
-    - type: Tag
-      tags:
-        - Shield
-    #Starlight-end
 
 - type: entity
   name: base repairable shield
@@ -86,10 +79,6 @@
     fuelCost: 10 # 1/2 of a Welder for a full repair
     doAfterDelay: 5
     allowSelfRepair: false
-  #Starlight-start
-  - type: Pierceable
-    level: Metal
-  # Starlight-end
 
 #Security Shields
 
@@ -210,10 +199,6 @@
                   max: 5
     - type: StaticPrice
       price: 150
-    - type: Pierceable #Starlight
-      level: Wood
-
-#Starlight Changes Start
 
 - type: entity
   name: cardboard shield
@@ -269,17 +254,14 @@
 
 - type: entity
   name: makeshift shield
-  parent: [ PaladinShield, BaseMinorContraband ]
+  parent: [ PaladinShield, BaseMinorContraband ] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: MakeshiftShield
   description: A rundown looking shield, not good for much.
   components:
     - type: Sprite
-      sprite: _Starlight/Objects/Weapons/Melee/makeshift_shield.rsi
-      state: base
+      state: makeshift-icon
     - type: Item
-      sprite: _Starlight/Objects/Weapons/Melee/makeshift_shield.rsi
-    - type: Clothing
-      sprite: _Starlight/Objects/Weapons/Melee/makeshift_shield.rsi
+      heldPrefix: metal
     - type: Blocking
       passiveBlockModifier:
         coefficients:
@@ -298,10 +280,6 @@
           Slash: 0.5
           Piercing: 0.5
           Heat: 1
-    - type: MeleeWeapon
-      damage:
-        types:
-          Blunt: 5
     - type: Construction
       graph: MakeshiftShield
       node: makeshiftShield
@@ -327,10 +305,6 @@
                 SheetSteel:
                   min: 1
                   max: 2
-    - type: Pierceable #Starlight
-      level: Wood
-
-#Starlight Changes End
 
 - type: entity
   name: web shield
@@ -384,8 +358,6 @@
             - !type:PlaySoundBehavior
               sound:
                 collection: WoodDestroy
-    - type: Pierceable #Starlight
-      level: Wood
 
 #Magic/Cult Shields (give these to wizard for now)
 
@@ -487,55 +459,35 @@
       - type: DisarmMalus
         malus: 0.6
     - type: Sprite
-      sprite: _Starlight/Objects/Weapons/Melee/e_shield.rsi # SL
+      sprite: Objects/Weapons/Melee/e_shield.rsi
       layers:
         - state: eshield-icon
-        - state: eshield-on-base # SL
+        - state: eshield-on
           color: "#FFFFFF"
           visible: false
           shader: unshaded
           map: [ "shield" ]
-        # SL begin
-        - state: eshield-on-overlay
-          color: '#FFFFFF'
-          visible: false
-          shader: unshaded
-          map: [ "overlay" ]
-        # SL end
     - type: Item
       size: Small
-    # SL begin
-      sprite: _Starlight/Objects/Weapons/Melee/e_shield.rsi
+      sprite: Objects/Weapons/Melee/e_shield.rsi
       heldPrefix: eshield
-    # SL end
     - type: UseDelay
       delay: 0.5
     - type: ToggleableVisuals
       spriteLayer: shield
       inhandVisuals:
-      # SL begin
         left:
-          - state: inhand-left-shield-base
+          - state: inhand-left-shield
             shader: unshaded
-          - state: inhand-left-shield-overlay
-            shader: unshaded
-            map: [ "overlay" ]
         right:
-          - state: inhand-right-shield-base
+          - state: inhand-right-shield
             shader: unshaded
-          - state: inhand-right-shield-overlay
-            shader: unshaded
-            map: [ "overlay" ]
-      modulateIgnoreLayers: [ "overlay" ]
-      additionalLayers: [ "overlay" ]
-      # SL end
     - type: PointLight
       netsync: false
       enabled: false
       radius: 1.5
       energy: 2
       color: blue
-      castShadows: false #SL lighting optimization
     - type: ItemTogglePointLight
     - type: Reflect
       reflectProb: 0.95
@@ -586,15 +538,6 @@
                   max: 1
     - type: StaticPrice
       price: 350
-    # Starlight-start
-    - type: Tag
-      tags:
-        - Shield
-    - type: Pierceable
-      level: HardenedMetal
-    - type: EnergyColor
-      color: '#66b4fd'
-    # Starlight-end
 
 - type: entity
   name: broken energy shield

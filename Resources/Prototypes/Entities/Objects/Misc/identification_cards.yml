@@ -48,7 +48,6 @@
 - type: entity
   parent: [IDCardStandard, BaseGrandTheftContraband]
   id: CaptainIDCard
-  categories: [ ShouldMapStation ] # Starlight
   name: captain ID card
   components:
   - type: Sprite
@@ -75,7 +74,7 @@
     stealGroup: CaptainIDCard
 
 - type: entity
-  parent: [IDCardStandard, BaseGrandTheftContraband]
+  parent: [IDCardStandard, BaseGrandTheftContraband] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: HoPIDCard
   name: head of personnel ID card
   components:
@@ -93,8 +92,6 @@
     heldPrefix: silver
   - type: PresetIdCard
     job: HeadOfPersonnel
-  - type: StealTarget # Starlight
-    stealGroup: HOPIDCard # Starlight
 
 - type: entity
   parent: IDCardStandard
@@ -519,8 +516,6 @@
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Brigmedic
-  - type: PresetIdCard # Starlight
-    job: Brigmedic # Starlight
 
 - type: entity
   parent: SecurityIDCard
@@ -666,7 +661,7 @@
 - type: entity
   parent: IDCardStandard
   id: PunPunIDCard
-  name: pun pun's ID card # Starlight apostrophe
+  name: pun pun ID card
   components:
   - type: Sprite
     layers:
@@ -790,10 +785,6 @@
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Boxer
-  # Starlight start
-  - type: PresetIdCard
-    job: Boxer
-  # Starlight end
 
 - type: entity
   parent: IDCardStandard
@@ -933,23 +924,14 @@
 #Antags
 
 - type: entity
-  name: assistant ID card #Starlight de-gretidification
-  parent: [IDCardStandard, BaseChameleon]
+  parent: [IDCardStandard, BaseChameleon] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: AgentIDCard
   suffix: Agent
   components:
-  - type: PresetIdCard
-    job: Assistant
   - type: Access
     tags:
     - Maintenance
     - SyndicateAgent
-  - type: Sprite
-    layers:
-    - state: default
-    - sprite: *icon-rsi
-      offset: *icon-offset
-      state: Assistant
   - type: AgentIDCard
   - type: UIRequiresLock
   - type: ActivatableUI
@@ -960,7 +942,7 @@
     - DoorBumpOpener
   - type: ChameleonClothing
     slot: [idcard]
-    default: AssistantIDCard
+    default: PassengerIDCard
     requireTag: WhitelistChameleonIdCard
   - type: UserInterface
     interfaces:
@@ -972,7 +954,6 @@
     listNumber: false
 
 - type: entity
-  name: assistant ID card
   parent: AgentIDCard
   id: NukieAgentIDCard
   suffix: Nukie
@@ -1028,7 +1009,7 @@
       state: SyndicateOperative
   - type: AgentIDCard
   - type: IdCard
-    jobIcon: JobIconSyndicate # Starlight-edit - SyndicateOperative -> Syndicate
+    jobIcon: JobIconSyndicateOperative
   - type: NanoChatCard # CD
     listNumber: false
 
@@ -1048,7 +1029,7 @@
       offset: *icon-offset
       state: SyndicateCorpsman
   - type: IdCard
-    jobIcon: JobIconSyndicate # Starlight-edit - SyndicateCorpsman -> Syndicate
+    jobIcon: JobIconSyndicateCorpsman
   - type: NanoChatCard # CD
     listNumber: false
 
@@ -1068,7 +1049,7 @@
       offset: *icon-offset
       state: SyndicateCommander
   - type: IdCard
-    jobIcon: JobIconSyndicate # Starlight-edit - SyndicateCommander -> Syndicate
+    jobIcon: JobIconSyndicateCommander
   - type: NanoChatCard # CD
     listNumber: false
 
@@ -1114,9 +1095,6 @@
     heldPrefix: orange #this is close enough to the weird puce color pirate IDs have going on
   - type: IdCard
     jobIcon: JobIconPirate
-  - type: Access # Starlight
-    tags:
-    - Pirate
   - type: NanoChatCard # CD
     listNumber: false
 
@@ -1177,17 +1155,15 @@
     jobTitle: job-title-universal
     jobIcon: JobIconAdmin
   - type: Access
-    # Starlight-edit: Start
-    tags:
-    - Solgov
     groups:
     - AllAccess
     - Silicon
-    - Misc
+    tags:
     - CentralCommand
-    - Syndicate
+    - NuclearOperative
+    - SyndicateAgent
+    - Wizard
     - Xenoborg
-    # Starlight-edit: End
   - type: Tag #  Ignore Chameleon tags
     tags:
     - DoorBumpOpener

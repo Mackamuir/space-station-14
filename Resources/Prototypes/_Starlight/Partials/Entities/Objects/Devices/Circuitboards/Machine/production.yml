@@ -1,0 +1,18 @@
+- type: !PartialOnly entity
+  id: SecurityTechFabCircuitboard
+  components:
+    - type: StealTarget
+      stealGroup: SecureTechFabCircuitboard
+
+- type: !PartialOnly entity
+  id: MedicalTechFabCircuitboard
+  components:
+    - type: StealTarget
+      stealGroup: DepartmentalTechFabCircuitboard
+
+- type: !PartialOnly entity
+  id: MicrowaveMachineCircuitboard
+  components:
+    - type: Tag
+      tags:
+      - RamChip # FH

@@ -27,7 +27,7 @@
 - type: entity
   parent: WeaponEnergyTurretStationMachineCircuitboardBase
   id: WeaponEnergyTurretAIMachineCircuitboard
-  suffix: AI # Starlight edit
+  suffix: AI, Silicon
   components:
   - type: Sprite
     sprite: Objects/Misc/module.rsi
@@ -45,7 +45,7 @@
     state: security
   - type: MachineBoard
     prototype: WeaponEnergyTurretSecurity
-
+    
 - type: entity
   parent: WeaponEnergyTurretStationMachineCircuitboardBase
   id: WeaponEnergyTurretCommandMachineCircuitboard

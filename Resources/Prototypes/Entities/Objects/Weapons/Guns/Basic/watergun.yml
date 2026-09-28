@@ -45,16 +45,6 @@
   - type: PhysicalComposition
     materialComposition:
       Plastic: 150
-  # starlight start
-  - type: MeleeWeapon
-    wideAnimationRotation: 0
-    damage:
-      types:
-        Blunt: 1
-    angle: 0
-    animation: WeaponArcThrust
-  - type: AltFireMelee
-    # starlight end
 
 - type: entity
   parent: WeaponWaterGunBase

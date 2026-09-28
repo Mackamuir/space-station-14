@@ -1,0 +1,6 @@
+- type: !PartialOnly entity
+  id: NukeDiskFake
+  components:
+  - type: SentienceTarget
+    flavorKind: station-event-random-sentience-flavor-inanimate
+    weight: 0.001

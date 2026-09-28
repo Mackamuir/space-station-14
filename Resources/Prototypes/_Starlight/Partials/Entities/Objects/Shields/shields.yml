@@ -1,0 +1,82 @@
+- type: !PartialOnly entity
+  id: BaseShield
+  components:
+    - type: Pierceable
+      level: Flesh
+    - type: Tag
+      tags:
+        - Shield
+
+- type: !PartialOnly entity
+  id: BaseRepairableShield
+  components:
+  - type: Pierceable
+    level: Metal
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - WoodenBuckler
+    - WebShield
+  components:
+    - type: Pierceable
+      level: Wood
+
+- type: !PartialOnly entity
+  id: MakeshiftShield
+  components:
+    - type: Sprite
+      sprite: _Starlight/Objects/Weapons/Melee/makeshift_shield.rsi
+      state: base
+    - type: Item
+      heldPrefix: !Remove
+      sprite: _Starlight/Objects/Weapons/Melee/makeshift_shield.rsi
+    - type: Clothing
+      sprite: _Starlight/Objects/Weapons/Melee/makeshift_shield.rsi
+    - type: MeleeWeapon
+      damage:
+        types:
+          Blunt: 5
+    - type: Pierceable
+      level: Wood
+
+- type: !PartialOnly entity
+  id: EnergyShield
+  components:
+    - type: Sprite
+      sprite: _Starlight/Objects/Weapons/Melee/e_shield.rsi
+      layers:
+        - !CombineIndex:1 state: eshield-on-base
+        - !Index:2
+          state: eshield-on-overlay
+          color: '#FFFFFF'
+          visible: false
+          shader: unshaded
+          map: [ "overlay" ]
+    - type: Item
+      sprite: _Starlight/Objects/Weapons/Melee/e_shield.rsi
+    - type: ToggleableVisuals
+      inhandVisuals:
+        left:
+          - !CombineIndex:0 state: inhand-left-shield-base
+          - !Index:1
+            state: inhand-left-shield-overlay
+            shader: unshaded
+            map: [ "overlay" ]
+        right:
+          - !CombineIndex:0 state: inhand-right-shield-base
+          - !Index:1
+            state: inhand-right-shield-overlay
+            shader: unshaded
+            map: [ "overlay" ]
+      modulateIgnoreLayers: [ "overlay" ]
+      additionalLayers: [ "overlay" ]
+    - type: PointLight
+      castShadows: false # lighting optimization
+    - type: Tag
+      tags:
+        - Shield
+    - type: Pierceable
+      level: HardenedMetal
+    - type: EnergyColor
+      color: '#66b4fd'

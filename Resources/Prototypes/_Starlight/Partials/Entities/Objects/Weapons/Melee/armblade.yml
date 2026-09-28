@@ -1,0 +1,13 @@
+- type: !PartialOnly entity
+  id: ArmBlade
+  components:
+  - type: Sprite
+    sprite: Changeling/arm_blade.rsi # new changeling armblade sprites
+  - type: MeleeWeapon
+    attackRate: 1.2 # we can make it swing a little faster. It's just your arm, you've got good control over that. It also instantly makes you a target.
+  - type: Item
+    sprite: Changeling/arm_blade.rsi
+  - type: Prying
+    speedModifier: 2 # faster than the Jaws of life, so you can hunt people down.
+    useSoundOnDoafter: /Audio/_Starlight/Machines/airlock_pry.ogg
+    playSoundOnDoafter: true

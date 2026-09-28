@@ -1,0 +1,10 @@
+- type: !PartialOnly entity
+  id: DefaultStationBeaconBrigMed
+  suffix: Brigmedic # "Brig Med" -> "Brigmedic"
+  components:
+  - type: NavMapBeacon
+    defaultText: station-beacon-brigmedic
+
+- type: !PartialOnly entity
+  id: DefaultStationBeaconChapel
+  suffix: Shrine # Chapel -> Shrine

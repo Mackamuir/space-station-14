@@ -16,19 +16,11 @@
     - ConstructionMaterial
 
 - type: entity
-  parent: [PartBase, BaseQuickConstructionMaterial] # DEN add quick construction parent
+  parent: [PartBase, BaseQuickConstructionMaterial] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: PartRodMetal
   name: metal rod
   suffix: Full
   components:
-  #Starlight start
-  - type: UserInterface
-    interfaces:
-      enum.StackCustomSplitUiKey.Key:
-        type: StackCustomSplitBoundUserInterface
-      enum.QuickConstructionUiKey.Key:
-        type: QuickConstructionBoundUserInterface
-  # Starlight end
   - type: PhysicalComposition
     materialComposition:
       Steel: 50 #Half of a regular steel sheet to reflect the crafting recipe
@@ -69,8 +61,6 @@
   - type: GuideHelp
     guides:
     - ExpandingRepairingStation
-  - type: QuickConstructable # DEN quick construction
-    category: MetalRod
 
 - type: entity
   parent: PartRodMetal

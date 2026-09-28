@@ -79,7 +79,7 @@
 
 - type: entity
   id: SecurityTechFabCircuitboard
-  parent: [BaseMachineCircuitboard, BaseSecurityContraband] # Starlight
+  parent: [BaseMachineCircuitboard, BaseSecurityContraband] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   name: security techfab machine board
   description: A machine printed circuit board for a security techfab.
   components:
@@ -93,8 +93,6 @@
         GlassBeaker:
           amount: 2
           defaultPrototype: Beaker
-    - type: StealTarget # Starlight
-      stealGroup: SecureTechFabCircuitboard # Starlight
 
 - type: entity
   id: AmmoTechFabCircuitboard
@@ -111,7 +109,7 @@
 
 - type: entity
   id: MedicalTechFabCircuitboard
-  parent: [BaseMachineCircuitboard, BaseMedicalContraband] # Starlight
+  parent: [BaseMachineCircuitboard, BaseMedicalContraband] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   name: medical techfab machine board
   description: A machine printed circuit board for a medical techfab.
   components:
@@ -126,7 +124,7 @@
           amount: 2
           defaultPrototype: Beaker
     - type: StealTarget
-      stealGroup: DepartmentalTechFabCircuitboard # Starlight
+      stealGroup: MedicalTechFabCircuitboard
 
 - type: entity
   id: CircuitImprinterMachineCircuitboard
@@ -1057,7 +1055,6 @@
     - type: Tag
       tags:
       - MicrowaveMachineBoard
-      - RamChip # FH + Starlight
 
 - type: entity
   id: SyndicateMicrowaveMachineCircuitboard

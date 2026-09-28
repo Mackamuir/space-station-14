@@ -1,0 +1,71 @@
+- type: !PartialOnly entity
+  id: FoamCrossbow
+  components:
+  - type: MeleeWeapon
+    wideAnimationRotation: 0
+    damage:
+      types:
+        Blunt: 1
+    angle: 0
+    animation: WeaponArcThrust
+    soundHit:
+      collection: WeakHit
+  - type: AltFireMelee
+
+- type: !PartialOnly entity
+  id: WeaponRifleFoam
+  components:
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 1
+    soundHit:
+      collection: WeakHit
+  - type: KnockbackByUserTag
+    doestContain:
+      Rodentia:
+        knockback: 0
+      Resomi:
+        knockback: 0
+      Avali:
+        knockback: 0
+      Felionoid:
+        knockback: 0
+  - type: FiringPinHolder
+    supportedPins: [ Makeshift ]
+  - type: ContainerFill
+    containers:
+      firing_pin:
+      - FiringPinMakeshift
+
+- type: !PartialOnly entity
+  id: RevolverCapGun
+  components:
+  - type: MeleeWeapon
+    wideAnimationRotation: 0
+    damage:
+      types:
+        Blunt: 1
+    angle: 0
+    animation: WeaponArcThrust
+    soundHit:
+      collection: WeakHit
+  - type: AltFireMelee
+
+- type: !PartialOnly entity
+  id: RevolverCapGunFake
+  suffix: Lethal # Fake -> Lethal to make it obvious to mappers which one shoots actual bullets
+
+- type: !PartialOnly entity
+  id: BaseToySword
+  components:
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 0.1
+
+- type: !PartialOnly entity
+  id: ToySword
+  components:
+  - type: !Remove EnergySword
+  - type: EnergyColor

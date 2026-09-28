@@ -11,9 +11,6 @@
       color: "#868686"
     - state: datadisk_label
     - state: datadisk_encrypted
-  - type: Tag #starlight start
-    tags:
-    - OldTreasure #starlight end
   - type: PointLight
     radius: 1.5
     energy: 0.5
@@ -35,9 +32,6 @@
       map: [ "base" ]
   - type: Item
     storedRotation: -90
-  - type: Tag #starlight start
-    tags:
-    - OldTreasure #starlight end
   - type: RandomSprite
     available:
     - base:
@@ -59,9 +53,6 @@
     - state: flopdrive
   - type: Item
     storedRotation: -90
-  - type: Tag #starlight start
-    tags:
-    - OldTreasure #starlight end
   - type: StaticPrice
     price: 350
 
@@ -77,9 +68,6 @@
     - state: cddrive
   - type: Item
     storedRotation: -90
-  - type: Tag #starlight start
-    tags:
-    - OldTreasure #starlight end
   - type: StaticPrice
     price: 300
 
@@ -95,9 +83,6 @@
     - state: cpu_super
   - type: Item
     size: Tiny
-  - type: Tag #starlight start
-    tags:
-    - OldTreasure #starlight end
   - type: StaticPrice
     price: 750
 
@@ -154,8 +139,6 @@
     - id: TreasureCoinDiamond
       weight: 5
 
-
-# Starlight Start - porting CD antique coins
 - type: entity
   parent: BaseItem
   id: TreasureCoinIron
@@ -163,24 +146,19 @@
   description: A flat bit of metal. If it was still in circulation, inflation would've made it worthless. Since it isn't, it's worth enough to keep in a book.
   components:
   - type: Sprite
-    sprite: _CD/Objects/Misc/antique_coins.rsi
-    state: antiquecoin
+    sprite: Objects/Misc/coins.rsi
+    state: coin_iron
   - type: Item
     size: Tiny
   - type: StaticPrice
     price: 75
-  - type: Engraveable
-    engraveVerb: "engraving-verb-engrave"
-    noEngravingText: "engraving-coin-no-message"
-    engraveSuccessMessage: "engraving-coin-succeed"
-    hasEngravingText: "engraving-coin-has-message"
 
 - type: entity
   parent: TreasureCoinIron
   id: TreasureCoinSilver
   components:
   - type: Sprite
-    state: antiquecoin_silver
+    state: coin_silver
   - type: StaticPrice
     price: 125
 
@@ -189,18 +167,15 @@
   id: TreasureCoinGold
   components:
   - type: Sprite
-    state: antiquecoin_gold
+    state: coin_gold
   - type: StaticPrice
     price: 175
-
-# starlight end
 
 - type: entity
   parent: TreasureCoinIron
   id: TreasureCoinAdamantine
   components:
   - type: Sprite
-    sprite: Objects/Misc/coins.rsi # SL - keeping the old sprite
     state: coin_adamantine
   - type: StaticPrice
     price: 250
@@ -210,7 +185,6 @@
   id: TreasureCoinDiamond
   components:
   - type: Sprite
-    sprite: Objects/Misc/coins.rsi # SL - keeping the old sprite
     state: coin_diamond
   - type: StaticPrice
     price: 500

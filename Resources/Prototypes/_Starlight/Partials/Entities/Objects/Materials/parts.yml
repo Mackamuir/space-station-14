@@ -1,0 +1,11 @@
+- type: !PartialOnly entity
+  id: PartRodMetal
+  components:
+  - type: UserInterface
+    interfaces:
+      enum.StackCustomSplitUiKey.Key:
+        type: StackCustomSplitBoundUserInterface
+      enum.QuickConstructionUiKey.Key:
+        type: QuickConstructionBoundUserInterface
+  - type: QuickConstructable # DEN quick construction
+    category: MetalRod

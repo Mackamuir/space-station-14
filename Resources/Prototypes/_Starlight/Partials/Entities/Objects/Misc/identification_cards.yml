@@ -1,0 +1,81 @@
+- type: !PartialOnly entity
+  id: CaptainIDCard
+  categories: [ ShouldMapStation ]
+
+- type: !PartialOnly entity
+  id: HoPIDCard
+  components:
+  - type: StealTarget
+    stealGroup: HOPIDCard
+
+- type: !PartialOnly entity
+  id: BrigmedicIDCard
+  components:
+  - type: PresetIdCard
+    job: Brigmedic
+
+- type: !PartialOnly entity
+  id: PunPunIDCard
+  name: pun pun's ID card # apostrophe
+
+- type: !PartialOnly entity
+  id: BoxerIDCard
+  components:
+  - type: PresetIdCard
+    job: Boxer
+
+- type: !PartialOnly entity
+  id: AgentIDCard
+  name: assistant ID card # de-gretidification
+  components:
+  - type: PresetIdCard
+    job: Assistant
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: Interface/Misc/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Assistant
+  - type: ChameleonClothing
+    default: AssistantIDCard
+
+- type: !PartialOnly entity
+  id: NukieAgentIDCard
+  name: assistant ID card
+
+- type: !PartialOnly entity
+  id: SyndiOperativeIDCard
+  components:
+  - type: IdCard
+    jobIcon: JobIconSyndicate # SyndicateOperative -> Syndicate
+
+- type: !PartialOnly entity
+  id: SyndiCorpsmanIDCard
+  components:
+  - type: IdCard
+    jobIcon: JobIconSyndicate # SyndicateCorpsman -> Syndicate
+
+- type: !PartialOnly entity
+  id: SyndiCommanderIDCard
+  components:
+  - type: IdCard
+    jobIcon: JobIconSyndicate # SyndicateCommander -> Syndicate
+
+- type: !PartialOnly entity
+  id: PirateIDCard
+  components:
+  - type: Access
+    tags:
+    - Pirate
+
+- type: !PartialOnly entity
+  id: UniversalIDCard
+  components:
+  - type: Access
+    tags: !Clear
+    - Solgov
+    groups:
+    - Misc
+    - CentralCommand
+    - Syndicate
+    - Xenoborg

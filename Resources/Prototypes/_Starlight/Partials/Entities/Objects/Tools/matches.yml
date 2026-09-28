@@ -1,0 +1,23 @@
+- type: !PartialOnly entity
+  id: Matchbox
+  components:
+  - type: Storage
+    whitelist:
+      components:
+        - Smokable
+        - Matchstick
+        - Welder # for lighters
+        - Crayon # they're ciggie shaped
+  - type: Tag
+    tags:
+    - Lighters
+  # Vending Machines Prices
+  - type: ItemPrice
+    priceCategory: miscellaneous
+
+- type: !PartialOnly entity
+  id: GorlexMatchbox
+  components:
+  - type: Tag
+    tags:
+    - Lighters

@@ -4,13 +4,6 @@
   id: OreBase
   description: A piece of unrefined ore.
   components:
-  # Starlight start
-  - type: UserInterface
-    interfaces:
-      enum.StackCustomSplitUiKey.Key:
-        type: StackCustomSplitBoundUserInterface
-  - type: Stack
-  # Starlight end
   - type: Sprite
     sprite: Objects/Materials/ore.rsi
   - type: Item
@@ -47,16 +40,6 @@
       RawGold: 100
   - type: Item
     heldPrefix: gold
-  # BEGIN STARLIGHT - DWARF SPAM
-  - type: TriggerOnPointedAt
-  - type: WhitelistTriggerCondition
-    userWhitelist:
-      tags:
-      - Dwarf
-  - type: SpeakOnTrigger
-    text: dwarf-callout-wealth
-    targetUser: true
-  #END STARLIGHT
   - type: Tag
     tags:
     - Ore

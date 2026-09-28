@@ -1,0 +1,176 @@
+- type: !PartialOnly entity
+  id: BasePDA
+  components:
+  - type: PointLight
+    castShadows: false # lighting optimization
+
+- type: !PartialOnly entity
+  id: TechnicalAssistantPDA
+  components:
+  - type: CartridgeLoader
+    uiKey: enum.PdaUiKey.Key
+    preinstalled:
+      - CrewManifestCartridge
+      - NotekeeperCartridge
+      - NanoTaskCartridge
+      - NewsReaderCartridge
+      - AstroNavCartridge
+      - NanoChatCartridge
+
+- type: !PartialOnly entity
+  id: ChaplainPDA
+  description: Is the black austere, or luxurious? It's a matter of faith.
+
+- type: !PartialOnly entity
+  id: CEPDA
+  components:
+  - type: CartridgeLoader
+    uiKey: enum.PdaUiKey.Key
+    preinstalled:
+      - CrewManifestCartridge
+      - NotekeeperCartridge
+      - NanoTaskCartridge
+      - NewsReaderCartridge
+      - AstroNavCartridge #FH
+      - NanoChatCartridge # CD
+
+- type: !PartialOnly entity
+  id: EngineerPDA
+  components:
+  - type: CartridgeLoader
+    uiKey: enum.PdaUiKey.Key
+    preinstalled:
+      - CrewManifestCartridge
+      - NotekeeperCartridge
+      - NanoTaskCartridge
+      - NewsReaderCartridge
+      - AstroNavCartridge #FH
+      - NanoChatCartridge # CD
+
+- type: !PartialOnly entity
+  id: ParamedicPDA
+  components:
+  - type: Sprite
+    sprite: _Starlight/Objects/Devices/pda.rsi
+  - type: Icon
+    sprite: _Starlight/Objects/Devices/pda.rsi
+  - type: CartridgeLoader
+    uiKey: enum.PdaUiKey.Key
+    preinstalled:
+      - CrewManifestCartridge
+      - NotekeeperCartridge
+      - NanoTaskCartridge
+      - NewsReaderCartridge
+      - MedTekCartridge
+      - AstroNavCartridge
+      - NanoChatCartridge
+
+- type: !PartialOnly entity
+  id: ChemistryPDA
+  name: chemist PDA
+
+- type: !PartialOnly entity
+  id: SecurityPDA
+  description: Red to hide the stains of assistant blood.
+
+- type: !PartialOnly entity
+  id: AdminPDA
+  components:
+  - type: Instrument
+    allowPercussion: true
+    allowProgramChange: true
+    respectMidiLimits: false
+    handheld: true
+
+- type: !PartialOnly entity
+  id: AtmosPDA
+  components:
+  - type: CartridgeLoader
+    uiKey: enum.PdaUiKey.Key
+    preinstalled:
+      - CrewManifestCartridge
+      - NotekeeperCartridge
+      - NanoTaskCartridge
+      - NewsReaderCartridge
+      - AstroNavCartridge #FH
+      - NanoChatCartridge # CD
+
+- type: !PartialOnly entity
+  id: ClearPDA
+  components:
+  - type: Pda
+    id: AssistantIDCard
+
+- type: !PartialOnly entity
+  id: VisitorPDA
+  suffix: Visitor
+  components:
+  - type: CartridgeLoader
+    uiKey: enum.PdaUiKey.Key
+    preinstalled:
+      - AstroNavCartridge
+
+- type: !PartialOnly entity
+  id: SyndiPDA
+  components:
+  - type: Pda
+    id: OperativeIDCard
+
+- type: !PartialOnly entity
+  id: ERTLeaderPDA
+  name: ERT leader PDA # capitalization
+
+- type: !PartialOnly entity
+  id: ERTChaplainPDA
+  name: ERT chaplain PDA # capitalization
+  description: Red for the blood of sinners.
+
+- type: !PartialOnly entity
+  id: ERTEngineerPDA
+  name: ERT engineer PDA # capitalization
+  description: Red for firepower. It's well-worn.
+
+- type: !PartialOnly entity
+  id: ERTJanitorPDA
+  name: ERT janitor PDA # capitalization
+  description: Red for firepower. It's squeaky clean.
+
+- type: !PartialOnly entity
+  id: ERTMedicPDA
+  name: ERT medic PDA # capitalization
+  description: Red for firepower. It's shiny and sterile.
+
+- type: !PartialOnly entity
+  id: ERTSecurityPDA
+  name: ERT security PDA # capitalization
+  description: Red for firepower. It has tally marks etched on the side.
+
+- type: !PartialOnly entity
+  id: CluwnePDA
+  components:
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonPDA
+    - BibleThwackRemovable
+
+- type: !PartialOnly entity
+  id: SeniorEngineerPDA
+  components:
+  - type: CartridgeLoader
+    uiKey: enum.PdaUiKey.Key
+    preinstalled:
+      - CrewManifestCartridge
+      - NotekeeperCartridge
+      - NanoTaskCartridge
+      - NewsReaderCartridge
+      - AstroNavCartridge #FH
+      - NanoChatCartridge # CD
+
+- type: !PartialOnly entity
+  id: ChameleonPDA
+  name: assistant PDA
+  components:
+  - type: ChameleonClothing
+    default: AssistantPDA

@@ -1,0 +1,11 @@
+- type: !PartialOnly entity
+  id: WeaponWaterGunBase
+  components:
+  - type: MeleeWeapon
+    wideAnimationRotation: 0
+    damage:
+      types:
+        Blunt: 1
+    angle: 0
+    animation: WeaponArcThrust
+  - type: AltFireMelee

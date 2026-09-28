@@ -1,0 +1,21 @@
+- type: !PartialOnly entity
+  id: OreBase
+  components:
+  - type: UserInterface
+    interfaces:
+      enum.StackCustomSplitUiKey.Key:
+        type: StackCustomSplitBoundUserInterface
+  - type: Stack
+
+# DWARF SPAM
+- type: !PartialOnly entity
+  id: GoldOre
+  components:
+  - type: TriggerOnPointedAt
+  - type: WhitelistTriggerCondition
+    userWhitelist:
+      tags:
+      - Dwarf
+  - type: SpeakOnTrigger
+    text: dwarf-callout-wealth
+    targetUser: true
