@@ -3,15 +3,12 @@
   name: species-name-reptilian
   roundStart: true
   prototype: MobReptilian
-  sprites: MobReptilianSprites
   defaultSkinTone: "#34a223"
-  markingLimits: MobReptilianMarkingLimits
   dollPrototype: AppearanceReptilian
   skinColoration: Hues
   maleFirstNames: NamesReptilianMale
   femaleFirstNames: NamesReptilianFemale
   naming: FirstDashFirst
-  customName: true # Starlight
 
 - type: speciesBaseSprites
   id: MobReptilianSprites

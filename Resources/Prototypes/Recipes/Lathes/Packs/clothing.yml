@@ -12,13 +12,6 @@
   recipes:
   - ClothingUniformJumpsuitCargo
   - ClothingUniformJumpskirtCargo
-  - ClothingUniformJumpskirtCargoSalvage
-  - ClothingUniformJumpskirtCargoSalvageFormal
-  - ClothingUniformJumpskirtCargoFormal
-  - ClothingUniformJumpsuitCargoAlt
-  - ClothingUniformJumpsuitCargoFormal
-  - ClothingUniformJumpsuitCargoInformal # DeltaV
-  - ClothingUniformJumpsuitSalvageFormal
   - ClothingUniformJumpsuitSalvageSpecialist
   - ClothingHeadHatQMsoft
   - ClothingHeadHatBeretQM
@@ -27,9 +20,6 @@
   - ClothingUniformJumpsuitQMTurtleneck
   - ClothingUniformJumpskirtQMTurtleneck
   - ClothingUniformJumpsuitQMFormal
-  - ClothingUniformJumpskirtQmFormal # DeltaV
-  - ClothingHeadHatBeretCargo # starlight
-  - ClothingHeadHatBeretCargoFormal # starlight
 
 - type: latheRecipePack
   id: ClothingCommand
@@ -39,31 +29,12 @@
   - ClothingHeadHatCaptain
   - ClothingUniformJumpsuitCaptain
   - ClothingUniformJumpskirtCaptain
-  - ClothingUniformJumpsuitCapTurtleneck # afterlight
-  - ClothingUniformJumpskirtCapTurtleneck # afterlight
   - ClothingUniformJumpsuitCapFormal
   - ClothingUniformJumpskirtCapFormalDress
   # HoP
   - ClothingHeadHatHopcap
-  - ClothingHeadHatHopCapFormal # DeltaV
   - ClothingUniformJumpsuitHoP
   - ClothingUniformJumpskirtHoP
-  - ClothingUniformJumpsuitHoPTurtleneck # afterlight
-  - ClothingUniformJumpskirtHoPTurtleneck # afterlight
-  - ClothingUniformJumpsuitHopFormal # DeltaV
-  - ClothingUniformJumpskirtHopFormal # DeltaV
-  # BSO ## afterlight start
-  - ClothingUniformJumpskirtBlueShield
-  - ClothingUniformJumpskirtEliteBlueShield
-  - ClothingUniformJumpsuitBlueShield
-  - ClothingUniformJumpsuitEliteBlueShield
-  - ClothingUniformJumpsuitFormalBlueShield # afterlight end
-  - ClothingUniformJumpsuitBlueShieldShirt # starlight start
-  - ClothingUniformJumpskirtBlueShieldSkirt
-  # NTR
-  - ClothingUniformJumpskirtNtrep
-  - ClothingUniformJumpsuitNtrep
-  - ClothingUniformJumpsuitNtrepFormal # starlight end
   # Generic
   - ClothingHeadHatBeretCommand
   - ClothingHeadHatCommandSoft
@@ -93,11 +64,6 @@
   - ClothingUniformJumpskirtCMO
   - ClothingUniformJumpsuitCMOTurtle
   - ClothingUniformJumpskirtCMOTurtle
-  - ClothingUniformJumpsuitCmoFormal # DeltaV
-  - ClothingUniformJumpskirtCmoFormal # DeltaV
-  - ClothingUniformJumpsuitCmoVest # DeltaV
-  - ClothingUniformJumpskirtCmoVest # DeltaV
-  - ClothingUniformJumpsuitCmoSummer # DeltaV
   - ClothingHeadHatBeretSeniorPhysician
   - ClothingUniformJumpsuitMedicalDoctor
   - ClothingUniformJumpskirtMedicalDoctor
@@ -106,10 +72,6 @@
   - ClothingUniformJumpsuitParamedic
   - ClothingUniformJumpskirtParamedic
   - ClothingHeadHatParamedicsoft
-  - ClothingUniformJumpsuitCoroner # afterlight
-  - ClothingUniformJumpsuitCoronerAlt # afterlight
-  - ClothingUniformJumpskirtCoroner # afterlight
-  - ClothingUniformJumpskirtSuitNurse # afterlight
 
 - type: latheRecipePack
   id: ClothingScience
@@ -117,13 +79,10 @@
   - ClothingHeadHatBeretRND
   - ClothingUniformJumpsuitResearchDirector
   - ClothingUniformJumpskirtResearchDirector
-  - ClothingUniformJumpsuitRDClassical # afterlight
-  - ClothingUniformJumpskirtRDClassical # afterlight
   - ClothingUniformJumpsuitScientist
   - ClothingUniformJumpskirtScientist
   - ClothingUniformJumpsuitSeniorResearcher
   - ClothingUniformJumpskirtSeniorResearcher
-  - ClothingUniformJumpskirtScientistFormal # afterlight
 
 - type: latheRecipePack
   id: ClothingSecurity
@@ -136,8 +95,6 @@
   - ClothingUniformJumpskirtHoS
   - ClothingUniformJumpsuitHosFormal
   - ClothingUniformJumpskirtHosFormal
-  - ClothingUniformJumpsuitHoSBlack # afterlight
-  - ClothingUniformJumpskirtHoSBlack # afterlight
   - ClothingUniformJumpsuitHoSAlt
   - ClothingUniformJumpskirtHoSAlt
   - ClothingUniformJumpsuitHoSBlue
@@ -154,13 +111,6 @@
   - ClothingHeadHatBeretBrigmedic
   - ClothingUniformJumpsuitBrigmedic
   - ClothingUniformJumpskirtBrigmedic
-  - ClothingHeadHatBeretDutyOfficer # Starlight
-  - ClothingHeadHatDutyOfficer # Starlight
-  - ClothingHeadHatDutyOfficerOrange # DeltaV
-  - ClothingUniformJumpsuitDutyOfficer # Starlight
-  - ClothingUniformJumpskirtDutyOfficer # Starlight
-  - ClothingUniformJumpsuitDutyOfficerOrange # DeltaV
-  - ClothingUniformJumpskirtDutyOfficerOrange # DeltaV
   - ClothingHeadHatBeretWarden
   - ClothingHeadHatWarden
   - ClothingUniformJumpsuitWarden
@@ -192,7 +142,7 @@
 - type: latheRecipePack
   id: WinterCoats
   recipes:
-  - ClothingOuterWinterCapUnarmored #SL Edit
+  - ClothingOuterWinterCap
   - ClothingOuterWinterCE
   - ClothingOuterWinterCMO
   - ClothingOuterWinterHoP

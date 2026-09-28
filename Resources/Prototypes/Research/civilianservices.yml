@@ -13,16 +13,13 @@
   - SeedExtractorMachineCircuitboard
   - HydroponicsTrayMachineCircuitboard
   - ReagentGrinderIndustrialMachineCircuitboard
-  radioChannels:
-  - Service
-
 
 - type: technology
   id: CritterMechs
   name: research-technology-critter-mechs
   icon:
-    sprite: Objects/Specific/Mech/Mechs/Basic/hamtr.rsi
-    state: base-open
+    sprite: Objects/Specific/Mech/mecha.rsi
+    state: hamtr
   discipline: CivilianServices
   tier: 1
   cost: 7500
@@ -55,10 +52,6 @@
   - SurveillanceWirelessCameraMonitorCircuitboard
   - TelecomServerCircuitboard
   - HolopadMachineCircuitboard
-  - BladeServerRackMachineCircuitboard # Moffstation - Blade Server Rack constructible
-  - SurveillanceWirelessCameraHandheld # MOFFSTATION CHANGE - Adds wireless handheld camera
-  radioChannels:
-  - Service
 
 - type: technology
   id: AdvancedEntertainment
@@ -75,8 +68,6 @@
     - DawInstrumentMachineCircuitboard
     - MassMediaCircuitboard
     - JukeboxCircuitBoard
-  radioChannels:
-  - Service
 
 - type: technology
   id: MeatManipulation
@@ -91,10 +82,6 @@
   - FatExtractorMachineCircuitboard
   - BiofabricatorMachineCircuitboard
   - BiomassReclaimerMachineCircuitboard
-  - SlopDispenserMachineCircuitboard #SL
-  radioChannels:
-  - Service
-  - Medical # starlight
 
 # Tier 2
 
@@ -119,8 +106,6 @@
   - FauxTileDesertAstroSand
   - FauxTileAstroIronsand
   - FauxTileAstroIronsandBorderless
-  radioChannels:
-  - Service
 
 # Starlight - moved from civilian to medical
 #- type: technology
@@ -164,16 +149,13 @@
   - AdvMopItem
   - MegaSprayBottle
   - BorgModuleAdvancedCleaning
-  - Hydra # Starlight
-  radioChannels:
-  - Service
 
 - type: technology
   id: HONKMech
   name: research-technology-honk-mech
   icon:
-    sprite: Objects/Specific/Mech/Mechs/Basic/honker.rsi
-    state: base
+    sprite: Objects/Specific/Mech/mecha.rsi
+    state: honker
   discipline: CivilianServices
   tier: 2
   cost: 7500
@@ -187,8 +169,6 @@
   - HonkerPeripheralsElectronics
   - HonkerTargetingElectronics
   - MechEquipmentHorn
-  technologyPrerequisites:
-  - RipleyAPLU # starlight
 
 - type: technology
   id: HONKWeapons
@@ -219,8 +199,6 @@
   recipeUnlocks:
   - WeaponSprayNozzle
   - ClothingBackpackWaterTank
-  radioChannels:
-  - Service
 
 - type: technology
   id: BluespaceCargoTransport
@@ -233,10 +211,6 @@
   cost: 15000
   recipeUnlocks:
   - CargoTelepadMachineCircuitboard
-  technologyPrerequisites: # Starlight
-  - BluespaceManipulation
-  radioChannels:
-  - Supply
 
 - type: technology
   id: PushHorn
@@ -263,10 +237,4 @@
   tier: 3
   cost: 10000
   recipeUnlocks:
-  # Starlight edit start - Replace speed boots with speed legs
-  # - ClothingShoesBootsSpeed
-  - LeftLegCyberSpeed
-  - RightLegCyberSpeed
-  # Starlight edit end
-  radioChannels:
-  - Service
+  - ClothingShoesBootsSpeed

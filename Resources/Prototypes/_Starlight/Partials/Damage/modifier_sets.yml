@@ -1,0 +1,5 @@
+- type: !PartialOnly damageModifierSet
+  id: Slime
+  coefficients:
+    Slash: 1.1 # 1.2 -> 1.1
+    Piercing: 1.1

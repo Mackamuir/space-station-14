@@ -1,0 +1,15 @@
+- type: !PartialOnly technology
+  id: BasicAnomalousResearch
+  recipeUnlocks:
+  - !Index:4 OublietteCircuitBoard # REMINDER for anyone reading this: Oubliette and APE recipes shouldn't be hard to obtain. Keep this in mind when balancing science.
+
+- type: !PartialOnly technology
+  id: DeterrenceTechnologies
+  radioChannels:
+  - Engineering
+
+- type: !PartialOnly technology
+  id: BluespaceTimeManipulation
+  technologyPrerequisites:
+  - BluespaceManipulation
+

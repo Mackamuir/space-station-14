@@ -1,0 +1,68 @@
+- type: !PartialOnly alertLevels
+  id: stationAlerts
+  levels:
+    blue:
+      sound: /Audio/_Starlight/Announcements/bluealert.ogg
+    violet:
+      selectable: false
+      sound: /Audio/_Starlight/Announcements/siren_spooky.ogg
+      disableSelection: true
+    yellow:
+      sound: /Audio/_Starlight/Misc/notice1.ogg
+    red:
+      sound: /Audio/_Starlight/Announcements/redalert.ogg
+    delta:
+      emergencyLightColor: '#ffba9c'
+      dimmedLightMultiplier: 0.2
+    epsilon:
+      emergencyLightColor: "#938aff"
+      dimmedLightMultiplier: 0
+    omega:
+      announcement: alert-level-omega-announcement
+      selectable: false
+      sound:
+        path: /Audio/_Starlight/Announcements/omega.ogg
+        params:
+          volume: -2
+      disableSelection: true
+      color: Gold
+      emergencyLightColor: Gold
+      forceEnableEmergencyLights: true
+      shuttleTime: 1200
+      dimmedLightMultiplier: 0.2
+    theta:
+      announcement: alert-level-theta-announcement
+      selectable: false
+      sound:
+        path: /Audio/_Starlight/StationEvents/Burn_The_Hive_by_Bolgarich.ogg
+        params:
+          volume: -2
+      disableSelection: true
+      color: "#741b47"
+      emergencyLightColor: "#741b47"
+      forceEnableEmergencyLights: true
+      shuttleTime: 1200
+      dimmedLightMultiplier: 0.2
+    psi:
+      announcement: alert-level-psi-announcement
+      selectable: false
+      sound:
+        path: /Audio/_Starlight/Announcements/psi.ogg
+        params:
+          volume: -2
+      disableSelection: true
+      color: "#2288ff"
+      emergencyLightColor: "#2288ff"
+      forceEnableEmergencyLights: true
+      shuttleTime: 1200
+    orange:
+      announcement: alert-level-orange-announcement
+      selectable: true
+      sound:
+        path: /Audio/_Starlight/Announcements/orange.ogg
+        params:
+          volume: -2
+      color: "#ff8119"
+      emergencyLightColor: "#ff8119"
+      forceEnableEmergencyLights: true
+      shuttleTime: 600

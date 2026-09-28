@@ -1,0 +1,59 @@
+- type: !PartialOnly latheRecipePack
+  id: FloorDarkTilesStatic
+  recipes:
+  - !Index:9 FloorTileItemDarkBitile
+  - !Index:9 FloorTileItem3x3Black
+
+- type: !PartialOnly latheRecipePack
+  id: FloorSteelTilesStatic
+  recipes:
+  - !Index:11 FloorTileItemSteelBitile
+  - !Index:11 FloorTileItemMetalDark
+  - !Index:11 FloorTileItemMetalBrown
+  - !Index:11 FloorTileItemMetalBlue
+  - !Index:11 FloorTileItemMetalPurple
+  - !Index:11 FloorTileItemMetalRed
+  - !Index:11 FloorTileItemMetalGreen
+  - !Index:11 FloorTileItemCarpetDeco
+  - !Index:11 FloorTileItemCarpetArt
+  - !Index:11 FloorTileItemHierophant
+  - !Index:11 FloorTileItemSepia
+  - !Index:11 FloorTileItem3x3Brown
+  - !Index:11 FloorTileItem3x3Steel
+  - !Index:11 FloorTileItemOrnate
+  - !Index:11 FloorTileItemRoughMetal
+  - !Index:11 FloorTileItemRustyMetal
+  - !Index:11 FloorTileItemSteelGrate
+  - !Index:11 FloorTileItemTechGreeb
+
+- type: !PartialOnly latheRecipePack
+  id: FloorWhiteTilesStatic
+  recipes:
+  - !Index:9 FloorTileItemWhiteBitile
+  - !Index:9 FloorTileItem3x3White
+
+- type: !PartialOnly latheRecipePack
+  id: FloorWoodTilesStatic
+  recipes:
+  - !Index:3 FloorTileItemWoodParquet
+  - !Index:3 FloorTileItemWoodBlack
+  - !Index:3 FloorTileItemWoodLight
+  - !Index:3 FloorTileItemWoodRed
+  - !Index:3 FloorTileItemWoodLargeBlack
+  - !Index:3 FloorTileItemWoodLargeLight
+  - !Index:3 FloorTileItemWoodLargeRed
+  - !Index:3 FloorTileItemWoodParquetBlack
+  - !Index:3 FloorTileItemWoodParquetLight
+  - !Index:3 FloorTileItemWoodParquetRed
+  - !Index:3 FloorTileItemWoodChess
+  - !Index:3 FloorTileItemWoodChessBlack
+  - !Index:3 FloorTileItemWoodChessLight
+  - !Index:3 FloorTileItemWoodChessRed
+  - !Index:3 FloorTileItemAstroDirt
+
+- type: !PartialOnly latheRecipePack
+  id: FloorConcreteTilesStatic
+  recipes:
+  - !Index:12 FloorTileItemOldConcreteBricks
+  - !Index:12 FloorTileItemOldConcreteTile
+

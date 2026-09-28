@@ -1,0 +1,5 @@
+- type: !PartialOnly entity
+  id: DionaReformAction
+  components:
+  - type: Action
+    useDelay: 300 # Once every 5 minutes. Keep them dead for a fair bit before reforming

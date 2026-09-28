@@ -12,7 +12,6 @@
   recipes:
   - OreProcessorMachineCircuitboard
   - SalvageMagnetMachineCircuitboard
-  - CargoMailBoxMachineCircuitboard #Starlight
 
 ## Dynamic
 

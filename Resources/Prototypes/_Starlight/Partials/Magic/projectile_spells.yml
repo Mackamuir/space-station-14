@@ -1,0 +1,25 @@
+- type: !PartialOnly entity
+  id: ActionFireball
+  description: Fires an explosive fireball towards the clicked location. (Cooldown of 5 minutes)
+  components:
+  - type: Action
+    useDelay: 300 # 5 minutes
+  - type: SpeakOnAction
+    tts: action-speech-spell-fireball-tts
+    modifier: Spell
+  - type: EorgPreventAction
+
+- type: !PartialOnly entity
+  id: ActionFireballII
+  description: Fires a fireball, but faster! (Cooldown of 3 minutes)
+  components:
+  - type: Action
+    useDelay: 180 # 3 minutes
+
+- type: !PartialOnly entity
+  id: ActionFireballIII
+  description: The fastest fireball in the west! (Cooldown of 2 minutes)
+  components:
+  - type: Action
+    useDelay: 120 # 2 minutes
+

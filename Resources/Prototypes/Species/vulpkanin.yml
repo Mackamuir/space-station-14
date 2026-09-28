@@ -3,23 +3,12 @@
   name: species-name-vulpkanin
   roundStart: true
   prototype: MobVulpkanin
-  sprites: MobVulpkaninSprites
   defaultSkinTone: "#5a3f2d"
-  markingLimits: MobVulpkaninMarkingLimits
   dollPrototype: AppearanceVulpkanin
-  skinColoration: Hues # Starlight Edit: VulpkaninColors -> Hues
+  skinColoration: VulpkaninColors
   maleFirstNames: names_vulpkanin_male
   femaleFirstNames: names_vulpkanin_female
   lastNames: names_vulpkanin_last
-  # starlight start
-  minHeight: 0.9
-  defaultHeight: 1
-  maxHeight: 1.2
-  standardSize: 170
-  standardWeight: 75
-  standardDensity: 110
-  customName: true
-  # starlight end
 
 - type: speciesBaseSprites
   id: MobVulpkaninSprites

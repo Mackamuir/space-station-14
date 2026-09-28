@@ -100,13 +100,6 @@
         showInChat: true
         showInGuidebook: true
         probability: 0.05
-      # Starlight Begin
-      - !type:ForceSneeze
-        conditions:
-        - !type:ReagentCondition
-          reagent: Blackpepper
-          min: 2
-      # Starlight End
   reactiveEffects:
     Acidic:
       methods: [ Touch ]
@@ -118,13 +111,6 @@
         - !type:BreathingCondition
         - !type:InternalsCondition
           inverted: true
-      # Starlight Begin
-      - !type:ForceSneeze # _Starlight - anti-sniffer countermeasure, see Content.Shared/_Starlight/EntityEffects/Effects/Scent/ForceSneeze.cs
-        conditions:
-        - !type:BreathingCondition
-        - !type:InternalsCondition
-          inverted: true
-      # Starlight End
 
 - type: reagent
   id: Vinegar
@@ -138,7 +124,7 @@
   metabolisms:
     Digestion:
       metabolites:
-        Water: 0.5
+        Water: 0.8
         Vitamin: 0.2
       effects:
       - !type:Vomit
@@ -147,10 +133,6 @@
           - !type:ReagentCondition
             reagent: Vinegar
             min: 6
-    Bloodstream: # Starlight start
-      effects:
-      - !type:SatiateThirst
-        factor: 1.5 # Starlight end, it's not really thirst quenching
 
 - type: reagent
   id: Rice
@@ -229,13 +211,6 @@
         type: Local
         messages: [ "capsaicin-effect-light-burn" ]
         probability: 0.2
-      # Starlight Begin
-      - !type:ForceSneeze
-        conditions:
-        - !type:ReagentCondition
-          reagent: CapsaicinOil
-          min: 5
-      # Starlight End
 
 - type: reagent
   id: CocoaPowder #Candy and chocolate

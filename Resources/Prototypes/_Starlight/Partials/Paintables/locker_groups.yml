@@ -1,0 +1,17 @@
+- type: !PartialOnly paintableGroup
+  id: Locker
+  styles:
+    bso: LockerBlueshield
+    cargo: LockerCargo
+    coroner: LockerCoroner
+    geneticist: LockerGeneticist
+    iaa: LockerIAA
+    magistrate: LockerMagistrate
+    mail: LockerMail
+    mining: LockerMiningSpecialist
+    roboticist: LockerRoboticist
+    salvagelead: LockerSalvageLead
+    surgeon: LockerSurgeon
+    virologist: LockerVirologist
+    warden: LockerWarden
+

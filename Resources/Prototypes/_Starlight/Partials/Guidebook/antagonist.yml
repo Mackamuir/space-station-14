@@ -1,0 +1,27 @@
+- type: !PartialOnly guideEntry
+  id: Antagonists
+  children: !Clear
+  - !Index:0 Traitors
+  - !Index:0 Changelings
+  - !Index:0 NuclearOperatives
+  - !Index:0 Zombies
+  - !Index:0 Revolutionaries
+  - !Index:0 Xenoborgs
+  - !Index:0 MinorAntagonists
+  - !Index:0 SpaceNinja
+  - !Index:0 Thieves
+  - !Index:0 Wizard
+  - !Index:0 Abductors
+  - !Index:0 Brighteye
+  - !Index:0 CosmicCult # Stellar - Cosmic Cult
+  - !Index:0 Devil
+  - !Index:0 SELFAgent
+  - !Index:0 TerrorSpiders
+  - !Index:0 Vampires
+  - !Index:0 Eeeps # imp
+
+- type: !PartialOnly guideEntry
+  id: Wizard
+  # Moffstation - Wizard Duelist
+  children:
+  - WizardDuel

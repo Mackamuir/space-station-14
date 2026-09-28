@@ -2,11 +2,11 @@
   parent: BaseAction
   id: ActionFireball
   name: Fireball
-  description: Fires an explosive fireball towards the clicked location. (Cooldown of 5 minutes)
+  description: Fires an explosive fireball towards the clicked location.
   components:
   - type: Magic
   - type: Action
-    useDelay: 300 #starlight, 5 minutes
+    useDelay: 15
     itemIconStyle: BigAction
     raiseOnUser: true
     sound: !type:SoundPathSpecifier
@@ -22,28 +22,25 @@
       prototype: ProjectileFireball
   - type: SpeakOnAction
     sentence: action-speech-spell-fireball
-    tts: action-speech-spell-fireball-tts
-    modifier: Spell
   - type: ActionUpgrade
     effectedLevels:
       2: ActionFireballII
       3: ActionFireballIII
-  - type: EorgPreventAction # Starlight
 
 - type: entity
   parent: ActionFireball
   id: ActionFireballII
   name: Fireball II
-  description: Fires a fireball, but faster! (Cooldown of 3 minutes)
+  description: Fires a fireball, but faster!
   components:
   - type: Action
-    useDelay: 180 #starlight, 3 minutes
+    useDelay: 10
 
 - type: entity
   parent: ActionFireball
   id: ActionFireballIII
   name: Fireball III
-  description: The fastest fireball in the west! (Cooldown of 2 minutes)
+  description: The fastest fireball in the west!
   components:
   - type: Action
-    useDelay: 120 #starlight, 2 minutes
+    useDelay: 8

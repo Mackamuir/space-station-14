@@ -4,11 +4,8 @@
   # If item is not in list it will go at the bottom (ties broken by alert type enum value)
   id: BaseAlertOrder
   order:
-    - alertType: ChangelingBiomass
     - category: Health
     - category: Stamina
-    - alertType: Shadekin # Starlight
-    - alertType: ChangelingChemicals
     - alertType: SuitPower
     - category: Internals
     - alertType: Fire
@@ -30,9 +27,6 @@
     - alertType: Rooted
     - alertType: Pacified
     - alertType: Stealthy
-    - alertType: GPSAlert # Starlight
-    - alertType: DwarfCourage # Starlight
-    - alertType: Offer # Starlight
 
 - type: entity
   id: AlertSpriteView

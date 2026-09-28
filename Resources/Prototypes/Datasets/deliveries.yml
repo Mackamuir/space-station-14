@@ -2,5 +2,4 @@
   id: DeliverySpamLetters
   values:
     prefix: delivery-spam-
-    count: 16
-    # Starlight - 13 from non-Starlight, 3 from Starlight.
+    count: 13

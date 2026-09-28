@@ -1,0 +1,32 @@
+- type: !PartialOnly salvageBiomeMod
+  id: Caves
+  difficulties:
+  - Challenging
+  - Moderate
+  - Easy
+  - Difficult
+
+- type: !PartialOnly salvageBiomeMod
+  id: Grasslands
+  difficulties:
+  - Challenging
+  - Moderate
+  - Easy
+  - Difficult
+
+- type: !PartialOnly salvageBiomeMod
+  id: Snow
+  difficulties:
+  - Challenging
+  - Moderate
+  - Easy
+  - Difficult
+
+- type: !PartialOnly salvageBiomeMod
+  id: Lava
+  difficulties:
+  - Challenging
+  - Moderate
+  - Easy
+  - Difficult
+

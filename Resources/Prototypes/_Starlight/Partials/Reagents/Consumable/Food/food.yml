@@ -1,0 +1,20 @@
+- type: !PartialOnly reagent
+  id: Sugar
+  metabolisms:
+    Metabolites:
+      effects:
+      - !type:SatiateHunger
+        !CombineIndex:0 factor: 0.5
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [Dwarf]
+      - !type:SatiateHunger
+        factor: 1
+        conditions:
+        - !type:ReagentCondition
+          reagent: Nutriment
+          min: 0.1
+        - !type:MetabolizerTypeCondition
+          type: [Dwarf]
+          inverted: true
+

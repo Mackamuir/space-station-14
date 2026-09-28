@@ -1,0 +1,23 @@
+- type: !PartialOnly polymorph
+  id: WizardForcedCarp
+  configuration:
+    duration: 120
+    transferDamage: false # If you're gonna show up in a nukie game, so be it.
+    revertOnCrit: true # If you're gonna show up in a nukie game, so be it.
+
+- type: !PartialOnly polymorph
+  id: WizardForcedSkeleton
+  configuration:
+    duration: 120
+
+- type: !PartialOnly polymorph
+  id: WizardForcedMonkey
+  configuration:
+    entity: MobMonkeyAdvanced # it's somewhat more enjoyable to play.
+    duration: 120
+
+- type: !PartialOnly polymorph
+  id: ArtifactMonkey
+  configuration:
+    entity: MobMonkeyAdvanced # it's somewhat more enjoyable to play.
+

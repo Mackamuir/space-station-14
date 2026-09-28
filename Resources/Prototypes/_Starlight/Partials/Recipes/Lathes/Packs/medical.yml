@@ -1,0 +1,13 @@
+- type: !PartialOnly latheRecipePack
+  id: Chemistry
+  recipes:
+  - !Index:8 GoldenJug
+  - !Index:8 SilverJug
+
+- type: !PartialOnly latheRecipePack
+  id: MedicalBoards
+  recipes:
+  - !Index:3 CloningConsoleComputerCircuitboard
+  - !Index:3 CloningPodMachineCircuitboard
+  - !Index:3 MedicalScannerMachineCircuitboard
+

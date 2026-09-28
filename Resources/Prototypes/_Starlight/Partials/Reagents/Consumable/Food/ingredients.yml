@@ -1,0 +1,41 @@
+- type: !PartialOnly reagent
+  id: Blackpepper
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:ForceSneeze
+        conditions:
+        - !type:ReagentCondition
+          reagent: Blackpepper
+          min: 2
+  reactiveEffects:
+    Acidic:
+      effects:
+      - !type:ForceSneeze
+        conditions:
+        - !type:BreathingCondition ''
+        - !type:InternalsCondition
+          inverted: true
+
+- type: !PartialOnly reagent
+  id: Vinegar
+  metabolisms:
+    Digestion:
+      metabolites:
+        Water: 0.5
+    Bloodstream:
+      effects:
+      - !type:SatiateThirst
+        factor: 1.5 # it's not really thirst quenching
+
+- type: !PartialOnly reagent
+  id: CapsaicinOil
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:ForceSneeze
+        conditions:
+        - !type:ReagentCondition
+          reagent: CapsaicinOil
+          min: 5
+

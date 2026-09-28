@@ -1,0 +1,12 @@
+- type: !PartialOnly reagent
+  id: Thermite
+  reactiveEffects:
+    Dissolvable:
+      methods: [Touch]
+      effects:
+      - !type:DissolvableReaction
+        multiplier: 1
+        damage:
+          types:
+            Structural: 3
+

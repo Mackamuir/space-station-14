@@ -1,0 +1,6 @@
+- type: !PartialOnly accessGroup
+  id: Service
+  tags:
+  - Clown
+  - Mime
+  - Journalism # Goobstation

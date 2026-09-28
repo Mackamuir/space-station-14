@@ -1,0 +1,144 @@
+- type: !PartialOnly entity
+  id: BaseTraitorStealObjective
+  components:
+  - type: Objective
+    difficulty: 1.5 # this was way too high and it made stuff like hypo, crew monitor, license and diploma cost 2.75 which is odd
+  - type: ObjectiveBlacklistRequirement
+    blacklist:
+      components:
+      - DieCondition # it's been a common complaint that this objective is *impossible* with DAGD, since you physically can't extract with it.
+
+- type: !PartialOnly entity
+  id: EscapeShuttleObjective
+  components:
+  - type: Objective
+    difficulty: 1
+  - type: ObjectiveBlacklistRequirement
+    blacklist:
+      components:
+      - DieCondition # makes no sense you can get both.
+
+- type: !PartialOnly entity
+  id: DieObjective
+  components:
+  - type: ObjectiveLimit
+    limit: 3
+
+- type: !PartialOnly entity
+  id: KillRandomPersonObjective
+  components:
+  - type: Objective
+    difficulty: 1.5
+
+- type: !PartialOnly entity
+  id: KillRandomHeadObjective
+  components:
+  - type: Objective
+    difficulty: 2.5
+
+- type: !PartialOnly entity
+  id: RandomTraitorAliveObjective
+  components:
+  - type: PickRandomPerson
+    filters:
+    - !type:TargetObjectiveMindFilter
+      !CombineIndex:1 blacklist:
+        components:
+        - DieCondition # don't help DAGDs.
+
+- type: !PartialOnly entity
+  id: RandomTraitorProgressObjective
+  components:
+  - type: Objective
+    difficulty: 1 # i have NO idea why the difficulty was so high, its a big fat nothingburger
+  - type: PickRandomPerson
+    filters:
+    - !type:ObjectiveMindFilter
+      !CombineIndex:1 blacklist:
+        components:
+        - DieCondition
+    - !type:TargetObjectiveMindFilter
+      !CombineIndex:2 blacklist:
+        components:
+        - DieCondition
+  - type: ObjectiveBlacklistRequirement
+    blacklist:
+      components:
+      - HelpProgressCondition
+
+- type: !PartialOnly entity
+  id: BaseCMOStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:0 MedicalDoctor
+    - !Index:0 Paramedic
+    - !Index:1 MedicalIntern
+    - !Index:1 Surgeon
+    - !Index:1 Chemist
+    - !Index:1 Psychologist
+
+- type: !PartialOnly entity
+  id: CMOHyposprayStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs: [MedicalDoctor, Paramedic, ChiefMedicalOfficer, MedicalIntern, Surgeon, Chemist, Psychologist, SecurityOfficer, HeadOfSecurity, Detective, Warden, Brigmedic, DutyOfficer, SecurityCadet]
+
+- type: !PartialOnly entity
+  id: BaseRDStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:1 ResearchAssistant
+    - !Index:1 Scientist
+    - !Index:1 Roboticist
+
+- type: !PartialOnly entity
+  id: RDHardsuitStealObjective
+  components:
+  - type: Objective
+    difficulty: 2.5
+
+- type: !PartialOnly entity
+  id: MagbootsStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:1 StationEngineer
+    - !Index:1 AtmosphericTechnician
+    - !Index:1 TechnicalAssistant
+
+- type: !PartialOnly entity
+  id: ClipboardStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:1 CargoTechnician
+    - !Index:1 MailTech
+    - !Index:1 MiningSpecialist
+    - !Index:1 SalvageSpecialist
+    - !Index:1 SalvageLead
+
+- type: !PartialOnly entity
+  id: KnuckleDustersStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:1 CargoTechnician
+    - !Index:1 MailTech
+    - !Index:1 MiningSpecialist
+    - !Index:1 SalvageSpecialist
+    - !Index:1 SalvageLead
+
+- type: !PartialOnly entity
+  id: BaseCaptainObjective
+  components:
+  - type: Objective
+    difficulty: 2.5 # jetpacks in the room most of the time and theres copies of the id that are pretty easy to get
+
+- type: !PartialOnly entity
+  id: CaptainGunStealObjective
+  components:
+  - type: Objective
+    difficulty: 3 # usually on cap the microsecond its code blue, so this ones ACTUALLY risky
+

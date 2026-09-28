@@ -1,0 +1,10 @@
+- type: !PartialOnly inventoryTemplate
+  id: monkey
+  slots:
+  - name: eyes
+    slotTexture: glasses
+    slotFlags: EYES
+    stripTime: 3
+    uiWindowPos: 0,2
+    strippingWindowPos: 1,0
+    displayName: Eyes

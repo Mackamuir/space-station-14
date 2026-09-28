@@ -5,8 +5,8 @@
   spawn: Telecrystal1
 
 - type: stack
+  parent: BaseCurrencyStack # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: Credit
-  parent: BaseCurrencyStack # Starlight
-  name: stack-speso # Starlight - stack-credit -> stack-speso
+  name: stack-credit
   icon: { sprite: /Textures/Objects/Economy/cash.rsi, state: cash }
   spawn: SpaceCash

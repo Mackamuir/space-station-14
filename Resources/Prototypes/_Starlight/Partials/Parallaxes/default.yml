@@ -1,0 +1,11 @@
+- type: !PartialOnly parallax
+  id: Default
+  layers:
+  - texture: !type:ImageParallaxTextureSource
+      path: "/Textures/_Starlight/Parallaxes/Abyss.png"
+    slowness: 0.987265625
+    scale: "0.6, 0.6"
+    tiled: false
+  layersLQ:
+  - !CombineIndex:0 slowness: 0.999446875
+

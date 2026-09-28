@@ -1,0 +1,41 @@
+- type: !PartialOnly tile
+  id: BasePlating
+  deconstructTools: [Tearing]
+
+- type: !PartialOnly tile
+  id: PlatingDamaged
+  baseTurf: Plating # swap baseTurf to Plating, so when we weld it, we revert to that.
+  deconstructTools: [Welding, Tearing]
+  itemDrop: NothingEntity # remove drop
+  isSubfloor: true
+  footstepSounds:
+    collection: FootstepPlating
+  friction: 1.5
+  heatCapacity: 10000
+
+- type: !PartialOnly tile
+  id: PlatingAsteroid
+  baseTurf: Lattice
+  isSubfloor: true
+  footstepSounds:
+    collection: FootstepPlating
+  friction: 1.5
+  heatCapacity: 10000
+
+- type: !PartialOnly tile
+  id: PlatingBrass
+  baseTurf: Lattice
+  isSubfloor: true
+  footstepSounds:
+    collection: FootstepPlating
+  friction: 1.5
+  heatCapacity: 10000
+
+- type: !PartialOnly tile
+  id: PlatingSnow
+  baseTurf: Lattice
+  isSubfloor: true
+  footstepSounds:
+    collection: FootstepPlating
+  weather: true # it's got snow on it, so it's outside
+

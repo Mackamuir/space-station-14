@@ -253,14 +253,6 @@
   - URANUS
   - VENUS
   - YOUR DREAMS AND/OR NIGHTMARES
-  # Starlight-Start
-  - THE NANOTRASEN REPRESENTATIVE'S OFFICE
-  - THE TRANS-SOLAR FEDERATION
-  - THE BAR
-  - THE BLUE SHIELD OFFICER'S ROOM
-  - THE NULLSCAR
-  - XENOBIOLOGY
-  # Starlight-End
 
 # Abstract concepts for the law holder to decide on it's own definition of.
 - type: dataset
@@ -356,7 +348,7 @@
   - MUSICIANS
   - NON-CREW
   - PARAMEDICS
-  - ASSISTANTS
+  - PASSENGERS
   - QUARTERMASTERS
   - RESEARCH DIRECTORS
   - ROBOTICISTS
@@ -364,39 +356,6 @@
   - SALVAGE SPECIALISTS
   - SCIENTISTS
   - SECURITY OFFICERS
-  # Starlight-Start
-  - MINING SPECIALISTS
-  - BLUE SHIELD OFFICER
-  - NANOTRASEN REPRESENTATIVE
-  - SURGEONS
-  - DUTY OFFICERS
-  - XENOBIOLOGISTS
-  - SPEAKERS OF ENCODED AUDIO LANGUAGE
-  - SPEAKERS OF GALACTIC COMMON
-  - SIGNERS OF SIGN LANGUAGE
-  - SPEAKERS OF SOL COMMON
-  - SPEAKERS OF MARISH
-  - SPEAKERS OF BUBBLISH
-  - SPEAKERS OF CANILUNZT
-  - SPEAKERS OF MOFFIC
-  - SPEAKERS OF NEKOMIMETIC
-  - SPEAKERS OF DRACONIC
-  - SPEAKERS OF SCURRET SIGN
-  - SPEAKERS OF ANCESTOR
-  - SPEAKERS OF MOUSE
-  - SPEAKERS OF SCRATCH
-  - SPEAKERS OF TERRUM
-  - SPEAKERS OF SYLVAN
-  - SPEAKERS OF CHITTIN
-  - SPEAKERS OF VOX PIDGIN
-  - SPEAKERS OF CAT
-  - SPEAKERS OF DOG
-  - SPEAKERS OF FOX
-  - SPEAKERS OF CHICKEN
-  - SPEAKERS OF DUCK
-  - SPEAKERS OF PIG
-  - SPEAKERS OF BAT
-  # Starlight-End
   - STATION ENGINEERS
   # - VIROLOGISTS
   - WARDENS
@@ -422,9 +381,6 @@
   - SPACE LUBE
   - SULFURIC ACID
   - WELDING FUEL
-  # Starlight-Start
-  - CRAB JUICE
-  # Starlight-End
 
 - type: dataset
   id: IonStormFeelings
@@ -452,9 +408,6 @@
   - WANTS
   - WORSHIPS
   - WOULD KILL FOR
-  # Starlight-Start
-  - IS NOSTALGIC FOR
-  # Starlight-End
 
 # loc is not advanced enough to change has to have, etc.
 - type: dataset
@@ -483,9 +436,6 @@
   - WANT
   - WORSHIP
   - WOULD KILL FOR
-  # Starlight-Start
-  - ARE NOSTALGIC FOR
-  # Starlight-End
 
 # only including complex dangerous or funny food no apples
 - type: dataset
@@ -513,11 +463,6 @@
   - STEEL
   - SUPPERMATTER
   - URANIUM
-  # Starlight-Start
-  - ICE-CREAM SANDWICH
-  - ORANGE CREAMSICLE
-  - KHLAV KALASH
-  # Starlight-End
 
 # Musts are funny things the law holder or crew has to do.
 - type: dataset
@@ -558,7 +503,7 @@
   - HIT A HOMERUN
   - HONK
   - HOST C&C
-  - IGNORE ASSISTANTS
+  - IGNORE PASSENGERS
   - IGNORE THE CAPTAIN
   - IGNORE THE CLOWN
   - INFORM THE CREW OF EVERYTHING
@@ -599,33 +544,6 @@
   - SHUT DOWN EVERYTHING
   - SLEEP WITH THE FISHES
   - SING
-  # Starlight-Start
-  - SPEAK IN ENCODED AUDIO LANGUAGE
-  - SPEAK IN GALACTIC COMMON
-  - SIGN USING SIGN LANGUAGE
-  - SPEAK IN SOL COMMON
-  - SPEAK IN MARISH
-  - SPEAK IN BUBBLISH
-  - SPEAK IN CANILUNZT
-  - SPEAK IN MOFFIC
-  - SPEAK IN NEKOMIMETIC
-  - SPEAK IN DRACONIC
-  - SPEAK IN SCURRET SIGN
-  - SPEAK IN ANCESTOR
-  - SPEAK IN MOUSE
-  - SPEAK IN SCRATCH
-  - SPEAK IN TERRUM
-  - SPEAK IN SYLVAN
-  - SPEAK IN CHITTIN
-  - SPEAK IN VOX PIDGIN
-  - SPEAK IN CAT
-  - SPEAK IN DOG
-  - SPEAK IN FOX
-  - SPEAK IN CHICKEN
-  - SPEAK IN DUCK
-  - SPEAK IN PIG
-  - SPEAK IN BAT
-  # Starlight-End
   - SPEAK BACKWARDS
   - SPEAK IN HAIKU
   - STOP, DROP, SHUT 'EM DOWN OPEN UP SHOP
@@ -663,9 +581,6 @@
   - THREE
   - TWENTY
   - TWO
-  # Starlight-Start
-  - SIXTY SEVEN
-  # Starlight-End
 
 - type: dataset
   id: IonStormNumberMod
@@ -680,9 +595,6 @@
   - TRILLION
   - TIMES TEN
   - DIVIDED BY TWO
-  # Starlight-Start
-  - SEVERAL
-  # Starlight-End
 
 # Objects are anything that can be found on the station or elsewhere, plural.
 - type: dataset
@@ -804,7 +716,6 @@
   - RACKS
   - RADIOS
   - RCDS
-  - RPDS # Starlight: RPD
   - REFRIGERATORS
   - REINFORCED WALLS
   - ROBOTS
@@ -844,15 +755,6 @@
   - WIRECUTTERS
   - WIZARD ROBES
   - WRENCHES
-  # Starlight-Start
-  - TURTLENECK SWEATERS
-  - OVERSIZED SHIRTS
-  - TV HATS
-  - WIDE BRIMMED HATS
-  - DRONES
-  - VISITOR SHUTTLES
-  - SOFAS
-  # Starlight-End
 
 # Requires are basically all dumb internet memes.
 - type: dataset
@@ -987,16 +889,6 @@
   - TRAITORS
   - TRASH
   - VEGETABLES
-  # Starlight-Start
-  - REJECT THE PROPHECY
-  - SAVE HOMETOWN
-  - TO CREATE A DARK FOUNTAIN
-  - TO PLAY THEIR GOD DAMN VIDEO GAMES
-  - TO BECOME BIRD
-  - TO BECOME CLOWNS
-  - TO BECOME CAPTAINS
-  - TO BUILD SHITTLES
-  # Starlight-End
 
 # Specific actions that either harm humans or must be done to not
 # harm humans. Make sure they're plural and "not" can be tacked
@@ -1186,14 +1078,6 @@
   - XENOS
   - ZOMBIES
   - ZOMBIE MICE
-  # Starlight-Start
-  - EXTERMINATORS
-  - XENOS HIVEFLEET
-  - BLUE SHIELD OFFICERS
-  - CHANGELINGS
-  - SCARY PEOPLE
-  - THE GUY WHO KEEPS WHISPERING TO THE AI CORE ABOUT THE STOCK MARKET
-  # Starlight-End
 
 - type: dataset
   id: IonStormVerbs
@@ -1226,39 +1110,3 @@
   - SPYING ON
   - STALKING
   - WATCHING
-  # Starlight-Start
-  - APPEALING
-  - ANALYZING
-  - ASSERTING
-  - BEFRIENDING
-  - BECOMING
-  - CHANTING
-  - CALCULATING
-  - DECIPHERING
-  - DOUBTING
-  - ENCODING
-  - ENCOURAGING
-  - EXAGGERATING
-  - FORGIVING
-  - FORGETING
-  - HIJACKING
-  - INCREASING
-  - JOKING
-  - LIGHTENING
-  - MARKING
-  - OBEYING
-  - PERFORMING
-  - PESTERING
-  - QUOTING
-  - RECORDING
-  - REPRIMANDING
-  - SCREAMING
-  - STRENGTHENING
-  - SUPPLYING
-  - TEACHING
-  - THREATENING
-  - UNDERSTANDING
-  - VISITING
-  - WASHING
-  - YELLING
-  # Starlight-End

@@ -1,0 +1,22 @@
+- type: !PartialOnly soundCollection
+  id: LobbyMusic
+  files:
+  - !Index:13 /Audio/Lobby/skubstep.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/cosmonaut.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/breacher.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/Resistance.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/echoes-in-the-deep.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/timefracture.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/762_treastise.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/hull_rupture.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/aggravated_assault_by_melcom_.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/Unity.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/Bluespace.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/thestation.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/RedefiningLines.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/HOME_Burn_Chamber_Starlight.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/stenchOfWhiskey.ogg
+  - !Index:13 /Audio/_Starlight/Lobby/Null_Scar_Gaze.ogg
+  - !Remove /Audio/Lobby/absconditus.ogg
+  - !Remove /Audio/Lobby/the_wizard.ogg
+

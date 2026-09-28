@@ -3,9 +3,7 @@
   name: species-name-skeleton
   roundStart: false
   prototype: MobSkeletonPerson
-  sprites: MobSkeletonSprites
   defaultSkinTone: "#fff9e2"
-  markingLimits: MobHumanMarkingLimits
   maleFirstNames: NamesSkeletonFirst
   femaleFirstNames: NamesSkeletonFirst
   dollPrototype: AppearanceSkeletonPerson

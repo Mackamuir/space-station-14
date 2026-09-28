@@ -73,7 +73,6 @@
 
 - type: construction
   id: ChairComfy
-  name: construction-recipe-comfy-chair-gray #Starlight
   graph: Seat
   startNode: start
   targetNode: chairComfy

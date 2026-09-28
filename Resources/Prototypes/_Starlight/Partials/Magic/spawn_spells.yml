@@ -1,0 +1,8 @@
+- type: !PartialOnly entity
+  id: ActionSpawnMagicarpSpell
+  components:
+  - type: SpeakOnAction
+    tts: action-speech-spell-summon-magicarp-tts
+    modifier: Spell
+  - type: EorgPreventAction
+

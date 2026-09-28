@@ -1,0 +1,12 @@
+- type: !PartialOnly soundCollection
+  id: Paracusia
+  files:
+  - !Index:72 /Audio/Voice/Xenoborg/xenoborg_ask.ogg
+  - !Index:72 /Audio/Voice/Xenoborg/xenoborg_talk.ogg
+  - !Index:72 /Audio/_Starlight/Misc/alien_teleport.ogg
+  - !Index:72 /Audio/Effects/Changeling/devour_consume.ogg
+  - !Index:72 /Audio/Effects/Changeling/devour_windup.ogg
+  - !Index:72 /Audio/_Starlight/Weapons/Guns/Gunshots/minotaur.ogg
+  - !Index:72 /Audio/_Starlight/Weapons/Guns/Gunshots/mosin.ogg
+  - !Index:72 /Audio/_Starlight/Weapons/Guns/Gunshots/ppsh.ogg
+

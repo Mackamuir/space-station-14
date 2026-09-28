@@ -1,0 +1,82 @@
+- type: !PartialOnly tile
+  id: FloorGrass
+  sprite: /Textures/_Starlight/Tiles/Grass/grass.png # SL Edit
+  variants: 6
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+
+- type: !PartialOnly tile
+  id: FloorGrassJungle
+  sprite: /Textures/_Starlight/Tiles/GrassTall/grass.png # SL Edit
+  variants: 6
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+
+- type: !PartialOnly tile
+  id: FloorGrassDark
+  sprite: /Textures/_Starlight/Tiles/GrassDark/grass.png # SL Edit
+  variants: 6
+  placementVariants:
+  - !Index:4 1.0
+  - !Index:4 1.0
+
+- type: !PartialOnly tile
+  id: FloorGrassLight
+  sprite: /Textures/_Starlight/Tiles/GrassLight/grass.png # SL Edit
+  variants: 6
+  placementVariants:
+  - !Index:4 1.0
+  - !Index:4 1.0
+
+- type: !PartialOnly tile
+  id: FloorAstroGrass
+  sprite: /Textures/_Starlight/Tiles/Grass/grass.png # SL Edit
+  variants: 6
+  placementVariants:
+  - !Index:4 1.0
+  - !Index:4 1.0
+  edgeSprites:
+    SouthEast: /Textures/_Starlight/Tiles/Grass/single_edge.png # SL Edit
+    NorthEast: /Textures/_Starlight/Tiles/Grass/single_edge.png # SL Edit
+    NorthWest: /Textures/_Starlight/Tiles/Grass/single_edge.png # SL Edit
+    SouthWest: /Textures/_Starlight/Tiles/Grass/single_edge.png # SL Edit
+    South: /Textures/_Starlight/Tiles/Grass/double_edge.png # SL Edit
+    East: /Textures/_Starlight/Tiles/Grass/double_edge.png # SL Edit
+    North: /Textures/_Starlight/Tiles/Grass/double_edge.png # SL Edit
+    West: /Textures/_Starlight/Tiles/Grass/double_edge.png # SL Edit
+  baseTurf: Plating
+  isSubfloor: false
+
+- type: !PartialOnly tile
+  id: FloorMowedAstroGrass
+  weather: false
+
+- type: !PartialOnly tile
+  id: FloorJungleAstroGrass
+  name: tiles-mowed-jungle-astro-grass # sl edit
+  weather: false
+
+- type: !PartialOnly tile
+  id: FloorDarkAstroGrass
+  name: tiles-mowed-dark-astro-grass # sl edit
+  weather: false
+
+- type: !PartialOnly tile
+  id: FloorLightAstroGrass
+  name: tiles-mowed-light-astro-grass # sl edit
+  weather: false
+
+- type: !PartialOnly tile
+  id: FloorAstroSnow
+  weather: false
+

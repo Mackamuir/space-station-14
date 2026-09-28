@@ -1,0 +1,3 @@
+- type: !PartialOnly guideEntry
+  id: Cyborgs
+  text: "/ServerInfo/_Starlight/Guidebook/Science/Cyborgs.xml"

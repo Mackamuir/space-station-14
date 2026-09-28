@@ -1,0 +1,8 @@
+- type: !PartialOnly entity
+  id: ActionRetractableItemArmBlade
+  description: Shed your flesh and reform it into a fleshy blade. Costs 20 chemicals to summon, and 20 chemicals to retract.
+  components:
+  # changeling action costs
+  - type: ChangelingAction
+    chemicalCost: 20 # it takes energy to recall too... come on.
+    requireAbsorbed: 2

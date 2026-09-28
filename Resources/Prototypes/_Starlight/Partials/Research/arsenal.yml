@@ -1,0 +1,113 @@
+- type: !PartialOnly technology
+  id: SalvageWeapons
+  recipeUnlocks:
+  - !Index:2 MechEquipmentKineticAccelerator
+  - !Index:2 FiringPinExpedition
+  - !Index:2 BorgModuleMiningDefense
+  technologyPrerequisites:
+  - SalvageEquipment
+  radioChannels:
+  - Supply
+
+- type: !PartialOnly technology
+  id: DraconicMunitions
+  recipeUnlocks:
+  - !Index:11 MagazineDMRIncendiary
+  - !Index:11 MagazinePistolSubMachineGunIncendiary
+  - !Index:11 SpeedLoaderShotgunIncendiary
+  radioChannels:
+  - Security
+
+- type: !PartialOnly technology
+  id: WeaponizedLaserManipulation
+  recipeUnlocks:
+  - !Index:1 FiringPinLaser
+  - !Index:1 WeaponMechCombatFiredartLaser
+  radioChannels:
+  - Security
+
+- type: !PartialOnly technology
+  id: NonlethalAmmunition
+  icon:
+    sprite: Objects/Weapons/Guns/Ammunition/Magazine/Shotgun/m12.rsi
+  recipeUnlocks:
+  - !Index:4 WeaponMechCombatDisabler
+  - !Index:4 WeaponMechCombatFlashbangLauncher
+  - !Index:4 WeaponMechCombatTaser
+  - !Index:4 CartridgePistolRubber
+  - !Index:4 CartridgeMagnumRubber
+  - !Index:4 CartridgeLightRifleRubber
+  - !Index:4 CartridgeRifleRubber
+  - !Index:4 MagazineBoxPistolRubber
+  - !Index:4 MagazineBoxMagnumRubber
+  - !Index:4 MagazineBoxLightRifleRubber
+  - !Index:4 MagazineBoxRifleRubber
+  radioChannels:
+  - Security
+
+- type: !PartialOnly technology
+  id: UraniumMunitions
+  recipeUnlocks:
+  - !Index:10 MagazineDMRUranium
+  - !Index:10 MagazinePistolSubMachineGunUranium
+  - !Index:10 SpeedLoaderShotgunUranium
+  radioChannels:
+  - Security
+
+- type: !PartialOnly technology
+  id: AdvancedRiotControl
+  radioChannels:
+  - Security
+
+- type: !PartialOnly technology
+  id: ExplosiveTechnology
+  radioChannels:
+  - Security
+
+- type: !PartialOnly technology
+  id: SpecialMeans
+  radioChannels:
+  - Security
+
+- type: !PartialOnly technology
+  id: ConcentratedLaserWeaponry
+  recipeUnlocks:
+  - !Index:1 WeaponMechCombatSolarisLaser
+  - !Index:1 WeaponLaserImmolator
+  radioChannels:
+  - Security
+
+- type: !PartialOnly technology
+  id: WaveParticleHarnessing
+  recipeUnlocks:
+  - WeaponMechCombatXray
+  radioChannels:
+  - Security
+
+- type: !PartialOnly technology
+  id: KineticModifications
+  technologyPrerequisites:
+  - SalvageWeapons
+  radioChannels:
+  - Supply
+
+- type: !PartialOnly technology
+  id: PortableMicrofusionWeaponry
+  recipeUnlocks:
+  - !Index:2 WeaponMechCombatImmolationGun
+  - !Index:2 WeaponMechCombatAMLG90
+  radioChannels:
+  - Security
+
+- type: !PartialOnly technology
+  id: ThermalWeaponry
+  recipeUnlocks:
+  - !Index:0 WeaponLaserSvalinn
+  radioChannels:
+  - Security
+
+- type: !PartialOnly technology
+  id: AdvancedShuttleWeapon
+  radioChannels:
+  - Security
+

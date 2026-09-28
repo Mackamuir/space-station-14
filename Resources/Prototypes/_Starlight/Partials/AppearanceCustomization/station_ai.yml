@@ -1,0 +1,21 @@
+- type: !PartialOnly stationAiCustomizationGroup
+  id: StationAiHolograms
+  protoIds:
+  - !Index:5 StationAiHologramAlien
+  - !Index:5 StationAiHologramBees
+  - !Index:5 StationAiHologramBigMoth
+  - !Index:5 StationAiHologramGhost
+  - !Index:5 StationAiHologramHorror
+  - !Index:5 StationAiHologramLeaves
+  - !Index:5 StationAiHologramNarsie
+  - !Index:5 StationAiHologramRatvar
+  - !Index:5 StationAiHologramSemi
+  - !Index:5 StationAiHologramCy
+  - !Index:5 StationAiHologramcloudkat
+  - !Index:5 StationAiHologramBoy
+  - !Index:5 StationAiHologramGirl
+  - !Index:5 StationAiHologramMono
+  - !Index:5 StationAiHologramPunkFemale
+  - !Index:5 StationAiHologramPunkMale
+  - !Index:5 StationAiHologramPurrfus
+  - !Index:5 StationAiHologramRat

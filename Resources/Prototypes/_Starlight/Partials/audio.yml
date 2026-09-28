@@ -1,0 +1,19 @@
+- type: !PartialOnly soundCollection
+  id: AmbienceGeneral
+  files:
+    - !Index:11 /Audio/Ambience/ambigen13.ogg # Return removed ambience track.
+
+- type: !PartialOnly soundCollection
+  id: AmbienceSpace
+  files:
+    - /Audio/_Starlight/Lobby/HOME_Burn_Chamber_Starlight.ogg
+
+- type: !PartialOnly rules
+  id: InSpace
+  rules:
+    - !type:OnMapTagRule
+      mapTag: TheDark
+      inverted: true
+    - !type:OnMapTagRule
+      mapTag: NukiePlanet
+      inverted: true

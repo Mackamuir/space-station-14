@@ -1,0 +1,6 @@
+- type: !PartialOnly entity
+  id: AnimationStaff
+  description: Brings inanimate objects to life! Seems to be simpler to use than the other ones, anyone could use this.
+  components:
+  - type: EorgPreventRangedInteract
+

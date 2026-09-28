@@ -1,0 +1,9 @@
+- type: !PartialOnly accessLevel
+  id: Paramedic
+  name: id-card-access-level-paramed
+
+- type: !PartialOnly accessGroup
+  id: Medical
+  tags:
+  - Surgery
+  - Paramedic

@@ -3,23 +3,15 @@
   name: species-name-diona
   roundStart: true
   prototype: MobDiona
-  sprites: MobDionaSprites
   defaultSkinTone: "#cdb369"
-  markingLimits: MobDionaMarkingLimits
   dollPrototype: AppearanceDiona
   skinColoration: Hues
   maleFirstNames: NamesDionaFirst
   femaleFirstNames: NamesDionaFirst
   lastNames: NamesDionaLast
   naming: TheFirstofLast
-  customName: true # Starlight start
-  standardSize: 200
-  standardWeight: 145
-  standardDensity: 130
-  minAge: 30
-  youngAge: 40
-  oldAge: 150
-  maxAge: 250 # Starlight end
+  sexes:
+  - Unsexed
 
 # Starlight start
 - type: speciesBaseSprites

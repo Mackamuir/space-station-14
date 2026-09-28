@@ -56,11 +56,6 @@
   flavor: bitter
   color: "#9e9886"
   physicalDesc: reagent-physical-desc-bubbling
-  # Starlight Edits
-  contrabandSeverity: Major
-  allowedJobs:
-  - Botanist
-  # Starlight End
   plantMetabolism:
     - !type:PlantAdjustToxins
       amount: 4
@@ -85,11 +80,6 @@
   flavor: bitter
   color: "#49002E"
   physicalDesc: reagent-physical-desc-bubbling
-  # Starlight Edits
-  contrabandSeverity: Major
-  allowedJobs:
-  - Botanist
-  # Starlight End
   plantMetabolism:
     - !type:PlantAdjustToxins
       amount: 6
@@ -192,11 +182,6 @@
   flavor: bitter
   color: "#968395"
   physicalDesc: reagent-physical-desc-bubbling
-  # Starlight Edits
-  contrabandSeverity: Major
-  allowedJobs:
-  - Botanist
-  # Starlight End
   plantMetabolism:
     - !type:PlantAdjustToxins
       amount: 4
@@ -232,36 +217,19 @@
     Bloodstream:
       effects:
       - !type:HealthChange
-        conditions: #Starlight
-        - !type:MetabolizerTypeCondition
-          type: [ Avali, Resomi, Vox ] # The birds, including Vox
-          inverted: true
         damage:
           types:
             Caustic: 1
-      - !type:HealthChange #Starlight
-        conditions:
-        - !type:MetabolizerTypeCondition
-          type: [ Avali, Resomi ]  # The birds, excluding Vox (they exhale ammonia, they don't want a ton of ammonia build up)
-        damage:
-          types:
-            Asphyxiation: -1
     Respiration:
       effects:
       - !type:HealthChange
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Rat, Avali, Resomi ] #Starlight
+          type: [ Rat ]
           inverted: true
         - !type:ReagentCondition
           reagent: Ammonia
           min: 1
-        # Starlight-start
-        - !type:HasComponentsCondition
-          inverted: true
-          components:
-          - type: TerrorSpider
-        # Starlight-end
         ignoreResistances: true
         scaling: true
         damage:
@@ -271,17 +239,11 @@
         probability: 0.12
         conditions:
         - !type:MetabolizerTypeCondition
-          type: [ Rat, Vox, Avali, Resomi ] #Starlight
+          type: [ Rat, Vox ]
           inverted: true
         - !type:ReagentCondition
           reagent: Ammonia
           min: 0.8
-        # Starlight-start
-        - !type:HasComponentsCondition
-          inverted: true
-          components:
-          - type: TerrorSpider
-        # Starlight-end
       - !type:PopupMessage
         type: Local
         visualType: Medium

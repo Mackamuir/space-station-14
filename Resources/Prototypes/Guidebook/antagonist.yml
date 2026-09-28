@@ -4,25 +4,14 @@
   text: "/ServerInfo/Guidebook/Antagonist/Antagonists.xml"
   children:
   - Traitors
-  - Changelings
-  - NuclearOperatives
-  - Zombies
+  - Thieves
   - Revolutionaries
+  - NuclearOperatives
+  - SpaceNinja
+  - Wizard
+  - Zombies
   - Xenoborgs
   - MinorAntagonists
-  - SpaceNinja
-  - Thieves
-  - Wizard
-  # Starlight-start
-  - Abductors
-  - Brighteye
-  - CosmicCult # Stellar - Cosmic Cult
-  - Devil
-  - SELFAgent
-  - TerrorSpiders
-  - Vampires
-  # Starlight-end
-  - Eeeps # imp
 
 - type: guideEntry
   id: Traitors
@@ -68,10 +57,6 @@
   id: Wizard
   name: guide-entry-wizard
   text: "/ServerInfo/Guidebook/Antagonist/Wizard.xml"
-  # Moffstation - Start - Wizard Duelist
-  children:
-  - WizardDuel
-  # Moffstation - End
 
 - type: guideEntry
   id: Xenoborgs

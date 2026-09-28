@@ -1,0 +1,149 @@
+- type: !PartialOnly npcFaction
+  id: Dragon
+  hostile:
+  - Changeling
+  - DungeonSoviet
+  - DungeonSyndicate
+  - Gorilla
+  - NanoTrasenSilicon
+  - Abductor
+  - Abyss
+  - SyndicateSilicon
+  - Vampire
+  - Pirate
+  - CosmicCult
+
+- type: !PartialOnly npcFaction
+  id: NanoTrasen
+  hostile:
+  - SyndicateSilicon
+  - DungeonSyndicate
+  - DungeonSoviet
+  - Abyss
+  - Vampire
+  - Changeling
+  - Gorilla
+  - Abductor
+  - Pirate
+  - CosmicCult
+
+- type: !PartialOnly npcFaction
+  id: Mouse
+  hostile:
+  - Abyss
+
+- type: !PartialOnly npcFaction
+  id: PetsNT
+  hostile:
+  - Abyss
+  - Wizard
+  - HonkHostile
+  - Gorilla
+  - Abductor
+  - CosmicCult
+
+- type: !PartialOnly npcFaction
+  id: SimpleHostile
+  hostile:
+  - NanoTrasenSilicon
+  - SyndicateSilicon
+  - DungeonSyndicate
+  - DungeonSoviet
+  - Abyss
+  - Vampire
+  - Changeling
+  - Gorilla
+  - Abductor
+  - Pirate
+  - CosmicCult
+
+- type: !PartialOnly npcFaction
+  id: Syndicate
+  hostile:
+  - NanoTrasenSilicon
+  - DungeonSyndicate
+  - DungeonSoviet
+  - Abyss
+  - Vampire
+  - Changeling
+  - Gorilla
+  - Abductor
+  - Pirate
+
+- type: !PartialOnly npcFaction
+  id: Xeno
+  hostile:
+  - NanoTrasenSilicon
+  - SyndicateSilicon
+  - DungeonSyndicate
+  - DungeonSoviet
+  - Abyss
+  - Vampire
+  - Changeling
+  - Gorilla
+  - Pirate
+  - CosmicCult
+  - !Remove Xenoborg
+
+- type: !PartialOnly npcFaction
+  id: Zombie
+  hostile: # no silicon roles here as IT HAS NO MEAT, THEREFORE IS NOT FOOD.
+  - DungeonSyndicate
+  - DungeonSoviet
+  - Abyss
+  - Vampire
+  - Changeling
+  - Gorilla
+  - Abductor
+  - Pirate
+  - !Remove Xenoborg
+
+- type: !PartialOnly npcFaction
+  id: Revolutionary
+  hostile:
+  - NanoTrasenSilicon
+  - DungeonSyndicate
+  - DungeonSoviet
+  - Abyss
+  - Vampire
+  - Changeling
+  - Gorilla
+  - Abductor
+  - Pirate
+  - !Remove Wizard
+  - !Remove Xenoborg
+
+- type: !PartialOnly npcFaction
+  id: AllHostile
+  hostile:
+  - NanoTrasenSilicon
+  - SyndicateSilicon
+  - HonkNeutral
+  - HonkHostile
+  - Vampire
+  - Changeling
+  - Gorilla
+  - Abductor
+  - Pirate
+  - CosmicCult
+
+- type: !PartialOnly npcFaction
+  id: Wizard
+  hostile:
+  - NanoTrasenSilicon
+  - SyndicateSilicon
+  - Gorilla
+  - Abductor
+  - Pirate
+
+- type: !PartialOnly npcFaction
+  id: Xenoborg
+  hostile:
+  - DungeonSyndicate
+  - DungeonSoviet
+  - NanoTrasenSilicon
+  - SyndicateSilicon
+  - Abductor
+  - Gorilla
+  - Pirate
+  - !Remove Xeno

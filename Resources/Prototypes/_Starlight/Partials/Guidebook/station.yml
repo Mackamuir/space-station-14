@@ -1,0 +1,3 @@
+- type: !PartialOnly guideEntry
+  id: SS14
+  priority: 4

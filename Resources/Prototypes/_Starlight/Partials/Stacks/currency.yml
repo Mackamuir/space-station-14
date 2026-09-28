@@ -1,0 +1,4 @@
+- type: !PartialOnly stack
+  id: Credit
+  name: stack-speso # stack-credit -> stack-speso
+

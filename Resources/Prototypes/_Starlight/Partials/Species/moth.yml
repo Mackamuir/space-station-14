@@ -1,0 +1,6 @@
+- type: !PartialOnly species
+  id: Moth
+  sprites: MobMothSprites
+  markingLimits: MobMothMarkingLimits
+  customName: true
+

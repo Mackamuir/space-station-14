@@ -1,0 +1,74 @@
+- type: !PartialOnly latheRecipePack
+  id: ClothingCargo
+  recipes:
+  - !Index:2 ClothingUniformJumpskirtCargoSalvage
+  - !Index:2 ClothingUniformJumpskirtCargoSalvageFormal
+  - !Index:2 ClothingUniformJumpskirtCargoFormal
+  - !Index:2 ClothingUniformJumpsuitCargoAlt
+  - !Index:2 ClothingUniformJumpsuitCargoFormal
+  - !Index:2 ClothingUniformJumpsuitCargoInformal # DeltaV
+  - !Index:2 ClothingUniformJumpsuitSalvageFormal
+  - !Index:10 ClothingUniformJumpskirtQmFormal # DeltaV
+  - !Index:10 ClothingHeadHatBeretCargo
+  - !Index:10 ClothingHeadHatBeretCargoFormal
+
+- type: !PartialOnly latheRecipePack
+  id: ClothingCommand
+  recipes:
+  - !Index:4 ClothingUniformJumpsuitCapTurtleneck # afterlight
+  - !Index:4 ClothingUniformJumpskirtCapTurtleneck # afterlight
+  - !Index:7 ClothingHeadHatHopCapFormal # DeltaV
+  - !Index:9 ClothingUniformJumpsuitHoPTurtleneck # afterlight
+  - !Index:9 ClothingUniformJumpskirtHoPTurtleneck # afterlight
+  - !Index:9 ClothingUniformJumpsuitHopFormal # DeltaV
+  - !Index:9 ClothingUniformJumpskirtHopFormal # DeltaV
+  - !Index:9 ClothingUniformJumpskirtBlueShield
+  - !Index:9 ClothingUniformJumpskirtEliteBlueShield
+  - !Index:9 ClothingUniformJumpsuitBlueShield
+  - !Index:9 ClothingUniformJumpsuitEliteBlueShield
+  - !Index:9 ClothingUniformJumpsuitFormalBlueShield # afterlight end
+  - !Index:9 ClothingUniformJumpsuitBlueShieldShirt
+  - !Index:9 ClothingUniformJumpskirtBlueShieldSkirt
+  - !Index:9 ClothingUniformJumpskirtNtrep
+  - !Index:9 ClothingUniformJumpsuitNtrep
+  - !Index:9 ClothingUniformJumpsuitNtrepFormal
+
+- type: !PartialOnly latheRecipePack
+  id: ClothingMedical
+  recipes:
+  - !Index:7 ClothingUniformJumpsuitCmoFormal # DeltaV
+  - !Index:7 ClothingUniformJumpskirtCmoFormal # DeltaV
+  - !Index:7 ClothingUniformJumpsuitCmoVest # DeltaV
+  - !Index:7 ClothingUniformJumpskirtCmoVest # DeltaV
+  - !Index:7 ClothingUniformJumpsuitCmoSummer # DeltaV
+  - !Index:15 ClothingUniformJumpsuitCoroner # afterlight
+  - !Index:15 ClothingUniformJumpsuitCoronerAlt # afterlight
+  - !Index:15 ClothingUniformJumpskirtCoroner # afterlight
+  - !Index:15 ClothingUniformJumpskirtSuitNurse # afterlight
+
+- type: !PartialOnly latheRecipePack
+  id: ClothingScience
+  recipes:
+  - !Index:3 ClothingUniformJumpsuitRDClassical # afterlight
+  - !Index:3 ClothingUniformJumpskirtRDClassical # afterlight
+  - !Index:7 ClothingUniformJumpskirtScientistFormal # afterlight
+
+- type: !PartialOnly latheRecipePack
+  id: ClothingSecurity
+  recipes:
+  - !Index:8 ClothingUniformJumpsuitHoSBlack # afterlight
+  - !Index:8 ClothingUniformJumpskirtHoSBlack # afterlight
+  - !Index:24 ClothingHeadHatBeretDutyOfficer
+  - !Index:24 ClothingHeadHatDutyOfficer
+  - !Index:24 ClothingHeadHatDutyOfficerOrange # DeltaV
+  - !Index:24 ClothingUniformJumpsuitDutyOfficer
+  - !Index:24 ClothingUniformJumpskirtDutyOfficer
+  - !Index:24 ClothingUniformJumpsuitDutyOfficerOrange # DeltaV
+  - !Index:24 ClothingUniformJumpskirtDutyOfficerOrange # DeltaV
+
+- type: !PartialOnly latheRecipePack
+  id: WinterCoats
+  recipes:
+  - !Index:0 ClothingOuterWinterCapUnarmored # SL Edit
+  - !Remove ClothingOuterWinterCap
+

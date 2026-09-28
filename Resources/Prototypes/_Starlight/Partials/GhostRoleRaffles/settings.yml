@@ -1,0 +1,3 @@
+- type: !PartialOnly ghostRoleRaffleSettings
+  id: default
+  default: true # raffle by default

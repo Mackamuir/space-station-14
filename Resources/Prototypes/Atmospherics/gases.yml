@@ -1,4 +1,4 @@
-- type: gas
+﻿- type: gas
   id: Oxygen
   name: gases-oxygen
   specificHeat: 20
@@ -89,7 +89,7 @@
   molarMass: 44
   color: 8F00FF
   reagent: NitrousOxide
-  pricePerMole: 1
+  pricePerMole: 0.1
 
 - type: gas
   id: Frezon
@@ -102,4 +102,4 @@
   gasMolesVisible: 0.6
   color: 3a758c
   reagent: Frezon
-  pricePerMole: 2 # Starlight: 3 -> 2
+  pricePerMole: 1

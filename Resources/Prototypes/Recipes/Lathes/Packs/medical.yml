@@ -101,8 +101,6 @@
   - LauncherSyringe
   - MiniSyringe
   - AdvancedJetInjector
-  - GoldenJug # SL
-  - SilverJug # SL
 
 - type: latheRecipePack
   id: MedicalBoards
@@ -110,6 +108,3 @@
   - StasisBedMachineCircuitboard
   - CryoPodMachineCircuitboard
   - BiomassReclaimerMachineCircuitboard
-  - CloningConsoleComputerCircuitboard #Starlight
-  - CloningPodMachineCircuitboard #Starlight
-  - MedicalScannerMachineCircuitboard #Starlight

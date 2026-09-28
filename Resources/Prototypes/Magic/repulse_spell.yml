@@ -20,4 +20,3 @@
       state: repulse
   - type: InstantAction
     event: !type:RepulseAttractActionEvent
-  - type: EorgPreventAction # Starlight

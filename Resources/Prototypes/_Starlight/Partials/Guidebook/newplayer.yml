@@ -1,0 +1,15 @@
+- type: !PartialOnly guideEntry
+  id: NewPlayer
+  children:
+  - !Index:2 RoleplayGuideIntro
+  - !Index:2 SS14
+
+- type: !PartialOnly guideEntry
+  id: Controls
+  priority: 1
+
+- type: !PartialOnly guideEntry
+  id: CharacterCreation
+  priority: 2
+  children:
+  - Records

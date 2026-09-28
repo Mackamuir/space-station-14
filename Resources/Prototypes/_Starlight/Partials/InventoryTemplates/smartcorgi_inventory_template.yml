@@ -1,0 +1,23 @@
+- type: !PartialOnly inventoryTemplate
+  id: SmartCorgi
+  slots:
+  - !CombineIndex:1 uiWindowPos: 1,2 # mask
+    strippingWindowPos: 1,1
+    whitelist:
+      tags:
+      - CorgiWearable
+  - !CombineIndex:5 strippingWindowPos: 1,2 # outerClothing
+  - !CombineIndex:6 uiWindowPos: 0,3 # eyes
+    strippingWindowPos: 0,0
+    whitelist:
+      tags:
+      - CorgiWearable
+  - name: neck
+    slotTexture: neck
+    slotFlags: NECK
+    uiWindowPos: 0,2
+    strippingWindowPos: 0,1
+    displayName: Neck
+    whitelist:
+      tags:
+      - CorgiWearable

@@ -1,0 +1,15 @@
+- type: !PartialOnly entity
+  id: CargoGiftsBase
+  components:
+  - type: StationEvent
+    globalAnnouncement: false
+
+- type: !PartialOnly entity
+  id: GiftsPizzaPartyLarge
+  components:
+  - type: CargoGiftsRule
+    gifts:
+      FoodPizzaLarge: 1
+      FoodSoftdrinksLarge: 1
+      FoodPizza: !Remove
+      FoodSoftdrinks: !Remove

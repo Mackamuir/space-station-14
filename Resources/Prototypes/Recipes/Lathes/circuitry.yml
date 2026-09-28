@@ -39,7 +39,7 @@
 
 # Power
 - type: latheRecipe
-  parent: [ BaseCircuitboardRecipe, BaseCircuitryRecipeCategory ] # Starlight - discourage APC stacking
+  parent: [ BaseCircuitboardRecipe, BaseCircuitryRecipeCategory ] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   id: APCElectronics
   result: APCElectronics
 

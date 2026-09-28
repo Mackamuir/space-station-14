@@ -1,0 +1,168 @@
+- type: !PartialOnly constructionGraph
+  id: WindowDiagonal
+  graph:
+  - !CombineIndex:1 edges:
+    - !Index:1
+      to: reinforcedWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetGlass1
+        amount: 2
+      steps:
+      - material: ReinforcedGlass
+        amount: 2
+        doAfter: 3
+    - !Index:1
+      to: plasmaWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetGlass1
+        amount: 2
+      steps:
+      - material: PlasmaGlass
+        amount: 2
+        doAfter: 3
+    - !Index:1
+      to: reinforcedPlasmaWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetGlass1
+        amount: 2
+      steps:
+      - material: ReinforcedPlasmaGlass
+        amount: 2
+        doAfter: 3
+    - !Index:1
+      to: uraniumWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetGlass1
+        amount: 2
+      steps:
+      - material: UraniumGlass
+        amount: 2
+        doAfter: 3
+    - !Index:1
+      to: reinforcedUraniumWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetGlass1
+        amount: 2
+      steps:
+      - material: ReinforcedUraniumGlass
+        amount: 2
+        doAfter: 3
+    - !Index:1
+      to: clockworkWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetGlass1
+        amount: 2
+      steps:
+      - material: ClockworkGlass
+        amount: 2
+        doAfter: 3
+  - !CombineIndex:2 edges:
+    - !Index:1
+      to: plasmaWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetRGlass1
+        amount: 2
+      steps:
+      - material: PlasmaGlass
+        amount: 2
+        doAfter: 3
+    - !Index:1
+      to: reinforcedPlasmaWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetRGlass1
+        amount: 2
+      steps:
+      - material: ReinforcedPlasmaGlass
+        amount: 2
+        doAfter: 3
+    - !Index:1
+      to: uraniumWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetRGlass1
+        amount: 2
+      steps:
+      - material: UraniumGlass
+        amount: 2
+        doAfter: 3
+    - !Index:1
+      to: reinforcedUraniumWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetRGlass1
+        amount: 2
+      steps:
+      - material: ReinforcedUraniumGlass
+        amount: 2
+        doAfter: 3
+  - !CombineIndex:4 edges:
+    - !Index:1
+      to: reinforcedPlasmaWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetPGlass1
+        amount: 2
+      steps:
+      - material: ReinforcedPlasmaGlass
+        amount: 2
+        doAfter: 3
+    - !Index:1
+      to: uraniumWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetPGlass1
+        amount: 2
+      steps:
+      - material: UraniumGlass
+        amount: 2
+        doAfter: 3
+    - !Index:1
+      to: reinforcedUraniumWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetPGlass1
+        amount: 2
+      steps:
+      - material: ReinforcedUraniumGlass
+        amount: 2
+        doAfter: 3
+  - !CombineIndex:5 edges:
+    - !Index:1
+      to: uraniumWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetRPGlass1
+        amount: 2
+      steps:
+      - material: UraniumGlass
+        amount: 2
+        doAfter: 3
+    - !Index:1
+      to: reinforcedUraniumWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetRPGlass1
+        amount: 2
+      steps:
+      - material: ReinforcedUraniumGlass
+        amount: 2
+        doAfter: 3
+  - !CombineIndex:6 edges:
+    - to: reinforcedUraniumWindowDiagonal
+      completed:
+      - !type:GivePrototype
+        prototype: SheetUGlass1
+        amount: 2
+      steps:
+      - material: ReinforcedUraniumGlass
+        amount: 2
+        doAfter: 3
+

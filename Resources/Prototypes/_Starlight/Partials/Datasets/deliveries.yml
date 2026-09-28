@@ -1,0 +1,4 @@
+- type: !PartialOnly localizedDataset
+  id: DeliverySpamLetters
+  values:
+    count: 16 # 13 from non-Starlight, 3 from Starlight.

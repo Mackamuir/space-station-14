@@ -1,0 +1,5 @@
+- type: !PartialOnly latheRecipePack
+  id: BioGenIngredientsStatic
+  recipes:
+  - BioGenCompostAmmonia # Added compost recipe.
+

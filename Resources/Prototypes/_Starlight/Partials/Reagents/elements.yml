@@ -1,0 +1,48 @@
+- type: !PartialOnly reagent
+  id: Chlorine
+  contrabandSeverity: Minor
+  allowedJobs:
+  - Chemist
+
+- type: !PartialOnly reagent
+  id: Fluorine
+  contrabandSeverity: Minor
+  allowedJobs:
+  - Chemist
+
+- type: !PartialOnly reagent
+  id: Potassium
+  contrabandSeverity: Minor
+  allowedJobs:
+  - Chemist
+
+- type: !PartialOnly reagent
+  id: Phosphorus
+  contrabandSeverity: Minor
+  allowedJobs:
+  - Chemist
+
+- type: !PartialOnly reagent
+  id: Radium
+  contrabandSeverity: Minor
+  allowedDepartments:
+  - Engineering
+
+- type: !PartialOnly reagent
+  id: Silicon
+  contrabandSeverity: Minor
+  allowedJobs:
+  - Chemist
+
+- type: !PartialOnly reagent
+  id: Sulfur
+  contrabandSeverity: Minor # None -> Minor
+
+- type: !PartialOnly reagent
+  id: Uranium
+  contrabandSeverity: Minor
+  allowedDepartments:
+  - Engineering
+  allowedJobs:
+  - Bartender
+

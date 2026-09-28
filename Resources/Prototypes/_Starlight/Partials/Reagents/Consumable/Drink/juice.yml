@@ -1,0 +1,13 @@
+- type: !PartialOnly reagent
+  id: JuiceWatermelon
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateThirst
+        factor: 3
+      - !type:SatiateHunger
+        factor: 1.5 # It really isn't water, but it has water in the name, so.
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [Plant]
+

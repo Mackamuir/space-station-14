@@ -1,0 +1,16 @@
+# Stay on your toes miners >:3
+- type: !PartialOnly dungeonConfig
+  id: VGRoid
+  layers:
+  - !type:OreDunGen
+    !CombineIndex:6 entity: IronRockIronCrab2
+  - !type:OreDunGen
+    !CombineIndex:7 entity: IronRockCoalCrab2
+  - !type:OreDunGen
+    !CombineIndex:8 entity: IronRockQuartzCrab2
+  - !type:OreDunGen
+    !CombineIndex:10 entity: IronRockGoldCrab2
+  - !type:OreDunGen
+    !CombineIndex:11 entity: IronRockSilverCrab2
+  - !type:OreDunGen
+    !CombineIndex:13 entity: IronRockUraniumCrab2

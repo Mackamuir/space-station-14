@@ -1,0 +1,16 @@
+- type: !PartialOnly latheRecipePack
+  id: MaterialsStatic
+  recipes:
+  - !Remove MaterialDurathread
+
+- type: !PartialOnly latheRecipePack
+  id: LightsStatic
+  recipes:
+  - !Index:8 BlackLightTube
+  - !Index:8 LightTubeWarm
+
+- type: !PartialOnly latheRecipePack
+  id: SalvageSecurityWeapons
+  recipes:
+  - FiringPinExpedition
+

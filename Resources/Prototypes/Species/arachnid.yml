@@ -3,9 +3,7 @@
   name: species-name-arachnid
   roundStart: true
   prototype: MobArachnid
-  sprites: MobArachnidSprites
   defaultSkinTone: "#385878"
-  markingLimits: MobArachnidMarkingLimits
   dollPrototype: AppearanceArachnid
   skinColoration: Hues
   maleFirstNames: NamesArachnidFirst
@@ -13,7 +11,6 @@
   lastNames: NamesArachnidLast
   sexes:
   - Unsexed
-  customName: true # Starlight
 
 - type: speciesBaseSprites
   id: MobArachnidSprites

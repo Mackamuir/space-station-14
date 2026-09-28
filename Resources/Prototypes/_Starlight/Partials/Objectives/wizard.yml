@@ -1,0 +1,4 @@
+- type: !PartialOnly entity
+  id: WizardDemonstrateObjective
+  name: Show off! # Going back to the old objective. No more explicit murderhobo encouragement.
+  description: Show those magicless peons what a wizard can REALLY do!

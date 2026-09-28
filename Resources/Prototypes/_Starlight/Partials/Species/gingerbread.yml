@@ -1,0 +1,5 @@
+- type: !PartialOnly species
+  id: Gingerbread
+  sprites: MobGingerbreadSprites
+  markingLimits: MobHumanMarkingLimits
+

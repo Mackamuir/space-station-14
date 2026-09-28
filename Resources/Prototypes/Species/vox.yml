@@ -3,17 +3,14 @@
   name: species-name-vox
   roundStart: true
   prototype: MobVox
-  sprites: MobVoxSprites
-  markingLimits: MobVoxMarkingLimits
   dollPrototype: AppearanceVox
-  skinColoration: Hues # Starlight Edit: VoxFeathers -> Hues
+  skinColoration: VoxFeathers
   defaultSkinTone: "#6c741d"
   maleFirstNames: NamesVox
   femaleFirstNames: NamesVox
   naming: First
   sexes:
   - Unsexed
-  customName: true # Starlight
 
 - type: speciesBaseSprites
   id: MobVoxSprites

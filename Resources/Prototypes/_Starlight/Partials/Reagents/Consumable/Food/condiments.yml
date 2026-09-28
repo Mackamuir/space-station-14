@@ -1,0 +1,96 @@
+- type: !PartialOnly reagent
+  id: Astrotame
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+
+- type: !PartialOnly reagent
+  id: BbqSauce
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+
+- type: !PartialOnly reagent
+  id: Coldsauce
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+
+- type: !PartialOnly reagent
+  id: Cornoil
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+
+- type: !PartialOnly reagent
+  id: HorseradishSauce
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+
+- type: !PartialOnly reagent
+  id: Hotsauce
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+
+- type: !PartialOnly reagent
+  id: Ketchup
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+
+- type: !PartialOnly reagent
+  id: Ketchunaise
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+
+- type: !PartialOnly reagent
+  id: LaughinSyrup
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+
+- type: !PartialOnly reagent
+  id: Mayo
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+
+- type: !PartialOnly reagent
+  id: Mustard
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+
+- type: !PartialOnly reagent
+  id: Vinaigrette
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        factor: 0.5
+

@@ -1,0 +1,33 @@
+- type: !PartialOnly reaction
+  id: CreateDough
+  guidebookGroups:
+  - Dough
+
+- type: !PartialOnly reaction
+  id: CreateCornmealDough
+  guidebookGroups:
+  - Dough
+
+- type: !PartialOnly reaction
+  id: CreateTortillaDough
+  guidebookGroups:
+  - Dough
+
+- type: !PartialOnly reaction
+  id: CreateDoughCotton
+  guidebookGroups:
+  - Dough
+  - Moth
+
+- type: !PartialOnly reaction
+  id: CreateCakeBatter
+  guidebookGroups:
+  - Dough
+  - Cake
+
+- type: !PartialOnly reaction
+  id: CreatePieDough
+  guidebookGroups:
+  - Dough
+  - Pie
+

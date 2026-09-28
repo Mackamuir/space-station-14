@@ -1,0 +1,73 @@
+- type: !PartialOnly technology
+  id: Hydroponics
+  radioChannels:
+  - Service
+
+- type: !PartialOnly technology
+  id: CritterMechs
+  icon:
+    sprite: Objects/Specific/Mech/Mechs/Basic/hamtr.rsi
+    state: base-open
+
+- type: !PartialOnly technology
+  id: AudioVisualCommunication
+  recipeUnlocks:
+  - !Index:8 BladeServerRackMachineCircuitboard # Moffstation - Blade Server Rack constructible
+  - !Index:8 SurveillanceWirelessCameraHandheld # MOFFSTATION CHANGE - Adds wireless handheld camera
+  radioChannels:
+  - Service
+
+- type: !PartialOnly technology
+  id: AdvancedEntertainment
+  radioChannels:
+  - Service
+
+- type: !PartialOnly technology
+  id: MeatManipulation
+  recipeUnlocks:
+  - SlopDispenserMachineCircuitboard
+  radioChannels:
+  - Service
+  - Medical
+
+- type: !PartialOnly technology
+  id: FauxAstroTiles
+  radioChannels:
+  - Service
+
+- type: !PartialOnly technology
+  id: AdvancedCleaning
+  recipeUnlocks:
+  - Hydra
+  radioChannels:
+  - Service
+
+- type: !PartialOnly technology
+  id: HONKMech
+  icon:
+    sprite: Objects/Specific/Mech/Mechs/Basic/honker.rsi
+    state: base
+  technologyPrerequisites:
+  - RipleyAPLU
+
+- type: !PartialOnly technology
+  id: AdvancedSpray
+  radioChannels:
+  - Service
+
+- type: !PartialOnly technology
+  id: BluespaceCargoTransport
+  technologyPrerequisites:
+  - BluespaceManipulation
+  radioChannels:
+  - Supply
+
+- type: !PartialOnly technology
+  id: QuantumFiberWeaving
+  recipeUnlocks:
+  - !Index:0 LeftLegCyberSpeed
+  - !Index:0 RightLegCyberSpeed
+  - !Remove ClothingShoesBootsSpeed
+  radioChannels:
+  - Service
+

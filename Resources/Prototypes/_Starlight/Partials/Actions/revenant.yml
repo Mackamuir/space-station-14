@@ -1,0 +1,14 @@
+- type: !PartialOnly entity
+  id: ActionRevenantDefile
+  components:
+  - type: EorgPreventAction
+
+- type: !PartialOnly entity
+  id: ActionRevenantOverloadLights
+  components:
+  - type: EorgPreventAction
+
+- type: !PartialOnly entity
+  id: ActionRevenantMalfunction
+  components:
+  - type: EorgPreventAction

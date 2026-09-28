@@ -1,0 +1,25 @@
+- type: !PartialOnly entity
+  id: ActionSmite
+  description: Instantly shocks a target.
+  components:
+  - type: SpeakOnAction
+    tts: action-speech-spell-smite-tts
+    modifier: Spell
+  - type: EorgPreventAction
+
+- type: !PartialOnly entity
+  id: ActionCluwne
+  components:
+  - type: SpeakOnAction
+    tts: action-speech-spell-cluwne-tts
+    modifier: Spell
+  - type: EorgPreventAction
+
+- type: !PartialOnly entity
+  id: ActionSlippery
+  components:
+  - type: SpeakOnAction
+    tts: action-speech-spell-slip-tts
+    modifier: Spell
+  - type: EorgPreventAction
+

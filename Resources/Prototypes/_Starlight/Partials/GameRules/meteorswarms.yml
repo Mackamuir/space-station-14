@@ -1,0 +1,38 @@
+- type: !PartialOnly entityTable
+  id: BasicMeteorSwarmEventsTable
+  table: !type:AllSelector
+    children:
+    - id: ImmovableRodSlugSpawn
+    - !type:NestedSelector # Kessler Wrecks
+      tableId: WreckSwarmEventsTable
+
+- type: !PartialOnly entity
+  id: GameRuleSpaceDustMinor
+  components:
+  - type: StationEvent
+    minimumPlayers: 5
+
+- type: !PartialOnly entity
+  id: GameRuleSpaceDustMajor
+  components:
+  - type: StationEvent
+    minimumPlayers: 10
+
+- type: !PartialOnly entity
+  id: GameRuleMeteorSwarmMedium
+  components:
+  - type: StationEvent
+    minimumPlayers: 20
+
+- type: !PartialOnly entity
+  id: GameRuleMeteorSwarmLarge
+  components:
+  - type: StationEvent
+    minimumPlayers: 25
+
+- type: !PartialOnly entity
+  id: ImmovableRodSpawn
+  components:
+  - type: ImmovableRodRule
+    rodPrototypes:
+    - !CombineIndex:0 prob: 0.89

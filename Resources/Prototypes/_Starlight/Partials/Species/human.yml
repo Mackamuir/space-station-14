@@ -1,0 +1,7 @@
+- type: !PartialOnly species
+  id: Human
+  sprites: MobHumanSprites
+  markingLimits: MobHumanMarkingLimits
+  customName: true
+  roundstartCyberwareCapacity: 5
+

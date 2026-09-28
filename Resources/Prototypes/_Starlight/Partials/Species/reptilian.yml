@@ -1,0 +1,6 @@
+- type: !PartialOnly species
+  id: Reptilian
+  sprites: MobReptilianSprites
+  markingLimits: MobReptilianMarkingLimits
+  customName: true
+

@@ -32,7 +32,6 @@
   - type: InstantAction
     event: !type:InstantSpawnSpellEvent
       prototype: ExplosionRune
-  - type: EorgPreventAction # Starlight
 
 - type: entity
   parent: BaseRuneAction
@@ -45,7 +44,6 @@
   - type: InstantAction
     event: !type:InstantSpawnSpellEvent
       prototype: IgniteRune
-  - type: EorgPreventAction # Starlight
 
 - type: entity
   parent: BaseRuneAction

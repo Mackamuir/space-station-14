@@ -1,0 +1,10 @@
+- type: !PartialOnly species
+  id: SlimePerson
+  sprites: MobSlimeSprites
+  markingLimits: MobSlimeMarkingLimits
+  customName: true
+  minAge: 20
+  youngAge: 40
+  oldAge: 100
+  maxAge: 130
+

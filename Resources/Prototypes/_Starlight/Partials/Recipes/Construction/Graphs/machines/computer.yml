@@ -1,0 +1,9 @@
+- type: !PartialOnly constructionGraph
+  id: Computer
+  graph:
+  - !CombineIndex:6 edges:
+    - !CombineIndex:0 conditions:
+      - !type:WirePanel ''
+      - !type:Locked
+        locked: false
+

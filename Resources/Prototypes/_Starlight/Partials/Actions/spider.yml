@@ -1,0 +1,9 @@
+- type: !PartialOnly entity
+  id: ActionSpiderWeb
+  components:
+  - type: Action
+    useDelay: 3 # Added charges instead of placing 5 webs
+  - type: LimitedCharges
+    maxCharges: 3
+  - type: AutoRecharge
+    rechargeDuration: 15

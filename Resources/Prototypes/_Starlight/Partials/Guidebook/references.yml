@@ -1,0 +1,6 @@
+- type: !PartialOnly guideEntry
+  id: FoodRecipes
+  children:
+  - !Index:3 DoughRecipes
+  - !Index:12 DeepFriedRecipes
+  - !Index:12 IceCreamRecipes

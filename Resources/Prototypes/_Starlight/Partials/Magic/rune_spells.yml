@@ -1,0 +1,10 @@
+- type: !PartialOnly entity
+  id: ActionExplosionRune
+  components:
+  - type: EorgPreventAction
+
+- type: !PartialOnly entity
+  id: ActionIgniteRune
+  components:
+  - type: EorgPreventAction
+

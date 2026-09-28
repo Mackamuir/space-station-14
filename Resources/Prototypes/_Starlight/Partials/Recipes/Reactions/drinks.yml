@@ -1,0 +1,14 @@
+- type: !PartialOnly reaction
+  id: B52
+  reactants:
+    IrishCarBomb:
+      amount: 1
+    IrishSlammer: !Remove
+
+- type: !PartialOnly reaction
+  id: IrishBool
+  reactants:
+    IrishCarBomb:
+      amount: 1
+    IrishSlammer: !Remove
+

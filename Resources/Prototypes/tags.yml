@@ -1,5 +1,6 @@
-# PUT YOUR TAGS IN ALPHABETICAL ORDER # Starlight - and put your Starlight ones in the starlight tag file
+# PUT YOUR TAGS IN ALPHABETICAL ORDER
 # ALSO DOCUMENT WHAT THE HELL THEY DO
+
 ## A ##
 
 - type: Tag
@@ -873,7 +874,7 @@
   id: MagazineGrenade # ShuttleGunDuster
 
 - type: Tag
-  id: MagazineLightRifle # WeaponRifleAk, # Starlight - WeaponRifleLawbringer
+  id: MagazineLightRifle # WeaponRifleAk
 
 - type: Tag
   id: MagazineLightRifleBox # WeaponLightMachineGunL6
@@ -897,7 +898,7 @@
   id: MagazinePistolSubMachineGunTopMounted # WeaponSubMachineGunWt550
 
 - type: Tag
-  id: MagazineRifle # WeaponRifleLecter, WeaponRifleEstoc, # Starlight - Removed WeaponRifleM90GrenadeLauncher
+  id: MagazineRifle # WeaponRifleLecter, WeaponRifleEstoc, WeaponRifleM90GrenadeLauncher
 
 - type: Tag
   id: MagazineShotgun # WeaponShotgunBulldog
@@ -1262,7 +1263,7 @@
   id: Sheet # MaterialStorage whitelist for many machines and lathes. Storage whitelist: MaterialBag
 
 - type: Tag
-  id: ShellShotgun # Ammo: AmmoProviderShotgunShell, ClothingBeltBandolier, BaseMagazineShotgun, BaseWeaponShotgun
+  id: ShellShotgun # Ammo: AmmoProviderShotgunShell, ClothingBeltBandolier, BaseMagazineShotgun, BaseWeaponShotgun, WeaponFlareGunSecurity
 
 - type: Tag
   id: ShellShotgunLight # Shotgun shells that are compatible with the flare gun. Subset of ShellShotgun.

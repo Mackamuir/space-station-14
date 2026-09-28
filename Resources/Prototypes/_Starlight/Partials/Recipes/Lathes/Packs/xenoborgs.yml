@@ -1,0 +1,14 @@
+- type: !PartialOnly latheRecipePack
+  id: EmptyXenoborgs
+  recipes:
+  - XenoroachRecipe
+
+- type: !PartialOnly latheRecipePack
+  id: XenoborgUpgradeModules
+  recipes:
+  - !Index:1 XenoborgModuleTileGunRecipe # for now
+  - !Index:2 XenoborgModuleSuperHeavyLaserRecipe
+  - !Index:3 XenoborgModuleEnergyBladeRecipe
+  - !Index:3 XenoborgModuleJumpRecipe # for now
+  - !Index:4 XenoborgModuleHypoPlusRecipe
+

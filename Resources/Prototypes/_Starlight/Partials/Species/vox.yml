@@ -1,0 +1,7 @@
+- type: !PartialOnly species
+  id: Vox
+  sprites: MobVoxSprites
+  markingLimits: MobVoxMarkingLimits
+  skinColoration: Hues # VoxFeathers -> Hues
+  customName: true
+

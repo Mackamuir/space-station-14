@@ -1,0 +1,41 @@
+- type: !PartialOnly rcd
+  id: Deconstruct
+  sprite: /Textures/_Starlight/Interface/Radial/RCD/deconstruct.png
+
+- type: !PartialOnly rcd
+  id: WallSolid
+  sprite: /Textures/_Starlight/Interface/Radial/RCD/solid_wall.png
+
+- type: !PartialOnly rcd
+  id: Window
+  sprite: /Textures/_Starlight/Interface/Radial/RCD/window.png
+
+- type: !PartialOnly rcd
+  id: WindowDirectional
+  sprite: /Textures/_Starlight/Interface/Radial/RCD/directional.png
+
+- type: !PartialOnly rcd
+  id: ReinforcedWindow
+  sprite: /Textures/_Starlight/Interface/Radial/RCD/window_reinforced.png
+
+- type: !PartialOnly rcd
+  id: WindowReinforcedDirectional
+  sprite: /Textures/_Starlight/Interface/Radial/RCD/directional_reinforced.png
+
+- type: !PartialOnly rcd
+  id: Airlock
+  sprite: /Textures/_Starlight/Interface/Radial/RCD/airlock.png
+  rules:
+  - IsAirlock
+
+- type: !PartialOnly rcd
+  id: AirlockGlass
+  sprite: /Textures/_Starlight/Interface/Radial/RCD/glass_airlock.png
+  rules:
+  - IsAirlock
+
+- type: !PartialOnly rcd
+  id: Firelock
+  rules:
+  - IsFirelock
+

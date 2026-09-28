@@ -1,0 +1,10 @@
+- type: !PartialOnly inventoryTemplate
+  id: arachnid
+  slots:
+  - !Index:4
+    name: misc
+    slotTexture: misc
+    slotFlags: MISC
+    uiWindowPos: 2,3
+    strippingWindowPos: 2,1
+    displayName: Misc

@@ -1,0 +1,58 @@
+- type: !PartialOnly reagent
+  id: PestKiller
+  contrabandSeverity: Major
+  allowedJobs:
+  - Botanist
+
+- type: !PartialOnly reagent
+  id: PlantBGone
+  contrabandSeverity: Major
+  allowedJobs:
+  - Botanist
+
+- type: !PartialOnly reagent
+  id: WeedKiller
+  contrabandSeverity: Major
+  allowedJobs:
+  - Botanist
+
+- type: !PartialOnly reagent
+  id: Ammonia
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        !CombineIndex:0 conditions:
+        - !type:MetabolizerTypeCondition
+          type: [Avali, Resomi, Vox]
+          inverted: true
+      - !type:HealthChange
+        conditions:
+        - !type:MetabolizerTypeCondition
+          type: [Avali, Resomi]
+        damage:
+          types:
+            Asphyxiation: -1
+    Respiration:
+      effects:
+      - !type:HealthChange
+        !CombineIndex:0 conditions:
+        - !type:MetabolizerTypeCondition
+          !CombineIndex:0 type:
+          - !Index:1 Avali
+          - !Index:1 Resomi
+        - !type:HasComponentsCondition
+          inverted: true
+          components:
+          - type: TerrorSpider
+      - !type:Vomit
+        !CombineIndex:1 conditions:
+        - !type:MetabolizerTypeCondition
+          !CombineIndex:0 type:
+          - !Index:2 Avali
+          - !Index:2 Resomi
+        - !type:HasComponentsCondition
+          inverted: true
+          components:
+          - type: TerrorSpider
+

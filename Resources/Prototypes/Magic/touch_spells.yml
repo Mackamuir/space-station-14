@@ -27,7 +27,7 @@
   parent: BaseSmiteAction
   id: ActionSmite
   name: Smite
-  description: Instantly shocks a target.
+  description: Instantly gibs a target.
   components:
   - type: Action
     sound: !type:SoundPathSpecifier
@@ -39,11 +39,8 @@
     event: !type:SmiteSpellEvent
   - type: SpeakOnAction
     sentence: action-speech-spell-smite
-    tts: action-speech-spell-smite-tts
-    modifier: Spell
   - type: Magic
     requiresClothes: true
-  - type: EorgPreventAction # Starlight
 
 # For the Snail
 - type: entity
@@ -72,11 +69,8 @@
       - type: Cluwne
   - type: SpeakOnAction
     sentence: action-speech-spell-cluwne
-    tts: action-speech-spell-cluwne-tts
-    modifier: Spell
   - type: Magic
     requiresClothes: true
-  - type: EorgPreventAction # Starlight
 
 - type: entity
   parent: BaseSmiteAction
@@ -99,8 +93,5 @@
         requiredTriggeredSpeed: -1
   - type: SpeakOnAction
     sentence: action-speech-spell-slip
-    tts: action-speech-spell-slip-tts
-    modifier: Spell
   - type: Magic
     requiresClothes: false
-  - type: EorgPreventAction # Starlight

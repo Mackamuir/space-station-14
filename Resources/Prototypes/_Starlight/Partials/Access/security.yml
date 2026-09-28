@@ -1,0 +1,7 @@
+- type: !PartialOnly accessGroup
+  id: Security
+  tags:
+  - Brigmedic
+  - Cadet
+  - GenpopEnter # Some jobs (e.g. CE) have this and ID console requires it to be in a group to be assignable.
+  - GenpopLeave

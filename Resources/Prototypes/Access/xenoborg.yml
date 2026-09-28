@@ -1,7 +1,7 @@
 - type: accessLevel
   id: Xenoborg
   name: id-card-access-level-basic-xenoborg
-  canAddToIdCard: true # Starlight edit
+  canAddToIdCard: false
 
 #Region Starlight: Door Electronics overhaul. Putting this here for simplicity's sake.
 - type: accessGroup

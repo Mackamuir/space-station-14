@@ -1,0 +1,28 @@
+- type: !PartialOnly stack
+  id: BaseVerySmallStack
+  splitAmounts: [1]
+
+- type: !PartialOnly stack
+  id: BaseSmallStack
+  splitAmounts: [1, 5]
+
+- type: !PartialOnly stack
+  id: BaseMediumStack
+  splitAmounts: [1, 5, 10]
+
+- type: !PartialOnly stack
+  id: BaseLargeStack
+  splitAmounts: [1, 5, 10, 25]
+
+- type: !PartialOnly stack
+  id: BaseVeryLargeStack
+  splitAmounts: [1, 5, 10, 25, 50]
+
+- type: !PartialOnly stack
+  id: BaseSheetStack
+  maxCount: !Remove
+
+- type: !PartialOnly stack
+  id: BaseTileStack
+  maxCount: !Remove
+

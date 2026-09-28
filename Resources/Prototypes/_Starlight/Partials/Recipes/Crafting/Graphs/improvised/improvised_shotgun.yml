@@ -1,0 +1,11 @@
+- type: !PartialOnly constructionGraph
+  id: ImprovisedShotgunGraph
+  graph:
+  - !CombineIndex:0 edges:
+    - !CombineIndex:0 steps:
+      - !CombineIndex:0 tag: ModularBarrel
+        icon:
+          sprite: _Starlight/Objects/Misc/modular_barrel.rsi
+          state: icon
+        name: crafting-menu-name-MB
+

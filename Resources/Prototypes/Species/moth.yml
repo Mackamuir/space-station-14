@@ -3,15 +3,12 @@
   name: species-name-moth
   roundStart: true
   prototype: MobMoth
-  sprites: MobMothSprites
   defaultSkinTone: "#ffda93"
-  markingLimits: MobMothMarkingLimits
   dollPrototype: AppearanceMoth
   skinColoration: Hues
   maleFirstNames: NamesMothFirstMale
   femaleFirstNames: NamesMothFirstFemale
   lastNames: NamesMothLast
-  customName: true # Starlight
 
 - type: speciesBaseSprites
   id: MobMothSprites

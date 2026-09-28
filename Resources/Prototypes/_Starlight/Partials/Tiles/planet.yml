@@ -1,0 +1,17 @@
+- type: !PartialOnly tile
+  id: FloorPlanetGrass
+  sprite: /Textures/_Starlight/Tiles/Grass/grass.png # SL Edit
+  variants: 6
+  placementVariants:
+  - !Index:4 1.0
+  - !Index:4 1.0
+  edgeSprites:
+    SouthEast: /Textures/_Starlight/Tiles/Grass/single_edge.png # SL Edit
+    NorthEast: /Textures/_Starlight/Tiles/Grass/single_edge.png # SL Edit
+    NorthWest: /Textures/_Starlight/Tiles/Grass/single_edge.png # SL Edit
+    SouthWest: /Textures/_Starlight/Tiles/Grass/single_edge.png # SL Edit
+    South: /Textures/_Starlight/Tiles/Grass/double_edge.png # SL Edit
+    East: /Textures/_Starlight/Tiles/Grass/double_edge.png # SL Edit
+    North: /Textures/_Starlight/Tiles/Grass/double_edge.png # SL Edit
+    West: /Textures/_Starlight/Tiles/Grass/double_edge.png # SL Edit
+

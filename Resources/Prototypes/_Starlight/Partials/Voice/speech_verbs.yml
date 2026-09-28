@@ -1,0 +1,14 @@
+- type: !PartialOnly speechVerb
+  id: DefaultMumble
+  fontSize: 10
+
+- type: !PartialOnly speechVerb
+  id: DefaultExclamationStrong
+  bold: false # disabled for language support
+  fontSize: 14 # yelling
+
+- type: !PartialOnly speechVerb
+  id: Canine
+  speechVerbStrings:
+  - chat-speech-verb-canine-4
+

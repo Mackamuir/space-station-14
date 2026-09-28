@@ -1,0 +1,9 @@
+- type: !PartialOnly entity
+  id: ActionMindSwap
+  description: Exchange bodies with another person! You'll lose access to most wizard equipment while in another body... is it worth it?
+  components:
+  - type: SpeakOnAction
+    tts: action-speech-spell-mind-swap-tts
+    modifier: Spell
+  - type: EorgPreventAction
+

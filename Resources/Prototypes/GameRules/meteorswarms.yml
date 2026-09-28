@@ -38,9 +38,6 @@
     - id: GameRulePotatoSwarm
     - id: GameRuleFunSwarm
     - id: ImmovableRodSpawn
-    - id: ImmovableRodSlugSpawn # Starlight
-    - !type:NestedSelector # Starlight-edit: Kessler Wrecks
-        tableId: WreckSwarmEventsTable # Starlight-edit: Kessler Wrecks
 
 - type: weightedRandomEntity
   id: MeteorSpawnAsteroidWallTable
@@ -114,7 +111,7 @@
   - type: StationEvent
     weight: 44
     earliestStart: 2
-    minimumPlayers: 5
+    minimumPlayers: 0
   - type: MeteorSwarm
     announcement: null
     announcementSound: null
@@ -134,7 +131,7 @@
   components:
   - type: StationEvent
     weight: 22
-    minimumPlayers: 10
+    minimumPlayers: 0
   - type: MeteorSwarm
     announcement: station-event-space-dust-start-announcement
     announcementSound: /Audio/Announcements/attention.ogg
@@ -166,7 +163,6 @@
   components:
   - type: StationEvent
     weight: 10
-    minimumPlayers: 20
   - type: MeteorSwarm
     meteors:
       MeteorSmall: 3
@@ -179,7 +175,6 @@
   components:
   - type: StationEvent
     weight: 5
-    minimumPlayers: 25
   - type: MeteorSwarm
     meteors:
       MeteorSmall: 2
@@ -220,7 +215,7 @@
   - type: ImmovableRodRule
     rodPrototypes:
     - id: ImmovableRodKeepTilesStill
-      prob: 0.89
+      prob: 0.94
       orGroup: rodProto
     - id: ImmovableRodMop
       prob: 0.0075

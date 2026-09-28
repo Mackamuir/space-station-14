@@ -22,11 +22,7 @@
   - HeadOfSecurity
   - Quartermaster
   - ResearchDirector
-  - Magistrate
-  - Ntrep
-  - BlueShield
-  - Debrief # Starlight
-
+  
 - type: accessLevel
   id: EmergencyShuttleRepealAll
   name: id-card-access-level-emergency-shuttle-repeal

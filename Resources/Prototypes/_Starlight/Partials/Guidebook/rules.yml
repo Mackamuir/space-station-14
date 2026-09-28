@@ -1,0 +1,3 @@
+- type: !PartialOnly guideEntry
+  id: DefaultRuleset
+  priority: 2

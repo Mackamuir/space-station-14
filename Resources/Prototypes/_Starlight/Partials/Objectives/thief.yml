@@ -1,0 +1,226 @@
+- type: !PartialOnly entity
+  id: HeadBedsheetStealCollectionObjective
+  components:
+  - type: Objective
+    difficulty: 1.3
+
+- type: !PartialOnly entity
+  id: StampStealCollectionObjective
+  components:
+  - type: NotJobRequirement
+    jobs: [Lawyer, IAA, Chaplain, Clown, Mime, Psychologist, SalvageLead, Warden, Detective, Brigmedic, BlueShield]
+
+- type: !PartialOnly entity
+  id: TechnologyDiskStealCollectionObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:0 ResearchDirector
+    - !Index:0 ResearchAssistant
+    - !Index:1 Roboticist
+
+- type: !PartialOnly entity
+  id: MailStealCollectionObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:0 Quartermaster
+    - !Index:1 MailTech
+    - !Index:1 MiningSpecialist
+    - !Index:2 SalvageLead
+  - type: Objective
+    difficulty: 0.3
+
+- type: !PartialOnly entity
+  id: IDCardsStealCollectionObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:0 Quartermaster
+    - !Index:1 MailTech
+    - !Index:1 MiningSpecialist
+    - !Index:2 SalvageLead
+    - !Index:2 HeadOfPersonnel
+  - type: Objective
+    difficulty: 0.5
+
+- type: !PartialOnly entity
+  id: OfficerHandgunsStealCollectionObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:4 Brigmedic
+    - !Index:4 DutyOfficer
+    - !Index:4 SecurityCadet
+
+- type: !PartialOnly entity
+  id: ForensicScannerStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:0 SecurityOfficer
+    - !Index:0 HeadOfSecurity
+    - !Index:1 Warden
+    - !Index:1 Brigmedic
+    - !Index:1 DutyOfficer
+    - !Index:1 SecurityCadet
+
+- type: !PartialOnly entity
+  id: FlippoEngravedLighterStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:0 SecurityOfficer
+    - !Index:0 HeadOfSecurity
+    - !Index:1 Warden
+    - !Index:1 Brigmedic
+    - !Index:1 DutyOfficer
+    - !Index:1 SecurityCadet
+  - type: Objective
+    difficulty: 0.5
+
+- type: !PartialOnly entity
+  id: ClothingHeadHatWardenStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs: [SecurityOfficer, HeadOfSecurity, Detective, Warden, Brigmedic, DutyOfficer, SecurityCadet, HeadOfPersonnel]
+
+- type: !PartialOnly entity
+  id: WantedListCartridgeStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs: [SecurityOfficer, HeadOfSecurity, Detective, Warden, Brigmedic, DutyOfficer, SecurityCadet]
+
+- type: !PartialOnly entity
+  id: ClothingOuterHardsuitVoidParamedStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:2 ChiefMedicalOfficer
+    - !Index:2 MedicalIntern
+    - !Index:2 Surgeon
+
+- type: !PartialOnly entity
+  id: ClothingHeadsetAltMedicalStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:0 MedicalDoctor
+    - !Index:0 Paramedic
+    - !Index:1 MedicalIntern
+    - !Index:1 Surgeon
+    - !Index:1 Chemist
+    - !Index:1 Psychologist
+
+- type: !PartialOnly entity
+  id: FireAxeStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:0 ChiefEngineer
+    - !Index:0 StationEngineer
+    - !Index:1 TechnicalAssistant
+  - type: Objective
+    difficulty: 0.5
+
+- type: !PartialOnly entity
+  id: AmePartFlatpackStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:0 ChiefEngineer
+    - !Index:2 TechnicalAssistant
+
+- type: !PartialOnly entity
+  id: ChiefEngineerToolbeltStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs: [ChiefEngineer, StationEngineer, AtmosphericTechnician, TechnicalAssistant]
+  - type: Objective
+    difficulty: 0.7
+
+- type: !PartialOnly entity
+  id: ExpeditionsCircuitboardStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:0 Quartermaster
+    - !Index:0 CargoTechnician
+    - !Index:0 MailTech
+    - !Index:0 MiningSpecialist
+    - !Index:1 SalvageLead
+
+- type: !PartialOnly entity
+  id: CargoShuttleCircuitboardStealObjective
+  components:
+  - type: NotJobRequirement
+    jobs:
+    - !Index:0 Quartermaster
+    - !Index:1 MailTech
+    - !Index:1 MiningSpecialist
+    - !Index:2 SalvageLead
+
+- type: !PartialOnly entity
+  id: FaxMachineCaptainStealObjective
+  components:
+  - type: Objective
+    difficulty: 1.3
+
+- type: !PartialOnly entity
+  id: XenoArtifactStealObjective
+  components:
+  - type: Objective
+    difficulty: 0.3
+
+- type: !PartialOnly entity
+  id: FreezerHeaterStealObjective
+  components:
+  - type: Objective
+    difficulty: 0.3
+
+- type: !PartialOnly entity
+  id: AltarNanotrasenStealObjective
+  components:
+  - type: Objective
+    difficulty: 0.3
+
+- type: !PartialOnly entity
+  id: PlantRDStealObjective
+  components:
+  - type: Objective
+    difficulty: 0.5
+
+- type: !PartialOnly entity
+  id: ToiletGoldenStealObjective
+  components:
+  - type: Objective
+    difficulty: 1.3
+
+- type: !PartialOnly entity
+  id: IanStealObjective
+  components:
+  - type: Objective
+    difficulty: 1.3 # i get ian is a contested steal but what do you MEAN harder to get than caps pet
+
+- type: !PartialOnly entity
+  id: RenaultStealObjective
+  components:
+  - type: Objective
+    difficulty: 1.7
+
+- type: !PartialOnly entity
+  id: ShivaStealObjective
+  components:
+  - type: Objective
+    difficulty: 1.3
+
+- type: !PartialOnly entity
+  id: EscapeThiefShuttleObjective
+  components:
+  - type: Objective
+    difficulty: 0.7 # formerly 1.3, took up like half the max difficulty for thief, weird
+  - type: ObjectiveBlacklistRequirement
+    blacklist:
+      components:
+      - EscapeShuttleCondition
+

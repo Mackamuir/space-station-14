@@ -1,0 +1,401 @@
+- type: !PartialOnly construction
+  id: AirAlarmFixture
+  category: construction-category-atmospherics
+
+- type: !PartialOnly construction
+  id: FireAlarm
+  category: construction-category-atmospherics
+
+- type: !PartialOnly construction
+  id: AirSensor
+  category: construction-category-atmospherics
+
+- type: !PartialOnly construction
+  id: GasPipeSensor
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeSensorAlt3
+  - !Index:3 GasPipeSensorAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeSensorAlt1
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeSensorAlt3
+  - !Index:3 GasPipeSensorAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeSensorAlt2
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeSensorAlt3
+  - !Index:3 GasPipeSensorAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeHalf
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeHalfAlt3
+  - !Index:3 GasPipeHalfAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeHalfAlt1
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeHalfAlt3
+  - !Index:3 GasPipeHalfAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeHalfAlt2
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeHalfAlt3
+  - !Index:3 GasPipeHalfAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeStraight
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeStraightAlt3
+  - !Index:3 GasPipeStraightAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeStraightAlt1
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeStraightAlt3
+  - !Index:3 GasPipeStraightAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeStraightAlt2
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeStraightAlt3
+  - !Index:3 GasPipeStraightAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeBend
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeBendAlt3
+  - !Index:3 GasPipeBendAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeBendAlt1
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeBendAlt3
+  - !Index:3 GasPipeBendAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeBendAlt2
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeBendAlt3
+  - !Index:3 GasPipeBendAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeTJunction
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeTJunctionAlt3
+  - !Index:3 GasPipeTJunctionAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeTJunctionAlt1
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeTJunctionAlt3
+  - !Index:3 GasPipeTJunctionAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeTJunctionAlt2
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeTJunctionAlt3
+  - !Index:3 GasPipeTJunctionAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeFourway
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeFourwayAlt3
+  - !Index:3 GasPipeFourwayAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeFourwayAlt1
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeFourwayAlt3
+  - !Index:3 GasPipeFourwayAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeFourwayAlt2
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPipeFourwayAlt3
+  - !Index:3 GasPipeFourwayAlt4
+
+- type: !PartialOnly construction
+  id: GasPipeManifold
+  category: construction-category-atmospherics
+
+- type: !PartialOnly construction
+  id: GasVentPump
+  category: construction-category-atmospherics
+  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  alternativePrototypes:
+  - GasVentPump
+  - GasVentPumpAlt1
+  - GasVentPumpAlt2
+  - GasVentPumpAlt3
+  - GasVentPumpAlt4
+
+- type: !PartialOnly construction
+  id: GasPassiveVent
+  category: construction-category-atmospherics
+  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  alternativePrototypes:
+  - GasPassiveVent
+  - GasPassiveVentAlt1
+  - GasPassiveVentAlt2
+  - GasPassiveVentAlt3
+  - GasPassiveVentAlt4
+
+- type: !PartialOnly construction
+  id: GasVentScrubber
+  category: construction-category-atmospherics
+  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  alternativePrototypes:
+  - GasVentScrubber
+  - GasVentScrubberAlt1
+  - GasVentScrubberAlt2
+  - GasVentScrubberAlt3
+  - GasVentScrubberAlt4
+
+- type: !PartialOnly construction
+  id: GasOutletInjector
+  category: construction-category-atmospherics
+  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  alternativePrototypes:
+  - GasOutletInjector
+  - GasOutletInjectorAlt1
+  - GasOutletInjectorAlt2
+  - GasOutletInjectorAlt3
+  - GasOutletInjectorAlt4
+
+- type: !PartialOnly construction
+  id: GasPressurePump
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPressurePumpAlt3
+  - !Index:3 GasPressurePumpAlt4
+
+- type: !PartialOnly construction
+  id: GasPressurePumpAlt1
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPressurePumpAlt3
+  - !Index:3 GasPressurePumpAlt4
+
+- type: !PartialOnly construction
+  id: GasPressurePumpAlt2
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPressurePumpAlt3
+  - !Index:3 GasPressurePumpAlt4
+
+- type: !PartialOnly construction
+  id: GasVolumePump
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasVolumePumpAlt3
+  - !Index:3 GasVolumePumpAlt4
+
+- type: !PartialOnly construction
+  id: GasVolumePumpAlt1
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasVolumePumpAlt3
+  - !Index:3 GasVolumePumpAlt4
+
+- type: !PartialOnly construction
+  id: GasVolumePumpAlt2
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasVolumePumpAlt3
+  - !Index:3 GasVolumePumpAlt4
+
+- type: !PartialOnly construction
+  id: GasPassiveGate
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPassiveGateAlt3
+  - !Index:3 GasPassiveGateAlt4
+
+- type: !PartialOnly construction
+  id: GasPassiveGateAlt1
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPassiveGateAlt3
+  - !Index:3 GasPassiveGateAlt4
+
+- type: !PartialOnly construction
+  id: GasPassiveGateAlt2
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPassiveGateAlt3
+  - !Index:3 GasPassiveGateAlt4
+
+- type: !PartialOnly construction
+  id: GasPressureRegulator
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPressureRegulatorAlt3
+  - !Index:3 GasPressureRegulatorAlt4
+
+- type: !PartialOnly construction
+  id: GasPressureRegulatorAlt1
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPressureRegulatorAlt3
+  - !Index:3 GasPressureRegulatorAlt4
+
+- type: !PartialOnly construction
+  id: GasPressureRegulatorAlt2
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasPressureRegulatorAlt3
+  - !Index:3 GasPressureRegulatorAlt4
+
+- type: !PartialOnly construction
+  id: GasValve
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasValveAlt3
+  - !Index:3 GasValveAlt4
+
+- type: !PartialOnly construction
+  id: GasValveAlt1
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasValveAlt3
+  - !Index:3 GasValveAlt4
+
+- type: !PartialOnly construction
+  id: GasValveAlt2
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 GasValveAlt3
+  - !Index:3 GasValveAlt4
+
+- type: !PartialOnly construction
+  id: SignalControlledValve
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 SignalControlledValveAlt3
+  - !Index:3 SignalControlledValveAlt4
+
+- type: !PartialOnly construction
+  id: SignalControlledValveAlt1
+  hide: true
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 SignalControlledValveAlt3
+  - !Index:3 SignalControlledValveAlt4
+
+- type: !PartialOnly construction
+  id: SignalControlledValveAlt2
+  hide: true
+  category: construction-category-atmospherics
+  alternativePrototypes:
+  - !Index:3 SignalControlledValveAlt3
+  - !Index:3 SignalControlledValveAlt4
+
+- type: !PartialOnly construction
+  id: GasPort
+  category: construction-category-atmospherics
+  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  alternativePrototypes:
+  - GasPort
+  - GasPortAlt1
+  - GasPortAlt2
+  - GasPortAlt3
+  - GasPortAlt4
+
+- type: !PartialOnly construction
+  id: GasDualPortVentPump
+  category: construction-category-atmospherics
+  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  alternativePrototypes:
+  - GasDualPortVentPump
+  - GasDualPortVentPumpAlt1
+  - GasDualPortVentPumpAlt2
+  - GasDualPortVentPumpAlt3
+  - GasDualPortVentPumpAlt4
+
+- type: !PartialOnly construction
+  id: HeatExchanger
+  category: construction-category-atmospherics
+
+- type: !PartialOnly construction
+  id: HeatExchangerBend
+  category: construction-category-atmospherics
+
+- type: !PartialOnly construction
+  id: GasFilter
+  category: construction-category-atmospherics
+  placementMode: AlignAtmosPipeLayers
+  alternativePrototypes:
+  - GasFilter
+  - GasFilterAlt1
+  - GasFilterAlt2
+  - GasFilterAlt3
+  - GasFilterAlt4
+
+- type: !PartialOnly construction
+  id: GasFilterFlipped
+  category: construction-category-atmospherics
+  placementMode: AlignAtmosPipeLayers
+  alternativePrototypes:
+  - GasFilterFlipped
+  - GasFilterFlippedAlt1
+  - GasFilterFlippedAlt2
+  - GasFilterFlippedAlt3
+  - GasFilterFlippedAlt4
+  hide: !Remove
+
+- type: !PartialOnly construction
+  id: GasMixer
+  category: construction-category-atmospherics
+  placementMode: AlignAtmosPipeLayers
+  alternativePrototypes:
+  - GasMixer
+  - GasMixerAlt1
+  - GasMixerAlt2
+  - GasMixerAlt3
+  - GasMixerAlt4
+
+- type: !PartialOnly construction
+  id: GasMixerFlipped
+  category: construction-category-atmospherics
+  placementMode: AlignAtmosPipeLayers
+  alternativePrototypes:
+  - GasMixerFlipped
+  - GasMixerFlippedAlt1
+  - GasMixerFlippedAlt2
+  - GasMixerFlippedAlt3
+  - GasMixerFlippedAlt4
+  hide: !Remove
+
+- type: !PartialOnly construction
+  id: PressureControlledValve
+  category: construction-category-atmospherics
+  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  alternativePrototypes:
+  - PressureControlledValve
+  - PressureControlledValveAlt1
+  - PressureControlledValveAlt2
+  - PressureControlledValveAlt3
+  - PressureControlledValveAlt4
+

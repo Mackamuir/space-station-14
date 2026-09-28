@@ -1,0 +1,14 @@
+- type: !PartialOnly species
+  id: Diona
+  sprites: MobDionaSprites
+  markingLimits: MobDionaMarkingLimits
+  customName: true
+  standardSize: 200
+  standardWeight: 145
+  standardDensity: 130
+  minAge: 30
+  youngAge: 40
+  oldAge: 150
+  maxAge: 250
+  sexes: !Remove
+

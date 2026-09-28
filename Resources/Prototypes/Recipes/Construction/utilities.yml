@@ -233,7 +233,7 @@
   graph: AirAlarm
   startNode: start
   targetNode: air_alarm
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-structures
   placementMode: SnapgridCenter
   objectType: Structure
   canRotate: true
@@ -246,7 +246,7 @@
   graph: FireAlarm
   startNode: start
   targetNode: fire_alarm
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-structures
   placementMode: SnapgridCenter
   objectType: Structure
   canRotate: true
@@ -259,7 +259,7 @@
   graph: AirSensor
   startNode: start
   targetNode: sensor
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-structures
   placementMode: SnapgridCenter
   objectType: Structure
   canRotate: true
@@ -269,7 +269,7 @@
   graph: GasPipeSensor
   startNode: start
   targetNode: sensor
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-structures
   placementMode: AlignAtmosPipeLayers
   objectType: Structure
   canRotate: true
@@ -277,10 +277,6 @@
   - GasPipeSensor
   - GasPipeSensorAlt1
   - GasPipeSensorAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeSensorAlt3
-  - GasPipeSensorAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeSensorAlt1
@@ -288,7 +284,7 @@
   graph: GasPipeSensor
   startNode: start
   targetNode: sensorAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-structures
   placementMode: AlignAtmosPipeLayers
   objectType: Structure
   canRotate: true
@@ -296,10 +292,6 @@
   - GasPipeSensor
   - GasPipeSensorAlt1
   - GasPipeSensorAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeSensorAlt3
-  - GasPipeSensorAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeSensorAlt2
@@ -307,7 +299,7 @@
   graph: GasPipeSensor
   startNode: start
   targetNode: sensorAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-structures
   placementMode: AlignAtmosPipeLayers
   objectType: Structure
   canRotate: true
@@ -315,10 +307,6 @@
   - GasPipeSensor
   - GasPipeSensorAlt1
   - GasPipeSensorAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeSensorAlt3
-  - GasPipeSensorAlt4
-  # Carpmosia-end - 5 pipe layers
 
 # ATMOS PIPES
 - type: construction
@@ -327,17 +315,13 @@
   graph: GasPipe
   startNode: start
   targetNode: half
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeHalf
   - GasPipeHalfAlt1
   - GasPipeHalfAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeHalfAlt3
-  - GasPipeHalfAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeHalfAlt1
@@ -345,17 +329,13 @@
   graph: GasPipe
   startNode: start
   targetNode: halfAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeHalf
   - GasPipeHalfAlt1
   - GasPipeHalfAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeHalfAlt3
-  - GasPipeHalfAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeHalfAlt2
@@ -363,34 +343,26 @@
   graph: GasPipe
   startNode: start
   targetNode: halfAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeHalf
   - GasPipeHalfAlt1
   - GasPipeHalfAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeHalfAlt3
-  - GasPipeHalfAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeStraight
   graph: GasPipe
   startNode: start
   targetNode: straight
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeStraight
   - GasPipeStraightAlt1
   - GasPipeStraightAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeStraightAlt3
-  - GasPipeStraightAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeStraightAlt1
@@ -398,17 +370,13 @@
   graph: GasPipe
   startNode: start
   targetNode: straightAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeStraight
   - GasPipeStraightAlt1
   - GasPipeStraightAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeStraightAlt3
-  - GasPipeStraightAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeStraightAlt2
@@ -416,17 +384,13 @@
   graph: GasPipe
   startNode: start
   targetNode: straightAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeStraight
   - GasPipeStraightAlt1
   - GasPipeStraightAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeStraightAlt3
-  - GasPipeStraightAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeBend
@@ -434,17 +398,13 @@
   graph: GasPipe
   startNode: start
   targetNode: bend
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeBend
   - GasPipeBendAlt1
   - GasPipeBendAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeBendAlt3
-  - GasPipeBendAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeBendAlt1
@@ -452,17 +412,13 @@
   graph: GasPipe
   startNode: start
   targetNode: bendAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeBend
   - GasPipeBendAlt1
   - GasPipeBendAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeBendAlt3
-  - GasPipeBendAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeBendAlt2
@@ -470,17 +426,13 @@
   graph: GasPipe
   startNode: start
   targetNode: bendAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeBend
   - GasPipeBendAlt1
   - GasPipeBendAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeBendAlt3
-  - GasPipeBendAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeTJunction
@@ -488,17 +440,13 @@
   graph: GasPipe
   startNode: start
   targetNode: tjunction
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeTJunction
   - GasPipeTJunctionAlt1
   - GasPipeTJunctionAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeTJunctionAlt3
-  - GasPipeTJunctionAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeTJunctionAlt1
@@ -506,17 +454,13 @@
   graph: GasPipe
   startNode: start
   targetNode: tjunctionAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeTJunction
   - GasPipeTJunctionAlt1
   - GasPipeTJunctionAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeTJunctionAlt3
-  - GasPipeTJunctionAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeTJunctionAlt2
@@ -524,17 +468,13 @@
   graph: GasPipe
   startNode: start
   targetNode: tjunctionAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeTJunction
   - GasPipeTJunctionAlt1
   - GasPipeTJunctionAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeTJunctionAlt3
-  - GasPipeTJunctionAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeFourway
@@ -542,17 +482,13 @@
   graph: GasPipe
   startNode: start
   targetNode: fourway
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeFourway
   - GasPipeFourwayAlt1
   - GasPipeFourwayAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeFourwayAlt3
-  - GasPipeFourwayAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeFourwayAlt1
@@ -560,17 +496,13 @@
   graph: GasPipe
   startNode: start
   targetNode: fourwayAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeFourway
   - GasPipeFourwayAlt1
   - GasPipeFourwayAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeFourwayAlt3
-  - GasPipeFourwayAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeFourwayAlt2
@@ -578,24 +510,20 @@
   graph: GasPipe
   startNode: start
   targetNode: fourwayAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: true
   alternativePrototypes:
   - GasPipeFourway
   - GasPipeFourwayAlt1
   - GasPipeFourwayAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPipeFourwayAlt3
-  - GasPipeFourwayAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPipeManifold
   graph: GasPipe
   startNode: start
   targetNode: manifold
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: SnapgridCenter
   canBuildInImpassable: true
 
@@ -605,76 +533,44 @@
   graph: GasUnary
   startNode: start
   targetNode: ventpump
-  category: construction-category-atmospherics # Starlight
-  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  category: construction-category-utilities
+  placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
   - !type:NoUnstackableInTile
-  # Carpmosia-start - Atmos Alt Prototypes
-  alternativePrototypes:
-  - GasVentPump
-  - GasVentPumpAlt1
-  - GasVentPumpAlt2
-  - GasVentPumpAlt3
-  - GasVentPumpAlt4
-  # Carpmosia-end - Atmos Alt Prototypes
 
 - type: construction
   id: GasPassiveVent
   graph: GasUnary
   startNode: start
   targetNode: passivevent
-  category: construction-category-atmospherics # Starlight
-  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  category: construction-category-utilities
+  placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
   - !type:NoUnstackableInTile
-  # Carpmosia-start - Atmos Alt Prototypes
-  alternativePrototypes:
-  - GasPassiveVent
-  - GasPassiveVentAlt1
-  - GasPassiveVentAlt2
-  - GasPassiveVentAlt3
-  - GasPassiveVentAlt4
-  # Carpmosia-end - Atmos Alt Prototypes
 
 - type: construction
   id: GasVentScrubber
   graph: GasUnary
   startNode: start
   targetNode: ventscrubber
-  category: construction-category-atmospherics # Starlight
-  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  category: construction-category-utilities
+  placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
   - !type:NoUnstackableInTile
-  # Carpmosia-start - Atmos Alt Prototypes
-  alternativePrototypes:
-  - GasVentScrubber
-  - GasVentScrubberAlt1
-  - GasVentScrubberAlt2
-  - GasVentScrubberAlt3
-  - GasVentScrubberAlt4
-  # Carpmosia-end - Atmos Alt Prototypes
 
 - type: construction
   id: GasOutletInjector
   graph: GasUnary
   startNode: start
   targetNode: outletinjector
-  category: construction-category-atmospherics # Starlight
-  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  category: construction-category-utilities
+  placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
   - !type:NoUnstackableInTile
-  # Carpmosia-start - Atmos Alt Prototypes
-  alternativePrototypes:
-  - GasOutletInjector
-  - GasOutletInjectorAlt1
-  - GasOutletInjectorAlt2
-  - GasOutletInjectorAlt3
-  - GasOutletInjectorAlt4
-  # Carpmosia-end - Atmos Alt Prototypes
 
 # ATMOS BINARY
 - type: construction
@@ -682,7 +578,7 @@
   graph: GasBinary
   startNode: start
   targetNode: pressurepump
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -691,10 +587,6 @@
   - GasPressurePump
   - GasPressurePumpAlt1
   - GasPressurePumpAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPressurePumpAlt3
-  - GasPressurePumpAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPressurePumpAlt1
@@ -702,7 +594,7 @@
   graph: GasBinary
   startNode: start
   targetNode: pressurepumpAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -711,10 +603,6 @@
   - GasPressurePump
   - GasPressurePumpAlt1
   - GasPressurePumpAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPressurePumpAlt3
-  - GasPressurePumpAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPressurePumpAlt2
@@ -722,7 +610,7 @@
   graph: GasBinary
   startNode: start
   targetNode: pressurepumpAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -731,17 +619,13 @@
   - GasPressurePump
   - GasPressurePumpAlt1
   - GasPressurePumpAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPressurePumpAlt3
-  - GasPressurePumpAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasVolumePump
   graph: GasBinary
   startNode: start
   targetNode: volumepump
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -750,10 +634,6 @@
   - GasVolumePump
   - GasVolumePumpAlt1
   - GasVolumePumpAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasVolumePumpAlt3
-  - GasVolumePumpAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasVolumePumpAlt1
@@ -761,7 +641,7 @@
   graph: GasBinary
   startNode: start
   targetNode: volumepumpAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -770,10 +650,6 @@
   - GasVolumePump
   - GasVolumePumpAlt1
   - GasVolumePumpAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasVolumePumpAlt3
-  - GasVolumePumpAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasVolumePumpAlt2
@@ -781,7 +657,7 @@
   graph: GasBinary
   startNode: start
   targetNode: volumepumpAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -790,17 +666,13 @@
   - GasVolumePump
   - GasVolumePumpAlt1
   - GasVolumePumpAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasVolumePumpAlt3
-  - GasVolumePumpAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPassiveGate
   graph: GasBinary
   startNode: start
   targetNode: passivegate
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -809,10 +681,6 @@
   - GasPassiveGate
   - GasPassiveGateAlt1
   - GasPassiveGateAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPassiveGateAlt3
-  - GasPassiveGateAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPassiveGateAlt1
@@ -820,7 +688,7 @@
   graph: GasBinary
   startNode: start
   targetNode: passivegateAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -829,10 +697,6 @@
   - GasPassiveGate
   - GasPassiveGateAlt1
   - GasPassiveGateAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPassiveGateAlt3
-  - GasPassiveGateAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPassiveGateAlt2
@@ -840,7 +704,7 @@
   graph: GasBinary
   startNode: start
   targetNode: passivegateAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -849,17 +713,13 @@
   - GasPassiveGate
   - GasPassiveGateAlt1
   - GasPassiveGateAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPassiveGateAlt3
-  - GasPassiveGateAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPressureRegulator
   graph: GasBinary
   startNode: start
   targetNode: pressureregulator
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -868,10 +728,6 @@
   - GasPressureRegulator
   - GasPressureRegulatorAlt1
   - GasPressureRegulatorAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPressureRegulatorAlt3
-  - GasPressureRegulatorAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPressureRegulatorAlt1
@@ -879,7 +735,7 @@
   graph: GasBinary
   startNode: start
   targetNode: pressureregulatorAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -888,10 +744,6 @@
   - GasPressureRegulator
   - GasPressureRegulatorAlt1
   - GasPressureRegulatorAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPressureRegulatorAlt3
-  - GasPressureRegulatorAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPressureRegulatorAlt2
@@ -899,7 +751,7 @@
   graph: GasBinary
   startNode: start
   targetNode: pressureregulatorAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -908,17 +760,13 @@
   - GasPressureRegulator
   - GasPressureRegulatorAlt1
   - GasPressureRegulatorAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasPressureRegulatorAlt3
-  - GasPressureRegulatorAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasValve
   graph: GasBinary
   startNode: start
   targetNode: valve
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -927,10 +775,6 @@
   - GasValve
   - GasValveAlt1
   - GasValveAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasValveAlt3
-  - GasValveAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasValveAlt1
@@ -938,7 +782,7 @@
   graph: GasBinary
   startNode: start
   targetNode: valveAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -947,10 +791,6 @@
   - GasValve
   - GasValveAlt1
   - GasValveAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasValveAlt3
-  - GasValveAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasValveAlt2
@@ -958,7 +798,7 @@
   graph: GasBinary
   startNode: start
   targetNode: valveAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -967,17 +807,13 @@
   - GasValve
   - GasValveAlt1
   - GasValveAlt2
-  # Carpmosia-start - 5 pipe layers
-  - GasValveAlt3
-  - GasValveAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: SignalControlledValve
   graph: GasBinary
   startNode: start
   targetNode: signalvalve
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -986,18 +822,13 @@
   - SignalControlledValve
   - SignalControlledValveAlt1
   - SignalControlledValveAlt2
-  # Carpmosia-start - 5 pipe layers
-  - SignalControlledValveAlt3
-  - SignalControlledValveAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: SignalControlledValveAlt1
-  hide: true # starlight
   graph: GasBinary
   startNode: start
   targetNode: signalvalveAlt1
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -1006,18 +837,13 @@
   - SignalControlledValve
   - SignalControlledValveAlt1
   - SignalControlledValveAlt2
-  # Carpmosia-start - 5 pipe layers
-  - SignalControlledValveAlt3
-  - SignalControlledValveAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: SignalControlledValveAlt2
-  hide: true # starlight
   graph: GasBinary
   startNode: start
   targetNode: signalvalveAlt2
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: AlignAtmosPipeLayers
   canBuildInImpassable: false
   conditions:
@@ -1026,53 +852,33 @@
   - SignalControlledValve
   - SignalControlledValveAlt1
   - SignalControlledValveAlt2
-  # Carpmosia-start - 5 pipe layers
-  - SignalControlledValveAlt3
-  - SignalControlledValveAlt4
-  # Carpmosia-end - 5 pipe layers
 
 - type: construction
   id: GasPort
   graph: GasBinary
   startNode: start
   targetNode: port
-  category: construction-category-atmospherics # Starlight
-  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  category: construction-category-utilities
+  placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
     - !type:NoUnstackableInTile
-  # Carpmosia-start - Atmos Alt Prototypes
-  alternativePrototypes:
-  - GasPort
-  - GasPortAlt1
-  - GasPortAlt2
-  - GasPortAlt3
-  - GasPortAlt4
-  # Carpmosia-end - Atmos Alt Prototypes
 
 - type: construction
   id: GasDualPortVentPump
   graph: GasBinary
   startNode: start
   targetNode: dualportventpump
-  category: construction-category-atmospherics # Starlight
-  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  category: construction-category-utilities
+  placementMode: SnapgridCenter
   canBuildInImpassable: false
-  # Carpmosia-start - Atmos Alt Prototypes
-  alternativePrototypes:
-  - GasDualPortVentPump
-  - GasDualPortVentPumpAlt1
-  - GasDualPortVentPumpAlt2
-  - GasDualPortVentPumpAlt3
-  - GasDualPortVentPumpAlt4
-  # Carpmosia-end - Atmos Alt Prototypes
 
 - type: construction
   id: HeatExchanger
   graph: GasBinary
   startNode: start
   targetNode: radiator
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: SnapgridCenter
   canBuildInImpassable: false
 
@@ -1082,7 +888,7 @@
   graph: GasBinary
   startNode: start
   targetNode: bendradiator
-  category: construction-category-atmospherics # Starlight
+  category: construction-category-utilities
   placementMode: SnapgridCenter
   canBuildInImpassable: false
 
@@ -1092,101 +898,61 @@
   graph: GasTrinary
   startNode: start
   targetNode: filter
-  category: construction-category-atmospherics # Starlight
-  placementMode: AlignAtmosPipeLayers # starlight
+  category: construction-category-utilities
+  placementMode: SnapgridCenter
   canBuildInImpassable: false
   mirror: GasFilterFlipped
   conditions:
     - !type:NoUnstackableInTile
-  # Carpmosia-start - Atmos Alt Prototypes
-  alternativePrototypes:
-  - GasFilter
-  - GasFilterAlt1
-  - GasFilterAlt2
-  - GasFilterAlt3
-  - GasFilterAlt4
-  # Carpmosia-end - Atmos Alt Prototypes
 
 - type: construction
   id: GasFilterFlipped
-#  hide: true starlight let me build the flipped version
+  hide: true
   graph: GasTrinary
   startNode: start
   targetNode: filterflipped
-  category: construction-category-atmospherics # Starlight
-  placementMode: AlignAtmosPipeLayers # starlight
+  category: construction-category-utilities
+  placementMode: SnapgridCenter
   canBuildInImpassable: false
   mirror: GasFilter
   conditions:
     - !type:NoUnstackableInTile
-  # Carpmosia-start - Atmos Alt Prototypes
-  alternativePrototypes:
-  - GasFilterFlipped
-  - GasFilterFlippedAlt1
-  - GasFilterFlippedAlt2
-  - GasFilterFlippedAlt3
-  - GasFilterFlippedAlt4
-  # Carpmosia-end - Atmos Alt Prototypes
 
 - type: construction
   id: GasMixer
   graph: GasTrinary
   startNode: start
   targetNode: mixer
-  category: construction-category-atmospherics # Starlight
-  placementMode: AlignAtmosPipeLayers # starlight
+  category: construction-category-utilities
+  placementMode: SnapgridCenter
   canBuildInImpassable: false
   mirror: GasMixerFlipped
   conditions:
     - !type:NoUnstackableInTile
-  # Carpmosia-start - Atmos Alt Prototypes
-  alternativePrototypes:
-  - GasMixer
-  - GasMixerAlt1
-  - GasMixerAlt2
-  - GasMixerAlt3
-  - GasMixerAlt4
-  # Carpmosia-end - Atmos Alt Prototypes
 
 - type: construction
   id: GasMixerFlipped
-#  hide: true starlight let me build the flipped version
+  hide: true
   graph: GasTrinary
   startNode: start
   targetNode: mixerflipped
-  category: construction-category-atmospherics # Starlight
-  placementMode: AlignAtmosPipeLayers # starlight
+  category: construction-category-utilities
+  placementMode: SnapgridCenter
   canBuildInImpassable: false
   mirror: GasMixer
   conditions:
     - !type:NoUnstackableInTile
-  # Carpmosia-start - Atmos Alt Prototypes
-  alternativePrototypes:
-  - GasMixerFlipped
-  - GasMixerFlippedAlt1
-  - GasMixerFlippedAlt2
-  - GasMixerFlippedAlt3
-  - GasMixerFlippedAlt4
-  # Carpmosia-end - Atmos Alt Prototypes
 
 - type: construction
   id: PressureControlledValve
   graph: GasTrinary
   startNode: start
   targetNode: pneumaticvalve
-  category: construction-category-atmospherics # Starlight
-  placementMode: AlignAtmosPipeLayers # Carpmosia-edit - Atmos Alt Prototypes
+  category: construction-category-utilities
+  placementMode: SnapgridCenter
   canBuildInImpassable: false
   conditions:
     - !type:NoUnstackableInTile
-  # Carpmosia-start - Atmos Alt Prototypes
-  alternativePrototypes:
-  - PressureControlledValve
-  - PressureControlledValveAlt1
-  - PressureControlledValveAlt2
-  - PressureControlledValveAlt3
-  - PressureControlledValveAlt4
-  # Carpmosia-end - Atmos Alt Prototypes
 
 # INTERCOM
 - type: construction

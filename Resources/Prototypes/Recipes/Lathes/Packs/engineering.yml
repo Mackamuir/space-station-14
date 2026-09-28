@@ -53,8 +53,6 @@
   id: EngineeringBoardsStatic
   recipes:
   - SpaceHeaterMachineCircuitBoard
-  - MassDriverCircuitboard # Starlight
-  - MassDriverComputerCircuitboard # Starlight
 
 ## Dynamic
 
@@ -64,8 +62,8 @@
   - PowerDrill
   - WelderExperimental
   - JawsOfLife
-  #- Fulton # Starlight, moved to science
-  #- FultonBeacon # Starlight, moved to science
+  - Fulton
+  - FultonBeacon
 
 - type: latheRecipePack
   id: AtmosTools
@@ -94,8 +92,3 @@
   - TelecomServerCircuitboard
   - SMESAdvancedMachineCircuitboard
   - HolopadMachineCircuitboard
-  - WeaponTurretPointDefenseMachineCircuitboard #Starlight
-  - BladeServerRackMachineCircuitboard # Moffstation - Blade Server Rack constructibility
-  - ElectrolyzerMachineCircuitboard # Funky atmos - /tg/ gases
-  - SMESHyperAdvancedMachineCircuitboard #SL Edit
-  - APCAdvancedElectronics # Starlight

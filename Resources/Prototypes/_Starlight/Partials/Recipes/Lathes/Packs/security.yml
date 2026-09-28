@@ -1,0 +1,20 @@
+- type: !PartialOnly latheRecipePack
+  id: SecurityEquipmentStatic
+  recipes:
+  - EvidenceBag # Funky Edit
+
+- type: !PartialOnly latheRecipePack
+  id: SecurityPracticeStatic
+  recipes:
+  - !Remove WeaponFlareGunSecurity
+
+- type: !PartialOnly latheRecipePack
+  id: SecurityExplosives
+  recipes:
+  - !Remove GrenadeFlash
+
+- type: !PartialOnly latheRecipePack
+  id: SecurityWeapons
+  recipes:
+  - FiringPinLaser
+

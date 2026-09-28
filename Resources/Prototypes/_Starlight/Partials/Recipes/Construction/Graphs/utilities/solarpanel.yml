@@ -1,0 +1,44 @@
+- type: !PartialOnly constructionGraph
+  id: SolarPanel
+  graph:
+  - !CombineIndex:2 edges:
+    - to: solarpaneluranium
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetPGlass1
+        amount: 2
+      conditions:
+      - !type:EntityAnchored
+        anchored: true
+      steps:
+      - material: UraniumGlass
+        amount: 2
+        doAfter: 2
+  - !CombineIndex:4 edges:
+    - !Index:1
+      to: solarpaneluranium
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetGlass1
+        amount: 2
+      conditions:
+      - !type:EntityAnchored
+        anchored: true
+      steps:
+      - material: UraniumGlass
+        amount: 2
+        doAfter: 2
+    - !Index:1
+      to: solarpanelplasma
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetGlass1
+        amount: 2
+      conditions:
+      - !type:EntityAnchored
+        anchored: true
+      steps:
+      - material: PlasmaGlass
+        amount: 2
+        doAfter: 2
+

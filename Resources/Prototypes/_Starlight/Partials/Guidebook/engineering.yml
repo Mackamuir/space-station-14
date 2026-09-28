@@ -1,0 +1,22 @@
+- type: !PartialOnly guideEntry
+  id: Engineering
+  children:
+  - !Index:3 Plumbing
+
+- type: !PartialOnly guideEntry
+  id: Atmospherics
+  children: # Extended guides
+  - !Index:5 Gasses2
+  - !Index:5 Gasses3
+  - !Index:5 Gasses4
+  - !Index:5 Gasses5
+
+- type: !PartialOnly guideEntry
+  id: Gasses
+  text: "/ServerInfo/_Starlight/Guidebook/Engineering/Gasses.xml"
+
+- type: !PartialOnly guideEntry
+  id: Generators
+  children:
+  - !Index:3 NuclearGenerator # Far Horizons
+  - !Index:4 Supermatter

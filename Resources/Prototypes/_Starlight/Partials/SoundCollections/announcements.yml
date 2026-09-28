@@ -1,0 +1,7 @@
+- type: !PartialOnly soundCollection
+  id: RoundEnd
+  files:
+  - !Index:3 /Audio/_Starlight/Announcements/RoundEnd/anyone_there.ogg
+  - !Index:3 /Audio/_Starlight/Announcements/RoundEnd/for_the_syndicate.ogg
+  - !Index:3 /Audio/_Starlight/Announcements/RoundEnd/whats_this_button_do.ogg
+

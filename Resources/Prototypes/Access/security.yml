@@ -35,10 +35,6 @@
   - Brig
   - Detective
   - Cryogenics
-  - Brigmedic
-  - Cadet # Starlight
-  - GenpopEnter # Starlight: Some jobs (e.g. CE) have this and ID console requires it to be in a group to be assignable.
-  - GenpopLeave # Starlight
 
 - type: accessGroup
   id: Armory

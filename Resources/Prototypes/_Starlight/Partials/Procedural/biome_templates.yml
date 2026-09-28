@@ -1,0 +1,10 @@
+- type: !PartialOnly biomeTemplate
+  id: Asteroid
+  layers:
+  - !type:BiomeEntityLayer
+    !CombineIndex:2 entities:
+    - !Index:1 AsteroidRockTin
+    - !Index:1 AsteroidRockQuartz
+    - !Index:1 AsteroidRockCoal
+    - !Index:1 AsteroidRock
+

@@ -1,0 +1,67 @@
+- type: !PartialOnly radioChannel
+  id: Common
+  icon:
+    sprite: _Starlight/Interface/Radial/Radio/channel_icons.rsi
+    state: common
+
+- type: !PartialOnly radioChannel
+  id: CentCom
+  color: "#86d420"
+  icon:
+    sprite: _Starlight/Interface/Radial/Radio/channel_icons.rsi
+    state: cc
+
+- type: !PartialOnly radioChannel
+  id: Command
+  icon:
+    sprite: _Starlight/Interface/Radial/Radio/channel_icons.rsi
+    state: command
+
+- type: !PartialOnly radioChannel
+  id: Engineering
+  icon:
+    sprite: _Starlight/Interface/Radial/Radio/channel_icons.rsi
+    state: engineering
+
+- type: !PartialOnly radioChannel
+  id: Medical
+  icon:
+    sprite: _Starlight/Interface/Radial/Radio/channel_icons.rsi
+    state: medical
+
+- type: !PartialOnly radioChannel
+  id: Science
+  icon:
+    sprite: _Starlight/Interface/Radial/Radio/channel_icons.rsi
+    state: science
+
+- type: !PartialOnly radioChannel
+  id: Security
+  icon:
+    sprite: _Starlight/Interface/Radial/Radio/channel_icons.rsi
+    state: security
+
+- type: !PartialOnly radioChannel
+  id: Service
+  icon:
+    sprite: _Starlight/Interface/Radial/Radio/channel_icons.rsi
+    state: service
+
+- type: !PartialOnly radioChannel
+  id: Supply
+  icon:
+    sprite: _Starlight/Interface/Radial/Radio/channel_icons.rsi
+    state: cargo
+
+- type: !PartialOnly radioChannel
+  id: Syndicate
+  color: "#b52424"
+  anonymousAlias: "Agent {0}"
+  icon:
+    sprite: _Starlight/Interface/Radial/Radio/channel_icons.rsi
+    state: syndicate
+
+- type: !PartialOnly radioChannel
+  id: Binary
+  color: "#00a2ff"
+

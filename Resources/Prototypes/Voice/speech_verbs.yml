@@ -21,7 +21,6 @@
   name: chat-speech-verb-name-mumble
   speechVerbStrings:
   - chat-speech-verb-mumble
-  fontSize: 10 #Starlight
 
 - type: speechVerb
   id: DefaultExclamation
@@ -32,11 +31,10 @@
 - type: speechVerb
   id: DefaultExclamationStrong
   name: chat-speech-verb-name-exclamation-strong
-  bold: false #starlight, disabled for language support
+  bold: true
   speechVerbStrings:
   - chat-speech-verb-exclamation-strong
   priority: 10
-  fontSize: 14 #starlight, yelling
 
 - type: speechVerb
   id: Arachnid
@@ -111,7 +109,6 @@
   - chat-speech-verb-canine-1
   - chat-speech-verb-canine-2
   - chat-speech-verb-canine-3
-  - chat-speech-verb-canine-4 #starlight
 
 - type: speechVerb
   id: Goat

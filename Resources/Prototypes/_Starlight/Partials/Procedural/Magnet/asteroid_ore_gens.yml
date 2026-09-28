@@ -1,0 +1,5 @@
+- type: !PartialOnly weightedRandom
+  id: AsteroidOre
+  weights:
+    OreBluespace: 0.5
+

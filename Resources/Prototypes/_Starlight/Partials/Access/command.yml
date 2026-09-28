@@ -1,0 +1,7 @@
+- type: !PartialOnly accessGroup
+  id: Command
+  tags:
+  - Magistrate
+  - Ntrep
+  - BlueShield
+  - Debrief

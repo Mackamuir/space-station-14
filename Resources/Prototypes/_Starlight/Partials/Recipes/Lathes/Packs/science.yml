@@ -1,0 +1,15 @@
+- type: !PartialOnly latheRecipePack
+  id: ScienceBoardsStatic
+  recipes:
+  - !Remove ProtolatheMachineCircuitboard
+
+- type: !PartialOnly latheRecipePack
+  id: ScienceClothing
+  recipes:
+  - !Remove ClothingShoesBootsSpeed
+
+- type: !PartialOnly latheRecipePack
+  id: ShuttleBoards
+  recipes:
+  - WallmountMassScannerElectronics
+

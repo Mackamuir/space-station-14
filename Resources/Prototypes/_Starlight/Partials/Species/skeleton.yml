@@ -1,0 +1,5 @@
+- type: !PartialOnly species
+  id: Skeleton
+  sprites: MobSkeletonSprites
+  markingLimits: MobHumanMarkingLimits
+

@@ -1,0 +1,7 @@
+- type: !PartialOnly reaction
+  id: Ammonia
+  minTemp: 370 # prevents electrolyzed ammonia from recombining.
+  effects:
+  - !type:AdjustSolutionThermalEnergy # remove heat to stop reaction on repeated recombination during electrolysis
+    delta: -92.28 # actual energy requirement of reaction, works surprisingly well.
+

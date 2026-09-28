@@ -1,0 +1,4 @@
+- type: !PartialOnly construction
+  id: ChairComfy
+  name: construction-recipe-comfy-chair-gray
+

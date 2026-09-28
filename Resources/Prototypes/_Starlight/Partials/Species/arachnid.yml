@@ -1,0 +1,6 @@
+- type: !PartialOnly species
+  id: Arachnid
+  sprites: MobArachnidSprites
+  markingLimits: MobArachnidMarkingLimits
+  customName: true
+

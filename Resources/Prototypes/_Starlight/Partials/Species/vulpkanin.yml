@@ -1,0 +1,13 @@
+- type: !PartialOnly species
+  id: Vulpkanin
+  sprites: MobVulpkaninSprites
+  markingLimits: MobVulpkaninMarkingLimits
+  skinColoration: Hues # VulpkaninColors -> Hues
+  minHeight: 0.9
+  defaultHeight: 1
+  maxHeight: 1.2
+  standardSize: 170
+  standardWeight: 75
+  standardDensity: 110
+  customName: true
+

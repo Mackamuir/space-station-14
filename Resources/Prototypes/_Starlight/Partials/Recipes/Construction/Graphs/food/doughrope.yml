@@ -1,0 +1,11 @@
+- type: !PartialOnly constructionGraph
+  id: DoughRope
+  graph:
+  - !CombineIndex:1 edges:
+    - to: flattened
+      steps:
+      - tool: Rolling
+        doAfter: 1
+  - node: flattened
+    entity: FoodDoughPita
+

@@ -1,0 +1,12 @@
+- type: !PartialOnly stealTargetGroup
+  id: Hypospray
+  name: steal-target-groups-hypoinjector-combined
+  sprite:
+    sprite: _Starlight/Objects/Misc/hypoinjector_stealobjective.rsi
+    state: icon
+
+- type: !PartialOnly stealTargetGroup
+  id: CargoShuttleConsoleCircuitboard
+  sprite:
+    state: cpu_supply
+

@@ -1,0 +1,10 @@
+- type: !PartialOnly alertOrder
+  id: BaseAlertOrder
+  order:
+    - !Index:0 { alertType: ChangelingBiomass }
+    - !Index:2 { alertType: Shadekin }
+    - !Index:2 { alertType: ChangelingChemicals }
+    # Appended to the end. Written in reverse because partial sequence items are processed back-to-front.
+    - alertType: Offer
+    - alertType: DwarfCourage
+    - alertType: GPSAlert

@@ -10,7 +10,6 @@
   - TargetHuman
   - TargetSyndicate
   - Zipties
-  - EvidenceBag #Funky Edit
 
 # Practice ammo/mags and practice weapons
 - type: latheRecipePack
@@ -28,29 +27,7 @@
   - MagazinePistolPractice
   - SpeedLoaderMagnumPractice
   - MagazinePistolSubMachineGunPractice
-
-# Shared between secfab and emagged autolathe
-# - type: latheRecipePack
-  # id: SecurityAmmoStatic
-  # recipes:
-  # - BoxLethalshot
-  # - BoxShotgunSlug
-  # - MagazineBoxLightRifle
-  # - MagazineBoxMagnum
-  # - MagazineBoxPistol
-  # - MagazineBoxRifle
-  # - MagazineLightRifle
-  # - MagazineLightRifleEmpty
-  # - MagazinePistol
-  # - MagazinePistolEmpty
-  # - MagazinePistolSubMachineGun
-  # - MagazinePistolSubMachineGunEmpty
-  # - MagazinePistolSubMachineGunTopMounted
-  # - MagazinePistolSubMachineGunTopMountedEmpty
-  # - MagazineRifle
-  # - MagazineRifleEmpty
-  # - SpeedLoaderMagnum
-  # - SpeedLoaderMagnumEmpty
+  - WeaponFlareGunSecurity
 
 - type: latheRecipePack
   id: SecurityWeaponsStatic
@@ -92,36 +69,8 @@
   - ExplosivePayload
   - GrenadeBlast
   - GrenadeEMP
+  - GrenadeFlash
   - MagazineGrenadeEmpty
-
-# Shared between secfab and emagged protolathe
-# - type: latheRecipePack
-  # id: SecurityAmmo
-  # recipes:
-  # - BoxBeanbag
-  # - BoxShotgunIncendiary
-  # - BoxShotgunUranium
-  # - BoxShellTranquilizer
-  # - MagazineBoxLightRifleIncendiary
-  # - MagazineBoxLightRifleUranium
-  # - MagazineBoxMagnumIncendiary
-  # - MagazineBoxMagnumUranium
-  # - MagazineBoxPistolIncendiary
-  # - MagazineBoxPistolUranium
-  # - MagazineBoxRifleIncendiary
-  # - MagazineBoxRifleUranium
-  # - MagazineLightRifleIncendiary
-  # - MagazineLightRifleUranium
-  # - MagazinePistolIncendiary
-  # - MagazinePistolUranium
-  # - MagazinePistolSubMachineGunIncendiary
-  # - MagazinePistolSubMachineGunUranium
-  # - MagazineRifleIncendiary
-  # - MagazineRifleUranium
-  # - MagazineShotgunBeanbag
-  # - MagazineShotgunIncendiary
-  # - SpeedLoaderMagnumIncendiary
-  # - SpeedLoaderMagnumUranium
 
 - type: latheRecipePack
   id: SecurityWeapons
@@ -132,7 +81,6 @@
   - WeaponLaserCarbine
   - WeaponXrayCannon
   - WeaponTemperatureGun
-  - FiringPinLaser # Starlight
 
 - type: latheRecipePack
   id: SecurityDisablers

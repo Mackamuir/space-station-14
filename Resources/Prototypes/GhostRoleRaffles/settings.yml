@@ -5,7 +5,6 @@
     initialDuration: 45
     joinExtendsDurationBy: 2
     maxDuration: 45
-  default: true #Starlight raffle by default
 
 # for roles that don't matter too much or are available plentifully (e.g. space carp)
 - type: ghostRoleRaffleSettings

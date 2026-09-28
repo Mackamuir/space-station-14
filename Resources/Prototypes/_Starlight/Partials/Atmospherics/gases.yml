@@ -1,0 +1,7 @@
+- type: !PartialOnly gas
+  id: NitrousOxide
+  pricePerMole: 1
+
+- type: !PartialOnly gas
+  id: Frezon
+  pricePerMole: 2 # 3 -> 2

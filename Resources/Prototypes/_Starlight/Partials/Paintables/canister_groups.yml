@@ -1,0 +1,21 @@
+- type: !PartialOnly paintableGroup
+  id: Canisters
+  styles:
+    rainbow: RainbowCanisterEmpty
+    liquid-oxygen: LiquidOxygenCanister
+    liquid-nitrogen: LiquidNitrogenCanister
+    liquid-carbon-dioxide: LiquidCarbonDioxideCanister
+    bz: BZCanister
+    healium: HealiumCanister
+    nitrium: NitriumCanister
+    pluoxium: PluoxiumCanister
+    hydrogen: HydrogenCanister
+    hyper-noblium: HyperNobliumCanister
+    proto-nitrate: ProtoNitrateCanister
+    zauker: ZaukerCanister
+    halon: HalonCanister
+    helium: HeliumCanister
+    anti-noblium: AntiNobliumCanister
+    ulnitranium: UlnitraniumCanister
+    zxa: ZXACanister
+

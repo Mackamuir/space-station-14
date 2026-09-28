@@ -6,7 +6,6 @@
   - Construction
   - Power
   - Atmospherics
-  - Plumbing # Starlight
   - ShuttleCraft
   - Networking
 
@@ -51,10 +50,6 @@
   - AtmosphericUpsets
   - AtmosTools
   - Gasses
-  - Gasses2 #Starlight: Extended guides
-  - Gasses3
-  - Gasses4
-  - Gasses5 #End Starlight
 
 - type: guideEntry
   id: GasManipulation
@@ -266,7 +261,7 @@
 - type: guideEntry
   id: Gasses
   name: guide-entry-gasses
-  text: "/ServerInfo/_Starlight/Guidebook/Engineering/Gasses.xml" # STARLIGHT
+  text: "/ServerInfo/Guidebook/Engineering/Gasses.xml"
 
 - type: guideEntry
   id: ShuttleCraft
@@ -324,9 +319,7 @@
   - PortableGenerator
   - AME
   - SingularityTeslaEngine
-  - NuclearGenerator # Far Horizons
   - TEG
-  - Supermatter # Starlight
   - RTG
   - SolarPanels
 

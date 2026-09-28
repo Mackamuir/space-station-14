@@ -114,25 +114,12 @@
   metabolisms:
     Metabolites:
       effects:
-      # Starlight edit start - Make food 50% less effective for dwarfs
       - !type:SatiateHunger
-        factor: 0.5
         conditions:
-        - !type:ReagentCondition
+        - !type:ReagentCondition #Only satiates when eaten with nutriment
           reagent: Nutriment
           min: 0.1
-        - !type:MetabolizerTypeCondition
-          type: [ Dwarf ]
-      - !type:SatiateHunger
         factor: 1
-        conditions:
-        - !type:ReagentCondition
-          reagent: Nutriment
-          min: 0.1
-        - !type:MetabolizerTypeCondition
-          type: [ Dwarf ]
-          inverted: true
-      # Starlight edit end
   plantMetabolism:
   - !type:PlantAdjustNutrition
     amount: 0.1

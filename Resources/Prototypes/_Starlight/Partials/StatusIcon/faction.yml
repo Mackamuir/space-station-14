@@ -1,0 +1,10 @@
+- type: !PartialOnly factionIcon
+  id: RevolutionaryFaction
+  icon:
+    sprite: /Textures/_Starlight/Interface/Misc/job_icons.rsi # USSP revs
+
+- type: !PartialOnly factionIcon
+  id: HeadRevolutionaryFaction
+  icon:
+    sprite: /Textures/_Starlight/Interface/Misc/job_icons.rsi # USSP revs
+

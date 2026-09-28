@@ -1,0 +1,21 @@
+- type: !PartialOnly latheRecipePack
+  id: EngineeringBoardsStatic
+  recipes:
+  - !Index:1 MassDriverCircuitboard
+  - !Index:1 MassDriverComputerCircuitboard
+
+- type: !PartialOnly latheRecipePack
+  id: AdvancedTools
+  recipes:
+  - !Remove Fulton
+  - !Remove FultonBeacon
+
+- type: !PartialOnly latheRecipePack
+  id: EngineeringBoards
+  recipes:
+  - !Index:13 WeaponTurretPointDefenseMachineCircuitboard
+  - !Index:13 BladeServerRackMachineCircuitboard # Moffstation - Blade Server Rack constructibility
+  - !Index:13 ElectrolyzerMachineCircuitboard # Funky atmos - /tg/ gases
+  - !Index:13 SMESHyperAdvancedMachineCircuitboard # SL Edit
+  - !Index:13 APCAdvancedElectronics
+

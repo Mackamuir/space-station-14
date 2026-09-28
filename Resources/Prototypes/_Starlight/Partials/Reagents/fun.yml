@@ -1,0 +1,154 @@
+- type: !PartialOnly reagent
+  id: Fiber
+  metabolisms:
+    Digestion:
+      effects:
+      - !type:SatiateHunger
+        !CombineIndex:0 conditions:
+        - !type:MetabolizerTypeCondition
+          !CombineIndex:0 type:
+          - Neocyte
+
+- type: !PartialOnly reagent
+  id: BuzzochloricBees
+  contrabandSeverity: Major # Minor -> Major
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:AdjustReagent
+        conditions:
+        - !type:ReagentCondition
+          reagent: BuzzochloricBees
+          min: 0.26
+        - !type:MetabolizerTypeCondition
+          type: [Cyclorite]
+        reagent: BuzzochloricBees
+        amount: 0.25
+
+- type: !PartialOnly reagent
+  id: Licoxide
+  contrabandSeverity: Major # Minor -> Major
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:AdjustReagent
+        conditions:
+        - !type:ReagentCondition
+          reagent: Licoxide
+          min: 0.26
+        - !type:MetabolizerTypeCondition
+          type: [Cyclorite]
+        reagent: Licoxide
+        amount: 0.25
+
+- type: !PartialOnly reagent
+  id: Razorium
+  contrabandSeverity: Major # None -> Major
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:AdjustReagent
+        conditions:
+        - !type:ReagentCondition
+          reagent: Razorium
+          min: 1.51
+        - !type:MetabolizerTypeCondition
+          type: [Cyclorite]
+        reagent: Razorium
+        amount: 1.5
+
+- type: !PartialOnly reagent
+  id: Fresium
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:AdjustReagent
+        conditions:
+        - !type:ReagentCondition
+          reagent: Fresium
+          min: 0.23
+        - !type:MetabolizerTypeCondition
+          type: [Cyclorite]
+        reagent: Fresium
+        amount: 0.22 # Rounding down with 2 decimal points
+
+- type: !PartialOnly reagent
+  id: JuiceThatMakesYouWeh
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:AdjustReagent
+        conditions:
+        - !type:ReagentCondition
+          reagent: JuiceThatMakesYouWeh
+          min: 0.11
+        - !type:MetabolizerTypeCondition
+          type: [Cyclorite]
+        reagent: JuiceThatMakesYouWeh
+        amount: 0.1
+
+- type: !PartialOnly reagent
+  id: JuiceThatMakesYouHew
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:AdjustReagent
+        conditions:
+        - !type:ReagentCondition
+          reagent: JuiceThatMakesYouHew
+          min: 0.11
+        - !type:MetabolizerTypeCondition
+          type: [Cyclorite]
+        reagent: JuiceThatMakesYouHew
+        amount: 0.1
+
+- type: !PartialOnly reagent
+  id: CorgiJuice
+  allowedJobs:
+  - Chemist
+  contrabandSeverity: Major # None -> major
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:AdjustReagent
+        conditions:
+        - !type:ReagentCondition
+          reagent: CorgiJuice
+          min: 0.11
+        - !type:MetabolizerTypeCondition
+          type: [Cyclorite]
+        reagent: CorgiJuice
+        amount: 0.1
+
+- type: !PartialOnly reagent
+  id: Felinase
+  contrabandSeverity: Minor # None -> minor
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:AdjustReagent
+        conditions:
+        - !type:ReagentCondition
+          reagent: Felinase
+          min: 0.11
+        - !type:MetabolizerTypeCondition
+          type: [Cyclorite]
+        reagent: Felinase
+        amount: 0.1
+
+- type: !PartialOnly reagent
+  id: Caninase
+  contrabandSeverity: Minor # None -> minor
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:AdjustReagent
+        conditions:
+        - !type:ReagentCondition
+          reagent: Caninase
+          min: 0.11
+        - !type:MetabolizerTypeCondition
+          type: [Cyclorite]
+        reagent: Caninase
+        amount: 0.1
+
