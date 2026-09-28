@@ -1,0 +1,3 @@
+- type: !PartialOnly cargoProduct
+  id: SecurityHelmet
+  cost: 700 # They contain batteries

@@ -1,0 +1,5 @@
+- type: !PartialOnly loadout
+  id: LawyerNeck
+  equipment: # Neck -> Misc
+    misc: ClothingNeckLawyerbadge
+    neck: !Remove

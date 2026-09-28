@@ -1,0 +1,18 @@
+#Observer
+- type: !PartialOnly entity
+  id: MindRoleObserver
+  components:
+  - type: MindRole
+    fallbackPlayTimeTracker: Observer
+
+# Changeling
+- type: !PartialOnly entity
+  id: MindRoleChangeling
+  components:
+  - type: MindRole
+    exclusiveAntag: !Remove
+    roleType: !Remove
+  - type: !Remove ChangelingRole
+  - type: !Remove RoleBriefing
+    briefing: !Remove
+  - type: SLChangelingRole

@@ -6,28 +6,22 @@
   requirements:
     - !type:RoleTimeRequirement
       role: JobWarden
-      time: 10h # Starlight
+      time: 3h
     - !type:RoleTimeRequirement
       role: JobDetective
-      time: 5h # knowing how to use the tools is important # Starlight
+      time: 1h # knowing how to use the tools is important
     - !type:RoleTimeRequirement
       role: JobSecurityOfficer
-      time: 15h # Starlight
+      time: 5h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 50h # Starlight - Literally the most pressured role in the game, you need extensive knowledge of your department
-    - !type:TraitsRequirement # Starlight
-      traits:
-        - Iterator
-        - Muted
-        - Blindness
-      inverted: true
+      time: 10h
   weight: 10
   startingGear: HoSGear
   icon: "JobIconHeadOfSecurity"
   supervisors: job-supervisors-captain
+  canBeAntag: false
   access:
-  - Cadet # Starlight
   - HeadOfSecurity
   - Command
   - Brig
@@ -37,10 +31,8 @@
   - External
   - Detective
   - Cryogenics
-  - Brigmedic
   - GenpopEnter
   - GenpopLeave
-  - Debrief # Starlight
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
@@ -53,11 +45,13 @@
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: HoSPDA
-    # gloves: ClothingHandsGlovesCombat # Starlight
+    gloves: ClothingHandsGlovesCombat
     ears: ClothingHeadsetAltSecurity
+    pocket1: WeaponPistolMk58
   storage:
     back:
     - Flash
+    - MagazinePistol
 
 - type: chameleonOutfit
   id: HeadOfSecurityChameleonOutfit

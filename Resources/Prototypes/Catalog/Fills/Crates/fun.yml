@@ -51,7 +51,6 @@
         - id: ViolinInstrument
         - id: CelloInstrument
         - id: ViolaInstrument
-        - id: FretlessBassGuitarInstrument # Starlight
 
 - type: entity
   parent: CrateGenericSteel
@@ -109,7 +108,6 @@
         - id: ReverseCymbalsInstrument
         - id: CannedApplauseInstrument
         - id: MicrophoneInstrument
-        - id: NT4PlayerInstrument # Starlight
 
 - type: entity
   parent: CrateGenericSteel
@@ -381,7 +379,6 @@
           amount: 2
         - id: ClothingHeadHatPirate
         - id: ClothingOuterCoatPirate
-        - id: ClothingOuterCoatPirateDark # Starlight
         - id: ClothingShoesBootsLaceup
           amount: 2
         - id: ClothingHeadBandRed

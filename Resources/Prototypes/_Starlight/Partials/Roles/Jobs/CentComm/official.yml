@@ -1,0 +1,13 @@
+- type: !PartialOnly job
+  id: CentralCommandOfficial
+  requirements:
+  - !type:RolesRequirement
+    proto: StaffAndMentorOnlyRolesReq
+  icon: "JobIconCentralCommandOfficial"
+  canBeAntag: !Remove
+
+- type: !PartialOnly startingGear
+  id: CentcommGear
+  equipment:
+    jumpsuit: ClothingAltUniformJumpsuitCentcomOfficial # alt version
+    eyes: ClothingEyesGlassesCentComm

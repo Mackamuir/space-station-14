@@ -6,11 +6,11 @@
   requirements:
   - !type:RoleTimeRequirement
     role: JobSecurityOfficer
-    time: 10h # Starlight
-  displayWeight: 3 # Starlight
+    time: 5h
   startingGear: DetectiveGear
   icon: "JobIconDetective"
   supervisors: job-supervisors-hos
+  canBeAntag: false
   access:
   - Security
   - Brig
@@ -25,9 +25,10 @@
 - type: startingGear
   id: DetectiveGear
   equipment:
+    eyes: ClothingEyesGlassesSecurity
     id: DetectivePDA
-    ears: ClothingHeadsetDetective # Starlight
-    # belt: ClothingBeltHolsterFilled # Starlight, removed to allow Detective to choose their sidearm
+    ears: ClothingHeadsetSecurity
+    belt: ClothingBeltHolsterFilled
   storage:
     back:
     - Flash

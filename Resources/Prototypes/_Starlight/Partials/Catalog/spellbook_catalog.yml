@@ -1,0 +1,26 @@
+- type: !PartialOnly listing
+  id: SpellbookRodForm
+  cost:
+    WizCoin: 7 # 3WC->7WC It's a LRP spell murderhobo spell, and it was so cheap you could buy every other wizard movement ability to avoid ever getting caught.
+
+- type: !PartialOnly listing
+  id: SpellbookCluwne
+  cost:
+    WizCoin: 5 # More expensive than usual, back on trial basis.
+  conditions:
+  - !type:ListingPlayerCountCondition # make this only buyable on highpop
+    minimum: 80
+
+- type: !PartialOnly listing
+  id: SpellbookMindSwap
+  description: spellbook-mind-swap-description-starlight
+
+- type: !PartialOnly listing
+  id: SpellbookEventSummonGuns
+  cost:
+    WizCoin: 25 # This allows WizCoin to be mapped.
+
+- type: !PartialOnly listing
+  id: SpellbookEventSummonMagic
+  cost:
+    WizCoin: 25 # This allows WizCoin to be mapped.

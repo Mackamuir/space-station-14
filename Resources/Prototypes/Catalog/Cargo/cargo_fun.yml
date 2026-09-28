@@ -53,7 +53,7 @@
   icon:
     sprite: Objects/Fun/Plushies/lizard.rsi
     state: icon
-  product: BoxFunLizardPlushieBulk #Funky change boxification
+  product: CrateFunLizardPlushieBulk
   cost: 500
   category: cargoproduct-category-name-fun
   group: market
@@ -63,7 +63,7 @@
   icon:
     sprite: Objects/Fun/Plushies/shark.rsi
     state: blue
-  product: BoxFunSharkPlushieBulk #Funky change boxification
+  product: CrateFunSharkPlushieBulk
   cost: 500
   category: cargoproduct-category-name-fun
   group: market
@@ -103,7 +103,7 @@
   icon:
     sprite: Clothing/Hands/Gloves/Boxing/boxingred.rsi
     state: icon
-  product: BoxFunBoxing #Funky change boxification
+  product: CrateFunBoxing
   cost: 500
   category: cargoproduct-category-name-fun
   group: market
@@ -164,7 +164,7 @@
     sprite: Structures/Wallmounts/posters.rsi
     state: poster55_legit
   product: CrateFunScurret
-  cost: 7500 # You will surely not regret buying this ## SL EDIT: Made scurrets 7.5k
+  cost: 25000 # You will surely not regret buying this
   category: cargoproduct-category-name-fun
   group: market
 

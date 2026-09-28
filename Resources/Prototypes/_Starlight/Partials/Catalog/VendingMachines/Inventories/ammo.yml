@@ -1,0 +1,16 @@
+- type: !PartialOnly vendingMachineInventory
+  id: AmmoVendInventory
+  startingInventory:
+    MagazineBoxCaselessRifle: 5
+    MagazineBoxCaselessRifleRubber: 1
+    MagazineBoxLightRifleBig: 5
+    MagazineBoxLightRifleRubber: 1
+    MagazineBoxMagnumSP: 5
+    MagazineBoxMagnumRubber: 1
+    MagazineBoxPistolSP: 5
+    MagazineBoxPistolRubber: 1
+    MagazineBoxRifleSP: 5
+    MagazineBoxRifleRubber: 1
+    MagazineBoxMagnum: !Remove
+    MagazineBoxPistol: !Remove
+    MagazineBoxRifle: !Remove

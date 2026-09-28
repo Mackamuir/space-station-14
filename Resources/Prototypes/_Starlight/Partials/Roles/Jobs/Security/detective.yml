@@ -1,0 +1,15 @@
+- type: !PartialOnly job
+  id: Detective
+  requirements: !Clear
+  - !type:RoleTimeRequirement
+    role: JobSecurityOfficer
+    time: 10h
+  displayWeight: 3
+  canBeAntag: !Remove
+
+- type: !PartialOnly startingGear
+  id: DetectiveGear
+  equipment:
+    ears: ClothingHeadsetDetective
+    eyes: !Remove
+    belt: !Remove

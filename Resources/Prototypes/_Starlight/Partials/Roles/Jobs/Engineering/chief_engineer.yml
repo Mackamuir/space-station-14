@@ -1,0 +1,23 @@
+- type: !PartialOnly job
+  id: ChiefEngineer
+  requirements: !Clear
+  - !type:RoleTimeRequirement
+    role: JobAtmosphericTechnician
+    time: 7h
+  - !type:RoleTimeRequirement
+    role: JobStationEngineer
+    time: 7h
+  - !type:DepartmentTimeRequirement
+    department: Engineering
+    time: 20h
+  - !type:TraitsRequirement
+    traits:
+    - Iterator
+    - Muted
+    inverted: true
+  access:
+  - !Index:8 GenpopEnter
+  - !Index:8 GenpopLeave
+  - !Index:8 Debrief
+  - !Index:8 Shuttle
+  canBeAntag: !Remove

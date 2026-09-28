@@ -1,0 +1,9 @@
+- type: !PartialOnly job
+  id: Scientist
+  extendedAccess:
+  - Robotics
+
+- type: !PartialOnly startingGear
+  id: ScientistGear
+  equipment:
+    belt: ClothingBeltStorageWaistbagScience

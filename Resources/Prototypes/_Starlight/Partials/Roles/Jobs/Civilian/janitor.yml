@@ -1,0 +1,4 @@
+- type: !PartialOnly startingGear
+  id: JanitorMaidGear
+  equipment:
+    head: ClothingHeadHatWhiteCatEars

@@ -8,22 +8,18 @@
   requirements:
     - !type:RoleTimeRequirement
       role: JobChemist
-      time: 7h # Starlight
+      time: 2.5h
     - !type:RoleTimeRequirement
       role: JobMedicalDoctor
-      time: 7h # Starlight
+      time: 5h
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 20h # Starlight
-    - !type:TraitsRequirement # Starlight
-      traits:
-        - Iterator
-        - Muted
-      inverted: true
+      time: 10h
   weight: 10
   startingGear: CMOGear
   icon: "JobIconChiefMedicalOfficer"
   supervisors: job-supervisors-captain
+  canBeAntag: false
   access:
   - Medical
   - Command
@@ -32,10 +28,6 @@
   - ChiefMedicalOfficer
   - Brig
   - Cryogenics
-  - Surgery # Starlight
-  - Paramedic # Starlight
-  - Debrief # Starlight
-  - Shuttle # Starlight
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
@@ -48,7 +40,6 @@
   equipment:
     id: CMOPDA
     ears: ClothingHeadsetCMO
-    belt: ClothingBeltMedicalFilled # Starlight - adding back belts
   storage:
     back:
     - Flash

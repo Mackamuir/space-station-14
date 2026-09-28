@@ -1,0 +1,62 @@
+# PR #5127
+- type: !PartialOnly cargoProduct
+  id: AtmosphericsAir
+  icon:
+    sprite: _Starlight/Structures/Storage/canister-ui.rsi
+    state: air
+  cost: 660
+
+- type: !PartialOnly cargoProduct
+  id: AtmosphericsOxygen
+  icon:
+    sprite: _Starlight/Structures/Storage/canister-ui.rsi
+    state: oxygen
+  cost: 700
+
+- type: !PartialOnly cargoProduct
+  id: AtmosphericsLiquidOxygen
+  icon:
+    sprite: _Starlight/Structures/Storage/canister-ui.rsi
+    state: l_oxygen
+  cost: 3750
+
+- type: !PartialOnly cargoProduct
+  id: AtmosphericsNitrogen
+  icon:
+    sprite: _Starlight/Structures/Storage/canister-ui.rsi
+    state: nitrogen
+  cost: 650
+
+- type: !PartialOnly cargoProduct
+  id: AtmosphericsLiquidNitrogen
+  icon:
+    sprite: _Starlight/Structures/Storage/canister-ui.rsi
+    state: l_nitrogen
+  cost: 3200
+
+- type: !PartialOnly cargoProduct
+  id: AtmosphericsCarbonDioxide
+  icon:
+    sprite: _Starlight/Structures/Storage/canister-ui.rsi
+    state: carbon
+  cost: 800
+
+- type: !PartialOnly cargoProduct
+  id: AtmosphericsLiquidCarbonDioxide
+  icon:
+    sprite: _Starlight/Structures/Storage/canister-ui.rsi
+    state: carbon
+  cost: 4400
+
+- type: !PartialOnly cargoProduct
+  id: AtmosphericsStorage
+  icon:
+    sprite: _Starlight/Structures/Storage/canister-ui.rsi
+    state: storage
+
+- type: !PartialOnly cargoProduct
+  id: AtmosphericsPlasma
+  icon:
+    sprite: _Starlight/Structures/Storage/canister-ui.rsi
+    state: plasma
+  cost: 4900

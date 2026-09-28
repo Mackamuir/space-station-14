@@ -1,0 +1,9 @@
+- type: !PartialOnly job
+  id: TechnicalAssistant
+  weight: -1
+  canBeAntag: !Remove
+
+- type: !PartialOnly startingGear
+  id: TechnicalAssistantGear
+  equipment:
+    shoes: !Remove

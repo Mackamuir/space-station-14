@@ -8,10 +8,10 @@
       department: Science
       time: 10h
       inverted: true # stop playing intern if you're good at science!
-  weight: -1
   startingGear: ResearchAssistantGear
   icon: "JobIconResearchAssistant"
   supervisors: job-supervisors-science
+  canBeAntag: false
   access:
   - Research
   - Maintenance
@@ -26,10 +26,9 @@
 - type: startingGear
   id: ResearchAssistantGear
   equipment:
-    # shoes: ClothingShoesColorWhite # SL: let them have shoes
+    shoes: ClothingShoesColorWhite
     id: ResearchAssistantPDA
     ears: ClothingHeadsetScience
-    belt: ClothingBeltStorageWaistbagScience # Starlight
     pocket2: BookScientistsGuidebook
   #storage:
     #back:

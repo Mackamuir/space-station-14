@@ -14,7 +14,7 @@
     sprite: Clothing/Head/Helmets/security.rsi
     state: icon
   product: CrateSecurityHelmet
-  cost: 700 # Starlight: They contain batteries
+  cost: 550
   category: cargoproduct-category-name-security
   group: market
 

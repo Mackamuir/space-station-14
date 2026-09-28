@@ -1,0 +1,15 @@
+- type: !PartialOnly vendingMachineInventory
+  id: DonutInventory
+  startingInventory:
+    FoodDonutChocolate: 6 # +1
+    FoodDonutApple: 4 # +1
+    FoodDonutPink: 4 # +1
+    FoodDonutBungo: 4 # +1
+  contrabandInventory:
+    FoodBagel: 3 # +1
+    FoodBagelPoppy: 3 # +1
+    FoodDonutPoison: !Remove
+  emaggedInventory:
+    FoodBagel: 2
+    FoodBagelPoppy: 2
+    FoodDonutPoison: 1

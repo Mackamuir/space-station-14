@@ -3,17 +3,11 @@
   name: job-name-deathsquad
   description: job-description-deathsquad
   playTimeTracker: JobDeathSquad
-  requirements:
-  - !type:OverallPlaytimeRequirement
-    time: 20h
-  - !type:DepartmentTimeRequirement
-    department: Security
-    time: 10h
   setPreference: false
   startingGear: DeathSquadGear
   icon: "JobIconDeathSquad"
   supervisors: job-supervisors-centcom
-  bypassEorPacification: true # Starlight
+  canBeAntag: false
   accessGroups:
   - AllAccess
   access:
@@ -28,8 +22,8 @@
     jumpsuit: ClothingUniformJumpsuitDeathSquad
     back: ClothingBackpackDeathSquad
     mask: ClothingMaskGasDeathSquad
-    eyes: ClothingEyesHudCentComm
-    ears: ClothingHeadsetAltCentComDS
+    eyes: ClothingEyesHudSecurity
+    ears: ClothingHeadsetAltCentCom
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitDeathsquad
     shoes: ClothingShoesBootsMagAdv

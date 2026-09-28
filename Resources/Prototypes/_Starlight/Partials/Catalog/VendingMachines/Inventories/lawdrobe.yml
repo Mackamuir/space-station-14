@@ -1,0 +1,6 @@
+- type: !PartialOnly vendingMachineInventory
+  id: LawDrobeInventory
+  startingInventory:
+    ClothingHeadsetIAA: 2
+    EncryptionKeyLaw: 1
+    ClothingHeadsetService: !Remove

@@ -1,0 +1,33 @@
+- type: !PartialOnly job
+  id: Warden
+  requirements: !Clear
+  - !type:RoleTimeRequirement
+    role: JobSecurityOfficer
+    time: 15h
+  - !type:RoleTimeRequirement
+    role: JobDutyOfficer
+    time: 5h
+  - !type:RoleTimeRequirement
+    role: JobDetective
+    time: 1h
+  access:
+  - !Index:0 Cadet
+  - !Index:7 Brigmedic
+  canBeAntag: !Remove
+
+- type: !PartialOnly startingGear
+  id: WardenGear
+  equipment:
+    ears: ClothingHeadsetSecurityWarden
+    pocket1: WeaponPistolDP
+    eyes: !Remove
+  storage:
+    back:
+    - !Index:1 MagazinePistol40SP
+    - !Index:1 MagazinePistol40SP
+    - !Remove MagazinePistol
+
+- type: !PartialOnly chameleonOutfit
+  id: WardenChameleonOutfit
+  equipment:
+    gloves: !Remove

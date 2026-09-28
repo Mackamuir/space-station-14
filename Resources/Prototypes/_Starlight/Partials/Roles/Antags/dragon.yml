@@ -1,0 +1,9 @@
+- type: !PartialOnly antag
+  id: Dragon
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 12h
+  - !type:RoleTimeRequirement
+    role: JobSalvageSpecialist
+    time: 3h
+  playTimeTracker: AntagDragon

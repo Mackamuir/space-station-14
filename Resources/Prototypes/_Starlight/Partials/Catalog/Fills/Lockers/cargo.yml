@@ -1,0 +1,12 @@
+- type: !PartialOnly entityTable
+  id: FillSalvageSpecialistHardsuitSpatio
+  table: !type:AllSelector
+    children:
+    - id: NitrogenTankFilled # vox gang
+    - id: CoolingUnit
+
+- type: !PartialOnly entityTable
+  id: LockerFillSalvageSpecialist
+  table: !type:AllSelector
+    children:
+    - !CombineIndex:3 id: RadioHandheldExpedition # radio replaced with expedition radio

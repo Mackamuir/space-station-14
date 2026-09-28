@@ -1,0 +1,13 @@
+- type: !PartialOnly vendingMachineInventory
+  id: PwrGameInventory
+  startingInventory:
+    DrinkPwrGameCan: 5 # +1
+    DrinkEnergyDrinkCan: 5 # +1
+    DrinkGrapeCan: 3 # +1
+    DrinkRootBeerCan: 3 # +1
+    DrinkIcedTeaCan: 3 # +1
+    DrinkSolDryCan: 3 # +1
+    DrinkLemonLimeCan: 3 # +1
+    DrinkLemonLimeCranberryCan: 3 # +1
+  contrabandInventory:
+    DrinkDrGibbCan: 4 # +1

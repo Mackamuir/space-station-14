@@ -1,0 +1,10 @@
+- type: !PartialOnly vendingMachineInventory
+  id: SodaInventory
+  startingInventory:
+    DrinkColaCan: 4 # +1
+    DrinkGrapeCan: 4 # +1
+    DrinkRootBeerCan: 4 # +1
+    DrinkIcedTeaCan: 4 # +1
+    DrinkSolDryCan: 4 # +1
+    DrinkLemonLimeCan: 4 # +1
+    DrinkLemonLimeCranberryCan: 4 # +1

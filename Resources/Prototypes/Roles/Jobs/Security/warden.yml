@@ -6,19 +6,16 @@
   requirements:
     - !type:RoleTimeRequirement
       role: JobSecurityOfficer
-      time: 15h # Starlight
-    - !type:RoleTimeRequirement # Starlight
-      role: JobDutyOfficer # Starlight
-      time: 5h # Starlight
-    - !type:RoleTimeRequirement
-      role: JobDetective # Starlight
-      time: 1h # Starlight
+      time: 5h
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 10h
   weight: 5
   startingGear: WardenGear
   icon: "JobIconWarden"
   supervisors: job-supervisors-hos
+  canBeAntag: false
   access:
-  - Cadet # Starlight
   - Security
   - Brig
   - Armory
@@ -26,7 +23,6 @@
   - External
   - Detective
   - Cryogenics
-  - Brigmedic # Starlight
   - GenpopEnter
   - GenpopLeave
   special:
@@ -36,14 +32,14 @@
 - type: startingGear
   id: WardenGear
   equipment:
+    eyes: ClothingEyesGlassesSecurity
     id: WardenPDA
-    ears: ClothingHeadsetSecurityWarden
-    pocket1: WeaponPistolDP
+    ears: ClothingHeadsetSecurity
+    pocket1: WeaponPistolMk58
   storage:
     back:
     - Flash
-    - MagazinePistol40SP
-    - MagazinePistol40SP
+    - MagazinePistol
 
 - type: chameleonOutfit
   id: WardenChameleonOutfit
@@ -56,5 +52,5 @@
     jumpsuit: ClothingUniformJumpsuitWarden
     neck: Dinkystar
     belt: ClothingBeltSecurity
-    # gloves: ClothingHandsGlovesCombat # Starlight
+    gloves: ClothingHandsGlovesCombat
     shoes: ClothingShoesBootsJack

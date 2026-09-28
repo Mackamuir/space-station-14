@@ -1,0 +1,28 @@
+- type: !PartialOnly job
+  id: Captain
+  requirements: !Clear
+  - !type:DepartmentTimeRequirement
+    department: Engineering
+    time: 20h
+  - !type:DepartmentTimeRequirement
+    department: Medical
+    time: 20h
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 20h
+  - !type:DepartmentTimeRequirement
+    department: Command
+    time: 25h
+  - !type:TraitsRequirement
+    traits:
+    - Iterator
+    - Muted
+    inverted: true
+  canBeAntag: !Remove
+
+- type: !PartialOnly startingGear
+  id: CaptainGear
+  equipment:
+    shoes: !Remove
+    eyes: !Remove
+    gloves: !Remove

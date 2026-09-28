@@ -1,0 +1,89 @@
+- type: !PartialOnly entityTable
+  id: FillSuitStorageEVA
+  table: !type:AllSelector
+    children:
+    - id: NitrogenTankFilled # vox gang
+    - id: CoolingUnit # Beep, Boop!
+
+- type: !PartialOnly entityTable
+  id: FillSuitStorageEVAAlternate
+  table: !type:AllSelector
+    children:
+    - id: NitrogenTankFilled # vox gang
+    - id: CoolingUnit # Beep, Boop!
+
+- type: !PartialOnly entityTable
+  id: FillSuitStorageEVAEmergency
+  table: !type:AllSelector
+    children:
+    - id: NitrogenTankFilled # vox gang
+    - id: CoolingUnit # Beep, Boop!
+
+- type: !PartialOnly entityTable
+  id: FillSuitStorageEVAPrisoner
+  table: !type:AllSelector
+    children:
+    - id: NitrogenTankFilled # vox gang
+    - id: CoolingUnit # Beep, Boop!
+
+- type: !PartialOnly entityTable
+  id: FillSuitStorageEVASyndicate
+  table: !type:AllSelector
+    children:
+    - id: NitrogenTankFilled # vox gang
+    - id: CoolingUnit # Beep, Boop!
+
+- type: !PartialOnly entityTable
+  id: FillSuitStorageEVAPirate
+  table: !type:AllSelector
+    children:
+    - id: NitrogenTankFilled # vox gang
+    - id: CoolingUnit # Beep, Boop!
+
+- type: !PartialOnly entity
+  id: SuitStorageSec
+  components:
+  - type: AccessReader
+    access: [["Cadet"]] # add cadet
+
+- type: !PartialOnly entityTable
+  id: FillSuitStorageSecurity
+  table: !type:AllSelector
+    children:
+    - id: NitrogenTankFilled # vox gang
+    - id: CoolingUnit # Beep, Boop!
+    - id: ClothingShoesBootsMagSec
+    - id: JetpackSecurityFilled # because mapping these manually sucks
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - SuitStorageCE
+    - SuitStorageCMO
+    - SuitStorageRD
+    - SuitStorageHOS
+    - SuitStorageWarden
+    - SuitStorageCaptain
+  categories: [ ShouldMapStation ]
+
+- type: !PartialOnly entityTable
+  id: FillSuitStorageSyndie
+  table: !type:AllSelector
+    children:
+    - id: NitrogenTankFilled # vox gang
+    - id: CoolingUnit # Beep, Boop!
+
+- type: !PartialOnly entityTable
+  id: FillSuitStoragePirateCap
+  table: !type:AllSelector
+    children:
+    - id: NitrogenTankFilled # vox gang
+    - id: CoolingUnit # Beep, Boop!
+
+- type: !PartialOnly entityTable
+  id: FillSuitStorageWizard
+  table: !type:AllSelector
+    children:
+    - id: NitrogenTankFilled # vox gang
+    - id: CoolingUnit # Beep, Boop!
+    - id: ClothingOuterSoftsuitWizard # Replace hardsuit with softsuit

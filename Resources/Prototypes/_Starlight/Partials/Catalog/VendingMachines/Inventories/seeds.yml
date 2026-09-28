@@ -1,0 +1,9 @@
+- type: !PartialOnly vendingMachineInventory
+  id: MegaSeedServitorInventory
+  startingInventory:
+    ResinferaSeeds: 3
+    OrganTreeSeeds: 3
+    MintSeeds: 3
+    CinnamonSeeds: 3
+  contrabandInventory:
+    CannabisSeeds: 2

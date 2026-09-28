@@ -1,0 +1,8 @@
+# EVAs have cold resist, so they became a little more expensive.
+- type: !PartialOnly cargoProduct
+  id: EmergencyInternals
+  cost: 1100
+
+- type: !PartialOnly cargoProduct
+  id: EmergencyInternalsLarge
+  cost: 2000

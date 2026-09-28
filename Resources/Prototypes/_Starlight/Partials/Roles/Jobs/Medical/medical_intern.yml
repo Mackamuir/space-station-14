@@ -1,0 +1,10 @@
+- type: !PartialOnly job
+  id: MedicalIntern
+  weight: -1
+  canBeAntag: !Remove
+
+- type: !PartialOnly startingGear
+  id: MedicalInternGear
+  equipment:
+    belt: ClothingBeltMedicalFilled # adding back belts
+    shoes: !Remove

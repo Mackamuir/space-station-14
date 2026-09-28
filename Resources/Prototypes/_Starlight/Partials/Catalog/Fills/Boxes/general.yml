@@ -1,0 +1,25 @@
+# Starlight assistant
+- type: !PartialOnly entity
+  id: BoxPDA
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: AssistantPDA
+
+- type: !PartialOnly entity
+  id: BoxID
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: AssistantIDCard
+
+- type: !PartialOnly entity
+  id: BoxHeadset
+  description: A box of spare assistant headsets.
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: ClothingHeadsetAssistant

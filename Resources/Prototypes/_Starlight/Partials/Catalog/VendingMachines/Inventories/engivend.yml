@@ -1,0 +1,13 @@
+- type: !PartialOnly vendingMachineInventory
+  id: EngiVendInventory
+  startingInventory:
+    MatBag: 4 # FH
+    WeaponGrapplingGun: 4 # FH
+    BoxFlare: 4 # FH
+    CableApcStack: 4 # FH
+    CableMVStack: 4 # FH
+    CableHVStack: 4 # FH
+    HoloprojectorEngineering: 3
+    RadioHandheld: 6
+    GeigerCounter: 3
+    HandLabeler: 4

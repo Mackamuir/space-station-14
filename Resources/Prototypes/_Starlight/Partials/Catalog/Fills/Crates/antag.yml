@@ -1,0 +1,18 @@
+- type: !PartialOnly entity
+  id: CratePirateChestCaptain
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - id: Spyglass
+
+- type: !PartialOnly entity
+  id: CratePirateChest
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - id: Spyglass
+          amount: 2

@@ -1,0 +1,146 @@
+- type: !PartialOnly listing
+  id: UplinkEnergyCrossbow
+  discountDownTo:
+    Telecrystal: 2 # 3 -> 2
+  cost:
+    Telecrystal: 3 # 5 -> 3
+
+- type: !PartialOnly listing
+  id: UplinkGlovesKnuckleDusters
+  # Discount isnt needed cause its 1 TC
+  discountCategory: !Remove
+  discountDownTo: !Remove
+  cost:
+    Telecrystal: 1 # 4 -> 1
+
+- type: !PartialOnly listing
+  id: UplinkEshield
+  # i want chaos, also its balanced around its base price, it breaks under kinetic fire pretty easily and it costs a third of traitor tc
+  conditions: !Remove
+
+- type: !PartialOnly listing
+  id: uplinkRiggedBoxingGloves
+  productEntity: ClothingHandsGlovesBoxingRiggedBlue
+  discountDownTo:
+    Telecrystal: 3
+  cost:
+    Telecrystal: 5
+
+- type: !PartialOnly listing
+  id: UplinkEstocBundle
+  discountDownTo:
+    Telecrystal: 9 # 11 -> 9
+  cost:
+    Telecrystal: 16 # 18 -> 16
+
+- type: !PartialOnly listing
+  id: UplinkGrenadeLauncherBundle
+  cost:
+    Telecrystal: 26 # 25 -> 26
+
+- type: !PartialOnly listing
+  id: UplinkEstocAmmo
+  productEntity: MagazineRifleSP
+
+- type: !PartialOnly listing
+  id: UplinkReinforcementRadioSyndicateCyborgAssault
+  cost:
+    Telecrystal: 40
+
+- type: !PartialOnly listing
+  id: UplinkClothingOuterVestWeb
+  cost:
+    Telecrystal: 4 # Rebalanced pricing: Armor Vest 3, Web Vest 4, Elite Web vest 5
+
+- type: !PartialOnly listing
+  id: UplinkHardsuitSyndieElite
+  cost:
+    Telecrystal: 10
+  # why cant traitors grab this?... they get elite web vest as is
+  conditions: !Remove
+
+- type: !PartialOnly listing
+  id: UplinkBackpackSyndicate
+  discountCategory: usualDiscounts
+  discountDownTo:
+    Telecrystal: 1
+
+- type: !PartialOnly listing
+  id: uplinkHolyHandGrenade
+  conditions:
+  - !type:BuyerJobCondition
+    !CombineIndex:0 whitelist: # BuyerJobCondition
+    - HeadOfPersonnel
+    - Captain
+
+- type: !PartialOnly listing
+  id: UplinkClusterBananaPeel
+  conditions:
+  - !type:BuyerJobCondition
+    !CombineIndex:0 whitelist: # BuyerJobCondition
+    - Performer
+    - HeadOfPersonnel
+    - Captain
+
+- type: !PartialOnly listing
+  id: UplinkHoloclownKit
+  conditions:
+  - !type:BuyerJobCondition
+    !CombineIndex:0 whitelist: # BuyerJobCondition
+    - HeadOfPersonnel
+    - Captain
+
+- type: !PartialOnly listing
+  id: UplinkSyndicateSpongeBox
+  conditions:
+  - !type:BuyerJobCondition
+    !CombineIndex:0 whitelist: # BuyerJobCondition
+    - ServiceWorker
+    - Roboticist
+    - HeadOfPersonnel
+    - Captain
+
+- type: !PartialOnly listing
+  id: UplinkCaneBlade
+  discountCategory: !Remove
+  discountDownTo: !Remove
+  cost:
+    Telecrystal: 1 # 3 -> 1
+  conditions:
+  - !type:BuyerJobCondition
+    !CombineIndex:0 whitelist: # BuyerJobCondition
+    - HeadOfPersonnel
+    - Captain
+
+- type: !PartialOnly listing
+  id: UplinkCombatBakery
+  conditions:
+  - !type:BuyerJobCondition
+    !CombineIndex:0 whitelist: # BuyerJobCondition
+    - ServiceWorker
+    - Performer
+    - HeadOfPersonnel
+    - Captain
+
+- type: !PartialOnly listing
+  id: UplinkAcolyteArmor
+  conditions:
+  - !type:BuyerJobCondition
+    !CombineIndex:0 whitelist: # BuyerJobCondition
+    - HeadOfPersonnel
+    - Captain
+
+- type: !PartialOnly listing
+  id: uplinkBriefcaseGun
+  discountDownTo:
+    Telecrystal: 8
+  cost:
+    Telecrystal: 13 # It's a rare gimmick item, and should at least have some reason to buy it over the c20 bundle.
+  conditions:
+  - !type:BuyerJobCondition
+    !CombineIndex:0 whitelist: # BuyerJobCondition
+    - HeadOfPersonnel # What, it's technically HoP's department.
+    - IAA
+    - Magistrate
+    - NanoTrasenRepresentative
+    - Captain

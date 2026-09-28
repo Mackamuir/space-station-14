@@ -1,0 +1,5 @@
+- type: !PartialOnly vendingMachineInventory
+  id: SciDrobeInventory
+  startingInventory:
+    ClothingOuterWindbreakerScience: 2
+    SlimeExtractBag: 5

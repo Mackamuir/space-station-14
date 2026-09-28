@@ -1,0 +1,17 @@
+- type: !PartialOnly job
+  id: CargoTechnician
+  displayWeight: 1
+  access:
+  - !Index:2 Shuttle
+  extendedAccess:
+  - !Index:1 Mining
+  - !Index:1 Mail
+
+- type: !PartialOnly startingGear
+  id: CargoTechGear
+  equipment:
+    belt: ClothingBeltCargo
+    pocket1: !Remove
+  storage:
+    belt:
+    - WeaponMeleeBoxcutter

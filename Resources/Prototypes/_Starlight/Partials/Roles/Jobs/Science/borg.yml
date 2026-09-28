@@ -1,0 +1,20 @@
+- type: !PartialOnly job
+  id: StationAi
+  displayWeight: 1 # we're reordering things
+  supervisors: job-supervisors-nanotrasen # listen to NT
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: SkipLoadingCharacterRecords
+  canBeAntag: !Remove
+
+- type: !PartialOnly job
+  id: Borg
+  displayWeight: 0 # we're reordering things
+  supervisors: job-supervisors-station-ai # listen to the AI
+  jobEntity: PlayerBorgChassis
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: SkipLoadingCharacterRecords
+  canBeAntag: !Remove

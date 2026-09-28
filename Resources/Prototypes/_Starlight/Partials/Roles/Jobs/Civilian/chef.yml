@@ -1,0 +1,4 @@
+- type: !PartialOnly startingGear
+  id: ChefGear
+  equipment:
+    shoes: !Remove

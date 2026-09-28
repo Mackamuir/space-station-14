@@ -1,0 +1,10 @@
+- type: !PartialOnly vendingMachineInventory
+  id: CigaretteMachineInventory
+  startingInventory:
+    CigPackRollie: 1
+  contrabandInventory:
+    CigPackMedRollie: 1
+    MysteryLighterBox: 1
+  emaggedInventory:
+    CigPackSyndicate: 1
+    InterdyneFlippo: 1

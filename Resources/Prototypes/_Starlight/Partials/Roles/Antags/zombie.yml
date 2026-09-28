@@ -1,0 +1,17 @@
+- type: !PartialOnly antag
+  id: InitialInfected
+  requirements: !Clear
+  - !type:OverallPlaytimeRequirement
+    time: 24h # It's like legal raiding
+  - !type:DepartmentTimeRequirement
+    department: Medical
+    time: 4h
+  - !type:SpeciesRequirement
+    species:
+    - IPC
+    inverted: true
+  playTimeTracker: AntagInitialInfected
+
+- type: !PartialOnly antag
+  id: Zombie
+  playTimeTracker: AntagZombie

@@ -6,22 +6,15 @@
   requirements:
   - !type:RoleTimeRequirement
     role: JobScientist
-    time: 10h # Starlight
-  - !type:RoleTimeRequirement
-    role: JobRoboticist
-    time: 5h # Starlight
+    time: 5h
   - !type:DepartmentTimeRequirement
     department: Science
-    time: 20h # Starlight
-  - !type:TraitsRequirement # Starlight
-    traits:
-      - Iterator
-      - Muted
-    inverted: true
+    time: 10h
   weight: 10
   startingGear: ResearchDirectorGear
   icon: "JobIconResearchDirector"
   supervisors: job-supervisors-captain
+  canBeAntag: false
   access:
   - Research
   - Command
@@ -29,9 +22,6 @@
   - ResearchDirector
   - Brig
   - Cryogenics
-  - Robotics # Starlight
-  - Debrief # Starlight
-  - Shuttle # Starlight
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
@@ -44,7 +34,6 @@
   equipment:
     id: RnDPDA
     ears: ClothingHeadsetRD
-    belt: ClothingBeltStorageWaistbagScience # Starlight
   storage:
     back:
     - Flash

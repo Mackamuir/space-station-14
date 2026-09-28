@@ -1,0 +1,12 @@
+- type: !PartialOnly job
+  id: Psychologist
+  requirements:
+  - !type:DepartmentTimeRequirement
+    department: Medical
+    time: 2.5h
+  displayWeight: 2
+
+- type: !PartialOnly startingGear
+  id: PsychologistGear
+  equipment:
+    shoes: !Remove

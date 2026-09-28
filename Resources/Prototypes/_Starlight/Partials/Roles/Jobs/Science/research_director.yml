@@ -1,0 +1,27 @@
+- type: !PartialOnly job
+  id: ResearchDirector
+  requirements: !Clear
+  - !type:RoleTimeRequirement
+    role: JobScientist
+    time: 10h
+  - !type:RoleTimeRequirement
+    role: JobRoboticist
+    time: 5h
+  - !type:DepartmentTimeRequirement
+    department: Science
+    time: 20h
+  - !type:TraitsRequirement
+    traits:
+    - Iterator
+    - Muted
+    inverted: true
+  access:
+  - !Index:6 Robotics
+  - !Index:6 Debrief
+  - !Index:6 Shuttle
+  canBeAntag: !Remove
+
+- type: !PartialOnly startingGear
+  id: ResearchDirectorGear
+  equipment:
+    belt: ClothingBeltStorageWaistbagScience

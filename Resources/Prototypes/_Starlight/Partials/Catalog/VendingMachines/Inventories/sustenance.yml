@@ -1,0 +1,12 @@
+- type: !PartialOnly vendingMachineInventory
+  id: SustenanceInventory
+  startingInventory:
+    DrinkMREFlask: 4 # +1
+  contrabandInventory:
+    FoodTinMRE: 4 # +1
+    FoodTinBeans: 4 # +1
+    FoodTinPeaches: 4 # +1
+    DrinkBeerCan: 7 # +1
+    KitchenKnife: !Remove
+  emaggedInventory:
+    KitchenKnife: 2

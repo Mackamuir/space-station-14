@@ -1,0 +1,16 @@
+- type: !PartialOnly job
+  id: SecurityOfficer
+  requirements: !Clear
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 10h
+  canBeAntag: !Remove
+
+- type: !PartialOnly startingGear
+  id: SecurityOfficerGear
+  equipment:
+    eyes: !Remove
+    pocket1: !Remove
+  storage:
+    back:
+    - !Remove MagazinePistol

@@ -1,0 +1,8 @@
+- type: !PartialOnly vendingMachineInventory
+  id: HotDrinksMachineInventory
+  startingInventory:
+    DrinkHotCoffee: 6 # +1
+    DrinkCafeLatte: 6 # +1
+    DrinkTeacup: 6 # +1
+    DrinkGreenTea: 6 # +1
+    DrinkHotCoco: 6 # +1

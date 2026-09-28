@@ -1,0 +1,13 @@
+- type: !PartialOnly vendingMachineInventory
+  id: GetmoreChocolateCorpInventory
+  startingInventory:
+    FoodSnackRaisins: 4 # +1
+    FoodSnackChocolate: 4 # +1
+    FoodSnackCnDs: 4 # +1
+    FoodSnackPistachios: 4 # +1
+    FoodSnackSus: 4 # +1
+    FoodSnackSemki: 4 # +1
+    FoodBoxCrispyRiceBar: 1
+  contrabandInventory:
+    FoodSnackSwirlLollipop: 3 # +1
+    FoodSnackSyndi: 4 # +1

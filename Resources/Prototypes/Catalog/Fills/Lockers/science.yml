@@ -1,6 +1,5 @@
 - type: entity
   id: LockerScienceFilled
-  categories: [ ShouldMapStation ] # Starlight
   suffix: Filled
   parent: LockerScientist
   components:

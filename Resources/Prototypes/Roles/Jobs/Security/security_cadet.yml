@@ -5,18 +5,17 @@
   playTimeTracker: JobSecurityCadet
   requirements:
     - !type:OverallPlaytimeRequirement
-      time: 16h # Starlight
+      time: 10h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 20h # Starlight
+      time: 10h
       inverted: true # stop playing intern if you're good at security!
-  weight: -1
   startingGear: SecurityCadetGear
   icon: "JobIconSecurityCadet"
   supervisors: job-supervisors-security
+  canBeAntag: false
   access:
-# - Security # Starlight change
-  - Cadet # Starlight change
+  - Security
   - Brig
   - Maintenance
   - External
@@ -39,10 +38,12 @@
     id: SecurityCadetPDA
     ears: ClothingHeadsetSecurity
     belt: ClothingBeltSecurityFilled
+    pocket1: WeaponPistolMk58
     pocket2: BookSecurity
   storage:
     back:
     - Flash
+    - MagazinePistol
 
 - type: chameleonOutfit
   id: SecurityCadetChameleonOutfit

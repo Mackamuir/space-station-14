@@ -1,0 +1,11 @@
+- type: !PartialOnly vendingMachineInventory
+  id: PTechInventory
+  startingInventory:
+    AssistantPDA: 5
+    AssistantIDCard: 5
+    ClothingHeadsetAssistant: 5
+    Pen: 8
+    PrinterDocFlatpack: 2
+    PassengerPDA: !Remove
+    PassengerIDCard: !Remove
+    ClothingHeadsetGrey: !Remove

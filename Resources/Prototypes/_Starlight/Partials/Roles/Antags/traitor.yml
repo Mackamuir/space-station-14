@@ -1,0 +1,13 @@
+- type: !PartialOnly antag
+  id: Traitor
+  requirements: !Clear
+  - !type:OverallPlaytimeRequirement
+    time: 12h # mostly just to ensure you know basic controls
+  playTimeTracker: AntagTraitor
+
+- type: !PartialOnly antag
+  id: TraitorSleeper
+  requirements: !Clear
+  - !type:OverallPlaytimeRequirement
+    time: 12h # mostly just to ensure you know basic controls
+  playTimeTracker: AntagTraitor

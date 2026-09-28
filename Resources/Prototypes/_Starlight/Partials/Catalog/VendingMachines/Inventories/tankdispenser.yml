@@ -1,0 +1,11 @@
+- type: !PartialOnly vendingMachineInventory
+  id: TankDispenserEVAInventory
+  startingInventory:
+    OxygenTankFilled: 13 # +3
+    NitrogenTankFilled: 13 # +3
+    CoolingUnit: 13
+
+- type: !PartialOnly vendingMachineInventory
+  id: TankDispenserEngineeringInventory
+  startingInventory:
+    CoolingUnit: 10

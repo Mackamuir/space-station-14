@@ -1,0 +1,34 @@
+- type: !PartialOnly thiefBackpackSet
+  id: ChameleonSet
+  content:
+  - ChameleonControllerImplanter # Adding the implanter manually now that it's no longer in the backpack fill.
+
+- type: !PartialOnly thiefBackpackSet
+  id: ToolsSet
+  content:
+  - !Remove JawsOfLife
+  - SyndicateJawsOfLifeStealth # Break in, thief.
+
+- type: !PartialOnly thiefBackpackSet
+  id: SyndieSet
+  description: thief-backpack-category-syndie-description-starlight
+  content:
+  - !Remove Emag
+  - !Remove Lighter
+  - CameraBug # Until thieves get an emag that can't arm borgs, stop giving them the ability to make guns. Was originally a syndie encryption key but Thieves aren't told not to reveal nukies like pAIs.
+  - Stimpack # Needed something to make up for losing the emag. When the Emag is replaced with a ThiefMag, this can be removed.
+  - InterdyneFlippo # Might as well keep the theme, no?
+  - SyndicatePersonalAI # allows the thief to be able to communicate indirectly with traitors, without accidentally spoiling nukies.
+
+- type: !PartialOnly thiefBackpackSet
+  id: SleeperSet
+  description: thief-backpack-category-sleeper-description-starlight
+  content:
+  - ChemistryBottleTazinide
+  - HealiumTankFilled # for those nitrogen breathers
+
+- type: !PartialOnly thiefBackpackSet
+  id: CommunicatorSet
+  description: thief-backpack-category-communicator-description-starlight
+  content:
+  - EncryptionKeyBinarySyndicate # Useful for spying on borgs.

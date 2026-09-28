@@ -1,0 +1,4 @@
+- type: !PartialOnly cargoProduct
+  id: StationAiCore
+  icon:
+    sprite: _Starlight/Mobs/Silicon/station_ai.rsi # use our AI sprite

@@ -1,0 +1,20 @@
+- type: !PartialOnly antag
+  id: SpaceNinja
+  setPreference: true # allow setting pref for ninja
+  roleLoadout: [AntagSpaceNinja]
+  previewStartingGear: SpaceNinjaGear
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 24h
+  - !type:RoleTimeRequirement
+    role: JobSecurityOfficer # It's better than nothing
+    time: 1h
+  - !type:RoleTimeRequirement
+    role: AntagThief # Learn how to be subversive and stealthy
+    time: 1h
+  playTimeTracker: AntagNinja
+
+- type: !PartialOnly startingGear
+  id: SpaceNinjaGear
+  inhand:
+  - !Index:1 WeaponNinjaChainSickle # MoffStation -> Jetpack kept, so ninja gets both

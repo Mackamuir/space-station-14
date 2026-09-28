@@ -4,17 +4,14 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorDarkBlue
     head: ClothingHeadHatWizard
-    back: ClothingBackpackWizard # Starlight, Wizard backpack!
+    back: ClothingBackpack # Wizard backpack?
     outerClothing: ClothingOuterWizard
     shoes: ClothingShoesWizard
     id: WizardPDA
-    ears: ClothingHeadsetAltWizard #Starlight
+    ears: ClothingHeadsetAltWizard
     belt: ClothingBeltWand
     pocket1: WizardTeleportScroll
     pocket2: WizardsGrimoire
-  storage: #Starlight
-    back:
-    - WizardWarTablet
 
 - type: startingGear
   id: WizardRedGear

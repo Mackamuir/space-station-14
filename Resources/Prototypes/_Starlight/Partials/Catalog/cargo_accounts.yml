@@ -1,0 +1,54 @@
+- type: !PartialOnly cargoAccount
+  id: Cargo
+  tamperSealName: tamper-seal-account-name-cargo
+  tamperSealColor: "#b38b56"
+  tamperSealAccesses:
+    - allOf: [ "Cargo" ] # Regular crew
+      noneOf: [ "Borg" ]
+    - allOf: [ "Borg", "BorgCargo" ] # Cyborg
+
+- type: !PartialOnly cargoAccount
+  id: Engineering
+  color: "#ffd000" # Changed to actually be more Engineering yellow rather than their radio key orange.
+  tamperSealName: tamper-seal-account-name-engineering
+  tamperSealColor: "#ffff00"
+  tamperSealAccesses:
+    - allOf: [ "Engineering" ] # Regular crew
+      noneOf: [ "Borg" ]
+    - allOf: [ "Borg", "BorgEngineering" ] # Cyborg
+
+- type: !PartialOnly cargoAccount
+  id: Medical
+  tamperSealName: tamper-seal-account-name-medical
+  tamperSealColor: "#00ffff"
+  tamperSealAccesses:
+    - allOf: [ "Medical" ] # Regular crew
+      noneOf: [ "Borg" ]
+    - allOf: [ "Borg", "BorgMedical" ] # Cyborg
+
+- type: !PartialOnly cargoAccount
+  id: Science
+  tamperSealName: tamper-seal-account-name-science
+  tamperSealColor: "#ff73ff"
+  tamperSealAccesses:
+    - allOf: [ "Research" ] # Regular crew
+      noneOf: [ "Borg" ]
+    - allOf: [ "Borg", "BorgResearch" ] # Cyborg
+
+- type: !PartialOnly cargoAccount
+  id: Security
+  tamperSealName: tamper-seal-account-name-security
+  tamperSealColor: "#e63c3c"
+  tamperSealAccesses:
+    - allOf: [ "Security" ] # Regular crew
+      noneOf: [ "Borg" ]
+    - allOf: [ "Borg", "BorgSecurity" ] # Cyborg
+
+- type: !PartialOnly cargoAccount
+  id: Service
+  tamperSealName: tamper-seal-account-name-service
+  tamperSealColor: "#5eff00"
+  tamperSealAccesses:
+    - allOf: [ "Service" ] # Regular crew
+      noneOf: [ "Borg" ]
+    - allOf: [ "Borg", "BorgService" ] # Cyborg

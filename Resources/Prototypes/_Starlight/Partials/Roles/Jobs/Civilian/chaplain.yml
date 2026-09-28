@@ -1,0 +1,12 @@
+- type: !PartialOnly job
+  id: Chaplain
+  access:
+  - !Index:2 Service
+
+- type: !PartialOnly startingGear
+  id: ChaplainGear
+  equipment:
+    shoes: !Remove
+  storage:
+    back:
+    - !Index:1 CosmicCenser # Cosmic Cult

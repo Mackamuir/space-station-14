@@ -1,0 +1,20 @@
+- type: !PartialOnly job
+  id: ServiceWorker
+  access:
+  - !Index:4 Hydroponics
+  extendedAccess:
+  - !Index:0 Theatre
+  - !Index:0 Journalism
+  - !Index:0 Clown
+  - !Index:0 Mime
+  - !Remove Hydroponics
+
+- type: !PartialOnly startingGear
+  id: ServiceWorkerGear
+  equipment:
+    shoes: !Remove
+
+- type: !PartialOnly chameleonOutfit
+  id: ServiceWorkerChameleonOutfit
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitServiceWorkerBartender # Starlights

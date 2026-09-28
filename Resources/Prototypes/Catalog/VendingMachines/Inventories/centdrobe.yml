@@ -1,9 +1,6 @@
 - type: vendingMachineInventory
   id: CentDrobeInventory
   startingInventory:
-    MindShieldImplanter: 8 # Starlight begin #
-    DeathRattleImplanterCentcomm: 6
-    BluespaceImplanter: 6 # Starlight end #
     ClothingShoesBootsLaceup: 3
     ClothingShoesBootsJack: 3
     ClothingHandsGlovesCombat: 3
@@ -21,8 +18,6 @@
     ClothingOuterCoatExpensive: 1
     ClothingNeckScarfStripedCentcom: 3
     ClothingNeckCloakCentcom: 3
-    ClothingBackpackSatchelCentcomm: 3
-    ClothingOuterCoatWardenCentcomm: 3
   contrabandInventory:
     ToyFigurineCaptain: 1
     ToyFigurineHeadOfPersonnel: 1

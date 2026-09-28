@@ -1,0 +1,37 @@
+- type: !PartialOnly entity
+  id: BoxMagazinePistolHighCapacity
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: MagazinePistolHighCapacitySP
+
+- type: !PartialOnly entity
+  id: BoxMagazinePistolSubMachineGun
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: MagazinePistolSubMachineGunSP
+
+# Shotgun
+# .50 -> 12 gauge
+- type: !PartialOnly entity
+  id: BoxMagazineShotgun
+  name: box of 12 gauge buckshot ammo drums
+  description: A box full of 12 gauge buckshot ammo drums.
+
+- type: !PartialOnly entity
+  id: BoxMagazineShotgunBeanbag
+  name: box of 12 gauge beanbag ammo drums
+  description: A box full of 12 gauge beanbag ammo drums.
+
+- type: !PartialOnly entity
+  id: BoxMagazineShotgunSlug
+  name: box of 12 gauge slug ammo drums
+  description: A box full of 12 gauge slug ammo drums.
+
+- type: !PartialOnly entity
+  id: BoxMagazineShotgunIncendiary
+  name: box of 12 gauge incendiary ammo drums
+  description: A box full of 12 gauge incendiary ammo drums.

@@ -1,0 +1,10 @@
+- type: !PartialOnly job
+  id: Mime
+  access:
+  - !Index:2 Service
+  - !Index:2 Mime
+
+- type: !PartialOnly startingGear
+  id: MimeGear
+  equipment:
+    shoes: !Remove

@@ -146,7 +146,6 @@
 
 - type: entity
   id: ToolboxGoldFilled
-  categories: [ ShouldMapStation ] # Starlight
   name: golden toolbox
   parent: ToolboxGolden
   suffix: Filled

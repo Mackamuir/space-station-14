@@ -1,0 +1,7 @@
+- type: !PartialOnly vendingMachineInventory
+  id: SmiteInventory
+  startingInventory:
+    DrinkColaCan: 4 # +1
+    DrinkSolDryCan: 4 # +1
+  contrabandInventory:
+    DrinkStarkistCan: 4 # +2

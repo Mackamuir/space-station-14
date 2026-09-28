@@ -1,0 +1,67 @@
+- type: !PartialOnly entity
+  id: BoxSurvival
+  suffix: !Remove # remove suffix
+  components:
+  - type: Item
+    shape:
+      - 0,0,1,3
+  - type: Storage
+    maxItemSize: Normal
+    grid:
+    - 0,0,1,3
+
+# Make suffixes clearer
+- type: !PartialOnly entity
+  id: BoxSurvivalNitrogen
+  suffix: Nitrogen
+
+- type: !PartialOnly entity
+  id: BoxSurvivalEngineering
+  suffix: !Remove # remove suffix
+
+- type: !PartialOnly entity
+  id: BoxSurvivalEngineeringNitrogen
+  suffix: Nitrogen
+
+- type: !PartialOnly entity
+  id: BoxSurvivalSecurity
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - !CombineIndex:1 id: ExtendedEmergencyOxygenTankFilled
+
+- type: !PartialOnly entity
+  id: BoxSurvivalSecurityNitrogen
+  suffix: Security, Nitrogen
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - !CombineIndex:1 id: ExtendedEmergencyNitrogenTankFilled
+
+- type: !PartialOnly entity
+  id: BoxSurvivalMedicalNitrogen
+  suffix: Medical, Nitrogen
+
+- type: !PartialOnly entity
+  id: BoxHugNitrogen
+  suffix: Emergency, Nitrogen
+
+- type: !PartialOnly entity
+  id: BoxMime
+  suffix: Mime
+
+- type: !PartialOnly entity
+  id: BoxMimeNitrogen
+  suffix: Mime, Nitrogen
+
+- type: !PartialOnly entity
+  id: BoxMimeMoth
+  suffix: Mime, Moth
+
+- type: !PartialOnly entity
+  id: BoxSurvivalSyndicateNitrogen
+  suffix: Syndicate, Nitrogen

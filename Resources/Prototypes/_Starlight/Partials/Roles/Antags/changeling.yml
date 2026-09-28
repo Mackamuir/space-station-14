@@ -1,0 +1,13 @@
+- type: !PartialOnly antag
+  id: Changeling
+  setPreference: true
+  objective: roles-antag-changeling-description
+  guides: [Changelings]
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 24h
+  - !type:SpeciesRequirement
+    species:
+    - IPC
+    inverted: true
+  playTimeTracker: AntagChangeling

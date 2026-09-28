@@ -1,0 +1,20 @@
+- type: !PartialOnly vendingMachineInventory
+  id: CargoDrobeInventory
+  startingInventory:
+    ClothingUniformJumpsuitCargoInformal: 2 # DeltaV
+    ClothingUniformJumpsuitMail: 2
+    ClothingUniformJumpskirtMail: 2
+    CargoOverallsUniformSuit: 2
+    ClothingBeltCargo: 1
+    ClothingHeadHatMailsoftVisor: 2
+    ClothingHeadHatBeretCargo: 3
+    ClothingOuterWindbreakerCargo: 2
+    ClothingShoesBootsMail: 1
+    MailTrolleyFlatpack: 2
+    WeaponMeleeBoxcutter: 2
+  contrabandInventory:
+    ClothingBackpackTrunkMail: 1
+  emaggedInventory:
+    ClothingBackpackSalvage: 1
+    ClothingBackpackSatchelSalvage: 1
+    ClothingBackpackDuffelSalvage: 1

@@ -1,0 +1,137 @@
+- type: !PartialOnly loadout
+  id: FlowerWreath
+  equipment:
+    neck: ClothingHeadHatFlowerWreath # Roundstart equipped
+  groupBy: "flowers"
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: Hairflower
+  equipment:
+    head: ClothingHeadHatHairFlowerWhite # Moffstation - Color changing hairflower; roundstart equipped
+  groupBy: "flowers"
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: Headphones
+  groupBy: "Headphones"
+
+- type: !PartialOnly loadout
+  id: PlushieLizard
+  groupBy: "wehzards"
+
+- type: !PartialOnly loadout
+  id: PlushieSpaceLizard
+  groupBy: "wehzards"
+
+- type: !PartialOnly loadout
+  id: ClothingNeckLGBTPin
+  equipment:
+    misc: ClothingNeckLGBTPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckAllyPin
+  equipment:
+    misc: ClothingNeckAllyPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckAromanticPin
+  equipment:
+    misc: ClothingNeckAromanticPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckAsexualPin
+  equipment:
+    misc: ClothingNeckAsexualPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckBisexualPin
+  equipment:
+    misc: ClothingNeckBisexualPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckGayPin
+  equipment:
+    misc: ClothingNeckGayPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckIntersexPin
+  equipment:
+    misc: ClothingNeckIntersexPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckLesbianPin
+  equipment:
+    misc: ClothingNeckLesbianPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckNonBinaryPin
+  equipment:
+    misc: ClothingNeckNonBinaryPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckPansexualPin
+  equipment:
+    misc: ClothingNeckPansexualPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckOmnisexualPin
+  equipment:
+    misc: ClothingNeckOmnisexualPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckGenderqueerPin
+  equipment:
+    misc: ClothingNeckGenderqueerPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckTransPin
+  equipment:
+    misc: ClothingNeckTransPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckAutismPin
+  equipment:
+    misc: ClothingNeckAutismPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckGoldAutismPin
+  effects:
+  - !type:JobRequirementLoadoutEffect
+    requirement: !type:OverallPlaytimeRequirement
+      time: 360000 # 100 hours - you ain't neurotypical with that much
+  equipment:
+    misc: ClothingNeckGoldAutismPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckAroacePin
+  equipment:
+    misc: ClothingNeckAroacePin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckPluralPin
+  equipment:
+    misc: ClothingNeckPluralPin
+  storage: !Remove
+
+- type: !PartialOnly loadout
+  id: ClothingNeckGenderfluidPin
+  equipment:
+    misc: ClothingNeckGenderfluidPin
+  storage: !Remove

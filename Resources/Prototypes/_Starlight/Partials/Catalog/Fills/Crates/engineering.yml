@@ -1,0 +1,5 @@
+- type: !PartialOnly entityTable
+  id: RandomTechBoardTable
+  table: !type:GroupSelector
+    children:
+    - id: LancerArcadeComputerCircuitboard # Lancer arcade circuitboard

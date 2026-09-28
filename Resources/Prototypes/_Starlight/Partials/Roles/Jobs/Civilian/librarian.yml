@@ -1,0 +1,60 @@
+- type: !PartialOnly job
+  id: Librarian
+  requirements:
+  - !type:TraitsRequirement
+    traits:
+    - Iterator
+    inverted: true
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: AdditionalLanguageKnowledge # If we just put in LanguageKnowledge, it'd overwrite your ability to e.g. understand mothroaches as a moth
+      speaks:
+      - GalacticCommon
+      - Scratch
+      - SolCommon
+      - Bubblish
+      - Canilunzt
+      - Chittin
+      - Draconic
+      - Marish
+      - Moffic
+      - Nekomimetic
+      - Sylvan
+      - Terrum
+      - Thaveyan
+      - VoxPidgin
+      - Sign
+      - Grumbakul
+      - Aielic
+      - Classical
+      - Darktongue
+      - Lagomorphian
+      - Squeakish
+      understands:
+      - GalacticCommon
+      - Scratch
+      - SolCommon
+      - Bubblish
+      - Canilunzt
+      - Chittin
+      - Draconic
+      - Marish
+      - Moffic
+      - Nekomimetic
+      - Sylvan
+      - Terrum
+      - Thaveyan
+      - VoxPidgin
+      - Sign
+      - Grumbakul
+      - Aielic
+      - Classical
+      - Darktongue
+      - Lagomorphian
+      - Squeakish
+
+- type: !PartialOnly startingGear
+  id: LibrarianGear
+  equipment:
+    shoes: !Remove

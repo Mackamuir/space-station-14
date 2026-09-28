@@ -1,0 +1,6 @@
+- type: !PartialOnly antag
+  id: Thief
+  requirements: !Clear
+  - !type:OverallPlaytimeRequirement
+    time: 5h # Low stakes, low involvement
+  playTimeTracker: AntagThief

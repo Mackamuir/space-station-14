@@ -1,0 +1,6 @@
+- type: !PartialOnly antag
+  id: ParadoxClone
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 48h # You should at least have some familiarity with the community to actually be able to pull this off
+  playTimeTracker: AntagParadoxClone

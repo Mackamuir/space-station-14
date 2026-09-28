@@ -3,71 +3,17 @@
   name: job-name-librarian
   description: job-description-librarian
   playTimeTracker: JobLibrarian
-  requirements:
-    - !type:TraitsRequirement
-      traits:
-        - Iterator
-      inverted: true
   startingGear: LibrarianGear
   icon: "JobIconLibrarian"
   supervisors: job-supervisors-hop
   access:
   - Service
   - Maintenance
-  special: # Starlight start - librarian starts with crew languages
-  - !type:AddComponentSpecial
-    components:
-    - type: AdditionalLanguageKnowledge # If we just put in LanguageKnowledge, it'd overwrite your ability to e.g. understand mothroaches as a moth
-      speaks:
-      - GalacticCommon
-      - Scratch
-      - SolCommon
-      - Bubblish
-      - Canilunzt
-      - Chittin
-      - Draconic
-      - Marish
-      - Moffic
-      - Nekomimetic
-      - Sylvan
-      - Terrum
-      - Thaveyan
-      - VoxPidgin
-      - Sign
-      - Grumbakul
-      - Aielic
-      - Classical
-      - Darktongue
-      - Lagomorphian
-      - Squeakish
-      understands:
-      - GalacticCommon
-      - Scratch
-      - SolCommon
-      - Bubblish
-      - Canilunzt
-      - Chittin
-      - Draconic
-      - Marish
-      - Moffic
-      - Nekomimetic
-      - Sylvan
-      - Terrum
-      - Thaveyan
-      - VoxPidgin
-      - Sign
-      - Grumbakul
-      - Aielic
-      - Classical
-      - Darktongue
-      - Lagomorphian
-      - Squeakish
-  # Starlight end
 
 - type: startingGear
   id: LibrarianGear
   equipment:
-    #shoes: ClothingShoesBootsLaceup # 🌟Starlight🌟
+    shoes: ClothingShoesBootsLaceup
     id: LibrarianPDA
     ears: ClothingHeadsetService
     pocket1: d20Dice

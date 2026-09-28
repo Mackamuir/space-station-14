@@ -1,0 +1,61 @@
+- type: !PartialOnly roleLoadout
+  id: JobChiefMedicalOfficer
+  groups:
+  - !Index:4 MedicalGloves
+  - !Index:8 MedicalEyewear
+  - !Index:10 Scarves
+  - !Index:10 Pins
+  - !Index:10 Pens
+  - !Remove Glasses
+
+- type: !PartialOnly roleLoadout
+  id: JobMedicalDoctor
+  groups:
+  - !Index:4 MedicalGloves
+  - !Index:8 MedicalEyewear
+  - !Index:10 Scarves
+  - !Index:10 Pins
+  - !Index:10 Pens
+  - !Remove Glasses
+
+- type: !PartialOnly roleLoadout
+  id: JobMedicalIntern
+  groups:
+  - !Index:2 MedicalGloves
+  - !Index:2 MedicalDoctorHead
+  - !Index:2 MedicalMask
+  - !Index:3 MedicalDoctorOuterClothing
+  - !Index:3 MedicalShoes
+  - !Index:3 MedicalEyewear
+  - !Index:5 Scarves
+  - !Index:5 Pins
+  - !Index:5 Pens
+  - !Remove Glasses
+
+- type: !PartialOnly roleLoadout
+  id: JobChemist
+  groups:
+  - !Index:1 ChemistHead
+  - !Index:3 MedicalGloves
+  - !Index:5 ChemistBag
+  - !Index:5 ChemistShoes
+  - !Index:5 ChemistPDA
+  - !Index:5 ChemistEyewear
+  - !Index:5 ChemistBeaker
+  - !Index:5 ChemistLabeler
+  - !Index:7 Scarves
+  - !Index:7 Pins
+  - !Index:7 Pens
+  - !Remove MedicalShoes
+  - !Remove Glasses
+
+- type: !PartialOnly roleLoadout
+  id: JobParamedic
+  groups:
+  - !Index:4 MedicalGloves
+  - !Index:7 ParamedicPDA
+  - !Index:7 MedicalEyewear
+  - !Index:9 Scarves
+  - !Index:9 Pins
+  - !Index:9 Pens
+  - !Remove Glasses

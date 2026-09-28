@@ -10,17 +10,11 @@
     role: JobBorg
     time: 5h
   weight: 10
-  displayWeight: 1 # Starlight, we're reordering things
+  canBeAntag: false
   icon: JobIconStationAi
-  supervisors: job-supervisors-nanotrasen # Starlight, listen to NT.
+  supervisors: job-supervisors-rd
   jobEntity: StationAiBrain
   jobPreviewEntity: PlayerStationAiPreview
-  # Cosmatic Drift Record System-start: AIs spawn as non-humanoids, so skip loading character records for them.
-  special:
-  - !type:AddComponentSpecial
-    components:
-    - type: SkipLoadingCharacterRecords
-  # Cosmatic Drift Record System-end
   applyTraits: false
 
 - type: job
@@ -31,14 +25,8 @@
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 10h
-  displayWeight: 0 # Starlight, we're reordering things
+  canBeAntag: false
   icon: JobIconBorg
-  supervisors: job-supervisors-station-ai # Starlight, listen to the AI.
-  jobEntity: PlayerBorgChassis # Starlight edit
-  # Cosmatic Drift Record System-start: Cyborg shells do not use humanoid profiles, so avoid seeding records.
-  special:
-  - !type:AddComponentSpecial
-    components:
-    - type: SkipLoadingCharacterRecords
-  # Cosmatic Drift Record System-end
+  supervisors: job-supervisors-rd
+  jobEntity: PlayerBorgBattery
   applyTraits: false

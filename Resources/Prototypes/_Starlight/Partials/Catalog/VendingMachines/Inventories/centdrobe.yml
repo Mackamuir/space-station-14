@@ -1,0 +1,8 @@
+- type: !PartialOnly vendingMachineInventory
+  id: CentDrobeInventory
+  startingInventory:
+    MindShieldImplanter: 8
+    DeathRattleImplanterCentcomm: 6
+    BluespaceImplanter: 6
+    ClothingBackpackSatchelCentcomm: 3
+    ClothingOuterCoatWardenCentcomm: 3

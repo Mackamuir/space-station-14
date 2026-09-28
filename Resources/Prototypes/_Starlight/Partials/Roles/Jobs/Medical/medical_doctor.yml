@@ -1,0 +1,11 @@
+- type: !PartialOnly job
+  id: MedicalDoctor
+  displayWeight: 1
+  extendedAccess:
+  - !Index:1 Paramedic
+  - !Index:1 Surgery
+
+- type: !PartialOnly startingGear
+  id: DoctorGear
+  equipment:
+    belt: ClothingBeltMedicalFilled # adding back belts

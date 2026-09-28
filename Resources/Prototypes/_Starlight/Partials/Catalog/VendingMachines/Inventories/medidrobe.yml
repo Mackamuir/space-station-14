@@ -1,0 +1,24 @@
+- type: !PartialOnly vendingMachineInventory
+  id: MediDrobeInventory
+  startingInventory:
+    ClothingBeltMedical: 4
+    ClothingBeltMedicalEMT: 2
+    ClothingHeadHatSurgcapBlack: 2 # DeltaV
+    ClothingHeadHatSurgcapCyan: 2 # DeltaV
+    ClothingHeadHatSurgcapPink: 2 # DeltaV
+    ClothingHeadHatSurgcapRainbow: 2 # DeltaV
+    ClothingHeadHatSurgcapWhite: 2 # DeltaV
+    UniformScrubsColorBlack: 2 # DeltaV
+    UniformScrubsColorCyan: 2 # DeltaV
+    UniformScrubsColorPink: 2 # DeltaV
+    UniformScrubsColorRainbow: 2 # DeltaV
+    UniformScrubsColorWhite: 2 # DeltaV
+    ClothingOuterCoatLabLong: 2 # DeltaV
+    ClothingOuterCoatLabBlackLong: 2
+    ClothingOuterWindbreakerMedical: 2
+    ClothingOuterCoatParamedicJacket: 1 # DeltaV
+  contrabandInventory:
+    ClothingUniformJumpsuitOfLife: 1
+    ClothingHeadNurseHatOfLife: 1
+    ClothingHeadHatSurgcapCybersun: 1 # DeltaV
+    UniformScrubsColorCybersun: 1 # DeltaV

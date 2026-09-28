@@ -1,0 +1,9 @@
+- type: !PartialOnly antag
+  id: SubvertedSilicon
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 24h
+  - !type:RoleTimeRequirement
+    role: JobBorg
+    time: 6h
+  playTimeTracker: AntagSubvertedSilicon

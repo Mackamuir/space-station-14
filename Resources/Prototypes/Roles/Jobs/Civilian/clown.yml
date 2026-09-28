@@ -9,8 +9,6 @@
   access:
   - Theatre
   - Maintenance
-  - Service # Starlight
-  - Clown # Starlight
   special:
   - !type:AddComponentSpecial
     components:

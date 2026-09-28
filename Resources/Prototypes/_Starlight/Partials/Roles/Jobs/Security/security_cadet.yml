@@ -1,0 +1,22 @@
+- type: !PartialOnly job
+  id: SecurityCadet
+  requirements: !Clear
+  - !type:OverallPlaytimeRequirement
+    time: 16h
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 20h
+    inverted: true # stop playing intern if you're good at security
+  weight: -1
+  access:
+  - !Index:0 Cadet # change
+  - !Remove Security
+  canBeAntag: !Remove
+
+- type: !PartialOnly startingGear
+  id: SecurityCadetGear
+  equipment:
+    pocket1: !Remove
+  storage:
+    back:
+    - !Remove MagazinePistol

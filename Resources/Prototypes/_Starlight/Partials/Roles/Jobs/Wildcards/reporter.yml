@@ -1,0 +1,23 @@
+- type: !PartialOnly job
+  id: Reporter
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 4h
+  access:
+  - !Index:2 Journalism
+  extendedAccess:
+  - Theatre
+
+- type: !PartialOnly startingGear
+  id: ReporterGear
+  equipment:
+    shoes: !Remove
+  storage:
+    back:
+    - TapeRecorder
+    - CassetteTape
+    - CassetteTape
+    - RubberStampReporter
+    - ClothingOuterPressArmor
+    - Wrench
+    - NetworkConfigurator

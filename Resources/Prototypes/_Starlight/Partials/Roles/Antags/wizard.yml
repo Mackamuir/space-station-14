@@ -1,0 +1,16 @@
+- type: !PartialOnly antag
+  id: Survivor
+  playTimeTracker: AntagSurvivor
+
+- type: !PartialOnly antag
+  id: Wizard
+  setPreference: true # reenabled to allow for preferences to work on midround wizard
+  roleLoadout: [AntagWizard]
+  requirements: !Clear
+  - !type:OverallPlaytimeRequirement
+    time: 48h # You've got the potential to mass grief
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 6h
+  previewStartingGear: WizardBlueGear
+  playTimeTracker: AntagWizard

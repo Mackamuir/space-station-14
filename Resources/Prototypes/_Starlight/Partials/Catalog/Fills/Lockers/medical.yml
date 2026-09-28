@@ -1,0 +1,59 @@
+- type: !PartialOnly entityTable
+  id: LockerFillMedicalDoctor
+  table: !type:AllSelector
+    children:
+    - id: ClothingHeadMirror
+      prob: 0.1
+    - id: ClothingHandsGlovesLatex
+    - id: ClothingHeadsetMedical
+    - !type:GroupSelector
+      children:
+      - id: ClothingHeadHatSurgcapGreen
+        weight: 0.1
+      - id: ClothingHeadHatSurgcapPurple
+        weight: 0.05
+      - id: ClothingHeadHatSurgcapBlue
+        weight: 0.90
+    - !type:GroupSelector
+      children:
+      - id: UniformScrubsColorBlue
+        weight: 0.5
+      - id: UniformScrubsColorGreen
+        weight: 0.1
+      - id: UniformScrubsColorPurple
+        weight: 0.05
+    - id: ClothingMaskSterile
+    - id: Syringe
+    - id: BottleCaseMedicalFilled
+    - id: PenPackMedicalFilled
+
+- type: !PartialOnly entity
+  id: LockerMedicalFilled
+  categories: [ ShouldMapStation ]
+
+- type: !PartialOnly entityTable
+  id: LockerFillChemistry
+  table: !type:AllSelector
+    children:
+    - id: RPLD
+    - id: BoxBeakerSmall
+    - id: BoxBeakerLarge
+    - id: BoxJug
+    - id: PatchPack
+      amount: 2
+
+- type: !PartialOnly entity
+  id: LockerChemistryFilled
+  categories: [ ShouldMapStation ]
+
+- type: !PartialOnly entityTable
+  id: LockerFillParamedic
+  table: !type:AllSelector
+    children:
+    - id: EmergencyHandheldCrewMonitor
+    - id: JawsOfLifeMed
+    - id: BottleCaseParamedicFilled # they don't get the pen pouch, they already get a ton of their own special toys.
+
+- type: !PartialOnly entity
+  id: LockerParamedicFilled
+  categories: [ ShouldMapStation ]

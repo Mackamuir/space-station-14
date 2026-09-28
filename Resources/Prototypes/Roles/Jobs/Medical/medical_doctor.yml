@@ -10,16 +10,11 @@
   startingGear: DoctorGear
   icon: "JobIconMedicalDoctor"
   supervisors: job-supervisors-cmo
-  displayWeight: 1 # Starlight
   access:
   - Medical
   - Maintenance
   extendedAccess:
   - Chemistry
-  # Starlight Start
-  - Paramedic
-  - Surgery
-  # Starlight End
   special:
   - !type:GiveItemOnHolidaySpecial
     holiday: DoctorDay
@@ -29,7 +24,6 @@
   id: DoctorGear
   equipment:
     ears: ClothingHeadsetMedical
-    belt: ClothingBeltMedicalFilled # Starlight - adding back belts
 
 - type: chameleonOutfit
   id: MedicalDoctorChameleonOutfit

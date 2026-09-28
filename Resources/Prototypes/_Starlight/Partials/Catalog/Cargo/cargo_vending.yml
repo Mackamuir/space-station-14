@@ -1,0 +1,63 @@
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockBooze
+  cost: 3000
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockChefvend
+  cost: 1400
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockClothes
+  cost: 4100
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockAutoDrobe
+  cost: 4200
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockHotDrinks
+  cost: 1000
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockMedical
+  cost: 2600
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockNutriMax
+  cost: 2000
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockRobustSoftdrinks
+  cost: 1000
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockSeeds
+  cost: 3750
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockVendomat
+  cost: 1000
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockRobotics
+  cost: 2100
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockTankDispenser
+  cost: 1300
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockHappyHonk
+  cost: 3000
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockChang
+  cost: 1000
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockDiscountDans
+  cost: 1000
+
+- type: !PartialOnly cargoProduct
+  id: CrateVendingMachineRestockDonut
+  cost: 1000

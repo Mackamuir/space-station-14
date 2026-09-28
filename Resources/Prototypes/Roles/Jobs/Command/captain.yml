@@ -6,26 +6,25 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Engineering
-      time: 20h # Starlight
+      time: 4h
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 20h # Starlight
+      time: 4h
+    - !type:DepartmentTimeRequirement
+      department: Science
+      time: 4h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 20h # Starlight
+      time: 4h
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 25h # Starlight
-    - !type:TraitsRequirement # Starlight
-      traits:
-        - Iterator
-        - Muted
-      inverted: true
+      time: 4h
   weight: 20
   startingGear: CaptainGear
   icon: "JobIconCaptain"
   joinNotifyCrew: true
   supervisors: job-supervisors-centcom
+  canBeAntag: false
   accessGroups:
   - AllAccess
   special:
@@ -38,9 +37,9 @@
 - type: startingGear
   id: CaptainGear
   equipment:
-    #shoes: ClothingShoesBootsLaceup #Starlight
-    #eyes: ClothingEyesGlassesCommand #Starlight
-    # gloves: ClothingHandsGlovesCaptain # Starlight
+    shoes: ClothingShoesBootsLaceup
+    eyes: ClothingEyesGlassesCommand
+    gloves: ClothingHandsGlovesCaptain
     id: CaptainPDA
     ears: ClothingHeadsetAltCommand
   storage:

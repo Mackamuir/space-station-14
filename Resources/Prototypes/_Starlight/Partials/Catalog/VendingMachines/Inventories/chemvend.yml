@@ -1,0 +1,16 @@
+- type: !PartialOnly vendingMachineInventory
+  id: ChemVendInventory
+  startingInventory:
+    Jug: 8 # four jugs isn't nearly enough for high populations
+  emaggedInventory:
+    OminousPill: 2 # good luck man
+
+- type: !PartialOnly vendingMachineInventory
+  id: ChemVendInventorySyndicate
+  startingInventory:
+    Jug: 8 # four jugs isn't nearly enough for high populations
+  contrabandInventory:
+    OminousPill: 3 # StrangePill in SyndieJuice replaced by OminousPill. More dangerous
+    StrangePill: !Remove
+  emaggedInventory:
+    StrangePill: 2

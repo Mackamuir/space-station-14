@@ -1,0 +1,15 @@
+- type: !PartialOnly job
+  id: Musician
+  access:
+  - !Index:2 Service
+
+- type: !PartialOnly startingGear
+  id: MusicianGear
+  equipment:
+    eyes: ClothingEyesGlassesMusicianSunglasses
+    shoes: !Remove
+
+- type: !PartialOnly chameleonOutfit
+  id: MusicianChameleonOutfit
+  equipment:
+    eyes: ClothingEyesGlassesMusicianSunglasses

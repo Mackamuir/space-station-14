@@ -3,13 +3,11 @@
   name: job-name-centcommoff
   description: job-description-centcommoff
   playTimeTracker: JobCentralCommandOfficial
-  requirements:
-  - !type:RolesRequirement
-    proto: StaffAndMentorOnlyRolesReq
   setPreference: false
   startingGear: CentcommGear
-  icon: "JobIconCentralCommandOfficial" #Starlight
+  icon: "JobIconNanotrasen"
   supervisors: job-supervisors-hos
+  canBeAntag: false
   accessGroups:
   - AllAccess
   access:
@@ -21,10 +19,10 @@
 - type: startingGear
   id: CentcommGear
   equipment:
-    jumpsuit: ClothingAltUniformJumpsuitCentcomOfficial # alt version
+    jumpsuit: ClothingUniformJumpsuitCentcomOfficial
     shoes: ClothingShoesBootsCombatFilled
     head: ClothingHeadHatCentcom
-    eyes: ClothingEyesGlassesCentComm
+    eyes: ClothingEyesGlassesCommand
     gloves: ClothingHandsGlovesColorBlack
     outerClothing: ClothingOuterArmorCentcommCarapace
     id: CentcomPDA

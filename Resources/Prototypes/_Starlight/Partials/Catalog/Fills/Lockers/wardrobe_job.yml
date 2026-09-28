@@ -1,0 +1,20 @@
+- type: !PartialOnly entityTable
+  id: FillWardrobePrison
+  table: !type:AllSelector
+    children:
+    - !type:AllSelector
+      !CombineIndex:0 children:
+      - id: ClothingHeadHatBeretPrison
+    - !type:GroupSelector
+      !CombineIndex:4 children:
+      - id: WeirdPill
+    - !type:GroupSelector
+      !CombineIndex:5 children:
+      - id: OminousPill
+      - id: GoldenPill
+
+- type: !PartialOnly entityTable
+  id: FillWardrobeCargo
+  table: !type:AllSelector
+    children:
+    - id: WeaponMeleeBoxcutter

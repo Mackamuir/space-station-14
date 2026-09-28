@@ -1,0 +1,5 @@
+- type: !PartialOnly vendingMachineInventory
+  id: DiscountDansInventory
+  startingInventory:
+    CigPackRollie: 1
+    DrinkCrabJuiceCan: 2

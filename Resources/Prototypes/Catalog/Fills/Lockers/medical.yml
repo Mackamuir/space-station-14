@@ -43,32 +43,6 @@
   id: LockerFillMedicalDoctor
   table: !type:AllSelector
     children:
-    # Starlight start
-    - id: ClothingHeadMirror
-      prob: 0.1
-    - id: ClothingHandsGlovesLatex
-    - id: ClothingHeadsetMedical
-    - !type:GroupSelector
-      children:
-      - id: ClothingHeadHatSurgcapGreen
-        weight: 0.1
-      - id: ClothingHeadHatSurgcapPurple
-        weight: 0.05
-      - id: ClothingHeadHatSurgcapBlue
-        weight: 0.90
-    - !type:GroupSelector
-      children:
-      - id: UniformScrubsColorBlue
-        weight: 0.5
-      - id: UniformScrubsColorGreen
-        weight: 0.1
-      - id: UniformScrubsColorPurple
-        weight: 0.05
-    - id: ClothingMaskSterile
-    - id: Syringe
-    - id: BottleCaseMedicalFilled
-    - id: PenPackMedicalFilled
-    #Starlight end
     - id: ClothingEyesHudMedical
     - id: ClothingBeltMedicalFilled
     - id: JetInjector
@@ -85,7 +59,6 @@
 - type: entity
   parent: LockerMedical
   id: LockerMedicalFilled
-  categories: [ ShouldMapStation ] # Starlight
   suffix: Filled
   components:
   - type: EntityTableContainerFill
@@ -108,14 +81,6 @@
   id: LockerFillChemistry
   table: !type:AllSelector
     children:
-    # Starlight start
-    - id: RPLD
-    - id: BoxBeakerSmall
-    - id: BoxBeakerLarge
-    - id: BoxJug
-    - id: PatchPack
-      amount: 2
-    # Starlight end
     - id: ClothingEyesGlassesChemical
     - id: ChemBag
     - id: Dropper
@@ -141,7 +106,6 @@
 - type: entity
   parent: LockerChemistry
   id: LockerChemistryFilled
-  categories: [ ShouldMapStation ] # Starlight
   suffix: Filled
   components:
   - type: EntityTableContainerFill
@@ -157,9 +121,6 @@
     - id: ClothingOuterHardsuitVoidParamed
     - id: ClothingBeltMedicalEMTFilled
     - id: JetInjector
-    - id: EmergencyHandheldCrewMonitor # Starlight
-    - id: JawsOfLifeMed # Starlight
-    - id: BottleCaseParamedicFilled # Starlight, they don't get the pen pouch, they already get a ton of their own special toys.
     # - id: HandheldHealthAnalyzer Starlight - kind of just junk in the locker at this point, use your PDA or get one at a nanomed
     - id: BoxBodyBag
     # Starlight edit - rollerbeds - these are mapped, printable and in your bag round start
@@ -174,7 +135,6 @@
 - type: entity
   parent: LockerParamedic
   id: LockerParamedicFilled
-  categories: [ ShouldMapStation ] # Starlight
   suffix: Filled
   components:
   - type: EntityTableContainerFill

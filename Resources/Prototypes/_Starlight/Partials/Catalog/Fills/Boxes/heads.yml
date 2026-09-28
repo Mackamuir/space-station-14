@@ -1,0 +1,68 @@
+- type: !PartialOnly entity
+  id: BoxCaptainCircuitboards
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: CommandTechFabCircuitboard
+        - id: ShipyardComputerCircuitboard
+
+- type: !PartialOnly entity
+  id: BoxCECircuitboards
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: EngineeringTechFabCircuitboard
+        - id: BluespaceHarvesterMachineCircuitboard
+        - id: EngineeringCommsComputerCircuitboard
+
+- type: !PartialOnly entity
+  id: BoxCMOCircuitboards
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: MedicalCommsComputerCircuitboard
+
+- type: !PartialOnly entity
+  id: BoxHoPCircuitboards
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: ServiceTechFabCircuitboard
+        - id: ServiceCommsComputerCircuitboard
+
+- type: !PartialOnly entity
+  id: BoxHoSCircuitboards
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: SecurityCommsComputerCircuitboard
+
+- type: !PartialOnly entity
+  id: BoxQMCircuitboards
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - id: CargoTechFabCircuitboard
+        - id: CargoCommsComputerCircuitboard
+
+- type: !PartialOnly entity
+  id: BoxRDCircuitboards
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      storagebase: !type:AllSelector
+        children:
+        - !CombineIndex:1 id: ScienceTechFabCircuitboard # replaces ProtolatheMachineCircuitboard
+        - id: ScienceCommsComputerCircuitboard

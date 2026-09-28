@@ -1,0 +1,5 @@
+- type: !PartialOnly entityTable
+  id: FilLockerSyndicateShipGearBasicChameleonKit
+  table: !type:AllSelector
+    children:
+    - id: ChameleonControllerImplanter # Adding the implanter manually now that it's no longer in the backpack fill.

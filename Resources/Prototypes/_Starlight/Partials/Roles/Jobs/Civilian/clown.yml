@@ -1,0 +1,5 @@
+- type: !PartialOnly job
+  id: Clown
+  access:
+  - !Index:2 Service
+  - !Index:2 Clown

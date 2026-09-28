@@ -1,0 +1,13 @@
+- type: !PartialOnly vendingMachineInventory
+  id: MagiVendInventory
+  startingInventory:
+    ClothingHeadHatYellowwizard: 3
+    ClothingOuterWizardYellow: 3
+    ClothingHeadHatGreenwizard: 3
+    ClothingOuterWizardGreen: 3
+    ClothingHeadHatPurplewizard: 3
+    ClothingOuterWizardPurple: 3
+    ClothingHeadHatOrangewizard: 3
+    ClothingOuterWizardOrange: 3
+    ClothingHeadHatPeachwizard: 3
+    ClothingOuterWizardPeach: 3

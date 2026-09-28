@@ -1,0 +1,16 @@
+- type: !PartialOnly job
+  id: DeathSquad
+  requirements:
+  - !type:OverallPlaytimeRequirement
+    time: 20h
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 10h
+  bypassEorPacification: true
+  canBeAntag: !Remove
+
+- type: !PartialOnly startingGear
+  id: DeathSquadGear
+  equipment:
+    eyes: ClothingEyesHudCentComm
+    ears: ClothingHeadsetAltCentComDS

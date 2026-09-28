@@ -8,10 +8,10 @@
       department: Medical
       time: 10h
       inverted: true # stop playing intern if you're good at med!
-  weight: -1
   startingGear: MedicalInternGear
   icon: "JobIconMedicalIntern"
   supervisors: job-supervisors-medicine
+  canBeAntag: false
   access:
   - Medical
   - Maintenance
@@ -26,10 +26,9 @@
 - type: startingGear
   id: MedicalInternGear
   equipment:
-#    shoes: ClothingShoesColorWhite Starlight loadout options enabled
+    shoes: ClothingShoesColorWhite
     id: MedicalInternPDA
     ears: ClothingHeadsetMedical
-    belt: ClothingBeltMedicalFilled # Starlight - adding back belts
     pocket2: BookMedicalReferenceBook
 
 - type: chameleonOutfit

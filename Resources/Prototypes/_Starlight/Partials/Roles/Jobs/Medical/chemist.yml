@@ -1,0 +1,11 @@
+- type: !PartialOnly job
+  id: Chemist
+  displayWeight: 4
+  extendedAccess:
+  - Paramedic
+  - Surgery
+
+- type: !PartialOnly startingGear
+  id: ChemistGear
+  equipment:
+    id: !Remove

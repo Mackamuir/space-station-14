@@ -1,0 +1,7 @@
+- type: !PartialOnly job
+  id: AtmosphericTechnician
+  requirements: !Clear
+  - !type:DepartmentTimeRequirement
+    department: Engineering
+    time: 15h
+  weight: 0

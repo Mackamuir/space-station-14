@@ -1,0 +1,5 @@
+- type: !PartialOnly vendingMachineInventory
+  id: BarDrobeInventory
+  startingInventory:
+    ClothingUniformJumpsuitServiceWorkerBartender: 1
+    ClothingUniformJumpskirtServiceWorkerBartender: 1

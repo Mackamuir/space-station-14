@@ -1,0 +1,19 @@
+- type: !PartialOnly entity
+  id: CrateChemistrySupplies
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - !CombineIndex:1 id: BoxBeakerSmall # replaces BoxBeaker
+        - id: BoxBeakerLarge
+
+- type: !PartialOnly entity
+  id: CrateMedicalSurgery
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - id: BoneGel
+        - id: BoneSetter

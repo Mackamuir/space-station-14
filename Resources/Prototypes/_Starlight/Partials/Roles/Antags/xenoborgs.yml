@@ -1,0 +1,20 @@
+- type: !PartialOnly antag
+  id: MothershipCore
+  roleLoadout: [AntagMothership]
+  requirements: !Clear
+  - !type:RoleTimeRequirement
+    role: JobStationAi
+    time: 18000 # 5 hrs
+  - !type:RoleTimeRequirement
+    role: JobRoboticist
+    time: 9000 # 2.5 hrs
+  playTimeTracker: AntagMothershipCore
+
+- type: !PartialOnly antag
+  id: Xenoborg
+  roleLoadout: [AntagXenoborg]
+  requirements: !Clear
+  - !type:RoleTimeRequirement
+    role: JobBorg
+    time: 54000 # 15 hrs
+  playTimeTracker: AntagXenoborg

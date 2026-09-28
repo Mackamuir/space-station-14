@@ -1,0 +1,26 @@
+- type: !PartialOnly job
+  id: Lawyer
+  description: job-description-lawyer-sl # new desc
+  requirements: !Clear
+  - !type:RoleTimeRequirement
+    role: JobIAA # You have to actually know the law, this role is really easy to mess up if you don't
+    time: 3h
+  access:
+  - !Remove Brig
+
+- type: !PartialOnly startingGear
+  id: LawyerGear
+  equipment:
+    eyes: ClothingEyesGlassesCheapSunglasses # some cheap sunglasses
+    ears: ClothingHeadsetLawyer # not part of Security
+    shoes: !Remove
+  inhand:
+  - !Index:0 BriefcaseLawyerFilled # Lawyer briefcase
+  - !Remove BriefcaseBrownFilled
+  storage: !Remove
+
+- type: !PartialOnly chameleonOutfit
+  id: LawyerChameleonOutfit
+  equipment:
+    misc: ClothingNeckLawyerbadge # change slot to misc
+    neck: !Remove

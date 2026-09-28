@@ -1,0 +1,35 @@
+- type: !PartialOnly job
+  id: HeadOfSecurity
+  requirements: !Clear
+  - !type:RoleTimeRequirement
+    role: JobWarden
+    time: 10h
+  - !type:RoleTimeRequirement
+    role: JobDetective
+    time: 5h # knowing how to use the tools is important
+  - !type:RoleTimeRequirement
+    role: JobSecurityOfficer
+    time: 15h
+  - !type:DepartmentTimeRequirement
+    department: Security
+    time: 50h # Literally the most pressured role in the game, you need extensive knowledge of your department
+  - !type:TraitsRequirement
+    traits:
+    - Iterator
+    - Muted
+    - Blindness
+    inverted: true
+  access:
+  - !Index:0 Cadet
+  - !Index:9 Brigmedic
+  - !Index:11 Debrief
+  canBeAntag: !Remove
+
+- type: !PartialOnly startingGear
+  id: HoSGear
+  equipment:
+    gloves: !Remove
+    pocket1: !Remove
+  storage:
+    back:
+    - !Remove MagazinePistol

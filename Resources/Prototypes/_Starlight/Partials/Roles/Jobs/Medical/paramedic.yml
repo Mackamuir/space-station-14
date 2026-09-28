@@ -1,0 +1,21 @@
+- type: !PartialOnly job
+  id: Paramedic
+  displayWeight: 3
+  access:
+  - !Index:2 Paramedic
+  - !Index:2 External
+  extendedAccess:
+  - !Index:1 Surgery
+  special:
+  - !type:AddImplantSpecial
+    implants: [MindShieldImplant]
+
+- type: !PartialOnly startingGear
+  id: ParamedicGear
+  equipment:
+    belt: ClothingBeltMedicalEMTFilled
+    id: !Remove
+  storage:
+    back:
+    - EmergencyRollerBedSpawnFolded
+    - DefibrillatorParamed

@@ -1,14 +1,11 @@
 - type: vendingMachineInventory
   id: DonutInventory
   startingInventory:
-    FoodDonutChocolate: 6 #Starlight +1
-    FoodDonutApple: 4 #Starlight +1
-    FoodDonutPink: 4 #Starlight +1
-    FoodDonutBungo: 4 #Starlight +1
+    FoodDonutChocolate: 5
+    FoodDonutApple: 3
+    FoodDonutPink: 3
+    FoodDonutBungo: 3
   contrabandInventory:
-    FoodBagel: 3 #Starlight +1
-    FoodBagelPoppy: 3 #Starlight +1
-  emaggedInventory:
     FoodBagel: 2
     FoodBagelPoppy: 2
     FoodDonutPoison: 1

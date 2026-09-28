@@ -1,0 +1,7 @@
+- type: !PartialOnly startingGear
+  id: WizardBlueGear
+  equipment:
+    back: ClothingBackpackWizard # Wizard backpack
+  storage:
+    back:
+    - WizardWarTablet

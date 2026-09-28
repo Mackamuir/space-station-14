@@ -1,0 +1,15 @@
+- type: !PartialOnly cargoProduct
+  id: FunLizardPlushies
+  product: BoxFunLizardPlushieBulk # Funky change boxification
+
+- type: !PartialOnly cargoProduct
+  id: FunSharkPlushies
+  product: BoxFunSharkPlushieBulk # Funky change boxification
+
+- type: !PartialOnly cargoProduct
+  id: FunBoxing
+  product: BoxFunBoxing # Funky change boxification
+
+- type: !PartialOnly cargoProduct
+  id: HydratedScurret
+  cost: 7500

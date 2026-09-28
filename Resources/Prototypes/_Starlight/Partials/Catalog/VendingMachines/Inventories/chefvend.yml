@@ -1,0 +1,20 @@
+- type: !PartialOnly vendingMachineInventory
+  id: ChefvendInventory
+  startingInventory:
+    ReagentContainerFlour: 3 # 2 -> 3
+    ReagentContainerRice: 3 # 2 -> 3
+    FoodCheese: 3 # 1 -> 3
+    FoodMeat: 8 # 6 -> 8
+    JugCornoil: 2
+    KitchenOvenFlatpack: 1
+    KitchenStoveFlatpack: 1
+    SlopDispenserFlatpack: 1
+    JugIceCream: 2
+    JugCocoaPowder: 1
+    DrinkCreamCarton: 1
+  emaggedInventory:
+    FoodMeatHuman: 4
+    FoodFriedfelionoid: 1
+    FoodFriedRodentia: 1
+    HeadVulpkanin: 1
+    FoodCakeResomiSlice: 2

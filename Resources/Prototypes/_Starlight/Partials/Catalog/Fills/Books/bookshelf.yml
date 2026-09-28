@@ -1,0 +1,25 @@
+- type: !PartialOnly entityTable
+  id: RandomHandwrittenBookTable
+  table: !type:GroupSelector
+    children:
+    - id: BookConspiracies
+    - id: BookMoreConspiracies
+    - id: BookClownMimeWar
+    - id: BookMarsIncident
+    - id: BookCapnsScruples
+    - id: BookLastCow
+    - id: BookThroughTheGlass
+    - id: BookCavesOfUrania
+    - id: BookChuckles
+    - id: BookCorridorNine
+    - id: BookBedsidePhotograph
+    - id: BookDeathAlways
+    - id: BookMarty
+    - id: BookNTsMartyr
+    - id: BookThoughtsEnd
+    - id: BookApocolypse
+    - id: BookWizardDice
+    - id: BookHopPlay
+    - id: BookConfession
+    - id: BookLifeOfAClown
+    - id: BookUnnamedGod

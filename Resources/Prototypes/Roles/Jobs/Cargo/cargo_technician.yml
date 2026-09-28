@@ -6,15 +6,11 @@
   startingGear: CargoTechGear
   icon: "JobIconCargoTechnician"
   supervisors: job-supervisors-qm
-  displayWeight: 1 # Starlight
   access:
   - Cargo
   - Maintenance
-  - Shuttle # Starlight
   extendedAccess:
   - Salvage
-  - Mining # Starlight
-  - Mail # Starlight
   special:
   - !type:GiveItemOnHolidaySpecial
     holiday: BoxingDay
@@ -24,11 +20,10 @@
   id: CargoTechGear
   equipment:
     ears: ClothingHeadsetCargo
-    belt: ClothingBeltCargo # Starlight start
-    #pocket1: AppraisalTool # Moved to loadout
-  storage:
-    belt:
-    - WeaponMeleeBoxcutter # Starlight end
+    pocket1: AppraisalTool
+  #storage:
+    #back:
+    #- Stuff
 
 - type: chameleonOutfit
   id: CargoTechnicianChameleonOutfit

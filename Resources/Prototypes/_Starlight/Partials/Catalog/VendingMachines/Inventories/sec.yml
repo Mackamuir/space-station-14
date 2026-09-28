@@ -1,0 +1,7 @@
+- type: !PartialOnly vendingMachineInventory
+  id: SecTechInventory
+  startingInventory:
+    TicketPad: 8
+    ClothingEyeGlassesSecurityPrescription: 2
+    CrisisButton: 5
+    ClothingPouchPeacekeeper: 5

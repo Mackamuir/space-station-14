@@ -6,22 +6,18 @@
   requirements:
     - !type:RoleTimeRequirement
       role: JobAtmosphericTechnician
-      time: 7h # Starlight
+      time: 2.5h
     - !type:RoleTimeRequirement
       role: JobStationEngineer
-      time: 7h # Starlight
+      time: 5h
     - !type:DepartmentTimeRequirement
       department: Engineering
-      time: 20h # Starlight
-    - !type:TraitsRequirement # Starlight
-      traits:
-        - Iterator
-        - Muted
-      inverted: true
+      time: 10h
   weight: 10
   startingGear: ChiefEngineerGear
   icon: "JobIconChiefEngineer"
   supervisors: job-supervisors-captain
+  canBeAntag: false
   access:
   - Maintenance
   - Engineering
@@ -31,10 +27,6 @@
   - Atmospherics
   - Brig
   - Cryogenics
-  - GenpopEnter #starlight
-  - GenpopLeave #starlight
-  - Debrief # Starlight
-  - Shuttle # Starlight
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]

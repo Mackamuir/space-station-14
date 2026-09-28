@@ -14,15 +14,7 @@
     CheapLighter: 4
     Lighter: 2
     FlippoLighter: 2
-    CigPackRollie: 1 # Starlight-edit
   contrabandInventory:
     GroundTobacco: 3
     CigarGold: 2
     Igniter: 1
-    CigPackMedRollie: 1 # Starlight-edit
-    MysteryLighterBox: 1 # Starlight-edit a
-  #region Starlight
-  emaggedInventory:
-    CigPackSyndicate: 1
-    InterdyneFlippo: 1
-  #endregion Starlight

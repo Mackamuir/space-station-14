@@ -10,25 +10,16 @@
   startingGear: ChemistGear
   icon: "JobIconChemist"
   supervisors: job-supervisors-cmo
-  displayWeight: 4 # Starlight
   access:
   - Medical
   - Chemistry
   - Maintenance
-  # Starlight Start
-  extendedAccess:
-  - Paramedic
-  - Surgery
-  # Starlight End
 
 - type: startingGear
   id: ChemistGear
   equipment:
-    # id: ChemistryPDA #Starlight
+    id: ChemistryPDA
     ears: ClothingHeadsetMedical
-#    belt: ChemBag # Starlight start
-#    pocket1: HandLabeler
-#    eyes: ClothingEyesGlassesChemical # Starlight end
 
 - type: chameleonOutfit
   id: ChemistChameleonOutfit
