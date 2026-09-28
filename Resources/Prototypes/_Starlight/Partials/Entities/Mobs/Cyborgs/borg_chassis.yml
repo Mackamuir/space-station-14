@@ -1,0 +1,184 @@
+- type: !PartialOnly entity
+  id: BorgChassisSelectable
+  components:
+  - type: TextToSpeech
+  - type: BorgSwitchableType
+    availableTypes:
+    - engineering
+    - generic
+    - janitor
+    - medical
+    - mining
+    - purrfus
+    - service
+    - cargo
+ #   - security Currently admeme only
+
+- type: !PartialOnly entity
+  id: BorgChassisSyndicateAssault
+  components:
+  - type: TextToSpeech
+  - type: BorgChassis
+    maxModules: 5
+
+- type: !PartialOnly entity
+  id: BorgChassisSyndicateMedical
+  components:
+  - type: TextToSpeech
+  - type: BorgChassis
+    maxModules: 6
+  - type: ShowHealthBars
+    damageContainers:
+    - Biological
+    - Hybrid # Neocytes
+  - type: HealthAnalyzer
+    damageContainers:
+    - Biological
+    - Hybrid
+  - type: ActionGrant
+    actions:
+    - ActionMedTek
+  - type: UserInterface
+    interfaces:
+      enum.HealthAnalyzerUiKey.Key:
+        type: HealthAnalyzerBoundUserInterface
+
+- type: !PartialOnly entity
+  id: BorgChassisSyndicateSaboteur
+  description: A streamlined engineering cyborg, equipped with covert modules. Its chameleon projector lets it disguise itself as a NanoTrasen cyborg.
+  components:
+  - type: TextToSpeech
+  - type: BorgChassis
+    maxModules: 6
+  - type: ShowHealthBars
+    damageContainers:
+    - Hybrid
+
+- type: !PartialOnly entity
+  id: BorgChassisDerelict
+  components:
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Science
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Science
+
+- type: !PartialOnly entity
+  id: EngineeringBorgChassisDerelict
+  components:
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Engineering
+    - Science
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Engineering
+    - Science
+
+- type: !PartialOnly entity
+  id: JanitorBorgChassisDerelict
+  components:
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Science
+    - Service
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Science
+    - Service
+
+- type: !PartialOnly entity
+  id: MedicalBorgChassisDerelict
+  components:
+  - type: ShowHealthBars
+    damageContainers:
+    - Hybrid # Neocytes
+  - type: ShowHealthIcons
+    damageContainers:
+    - Hybrid # Neocytes
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Command
+    - Engineering
+    - Medical
+    - Science
+    - Security
+    - Service
+    - Supply
+    - Law
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Medical
+    - Science
+  - type: HealthAnalyzer
+    damageContainers:
+    - Biological
+    - Hybrid
+  - type: ActionGrant
+    actions:
+    - ActionMedTek
+  - type: UserInterface
+    interfaces:
+      enum.HealthAnalyzerUiKey.Key:
+        type: HealthAnalyzerBoundUserInterface
+
+- type: !PartialOnly entity
+  id: MiningBorgChassisDerelict
+  components:
+  - type: BorgChassis
+    moduleWhitelist:
+      tags:
+      - BorgModuleMining
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Science
+    - Supply
+    - Expedition
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Science
+    - Supply
+    - Expedition
+
+- type: !PartialOnly entity
+  id: SyndicateAssaultBorgChassisDerelict
+  components:
+  - type: BorgChassis
+    maxModules: 4
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Binary
+    - Common
+    - Syndicate
+  - type: ActiveRadio
+    channels:
+    - Binary
+    - Common
+    - Syndicate

@@ -2,7 +2,7 @@
   parent: [ BaseXenoborgChassis, BaseXenoborgTransponder ]
   id: XenoborgEngi
   name: engi xenoborg
-  suffix: No Brain # Starlight edit
+  suffix: with brain
   description: A man-machine hybrid that aims to replicate itself. They love extracting brains to insert into fresh Xenoborg chassis to grow their army. This one seems to be an engineering type, as it has more tools for supporting the other Xenoborgs.
   components:
   - type: BorgTransponder
@@ -23,7 +23,7 @@
       map: ["light"]
       visible: false
   - type: BorgChassis
-    maxModules: 8 # Starlight
+    maxModules: 7
     hasMindState: borg_e
     noMindState: borg_e_r
     moduleWhitelist:
@@ -34,15 +34,13 @@
       - BorgModuleGeneric
   - type: ContainerFill
     containers:
-      # Starlight edit Start
-      # borg_brain:
-      # - MMIFilled
-      # Starlight edit End
+      borg_brain:
+      - MMIFilled
       borg_module:
       - XenoborgModuleBasic
       - BorgModuleAdvancedTool
       - BorgModuleConstruction
-      - XenoborgModuleRCD # Starlight
+      - BorgModuleRCD
       - BorgModuleCable
       - XenoborgModuleAccessBreaker
       - XenoborgModuleFireExtinguisher
@@ -51,24 +49,17 @@
     damageContainers:
     - Inorganic
     - Silicon
-    - IPC # SL
-    - Hybrid # Starlight
   - type: ItemSlots
     slots:
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellHigh
-        #Starlight Start
-        blacklist:
-          tags:
-          - MechReactor
-        #Starlight End
 
 - type: entity
   parent: [ BaseXenoborgChassis, BaseXenoborgTransponder ]
   id: XenoborgHeavy
   name: heavy xenoborg
-  suffix: No Brain # Starlight edit
+  suffix: with brain
   description: A man-machine hybrid that aims to replicate itself. They love extracting brains to insert into fresh Xenoborg chassis to grow their army. This type is has heavy lasers and is covered in thick armor plates. It may be tougher, but its speed matches its brawn.
   components:
   - type: BorgTransponder
@@ -144,10 +135,8 @@
         acts: [ "Destruction" ]
   - type: ContainerFill
     containers:
-      # Starlight edit Start
-      # borg_brain:
-      # - MMIFilled
-      # Starlight edit End
+      borg_brain:
+      - MMIFilled
       borg_module:
       - XenoborgModuleBasic
       - XenoborgModuleTool
@@ -158,17 +147,12 @@
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellHigh
-        #Starlight Start
-        blacklist:
-          tags:
-          - MechReactor
-        #Starlight End
 
 - type: entity
   parent: [ BaseXenoborgChassis, BaseXenoborgTransponder ]
   id: XenoborgScout
   name: scout xenoborg
-  suffix: No Brain # Starlight edit
+  suffix: with brain
   description: A man-machine hybrid that aims to replicate itself. They love extracting brains to insert into fresh Xenoborg chassis to grow their army. This is a scout type, its nimble thrusters allow it to move quickly through space.
   components:
   - type: BorgTransponder
@@ -194,7 +178,7 @@
   - type: MovementAlwaysTouching # it flies in space with tiny thrusters
   - type: FlashImmunity
   - type: BorgChassis
-    maxModules: 5 # Starlight
+    maxModules: 4
     hasMindState: borg_e
     noMindState: borg_e_r
     moduleWhitelist:
@@ -206,10 +190,8 @@
     baseSprintSpeed : 6
   - type: ContainerFill
     containers:
-      # Starlight edit Start
-      # borg_brain:
-      # - MMIFilled
-      # Starlight edit End
+      borg_brain:
+      - MMIFilled
       borg_module:
       - XenoborgModuleBasic
       - XenoborgModuleTool
@@ -220,17 +202,12 @@
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellHigh
-        #Starlight Start
-        blacklist:
-          tags:
-          - MechReactor
-        #Starlight End
 
 - type: entity
   parent: [ BaseXenoborgChassis, BaseXenoborgTransponder ]
   id: XenoborgStealth
   name: stealth xenoborg
-  suffix: No Brain # Starlight edit
+  suffix: with brain
   description: A man-machine hybrid that aims to replicate itself. They love extracting brains to insert into fresh Xenoborg chassis to grow their army. This one is a stealth type. Its armor shimmers in the light like no other material you've seen.
   components:
   - type: BorgTransponder
@@ -267,10 +244,8 @@
   #   maxInterval: 150
   - type: ContainerFill
     containers:
-      # Starlight edit Start
-      # borg_brain:
-      # - MMIFilled
-      # Starlight edit End
+      borg_brain:
+      - MMIFilled
       borg_module:
       - XenoborgModuleBasic
       - XenoborgModuleTool
@@ -282,11 +257,6 @@
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellHigh
-        #Starlight Start
-        blacklist:
-          tags:
-          - MechReactor
-        #Starlight End
 
 
 # xenoborgs empty
@@ -303,7 +273,7 @@
       - XenoborgModuleBasic
       - BorgModuleAdvancedTool
       - BorgModuleConstruction
-      - XenoborgModuleRCD # Starlight
+      - BorgModuleRCD
       - BorgModuleCable
       - XenoborgModuleAccessBreaker
       - XenoborgModuleFireExtinguisher
@@ -312,11 +282,6 @@
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellHighPrinted
-        #Starlight Start
-        blacklist:
-          tags:
-          - MechReactor
-        #Starlight End
 
 - type: entity
   parent: XenoborgHeavy
@@ -337,11 +302,6 @@
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellHighPrinted
-        #Starlight Start
-        blacklist:
-          tags:
-          - MechReactor
-        #Starlight End
 
 - type: entity
   parent: XenoborgScout
@@ -362,11 +322,6 @@
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellHighPrinted
-        #Starlight Start
-        blacklist:
-          tags:
-          - MechReactor
-        #Starlight End
 
 - type: entity
   parent: XenoborgStealth
@@ -388,8 +343,3 @@
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellHighPrinted
-        #Starlight Start
-        blacklist:
-          tags:
-          - MechReactor
-        #Starlight End

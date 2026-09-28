@@ -1,0 +1,112 @@
+- type: !PartialOnly entity
+  id: MobRobotic
+  components:
+  - type: LanguageKnowledge
+    speaks:
+    - GalacticCommon
+    - Machine
+    understands:
+    - GalacticCommon
+    - Machine
+
+- type: !PartialOnly entity
+  id: MobSiliconBase
+  components:
+  - type: Body
+    prototype: Bot
+
+- type: !PartialOnly entity
+  id: MobFireBot
+  components:
+  - type: SentienceTarget
+    flavorKind: station-event-random-sentience-flavor-mechanical
+
+- type: !PartialOnly entity
+  id: MobHonkBot
+  components:
+  - type: GhostRole
+    mindRoles:
+    - !Remove MindRoleGhostRoleFreeAgentHarmless
+    - MindRoleGhostRoleBotHarmless
+
+- type: !PartialOnly entity
+  id: MobJonkBot
+  components:
+  - type: GhostRole
+    mindRoles:
+    - !Remove MindRoleGhostRoleFreeAgentHarmless
+    - MindRoleGhostRoleBotHarmless
+
+- type: !PartialOnly entity
+  id: MobCleanBot
+  components:
+  - type: SentienceTarget
+    flavorKind: station-event-random-sentience-flavor-mechanical
+  - type: Vocalizer
+  - type: DatasetVocalizer
+    dataset: CleanbotAds
+  - type: WiresPanel
+  - type: Wires
+    boardName: wires-board-name-cleanbot
+    layoutId: MedibotControls
+    alwaysRandomize: true
+  - type: UserInterface
+    interfaces:
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+
+- type: !PartialOnly entity
+  id: MobMedibot
+  components:
+  - type: SentienceTarget
+    flavorKind: station-event-random-sentience-flavor-mechanical
+  - type: WiresPanel
+  - type: Wires
+    boardName: wires-board-name-medibot
+    layoutId: MedibotControls
+    alwaysRandomize: true
+  - type: UserInterface
+    interfaces:
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+      enum.StrippingUiKey.Key:
+        type: StrippableBoundUserInterface # Readded stipping UI to medibots, wirepanels overwrote them
+
+- type: !PartialOnly entity
+  id: MobMimeBot
+  components:
+  - type: GhostRole
+    mindRoles:
+    - !Remove MindRoleGhostRoleFreeAgentHarmless
+    - MindRoleGhostRoleBotHarmless
+
+- type: !PartialOnly entity
+  id: MobSupplyBot
+  components:
+  - type: PointLight
+    lightMask: ConeSingle
+    mask: !Remove
+  - type: PullTrain
+    maxCars: 3
+  - type: Body
+    prototype: SupplyBot
+  - type: Hands
+    showInHands: false
+    hands:
+      paperwork:
+        emptyLabel: borg-slot-papers-empty
+        emptyRepresentative: BorgModulePaperStampPlaceholder
+        whitelist:
+          tags:
+          - Document
+          components:
+          - Stamp
+    sortedHands:
+    - paperwork
+  - type: ComplexInteraction
+
+- type: !PartialOnly entity
+  id: MobHugBot
+  components:
+  - type: Body
+    prototype: HugBot

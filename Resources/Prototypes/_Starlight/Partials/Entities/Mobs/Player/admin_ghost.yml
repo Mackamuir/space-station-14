@@ -1,0 +1,53 @@
+- type: !PartialOnly entity
+  id: AdminObserver
+  components:
+  - type: Tag
+    tags:
+    - BypassUserTagChecks
+    - Ghost
+  - type: Access
+    tags:
+    - Solgov
+  - type: UserInterface
+    interfaces:
+      enum.SecureCommandTerminalUiKey.Key:
+        type: SecureCommandTerminalBui
+      enum.CharacterRecordConsoleKey.Key:
+        type: CharacterRecordConsoleBoundUserInterface
+  - type: IntrinsicUI
+    uis:
+      enum.SolarControlConsoleUiKey.Key: !Remove
+      enum.CargoConsoleUiKey.Orders: !Remove
+      enum.GeneralStationRecordConsoleKey.Key: !Remove
+  - type: SecureCommandTerminalConsole
+    admin: true
+  - type: CrewMonitoringConsole
+    pagingEnabled: false
+  - type: CharacterRecordConsole
+    consoleType: Admin
+  - type: CriminalRecordsConsole
+  - type: AdminGhostHud
+  - type: ShowCriminalRecordIcons
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
+  - type: ShowSyndicateIcons
+  - type: ShowHealthBars
+    damageContainers:
+      - Biological
+      - Inorganic
+      - Silicon
+      - IPC
+      - Hybrid
+  - type: ShowHealthIcons
+    damageContainers:
+      - Biological
+      - Inorganic
+      - Silicon
+      - IPC
+      - Hybrid
+  - type: ShowHungerIcons
+  - type: ShowThirstIcons
+  - type: ShowAccess
+    seeIdHolder: true
+    itemsOnly: false
+  - type: AdminGhost

@@ -1,0 +1,111 @@
+- type: !PartialOnly entity
+  id: XenoborgEngi
+  suffix: No Brain
+  components:
+  - type: BorgChassis
+    maxModules: 8
+  - type: ContainerFill
+    containers:
+      borg_brain: !Remove
+      borg_module:
+      - !Remove BorgModuleRCD
+      - !Index:3 XenoborgModuleRCD
+  - type: ShowHealthBars
+    damageContainers:
+    - IPC
+    - Hybrid
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        blacklist:
+          tags:
+          - MechReactor
+
+- type: !PartialOnly entity
+  id: XenoborgHeavy
+  suffix: No Brain
+  components:
+  - type: ContainerFill
+    containers:
+      borg_brain: !Remove
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        blacklist:
+          tags:
+          - MechReactor
+
+- type: !PartialOnly entity
+  id: XenoborgScout
+  suffix: No Brain
+  components:
+  - type: BorgChassis
+    maxModules: 5
+  - type: ContainerFill
+    containers:
+      borg_brain: !Remove
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        blacklist:
+          tags:
+          - MechReactor
+
+- type: !PartialOnly entity
+  id: XenoborgStealth
+  suffix: No Brain
+  components:
+  - type: ContainerFill
+    containers:
+      borg_brain: !Remove
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        blacklist:
+          tags:
+          - MechReactor
+
+- type: !PartialOnly entity
+  id: XenoborgEngiPrinted
+  components:
+  - type: ContainerFill
+    containers:
+      borg_module:
+      - !Remove BorgModuleRCD
+      - !Index:3 XenoborgModuleRCD
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        blacklist:
+          tags:
+          - MechReactor
+
+- type: !PartialOnly entity
+  id: XenoborgHeavyPrinted
+  components:
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        blacklist:
+          tags:
+          - MechReactor
+
+- type: !PartialOnly entity
+  id: XenoborgScoutPrinted
+  components:
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        blacklist:
+          tags:
+          - MechReactor
+
+- type: !PartialOnly entity
+  id: XenoborgStealthPrinted
+  components:
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        blacklist:
+          tags:
+          - MechReactor
