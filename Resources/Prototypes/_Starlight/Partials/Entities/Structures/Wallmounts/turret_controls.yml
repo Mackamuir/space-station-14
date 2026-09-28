@@ -1,0 +1,37 @@
+- type: !PartialOnly entity
+  id: WeaponEnergyTurretStationControlPanelBase
+  components:
+  - type: DeployableTurretController
+    accessLevels:
+    # Starlight access levels (written in reverse: partial list items are appended back to front)
+    - Mime
+    - Clown
+    - Journalism
+    - Shuttle
+    - Debrief
+    - Mail
+    - IAA
+    - Surgery
+    - SalvageLead
+    - Robotics
+    - Paramedic
+    - Ntrep
+    - Mining
+    - Magistrate
+    - Cadet
+    - Brigmedic
+    - BlueShield
+
+- type: !PartialOnly entity
+  id: WeaponEnergyTurretAIControlPanel
+  categories: [ ShouldMapStation ]
+  suffix: AI
+  components:
+  # AI turret controller All Access
+  - type: !Remove DeployableTurretController
+    accessGroups: !Remove
+    accessLevels: !Remove
+
+- type: !PartialOnly entity
+  id: WeaponEnergyTurretSecurityControlPanel
+  categories: [ ShouldMapStation ]

@@ -1,0 +1,10 @@
+- type: !PartialOnly entity
+  id: BaseFirelock
+  components:
+    - type: Destructible
+      thresholds:
+      - !CombineIndex:0 trigger: !type:DamageTrigger
+          damage: 250
+    - type: AccessReader
+      access:
+      - [ "Command" ]

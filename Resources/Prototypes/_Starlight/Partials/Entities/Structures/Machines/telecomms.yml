@@ -1,0 +1,20 @@
+- type: !PartialOnly entity
+  id: TelecomServerFilled
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyLaw
+
+- type: !PartialOnly entity
+  id: !type:CreateVariants
+    values:
+    - TelecomServerFilledCommon
+    - TelecomServerFilledCargo
+    - TelecomServerFilledEngineering
+    - TelecomServerFilledMedical
+    - TelecomServerFilledScience
+    - TelecomServerFilledSecurity
+    - TelecomServerFilledService
+    - TelecomServerFilledCommand
+  categories: [ ShouldMapStation ]

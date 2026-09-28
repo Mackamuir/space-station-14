@@ -1,0 +1,10 @@
+- type: !PartialOnly entity
+  id: SmartFridge
+  components:
+  - type: UserInterface
+    interfaces:
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Wires
+    layoutId: SmartFridge
+    boardName: wires-board-name-vendingmachine

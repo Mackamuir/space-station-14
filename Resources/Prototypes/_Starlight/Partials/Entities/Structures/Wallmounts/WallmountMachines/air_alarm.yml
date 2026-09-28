@@ -1,0 +1,15 @@
+- type: !PartialOnly entity
+  id: AirAlarm
+  components:
+  - type: Tag
+    tags:
+      - Labelable
+  - type: RCDDeconstructable
+    cost: 3
+    delay: 2
+    fx: EffectRCDDeconstruct2
+    rpd: true
+
+- type: !PartialOnly entity
+  id: AirAlarmXeno
+  name: alien air alarm # name the variant so players can tell it apart

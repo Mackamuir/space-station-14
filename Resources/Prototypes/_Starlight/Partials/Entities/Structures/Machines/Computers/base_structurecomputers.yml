@@ -1,0 +1,30 @@
+- type: !PartialOnly entity
+  id: BaseComputer
+  components:
+  - type: EdgeConnection
+    connectionKey: computers
+    allowedDirections: East, West
+  - type: ItemSlots
+    slots:
+      pai_slot:
+        name: Personal AI Device
+        ejectOnInteract: true
+        whitelist:
+          components:
+          - PAI
+  - type: GenericVisualizer
+    visuals:
+      enum.EdgeConnectionVisuals.ConnectionMask:
+        computerLayerBody:
+          None: { state: computer, sprite: Structures/Machines/computers.rsi }
+          West: { state: computer_r, sprite: _Starlight/Structures/Machines/computers.rsi }
+          East: { state: computer_l, sprite: _Starlight/Structures/Machines/computers.rsi }
+          East, West: { state: computer_l_r, sprite: _Starlight/Structures/Machines/computers.rsi }
+  - type: PointLight
+    radius: 2.5 # 1.5 -> 2.5
+    energy: 1.5 # 3.0 -> 1.5
+  # ES Start
+  - type: ESSparkOnHit
+    prob: 0.25
+    count: 2
+  # ES End

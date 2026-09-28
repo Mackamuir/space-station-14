@@ -64,14 +64,7 @@
     canCollide: false
     bodyType: static
   - type: StaticPrice
-    price: 30 # Starlight
-  # Starlight Start: RPD
-  - type: RCDDeconstructable
-    cost: 1
-    delay: 2
-    fx: EffectRCDDeconstruct2
-    rpd: true
-  # Starlight End
+    price: 30
 
 # Starlight start
 - type: entity
@@ -157,10 +150,6 @@
         !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: Longitudinal
-  # Starlight start
-  - type: VentCrawlTube
-  - type: VentCrawlTransit
-  # Starlight end
   - type: Sprite
     layers:
     - state: pipeStraight
@@ -208,10 +197,6 @@
         !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: SWBend
-  # Starlight start
-  - type: VentCrawlTube
-  - type: VentCrawlBend
-  # Starlight end
   - type: Sprite
     layers:
       - state: pipeBend
@@ -295,14 +280,6 @@
         Blunt: 10
     soundHit:
       collection: MetalThud
-  # Starlight start
-  - type: VentCrawlTube
-  - type: VentCrawlJunction
-    degrees:
-      - 0
-      - 90
-      - -90
-  # Starlight end
   - type: GuideHelp
     guides:
     - Pipes
@@ -339,15 +316,6 @@
   - type: Construction
     graph: GasPipe
     node: fourway
-  # Starlight start
-  - type: VentCrawlTube
-  - type: VentCrawlJunction
-    degrees:
-      - 0
-      - 90
-      - -90
-      - 180
-  # Starlight end
   - type: Item
     heldPrefix: Fourway
     storedSprite:
@@ -500,9 +468,3 @@
     navMapBlip: GasPipeManifold
     showAbsentConnections: false
   - type: AtmosDevice
-  # Starlight-start
-  - type: VentCrawlTube
-  - type: VentCrawlManifold
-    layerCount: 5
-  - type: VentCrawlTransit
-  # Starlight-end

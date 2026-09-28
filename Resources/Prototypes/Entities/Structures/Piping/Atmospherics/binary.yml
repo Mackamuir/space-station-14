@@ -3,7 +3,7 @@
   abstract: true
   id: GasBinaryBase
   placement:
-    mode: AlignAtmosPipeLayers # starlight
+    mode: SnapgridCenter
   components:
   - type: AtmosDevice
   # Carpmosia-start - Atmos stacking
@@ -98,22 +98,6 @@
       path: /Audio/Ambience/Objects/gas_pump.ogg
   - type: AtmosMonitoringConsoleDevice
     navMapBlip: GasFlowRegulator
-  # Starlight start
-  - type: VentCrawlTube
-  - type: VentCrawlTransit
-  - type: DeviceNetwork
-    deviceNetId: Wireless
-    receiveFrequencyId: BasicDevice
-    prefix: device-address-prefix-gas-pump
-  - type: WirelessNetworkConnection
-    range: 200
-  - type: DeviceLinkSink
-    ports:
-      - On
-      - Off
-      - Toggle
-  - type: GasPressurePumpSignal
-  # Starlight end
   - type: GuideHelp
     guides:
     - Pumps
@@ -181,25 +165,16 @@
       range: 5
       sound:
         path: /Audio/Ambience/Objects/gas_pump.ogg
-        # Starlight: Replaced DeviceNetwork, see Starlight block
+    - type: DeviceNetwork
+      deviceNetId: AtmosDevices
+      receiveFrequencyId: AtmosMonitor
+      transmitFrequencyId: AtmosMonitor
+      sendBroadcastAttemptEvent: true
+      examinableAddress: true
+      prefix: device-address-prefix-volume-pump
+    - type: WiredNetworkConnection
     - type: AtmosMonitoringConsoleDevice
       navMapBlip: GasFlowRegulator
-    # Starlight start
-    - type: VentCrawlTube
-    - type: VentCrawlTransit
-    - type: DeviceNetwork
-      deviceNetId: Wireless
-      receiveFrequencyId: BasicDevice
-      prefix: device-address-prefix-volume-pump
-    - type: WirelessNetworkConnection
-      range: 200
-    - type: DeviceLinkSink
-      ports:
-        - On
-        - Off
-        - Toggle
-    - type: GasVolumePumpSignal
-    # Starlight end
     - type: GuideHelp
       guides:
       - Pumps
@@ -265,10 +240,6 @@
       path: /Audio/Ambience/Objects/gas_hiss.ogg
   - type: AtmosMonitoringConsoleDevice
     navMapBlip: GasFlowRegulator
-  # Starlight start
-  - type: VentCrawlTube
-  - type: VentCrawlTransit
-  # Starlight end
   - type: GuideHelp
     guides:
     - PressureRegulator
@@ -308,17 +279,13 @@
       graph: GasBinary
       node: passivegate
     - type: AmbientSound
-      enabled: false # Starlight-edit: Unnecessary audio feedback for an always-on device
+      enabled: true
       volume: -9
       range: 5
       sound:
         path: /Audio/Ambience/Objects/gas_hiss.ogg
     - type: AtmosMonitoringConsoleDevice
       navMapBlip: GasValve
-    # Starlight start
-    - type: VentCrawlTube
-    - type: VentCrawlTransit
-    # Starlight end
     - type: GuideHelp
       guides:
       - PassiveGate
@@ -378,16 +345,12 @@
       node: valve
     - type: AmbientSound
       enabled: true
-      volume: -13 # Starlight-edit: half the original amplitude (-9dB)
-      range: 3 # Starlight-edit: smaller radius so valve clusters don't overlap
+      volume: -9
+      range: 5
       sound:
         path: /Audio/Ambience/Objects/gas_hiss.ogg
     - type: AtmosMonitoringConsoleDevice
       navMapBlip: GasValve
-    # Starlight start
-    - type: VentCrawlTube
-    - type: VentCrawlTransit
-    # Starlight end
     - type: GuideHelp
       guides:
       - ManualValve
@@ -458,16 +421,12 @@
     node: signalvalve
   - type: AmbientSound
     enabled: true
-    volume: -13 # Starlight-edit: half the original amplitude (-9dB)
-    range: 3 # Starlight-edit: smaller radius so valve clusters don't overlap
+    volume: -9
+    range: 5
     sound:
       path: /Audio/Ambience/Objects/gas_hiss.ogg
   - type: AtmosMonitoringConsoleDevice
     navMapBlip: GasValve
-  # Starlight start
-  - type: VentCrawlTube
-  - type: VentCrawlTransit
-  # Starlight end
   - type: GuideHelp
     guides:
     - SignalValve
@@ -478,7 +437,7 @@
   name: connector port
   description: For connecting portable devices related to atmospherics control.
   placement:
-    mode: AlignAtmosPipeLayers # starlight
+    mode: SnapgridCenter
   components:
     # Carpmosia-start - Atmos stacking
     - type: Tag
@@ -496,10 +455,8 @@
           map: [ "enum.PipeVisualLayers.Pipe" ]
         - state: gasCanisterPort
           map: [ "enum.SubfloorLayers.FirstLayer" ]
-    # Starlight Start
     - type: AtmosPipeLayers
       spriteRsiPaths: {}
-    # Starlight End
     # Carpmosia-start - Atmos Alt Prototypes
       alternativePrototypes:
         Primary: GasPort
@@ -522,12 +479,6 @@
       node: port
     - type: AtmosMonitoringConsoleDevice
       navMapBlip: GasVentOpening
-    # Starlight start
-    - type: VentCrawlTube
-    - type: VentCrawlJunction
-      degrees:
-        - 0
-    # Starlight end
     - type: GuideHelp
       guides:
       - GasCanisters
@@ -535,11 +486,10 @@
 - type: entity
   parent: GasVentPump
   id: GasDualPortVentPump
-  categories: [ DoNotMap ] # Starlight - Blacklisted by WizDen for mapping, extremely easy to use wrong, best to just not map them at all.
   name: dual-port air vent
   description: Has a valve and a pump attached to it. There are two ports, one is an input for releasing air, the other is an output when siphoning.
   placement:
-    mode: AlignAtmosPipeLayers # starlight
+    mode: SnapgridCenter
   components:
     - type: SubFloorHide
       visibleLayers:
@@ -553,10 +503,8 @@
           map: [ "enum.PipeVisualLayers.Pipe" ]
         - state: vent_off
           map: [ "enabled", "enum.SubfloorLayers.FirstLayer" ]
-    # Starlight Start
     - type: AtmosPipeLayers
       spriteRsiPaths: {}
-    # Starlight End
     # Carpmosia-start - Atmos Alt Prototypes
       alternativePrototypes:
         Primary: GasDualPortVentPump
@@ -605,11 +553,6 @@
       enabled: true
     - type: AtmosMonitoringConsoleDevice
       navMapBlip: GasVentOpening
-    # Starlight start
-    - type: VentCrawlTube
-      blocksVision: false
-    - type: VentCrawlTransit
-    # Starlight end
     - type: GuideHelp
       guides:
       - AirVent
@@ -692,10 +635,6 @@
     navMapBlip: GasValve
   - type: Transform
     noRot: false
-  # Starlight start
-  - type: VentCrawlTube
-  - type: VentCrawlTransit
-  # Starlight end
   - type: GuideHelp
     guides:
     - GasRecycling
@@ -750,10 +689,6 @@
     node: radiator
   - type: AtmosMonitoringConsoleDevice
     navMapBlip: Thermoregulator
-  # Starlight start
-  - type: VentCrawlTube
-  - type: VentCrawlTransit
-  # Starlight end
   - type: GuideHelp
     guides:
     - Radiators
@@ -786,7 +721,3 @@
     - type: Construction
       graph: GasBinary
       node: bendradiator
-    # Starlight start
-    - type: VentCrawlTube
-    - type: VentCrawlBend
-    # Starlight end

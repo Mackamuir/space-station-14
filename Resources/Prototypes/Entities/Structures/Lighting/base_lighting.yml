@@ -23,7 +23,7 @@
     graph: LightFixture
     node: tubeLight
   - type: Sprite
-    sprite: _Starlight/Structures/Wallmounts/Lighting/light_tube.rsi #SL Edit
+    sprite: Structures/Wallmounts/Lighting/light_tube.rsi
     drawdepth: WallMountedItems
     layers:
     - map: ["enum.PoweredLightLayers.Base"]
@@ -37,7 +37,7 @@
     energy: 0.8
     radius: 10
     softness: 1
-    offset: "0, -0.495" # Starlight - reverts Upstream #44843, which made wall mounted lights look extremely sharp
+    offset: "0, -0.5"
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Metallic
@@ -86,9 +86,6 @@
           collection: GlassBreak
   - type: PlacementReplacement
     key: lights
-  # ES START
-  - type: ESSparkOnHit
-  # ES END
   placement:
     mode: SnapgridCenter
     snap:
@@ -102,7 +99,7 @@
   parent: AlwaysPoweredWallLight
   components:
   - type: Sprite
-    sprite: _Starlight/Structures/Wallmounts/Lighting/light_tube.rsi #SL Edit
+    sprite: Structures/Wallmounts/Lighting/light_tube.rsi
     state: empty
   - type: PointLight
     enabled: false
@@ -216,8 +213,8 @@
   components:
   - type: PointLight
     radius: 12
-    energy: 4 #SL 4.5 -> 4
-    softness: 0.8 #SL 0.5 -> 0.8
+    energy: 4.5
+    softness: 0.5
     color: "#B4FCF0"
 
 #Sodium lights
@@ -265,7 +262,7 @@
       sound:
         path: /Audio/Ambience/Objects/light_hum.ogg
     - type: Sprite
-      sprite: _Starlight/Structures/Wallmounts/Lighting/light_small.rsi #SL Edit
+      sprite: Structures/Wallmounts/Lighting/light_small.rsi
       state: base
     - type: PointLight
       energy: 1.0
@@ -319,13 +316,13 @@
   parent: SmallLight
   components:
   - type: Sprite
-    sprite: _Starlight/Structures/Wallmounts/Lighting/light_small.rsi #SL Edit
+    sprite: Structures/Wallmounts/Lighting/light_small.rsi
     state: empty
   - type: AmbientSound
     enabled: false
   - type: PointLight
     enabled: false
-    offset: "0, -0.495" # Starlight - reverts Upstream #44843, which made wall mounted lights look extremely sharp
+    offset: "0, -0.5"
   - type: ContainerContainer
     containers:
       light_bulb: !type:ContainerSlot
@@ -441,14 +438,14 @@
 - type: entity
   id: EmergencyLight
   name: emergency light
-  description: A small light with an internal battery that turns on as soon as it stops receiving any power. NanoTrasen technology allows it to adapt its color to alert crew to the conditions of the station. # SL
+  description: A small light with an internal battery that turns on as soon as it stops receiving any power. Nanotrasen technology allows it to adapt its color to alert crew to the conditions of the station.
   parent: AlwaysPoweredWallLight
   suffix: ""
   components:
   - type: PointLight
     enabled: false
-    radius: 7 #Starlight
-    energy: 1 #Starlight
+    radius: 5
+    energy: 0.6
     offset: "0, 0.4"
     color: "#7CFC00"
     lightMask: ConeDouble
@@ -466,7 +463,7 @@
   - type: RotatingLight
     speed: 40
   - type: Sprite
-    sprite: _Starlight/Structures/Wallmounts/Lighting/emergency_light.rsi #SL Edit
+    sprite: Structures/Wallmounts/Lighting/emergency_light.rsi
     layers:
     - state: base
       map: [ "enum.EmergencyLightVisualLayers.Base" ]
@@ -528,7 +525,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#5ae8ed" #SL Edit
+    color: "#47f8ff"
   - type: DamageOnInteract
     damage:
       types:
@@ -544,7 +541,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#5ae8ed" #SL Edit
+    color: "#47f8ff"
 
 - type: entity
   id: PoweredlightBlue
@@ -557,7 +554,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#4ca1eb" #SL Edit
+    color: "#39a1ff"
   - type: DamageOnInteract
     damage:
       types:
@@ -573,7 +570,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#4ca1eb" #SL Edit
+    color: "#39a1ff"
 
 - type: entity
   id: PoweredlightYellow
@@ -586,7 +583,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#edd25a" #SL Edit
+    color: "#ffde46"
   - type: DamageOnInteract
     damage:
       types:
@@ -602,7 +599,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#edd25a" #SL Edit
+    color: "#ffde46"
 
 - type: entity
   id: PoweredlightPink
@@ -615,7 +612,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#f075c7" #SL Edit
+    color: "#ff66cc"
   - type: DamageOnInteract
     damage:
       types:
@@ -631,7 +628,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#f075c7" #SL Edit
+    color: "#ff66cc"
 
 - type: entity
   id: PoweredlightOrange
@@ -644,7 +641,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#ea863e" #SL Edit
+    color: "#ff8227"
   - type: DamageOnInteract
     damage:
       types:
@@ -660,7 +657,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#ea863e" #SL Edit
+    color: "#ff8227"
 
 - type: entity
   id: PoweredlightBlack
@@ -674,7 +671,7 @@
     radius: 8
     energy: 1
     softness: 0.5
-    color: "#4d4d4d" #SL Edit
+    color: "#363636"
   - type: DamageOnInteract
     damage:
       types:
@@ -690,7 +687,7 @@
     radius: 8
     energy: 1
     softness: 0.5
-    color: "#4d4d4d" #SL Edit
+    color: "#363636"
 
 - type: entity
   id: PoweredlightRed
@@ -703,7 +700,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#ec5555" #SL Edit
+    color: "#fb4747"
   - type: DamageOnInteract
     damage:
       types:
@@ -719,7 +716,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#ec5555" #SL Edit
+    color: "#fb4747"
 
 - type: entity
   id: PoweredlightGreen
@@ -732,7 +729,7 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#7eeb4c" #SL Edit
+    color: "#52ff39"
   - type: DamageOnInteract
     damage:
       types:
@@ -748,4 +745,4 @@
     radius: 8
     energy: 3
     softness: 0.5
-    color: "#7eeb4c" #SL Edit
+    color: "#52ff39"

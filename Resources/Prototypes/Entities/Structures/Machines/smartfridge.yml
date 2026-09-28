@@ -65,13 +65,8 @@
     interfaces:
       enum.SmartFridgeUiKey.Key:
         type: SmartFridgeBoundUserInterface
-      enum.WiresUiKey.Key: #Starlight
-        type: WiresBoundUserInterface #Starlight
   - type: WiresPanel
   - type: WiresVisuals
-  - type: Wires # Starlight
-    layoutId: SmartFridge
-    boardName: wires-board-name-vendingmachine
   - type: AccessReader
   - type: UseDelay
     delay: 1

@@ -1,0 +1,16 @@
+- type: !PartialOnly entity
+  id: CryoPod
+  components:
+  - type: PointLight
+    castShadows: false # lighting optimization
+
+- type: !PartialOnly entity
+  id: CryoPodDestroyed
+  components:
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 500 # 5 sheets
+      Glass: 300 # 3 sheets
+  - type: Construction # Makes the destroyed Cryo Pods deconstructable
+    graph: Machine
+    node: destroyedMachineFrame

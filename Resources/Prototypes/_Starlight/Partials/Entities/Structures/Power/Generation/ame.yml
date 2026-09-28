@@ -1,0 +1,15 @@
+- type: !PartialOnly entity
+  id: AmeController
+  components:
+  - type: Sprite
+    sprite: _Starlight/Structures/Power/Generation/ame.rsi
+  - type: PowerMonitoringDevice
+    sprite: _Starlight/Structures/Power/Generation/ame.rsi
+
+- type: !PartialOnly entity
+  id: AmeShielding
+  components:
+  - type: Sprite
+    sprite: _Starlight/Structures/Power/Generation/ame.rsi
+  - type: PointLight
+    castShadows: false # lighting optimization

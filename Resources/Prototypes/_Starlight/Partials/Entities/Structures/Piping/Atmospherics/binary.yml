@@ -15,3 +15,118 @@
     - type: SandboxCopyOverride
       override: !type:CreateVariants
         values: *protos
+
+- type: !PartialOnly entity
+  id: GasBinaryBase
+  placement:
+    mode: AlignAtmosPipeLayers
+
+- type: !PartialOnly entity
+  id: GasPressurePump
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlTransit
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+    prefix: device-address-prefix-gas-pump
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSink
+    ports:
+      - On
+      - Off
+      - Toggle
+  - type: GasPressurePumpSignal
+
+- type: !PartialOnly entity
+  id: GasVolumePump
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlTransit
+  # Replaced wired AtmosDevices DeviceNetwork with a wireless one
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+    transmitFrequencyId: !Remove
+    sendBroadcastAttemptEvent: !Remove
+    examinableAddress: !Remove
+  - type: !Remove WiredNetworkConnection
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSink
+    ports:
+      - On
+      - Off
+      - Toggle
+  - type: GasVolumePumpSignal
+
+- type: !PartialOnly entity
+  id: GasPressureRegulator
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlTransit
+
+- type: !PartialOnly entity
+  id: GasPassiveGate
+  components:
+  - type: AmbientSound
+    enabled: false # Unnecessary audio feedback for an always-on device
+  - type: VentCrawlTube
+  - type: VentCrawlTransit
+
+- type: !PartialOnly entity
+  id: GasValve
+  components:
+  - type: AmbientSound
+    volume: -13 # half the original amplitude (-9dB)
+    range: 3 # smaller radius so valve clusters don't overlap
+  - type: VentCrawlTube
+  - type: VentCrawlTransit
+
+- type: !PartialOnly entity
+  id: SignalControlledValve
+  components:
+  - type: AmbientSound
+    volume: -13 # half the original amplitude (-9dB)
+    range: 3 # smaller radius so valve clusters don't overlap
+  - type: VentCrawlTube
+  - type: VentCrawlTransit
+
+- type: !PartialOnly entity
+  id: GasPort
+  placement:
+    mode: AlignAtmosPipeLayers
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlJunction
+    degrees:
+      - 0
+
+- type: !PartialOnly entity
+  id: GasDualPortVentPump
+  categories: [ DoNotMap ] # Blacklisted by WizDen for mapping, extremely easy to use wrong, best to just not map them at all
+  placement:
+    mode: AlignAtmosPipeLayers
+  components:
+  - type: VentCrawlTube
+    blocksVision: false
+  - type: VentCrawlTransit
+
+- type: !PartialOnly entity
+  id: GasRecycler
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlTransit
+
+- type: !PartialOnly entity
+  id: HeatExchanger
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlTransit
+
+- type: !PartialOnly entity
+  id: HeatExchangerBend
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlBend

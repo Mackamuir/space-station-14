@@ -11,3 +11,115 @@
       override: !type:CreateVariants
         values: *protos
 
+- type: !PartialOnly entity
+  id: GasTrinaryBase
+  placement:
+    mode: AlignAtmosPipeLayers
+
+- type: !PartialOnly entity
+  id: GasFilter
+  placement:
+    mode: AlignAtmosPipeLayers
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlJunction
+    degrees:
+      - 0
+      - -90
+      - 180
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+    prefix: device-address-prefix-gas-filter
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSink
+    ports:
+      - On
+      - Off
+      - Toggle
+  - type: GasFilterSignal
+
+- type: !PartialOnly entity
+  id: GasFilterFlipped
+  placement:
+    mode: AlignAtmosPipeLayers
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlJunction
+    degrees:
+      - 0
+      - -90
+      - 180
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+    prefix: device-address-prefix-gas-filter
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSink
+    ports:
+      - On
+      - Off
+      - Toggle
+  - type: GasFilterSignal
+
+- type: !PartialOnly entity
+  id: GasMixer
+  placement:
+    mode: AlignAtmosPipeLayers
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlJunction
+    degrees:
+      - 0
+      - -90
+      - 180
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+    prefix: device-address-prefix-gas-mixer
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSink
+    ports:
+      - On
+      - Off
+      - Toggle
+  - type: GasMixerSignal
+
+- type: !PartialOnly entity
+  id: GasMixerFlipped
+  placement:
+    mode: AlignAtmosPipeLayers
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlJunction
+    degrees:
+      - 0
+      - -90
+      - 180
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+    prefix: device-address-prefix-gas-mixer
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSink
+    ports:
+      - On
+      - Off
+      - Toggle
+  - type: GasMixerSignal
+
+- type: !PartialOnly entity
+  id: PressureControlledValve
+  placement:
+    mode: AlignAtmosPipeLayers
+  components:
+  - type: VentCrawlTube
+  - type: VentCrawlJunction
+    degrees:
+      - 0
+      - -90
+      - 180

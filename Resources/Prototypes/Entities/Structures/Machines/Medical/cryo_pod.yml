@@ -102,7 +102,6 @@
     radius: 2
     energy: 10
     enabled: false
-    castShadows: false #SL lighting optimization
   - type: EmptyOnMachineDeconstruct
     containers:
       - scanner-body
@@ -163,9 +162,5 @@
         acts: [ "Destruction" ]
   - type: PhysicalComposition
     materialComposition:
-      Steel: 500 # 5 sheets - Starlight
-      Glass: 300 # 3 sheets - Starlight
-  - type: Construction #Starlight - Makes the destroyed Cryo Pods Deconstrucable - start
-    graph: Machine
-    node: destroyedMachineFrame
-    #Starlight - End
+      Steel: 2000 # 20 sheets
+      Glass: 1000 # 10 sheets

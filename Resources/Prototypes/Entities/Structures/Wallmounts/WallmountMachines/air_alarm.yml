@@ -45,7 +45,6 @@
   - type: Tag
     tags:
       - AirAlarm
-      - Labelable # Starlight
   - type: AtmosDevice
   - type: AirAlarm
   - type: AtmosAlertsDevice
@@ -110,13 +109,6 @@
     guides:
     - AirAlarms
     - DeviceMonitoringAndControl
-  # Starlight Start: RPD
-  - type: RCDDeconstructable
-    cost: 3
-    delay: 2
-    fx: EffectRCDDeconstruct2
-    rpd: true
-  # Starlight End: RPD
 
 - type: entity
   parent: BaseWallmountMetallic
@@ -164,7 +156,6 @@
 - type: entity
   id: AirAlarmXeno
   parent: AirAlarm
-  name: alien air alarm # Starlight-edit: name the variant so players can tell it apart
   description: An alien air alarm. Hopefully they didn't breathe poison.
   components:
   - type: Sprite

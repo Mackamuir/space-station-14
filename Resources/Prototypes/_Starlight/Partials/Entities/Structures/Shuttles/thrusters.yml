@@ -1,0 +1,15 @@
+- type: !PartialOnly entity
+  id: BaseThruster
+  components:
+  - type: Rotatable
+    rotateWhileAnchored: false
+  - type: Anchorable
+    delay: 10
+
+- type: !PartialOnly entity
+  id: ThrusterXenoborg
+  name: xenoborg thruster
+
+- type: !PartialOnly entity
+  id: DebugGyroscope
+  name: gyroscope

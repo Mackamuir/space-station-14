@@ -37,19 +37,6 @@
       state: generic_keys
     - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
       state: generic_panel_open
-  # Starlight Start
-  - type: EdgeConnection
-    connectionKey: computers
-    allowedDirections: East, West
-  - type: ItemSlots
-    slots:
-      pai_slot:
-        name: Personal AI Device
-        ejectOnInteract: true
-        whitelist:
-          components:
-          - PAI
-  # Starlight End
   - type: Appearance
   - type: GenericVisualizer
     visuals:
@@ -64,18 +51,10 @@
         enum.WiresVisualLayers.MaintenancePanel:
           True: { visible: false }
           False: { visible: true }
-      # Starlight Start
-      enum.EdgeConnectionVisuals.ConnectionMask:
-        computerLayerBody:
-          None: { state: computer, sprite: Structures/Machines/computers.rsi }
-          West: { state: computer_r, sprite: _Starlight/Structures/Machines/computers.rsi }
-          East: { state: computer_l, sprite: _Starlight/Structures/Machines/computers.rsi }
-          East, West: { state: computer_l_r, sprite: _Starlight/Structures/Machines/computers.rsi }
-      # Starlight End
   - type: LitOnPowered
   - type: PointLight
-    radius: 2.5 #SL 1.5 - > 2.5
-    energy: 1.5 #SL 3.0 -> 1.5
+    radius: 1.5
+    energy: 3.0
     enabled: false
     lightMask: ConeSingle
     autoRot: true
@@ -95,7 +74,7 @@
     containers:
       board: !type:Container
         ents: []
-      pai_slot: !type:ContainerSlot {} # Starlight-edit
+      pai_slot: !type:ContainerSlot {} # Starlight-edit - partials can't add empty values
   - type: LightningTarget
     priority: 1
   - type: RequireProjectileTarget
@@ -107,11 +86,6 @@
   - type: Wires
     boardName: wires-board-name-computer
     layoutId: Computer
-  # ES Start
-  - type: ESSparkOnHit
-    prob: 0.25
-    count: 2
-  # ES End
 #
 #     This is overwritten by children, so needs to be defined there
 #  - type: UserInterface

@@ -1,7 +1,7 @@
 - type: entity
   id: BaseFirelock
   abstract: true
-  parent: [ BaseStructure, BaseStructureDissolvable ] # Starlight-edit
+  parent: [ BaseStructure, BaseStructureDissolvable ] # TODO Starlight partial once space-wizards/RobustToolbox/pull/7084 gets fixed
   name: firelock
   description: Apply crowbar.
   components:
@@ -35,7 +35,7 @@
       thresholds:
       - trigger:
           !type:DamageTrigger
-          damage: 250 #SL
+          damage: 500
         behaviors:
         - !type:DoActsBehavior
           acts: ["Destruction"]
@@ -132,7 +132,7 @@
     - type: StaticPrice
       price: 150
     - type: AccessReader
-      access: [ [ "Engineering" ], [ "Command" ] ] # Starlight-edit
+      access: [ [ "Engineering" ] ]
       examinationText: access-reader-examination-functionality-restricted
     - type: PryUnpowered
       pryModifier: 0.5

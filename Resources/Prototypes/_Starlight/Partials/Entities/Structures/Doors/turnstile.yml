@@ -1,0 +1,35 @@
+- type: !PartialOnly entity
+  id: Turnstile
+  components:
+  - type: Damageable
+    damageContainer: StructuralInorganic # they really should take structural damage
+  - type: Destructible
+    thresholds:
+    - !CombineIndex:0 trigger: !type:DamageTrigger
+        damage: 250
+  - type: AccessReader
+    containerAccessProvider: board
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronics ]
+  - type: ContainerContainer
+    containers:
+      board: !type:Container
+
+- type: !PartialOnly entity
+  id: TurnstileGenpopEnter
+  components:
+  - type: !Remove AccessReader
+    access: !Remove
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsGenpopEnter ]
+
+- type: !PartialOnly entity
+  id: TurnstileGenpopLeave
+  components:
+  - type: !Remove AccessReader
+    access: !Remove
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsGenpopLeave ]

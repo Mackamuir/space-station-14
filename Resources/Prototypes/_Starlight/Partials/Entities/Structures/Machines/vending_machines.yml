@@ -1,0 +1,556 @@
+# Destructible ChangeConstructionNodeBehavior for VendingMachine is left in the upstream file (order-sensitive behavior list).
+- type: !PartialOnly entity
+  id: VendingMachine
+  components:
+  # Languages
+  - type: LanguageSpeaker
+  - type: LanguageKnowledge
+    speaks:
+    - GalacticCommon
+    - Machine
+    understands:
+    - GalacticCommon
+    - Machine
+
+- type: !PartialOnly entity
+  id: VendingMachineCondiments
+  categories: [ ShouldMapStation ] # some food chems are exclusively provided by this!
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineCondimentsCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineAmmo
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineAmmoCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineBooze
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineBoozeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineBoozeSyndicate
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineBoozeSyndicateCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineCart
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineCartCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineChefvend
+  categories: [ ShouldMapStation ]
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineChefvendCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineCigs
+  components:
+  - type: Machine
+    board: VendingMachineCigsCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineClothing
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineClothingCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineWinter
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineWinterCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineCoffee
+  components:
+  - type: Machine
+    board: VendingMachineCoffeeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineCola
+  components:
+  - type: Machine
+    board: VendingMachineColaCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineColaBlack
+  components:
+  - type: Machine
+    board: VendingMachineColaBlackCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineColaRed
+  components:
+  - type: Machine
+    board: VendingMachineColaRedCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSpaceUp
+  components:
+  - type: Machine
+    board: VendingMachineSpaceUpCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSoda
+  components:
+  - type: Machine
+    board: VendingMachineSodaCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineStarkist
+  components:
+  - type: Machine
+    board: VendingMachineStarkistCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineShamblersJuice
+  components:
+  - type: Machine
+    board: VendingMachineShamblersJuiceCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachinePwrGame
+  components:
+  - type: Machine
+    board: VendingMachinePwrGameCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineDrGibb
+  components:
+  - type: Machine
+    board: VendingMachineDrGibbCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSmite
+  components:
+  - type: Machine
+    board: VendingMachineSmiteCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineDinnerware
+  categories: [ ShouldMapStation ]
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineDinnerwareCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineMagivend
+  components:
+  - type: VendingMachine
+    showPrices: false
+
+- type: !PartialOnly entity
+  id: VendingMachineDiscount
+  components:
+  - type: Machine
+    board: VendingMachineDiscountCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineEngivend
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineEngivendCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineMedicalBase
+  suffix: Civilian
+  components:
+  - type: VendingMachine
+    showPrices: True
+
+- type: !PartialOnly entity
+  id: VendingMachineMedical
+  suffix: Departmental
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineMedicalCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineNutri
+  categories: [ ShouldMapStation ]
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineNutriCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSec
+  categories: [ ShouldMapStation ]
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineSecCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSeedsUnlocked
+  categories: [ ShouldMapStation ] # (for GenPops)
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineSeedsUnlockedCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSeeds
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineSeedsCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSnack
+  components:
+  - type: Machine
+    board: VendingMachineSnackCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSustenance
+  components:
+  - type: Machine
+    board: VendingMachineSustenanceCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSnackBlue
+  components:
+  - type: Machine
+    board: VendingMachineSnackBlueCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSnackOrange
+  components:
+  - type: Machine
+    board: VendingMachineSnackOrangeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSnackGreen
+  components:
+  - type: Machine
+    board: VendingMachineSnackGreenCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSnackTeal
+  components:
+  - type: Machine
+    board: VendingMachineSnackTealCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSovietSoda
+  components:
+  - type: Machine
+    board: VendingMachineSovietSodaCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineTheater
+  components:
+  - type: Machine
+    board: VendingMachineTheaterCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineVendomat
+  components:
+  - type: Machine
+    board: VendingMachineVendomatCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineRobotics
+  categories: [ ShouldMapStation ]
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineRoboticsCircuitboard
+  - type: AccessReader
+    access: !Clear [["Robotics"]]
+
+- type: !PartialOnly entity
+  id: VendingMachineYouTool
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineYouToolCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineGames
+  categories: [ ShouldMapStation ]
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineGamesCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineChang
+  components:
+  - type: Machine
+    board: VendingMachineChangCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSalvage
+  categories: [ ShouldMapStation ]
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineSalvageCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineDonut
+  components:
+  - type: Machine
+    board: VendingMachineDonutCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineHydrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineHydrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineLawDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineLawDrobeCircuitboard
+  - type: AccessReader
+    access: !Clear [["IAA"]]
+
+- type: !PartialOnly entity
+  id: VendingMachineSecDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineSecDrobeCircuitboard
+  - type: AccessReader
+    access: [["Cadet"]] # add cadet
+
+- type: !PartialOnly entity
+  id: VendingBarDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingBarDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineChapel
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineChapelCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineCargoDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineCargoDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineMediDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineMediDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineChemDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineChemDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineCuraDrobe
+  components:
+  - type: Machine
+    board: VendingMachineCuraDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineAtmosDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineAtmosDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineEngiDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineEngiDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineChefDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineChefDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineDetDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineDetDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineJaniDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineJaniDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSciDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineSciDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineSyndieDrobe
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineSyndieDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineRoboDrobe
+  categories: [ ShouldMapStation ]
+  components:
+  - type: Machine
+    board: VendingMachineRoboDrobeCircuitboard
+  - type: AccessReader
+    access: !Clear [["Robotics"]]
+
+- type: !PartialOnly entity
+  id: VendingMachineGeneDrobe
+  components:
+  - type: Machine
+    board: VendingMachineGeneDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineViroDrobe
+  components:
+  - type: Machine
+    board: VendingMachineViroDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineCentDrobe
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineCentDrobeCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineHappyHonk
+  categories: [ ShouldMapStation ]
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineHappyHonkCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachinePride
+  categories: [ ShouldMapStation ]
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachinePrideCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineTankDispenserEVA
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineTankDispenserEVACircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineTankDispenserEngineering
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineTankDispenserEngineeringCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineChemicals
+  categories: [ ShouldMapStation ]
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineChemicalsCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineChemicalsSyndicate
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Sprite
+    sprite: _Starlight/Structures/Machines/VendingMachines/syndie_chemvend.rsi # New sprite
+    layers:
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.Base"]
+    - state: "off"
+      map: ["enum.VendingMachineVisualLayers.BaseUnshaded"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: Machine
+    board: VendingMachineChemicalsSyndicateCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineWallMedicalCivilian
+  suffix: Civilian, Wallmount
+  components:
+  - type: VendingMachine
+    showPrices: True
+  - type: Machine
+    board: VendingMachineWallMedicalCivilianCircuitboard
+
+- type: !PartialOnly entity
+  id: VendingMachineWallMedical
+  suffix: Departmental, Wallmount
+  components:
+  - type: VendingMachine
+    showPrices: false
+  - type: Machine
+    board: VendingMachineWallMedicalCircuitboard

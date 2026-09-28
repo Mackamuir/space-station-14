@@ -1,0 +1,11 @@
+- type: !PartialOnly entity
+  id: ParticleAcceleratorControlBox
+  components:
+  - type: Sprite
+    sprite: _Starlight/Structures/Power/Generation/PA/control_box.rsi
+
+- type: !PartialOnly entity
+  id: ParticleAcceleratorControlBoxUnfinished
+  components:
+  - type: Sprite
+    sprite: _Starlight/Structures/Power/Generation/PA/control_box.rsi

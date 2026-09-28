@@ -89,26 +89,17 @@
       - Pullable # no dragging things in
   - type: Appearance
   - type: Damageable
-    damageContainer: StructuralInorganic # Starlight - they really should take structural damage
+    damageContainer: Inorganic
     damageModifierSet: StrongMetallic
   - type: Destructible
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 250 #SL
+        damage: 500
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
-  #starlight region
   - type: AccessReader
-    containerAccessProvider: board
-  - type: ContainerFill
-    containers:
-      board: [ DoorElectronics ]
-  - type: ContainerContainer
-    containers:
-      board: !type:Container
-  #starlight region end
   - type: Construction
     graph: Turnstile
     node: turnstile
@@ -131,6 +122,7 @@
     - HideContextMenu
 
 # Genpop
+# Starlight
 - type: entity
   id: DoorElectronicsGenpopEnter
   parent: DoorElectronics
@@ -156,15 +148,13 @@
   parent: Turnstile
   suffix: Genpop Enter
   components:
-  - type: ContainerFill
-    containers:
-      board: [ DoorElectronicsGenpopEnter ]
+  - type: AccessReader
+    access: [["GenpopEnter"], ["Security"]]
 
 - type: entity
   id: TurnstileGenpopLeave
   parent: Turnstile
   suffix: Genpop Leave
   components:
-  - type: ContainerFill
-    containers:
-      board: [ DoorElectronicsGenpopLeave ]
+  - type: AccessReader
+    access: [["GenpopLeave"], ["Security"]]

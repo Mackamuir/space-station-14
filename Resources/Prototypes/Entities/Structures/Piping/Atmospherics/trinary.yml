@@ -3,7 +3,7 @@
   abstract: true
   id: GasTrinaryBase
   placement:
-    mode: AlignAtmosPipeLayers # starlight
+    mode: SnapgridCenter
   components:
     - type: AtmosDevice
     - type: Tag
@@ -33,7 +33,7 @@
   name: gas filter
   description: Very useful for filtering gases.
   placement:
-    mode: AlignAtmosPipeLayers # starlight
+    mode: SnapgridCenter
   components:
     - type: SubFloorHide
       visibleLayers:
@@ -84,26 +84,6 @@
         path: /Audio/Ambience/Objects/gas_hiss.ogg
     - type: AtmosMonitoringConsoleDevice
       navMapBlip: GasFlowRegulator
-    # Starlight start
-    - type: VentCrawlTube
-    - type: VentCrawlJunction
-      degrees:
-        - 0
-        - -90
-        - 180
-    - type: DeviceNetwork
-      deviceNetId: Wireless
-      receiveFrequencyId: BasicDevice
-      prefix: device-address-prefix-gas-filter
-    - type: WirelessNetworkConnection
-      range: 200
-    - type: DeviceLinkSink
-      ports:
-        - On
-        - Off
-        - Toggle
-    - type: GasFilterSignal
-    # Starlight end
     - type: GuideHelp
       guides:
       - MixingAndFiltering
@@ -114,7 +94,7 @@
   name: gas filter
   suffix: Flipped
   placement:
-    mode: AlignAtmosPipeLayers # starlight
+    mode: SnapgridCenter
   components:
   - type: SubFloorHide
     visibleLayers:
@@ -163,26 +143,6 @@
         !type:PipeNode
         nodeGroupID: Pipe
         pipeDirection: North
-  # Starlight start
-  - type: VentCrawlTube
-  - type: VentCrawlJunction
-    degrees:
-      - 0
-      - -90
-      - 180
-  - type: DeviceNetwork
-    deviceNetId: Wireless
-    receiveFrequencyId: BasicDevice
-    prefix: device-address-prefix-gas-filter
-  - type: WirelessNetworkConnection
-    range: 200
-  - type: DeviceLinkSink
-    ports:
-      - On
-      - Off
-      - Toggle
-  - type: GasFilterSignal
-  # Starlight end
 
 - type: entity
   parent: GasTrinaryBase
@@ -190,7 +150,7 @@
   name: volumetric gas mixer # Moffstation Edit: Added "volumetric"
   description: Very useful for mixing gases.
   placement:
-    mode: AlignAtmosPipeLayers # starlight
+    mode: SnapgridCenter
   components:
     - type: SubFloorHide
       visibleLayers:
@@ -241,26 +201,6 @@
         path: /Audio/Ambience/Objects/gas_hiss.ogg
     - type: AtmosMonitoringConsoleDevice
       navMapBlip: GasFlowRegulator
-    # Starlight start
-    - type: VentCrawlTube
-    - type: VentCrawlJunction
-      degrees:
-        - 0
-        - -90
-        - 180
-    - type: DeviceNetwork
-      deviceNetId: Wireless
-      receiveFrequencyId: BasicDevice
-      prefix: device-address-prefix-gas-mixer
-    - type: WirelessNetworkConnection
-      range: 200
-    - type: DeviceLinkSink
-      ports:
-        - On
-        - Off
-        - Toggle
-    - type: GasMixerSignal
-    # Starlight end
     - type: GuideHelp
       guides:
       - MixingAndFiltering
@@ -271,7 +211,7 @@
   name: volumetric gas mixer # Moffstation Edit: Added "volumetric"
   suffix: Flipped
   placement:
-    mode: AlignAtmosPipeLayers # starlight
+    mode: SnapgridCenter
   components:
   - type: Sprite
     sprite: Structures/Piping/Atmospherics/gasmixer.rsi
@@ -316,26 +256,6 @@
         pipeDirection: North
   - type: Construction
     node: mixerflipped
-  # Starlight start
-  - type: VentCrawlTube
-  - type: VentCrawlJunction
-    degrees:
-      - 0
-      - -90
-      - 180
-  - type: DeviceNetwork
-    deviceNetId: Wireless
-    receiveFrequencyId: BasicDevice
-    prefix: device-address-prefix-gas-mixer
-  - type: WirelessNetworkConnection
-    range: 200
-  - type: DeviceLinkSink
-    ports:
-      - On
-      - Off
-      - Toggle
-  - type: GasMixerSignal
-  # Starlight end
 
 - type: entity
   parent: GasPipeBase
@@ -343,7 +263,7 @@
   name: pneumatic valve
   description: A bidirectional valve controlled by pressure. Opens if the output pipe is lower than the pressure of the control pipe by 101.325 kPa.
   placement:
-    mode: AlignAtmosPipeLayers # starlight
+    mode: SnapgridCenter
   components:
     - type: AtmosDevice
     - type: Tag
@@ -405,14 +325,6 @@
       node: pneumaticvalve
     - type: AtmosMonitoringConsoleDevice
       navMapBlip: GasFlowRegulator
-    # Starlight start
-    - type: VentCrawlTube
-    - type: VentCrawlJunction
-      degrees:
-        - 0
-        - -90
-        - 180
-    # Starlight end
     - type: GuideHelp
       guides:
       - PneumaticValve
